@@ -1,17 +1,11 @@
 # abundant-music
 
-The purpose of this fork is to refactor abundant-music into modern es6 and isolate
-the composer in a reusable module.
-
-I am not worrying about minimizing and compressing the javascript or older browsers.  
-The focus is on making the code more readable.
+The purpose of this fork is to refactor abundant-music and enable saving of songs locally, and exporting to more file types.
 
 # Run it
 
-Simply clone this repository and put it in your web server of choice.
-
-For example,  you can run it like this:
-
-```
-python -m SimpleHTTPServer 8000
-```
+1. Clone repository.
+2. Install Node Package Manager: https://www.npmjs.com/
+3. From project directory, run 'npm install'
+4. Run 'npm start'
+5. Navigate to 'localhost:3000' in browser.
