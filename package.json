@@ -1,0 +1,19 @@
+{
+  "name": "abundant-music",
+  "version": "1.0.0",
+  "description": "The purpose of this fork is to refactor abundant-music into modern es6 and isolate\r the composer in a reusable module.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lenzo1/abundant-music.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lenzo1/abundant-music/issues"
+  },
+  "homepage": "https://github.com/lenzo1/abundant-music#readme"
+}
