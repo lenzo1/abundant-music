@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon",
+    "pretest": "./node_modules/.bin/eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/lenzo1/abundant-music#readme",
   "devDependencies": {
+    "eslint": "^5.9.0",
     "nodemon": "^1.18.6"
   },
   "dependencies": {
