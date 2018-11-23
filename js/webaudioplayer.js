@@ -102,7 +102,7 @@ WebAudioPlayer.prototype.getOrCreateChannelNodes = function(channel) {
         nodes.panner.connect(this.compressor);
 
         nodes.filter = this.context.createBiquadFilter();
-        nodes.filter.type = 0;
+        nodes.filter.type = 'allpass';
         nodes.filter.frequency.value = 10000;
         nodes.filter.Q.value = 0;
         nodes.filter.connect(nodes.panner);
