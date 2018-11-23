@@ -9,6 +9,7 @@ app.use('/tutorials', express.static(__dirname + '/tutorials'));
 app.use('/songpresets', express.static(__dirname + '/songpresets'));
 app.use('/help', express.static(__dirname + '/help'));
 app.use('/css', express.static(__dirname + '/css'));
+app.use('/samples', express.static(__dirname + '/samples'));
 
 app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
 
