@@ -5,7 +5,7 @@ class ChromaticTransitionHarmonyState {
     constructor() {
         this.harmony = null;
         this.stepCost = 0;
-        this._constructorName = "ChromaticTransitionHarmonyState";
+        this._constructorName = 'ChromaticTransitionHarmonyState';
     }
 
     toString() {
@@ -21,24 +21,24 @@ class ChromaticTransitionHarmonyGenerator extends HarmonyGenerator {
     constructor(options) {
         super(options);
         this.scaleBaseNote = getValueOrDefault(options,
-            "scaleBaseNote", 60);
+            'scaleBaseNote', 60);
         this.scaleType = getValueOrDefault(options,
-            "scaleType", ScaleType.MAJOR);
+            'scaleType', ScaleType.MAJOR);
 
         this.scaleBaseChordRootScaleModeTuples = getValueOrDefault(options,
-            "scaleBaseChordRootScaleModeTuples", [[this.scaleBaseNote, 0, 0]]);
+            'scaleBaseChordRootScaleModeTuples', [[this.scaleBaseNote, 0, 0]]);
 
         this.endScaleBaseChordRootScaleModeTuples = getValueOrDefault(options,
-            "endScaleBaseChordRootScaleModeTuples", [[this.scaleBaseNote, 0, 0]]);
+            'endScaleBaseChordRootScaleModeTuples', [[this.scaleBaseNote, 0, 0]]);
 
-        this.chordRootChangeCost = getValueOrDefault(options, "chordRootChangeCost", 0);
-        this.scaleBaseChangeCost = getValueOrDefault(options, "scaleBaseChangeCost", 0);
-        this.scaleModeChangeCost = getValueOrDefault(options, "scaleModeChangeCost", 0);
+        this.chordRootChangeCost = getValueOrDefault(options, 'chordRootChangeCost', 0);
+        this.scaleBaseChangeCost = getValueOrDefault(options, 'scaleBaseChangeCost', 0);
+        this.scaleModeChangeCost = getValueOrDefault(options, 'scaleModeChangeCost', 0);
 
-        this.noChangeCost = getValueOrDefault(options, "noChangeCost", 3);
-        this.toMuchChangeCost = getValueOrDefault(options, "toMuchChangeCost", 5);
+        this.noChangeCost = getValueOrDefault(options, 'noChangeCost', 3);
+        this.toMuchChangeCost = getValueOrDefault(options, 'toMuchChangeCost', 5);
 
-        this._constructorName = "ChromaticTransitionHarmonyGenerator";
+        this._constructorName = 'ChromaticTransitionHarmonyGenerator';
 
     }
 

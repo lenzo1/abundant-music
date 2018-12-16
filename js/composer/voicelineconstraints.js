@@ -1,11 +1,11 @@
 
 class AbstractVoiceLinePlannerConstraintZone {
     constructor() {
-        this.id = "";
+        this.id = '';
 
         this.addInstanceDuplicates = false;
         this.addClassDuplicates = false;
-        this._constructorName = "AbstractVoiceLinePlannerConstraintZone";
+        this._constructorName = 'AbstractVoiceLinePlannerConstraintZone';
     }
 
     applyZone(harmony, resultConstraints) {
@@ -37,7 +37,7 @@ class IndexedVoiceLinePlannerConstraintZone extends AbstractVoiceLinePlannerCons
 
         // List of all constraints that are indexed
         this.constraints = [];
-        this._constructorName = "IndexedVoiceLinePlannerConstraintZone";
+        this._constructorName = 'IndexedVoiceLinePlannerConstraintZone';
     }
 
     checkAndAddConstraint(cIndex, result, hIndex) {
@@ -51,7 +51,7 @@ class IndexedVoiceLinePlannerConstraintZone extends AbstractVoiceLinePlannerCons
             result[hIndex] = arr;
         }
         if ((this.addInstanceDuplicates || !arrayContainsExactly(arr, c)) &&
-            (this.addClassDuplicates || !arrayContainsSameProperty(arr, "_constructorName", c._constructorName))) {
+            (this.addClassDuplicates || !arrayContainsSameProperty(arr, '_constructorName', c._constructorName))) {
             arr.push(c);
         }
     }
@@ -99,7 +99,7 @@ class SuspendVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
         this.onPattern = [1];
 
         this.penalties = [1];
-        this._constructorName = "SuspendVoiceLinePlannerConstraint";
+        this._constructorName = 'SuspendVoiceLinePlannerConstraint';
     }
 
     getCheckCostSteps() {
@@ -110,9 +110,9 @@ class SuspendVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
         let stepCost = 0;
 
         const absNotes = planner.possibleAbsoluteNoteTuples[harmonyIndex][stateIndex];
-    //    let chordPitchClasses = planner.chordPitchClassesArr[harmonyIndex];
+        //    let chordPitchClasses = planner.chordPitchClassesArr[harmonyIndex];
         const prevAbsNotes = planner.possibleAbsoluteNoteTuples[harmonyIndex-1][prevStateIndex];
-    //    let prevChordPitchClasses = planner.chordPitchClassesArr[harmonyIndex-1];
+        //    let prevChordPitchClasses = planner.chordPitchClassesArr[harmonyIndex-1];
 
 
         for (let j=0; j<this.suspendPitchClassPairs.length; j++) {
@@ -140,10 +140,10 @@ class SuspendVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
             }
         }
 
-    //    if (this.suspendPitchClassPairs.length > 0 && stepCost == 0) {
-    //        logit("succeeded!!!");
-    //
-    //    }
+        //    if (this.suspendPitchClassPairs.length > 0 && stepCost == 0) {
+        //        logit("succeeded!!!");
+        //
+        //    }
 
         return stepCost;
     }
@@ -164,7 +164,7 @@ class PitchClassStepVoiceLinePlannerConstraint extends VoiceLinePlannerConstrain
         this.missingPenalty = 3;
 
         this.progressionCount = 1; // This is stupid, always gives parallel octaves if set higher than 1
-        this._constructorName = "PitchClassStepVoiceLinePlannerConstraint";
+        this._constructorName = 'PitchClassStepVoiceLinePlannerConstraint';
 
     }
 
@@ -184,8 +184,8 @@ class PitchClassStepVoiceLinePlannerConstraint extends VoiceLinePlannerConstrain
         if (!arrayContains(prevChordPitchClasses, this.fromPitchClass) ||
             !arrayContains(chordPitchClasses, this.toPitchClass)) {
             return this.missingPenalty;
-    //        logit(this._constructorName + " should not be used when it can't be fulfilled " + this.id);
-    //        logit("  " + this.fromPitchClass + " -> " + this.toPitchClass + "  " + prevChordPitchClasses.join(", ") + " -> " + chordPitchClasses.join(", "));
+            //        logit(this._constructorName + " should not be used when it can't be fulfilled " + this.id);
+            //        logit("  " + this.fromPitchClass + " -> " + this.toPitchClass + "  " + prevChordPitchClasses.join(", ") + " -> " + chordPitchClasses.join(", "));
         }
 
         let possibleCount = 0;
@@ -213,7 +213,7 @@ class PitchClassStepVoiceLinePlannerConstraint extends VoiceLinePlannerConstrain
 
         const mustCount = Math.min(possibleCount, this.progressionCount);
         if (okCount >= mustCount) {
-    //        logit(this._constructorName + " made it!");
+            //        logit(this._constructorName + " made it!");
         } else {
             stepCost += this.penalty * (mustCount - okCount);
         }
@@ -239,7 +239,7 @@ class PitchClassLeapRangeVoiceLinePlannerConstraint extends VoiceLinePlannerCons
 
         this.enterDoublingPenalty = 0;
         this.leaveDoublingPenalty = 0;
-        this._constructorName = "PitchClassLeapRangeVoiceLinePlannerConstraint";
+        this._constructorName = 'PitchClassLeapRangeVoiceLinePlannerConstraint';
     }
 
     getCheckCostSteps() {
@@ -304,9 +304,9 @@ class PitchClassLeapRangeVoiceLinePlannerConstraint extends VoiceLinePlannerCons
             stepCost += this.leaveNotFoundPenalty;
         }
 
-    //    if (stepCost == 0 && this.leavePenaltyFactor > 0.0) {
-    //        logit(this._constructorName + " zero cost " + leaveFrom + " -> " + leaveTo);
-    //    }
+        //    if (stepCost == 0 && this.leavePenaltyFactor > 0.0) {
+        //        logit(this._constructorName + " zero cost " + leaveFrom + " -> " + leaveTo);
+        //    }
 
         return stepCost;
     }
@@ -322,7 +322,7 @@ class LeapRangeVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
 
         this.penaltyFactor = 0.0;
 
-        this._constructorName = "LeapRangeVoiceLinePlannerConstraint";
+        this._constructorName = 'LeapRangeVoiceLinePlannerConstraint';
     }
 
     getCheckCostSteps() {
@@ -371,7 +371,7 @@ class ChordDoublingVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint
         this.thirdDoublingPenalty = 1;
         this.fifthDoublingPenalty = 1;
         this.seventhDoublingPenalty = 1;
-        this._constructorName = "ChordDoublingVoiceLinePlannerConstraint";
+        this._constructorName = 'ChordDoublingVoiceLinePlannerConstraint';
     }
 
     getCheckCostSteps() {
@@ -432,7 +432,7 @@ class ChordCompletenessVoiceLinePlannerConstraint extends VoiceLinePlannerConstr
         this.missingFifthPenalty = 1;
         this.missingSeventhPenalty = 2;
 
-        this._constructorName = "ChordCompletenessVoiceLinePlannerConstraint";
+        this._constructorName = 'ChordCompletenessVoiceLinePlannerConstraint';
     }
 
     getCheckCostSteps() {

@@ -1,8 +1,8 @@
 
 class ControlLine {
     constructor() {
-        this.id = "";
-        this._constructorName = "ControlLine";
+        this.id = '';
+        this._constructorName = 'ControlLine';
     }
 
     copy() {
@@ -52,9 +52,9 @@ class ControlLine {
 class PrimitiveControlLine extends ControlLine {
     constructor() {
         super();
-        this.channel = "";
+        this.channel = '';
         this.controlElements = [];
-        this._constructorName = "PrimitiveControlLine";
+        this._constructorName = 'PrimitiveControlLine';
     }
 
     getPrimitiveControlElements(module, harmony) {
@@ -75,10 +75,10 @@ class PrimitiveControlLine extends ControlLine {
 
 class ControlElement {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.active = true;
 
-        this._constructorName = "ControlElement";
+        this._constructorName = 'ControlElement';
     }
 
     getPrimitiveControlElements(module, harmony) {
@@ -97,7 +97,7 @@ class PositionedControlElement extends ControlElement {
 
         this.controlOffset = 0; // An extra "write"-pointer offset
         this.controlOffsetUnit = PositionUnit.BEATS;
-        this._constructorName = "PositionedControlElement";
+        this._constructorName = 'PositionedControlElement';
 
     }
 }
@@ -110,13 +110,13 @@ class MultiStepControlElement extends PositionedControlElement {
         this.endIndices = [];
 
         this.elements = [];
-        this._constructorName = "MultiStepControlElement";
+        this._constructorName = 'MultiStepControlElement';
     }
 
     getPrimitiveControlElements(module, harmony) {
         const result = [];
 
-        const active = getValueOrExpressionValue(this, "active", module);
+        const active = getValueOrExpressionValue(this, 'active', module);
         if (!active) {
             return result;
         }
@@ -125,11 +125,11 @@ class MultiStepControlElement extends PositionedControlElement {
 
         const harmonyBeatLength = harmony.getBeatLength();
 
-        const startIndices = getValueOrExpressionValue(this, "startIndices", module);
-        const indices = getValueOrExpressionValue(this, "indices", module);
-        const endIndices = getValueOrExpressionValue(this, "endIndices", module);
+        const startIndices = getValueOrExpressionValue(this, 'startIndices', module);
+        const indices = getValueOrExpressionValue(this, 'indices', module);
+        const endIndices = getValueOrExpressionValue(this, 'endIndices', module);
 
-    //    logit(startIndices + " " + indices + " " + endIndices);
+        //    logit(startIndices + " " + indices + " " + endIndices);
 
         if (this.verbose) {
             logit(`${this._constructorName} ${startIndices} ${indices} ${endIndices} ${this.activeExpression} ${this.activeUseExpression}`);
@@ -253,22 +253,22 @@ class MultiParallelControlElement extends PositionedControlElement {
         this.indices = [];
 
         this.elements = [];
-        this._constructorName = "MultiParallelControlElement";
+        this._constructorName = 'MultiParallelControlElement';
     }
 
     getPrimitiveControlElements(module, harmony) {
         const result = [];
 
-        const active = getValueOrExpressionValue(this, "active", module);
+        const active = getValueOrExpressionValue(this, 'active', module);
         if (!active) {
             return result;
         }
 
         const currentBeat = positionUnitToBeats2(this.startTime, this.startTimeUnit, 0, harmony);
 
-        const indices = getValueOrExpressionValue(this, "indices", module);
+        const indices = getValueOrExpressionValue(this, 'indices', module);
 
-    //    logit(startIndices + " " + indices + " " + endIndices);
+        //    logit(startIndices + " " + indices + " " + endIndices);
 
         if (this.verbose) {
             logit(`${this._constructorName} ${indices} ${this.activeExpression} ${this.activeUseExpression}`);
@@ -314,12 +314,12 @@ class PrimitiveControlElement extends PositionedControlElement {
         super();
         this.batched = false;
 
-        this._constructorName = "PrimitiveControlElement";
+        this._constructorName = 'PrimitiveControlElement';
     }
 
     renderBatch(state) {
 
-        const active = getValueOrExpressionValue(this, "active", state.module);
+        const active = getValueOrExpressionValue(this, 'active', state.module);
 
         if (!active) {
             return;
@@ -385,7 +385,7 @@ class PrimitiveControlElement extends PositionedControlElement {
 class CurveControlElement extends PrimitiveControlElement {
     constructor() {
         super();
-        this.curve = "";
+        this.curve = '';
 
         this.cycles = 1.0;
         this.cyclesUnit = CyclesUnit.CYCLES_PER_PERIOD;
@@ -398,7 +398,7 @@ class CurveControlElement extends PrimitiveControlElement {
         this.constantValue = 0.0; // When no curve is selected or not found
 
         this.theCurve = null;
-        this._constructorName = "CurveControlElement";
+        this._constructorName = 'CurveControlElement';
     }
 
     renderAtSlot(
@@ -446,7 +446,7 @@ class NaturalTempoCurveControlElement extends PrimitiveControlElement {
 
         this.batched = true; // so that renderAtSlots() is called
 
-        this._constructorName = "NaturalTempoCurveControlElement";
+        this._constructorName = 'NaturalTempoCurveControlElement';
     }
 
     renderAtSlots(
@@ -460,12 +460,12 @@ class NaturalTempoCurveControlElement extends PrimitiveControlElement {
         slotData
     ) {
 
-        const baseTempo = getValueOrExpressionValue(this, "baseTempo", state.module);
-        const prevTempo = getValueOrExpressionValue(this, "prevTempo", state.module);
-        const currentTempo = getValueOrExpressionValue(this, "currentTempo", state.module);
-        const nextTempo = getValueOrExpressionValue(this, "nextTempo", state.module);
+        const baseTempo = getValueOrExpressionValue(this, 'baseTempo', state.module);
+        const prevTempo = getValueOrExpressionValue(this, 'prevTempo', state.module);
+        const currentTempo = getValueOrExpressionValue(this, 'currentTempo', state.module);
+        const nextTempo = getValueOrExpressionValue(this, 'nextTempo', state.module);
 
-    //    logit(this._constructorName + " prev: " + prevTempo + " cur: " + currentTempo + " next: " + nextTempo);
+        //    logit(this._constructorName + " prev: " + prevTempo + " cur: " + currentTempo + " next: " + nextTempo);
 
         const largeFraction = 0.95;
         const smallFraction = 1.0 - largeFraction;
@@ -497,7 +497,7 @@ class NaturalTempoCurveControlElement extends PrimitiveControlElement {
 
         let xValues = increaseXValues;
         let yValues = increaseYValues;
-    //    logit("prev: " + prevTempo + " cur: " + currentTempo + " next: " + nextTempo);
+        //    logit("prev: " + prevTempo + " cur: " + currentTempo + " next: " + nextTempo);
         if (currentTempo < prevTempo) {
             if (nextTempo >= currentTempo) {
                 xValues = decreaseIncreaseXValues;
@@ -520,7 +520,7 @@ class NaturalTempoCurveControlElement extends PrimitiveControlElement {
         const func = new LinearInterpolator(xValues, yValues);
 
 
-    //    logit("  xValues: " + xValues.join(", ") + " yValues: " + yValues.join(", "));
+        //    logit("  xValues: " + xValues.join(", ") + " yValues: " + yValues.join(", "));
 
         for (let i=0; i<slotIndices.length; i++) {
             const x = slotFractions[i];

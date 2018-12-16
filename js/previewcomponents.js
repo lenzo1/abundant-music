@@ -9,16 +9,16 @@ function PreviewComponent() {
 PreviewComponent.prototype = new JQueryComponent();
 
 PreviewComponent.prototype.componentRemoved = function() {
-    };
+};
 
 PreviewComponent.prototype.cleanAfterDelete = function(value) {
-    };
+};
 
 PreviewComponent.prototype.gatherAlignmentInfo = function(info) {
-    };
+};
 
 PreviewComponent.prototype.setAlignment = function(info) {
-    };
+};
 
 
 PreviewComponent.prototype.appendPianoRollCanvas = function(options, $canvasContainer, withinDiv) {
@@ -28,21 +28,21 @@ PreviewComponent.prototype.appendPianoRollCanvas = function(options, $canvasCont
     var canvasWidth = pr.width;
     var canvasHeight = pr.height;
 
-    var canvasString = "";
+    var canvasString = '';
     if (withinDiv) {
-        canvasString += "<div>";
+        canvasString += '<div>';
     }
-    canvasString += "<canvas width='" + canvasWidth + "' height='" + canvasHeight + "' ></canvas>";
+    canvasString += '<canvas width=\'' + canvasWidth + '\' height=\'' + canvasHeight + '\' ></canvas>';
     if (withinDiv) {
-        canvasString += "</div>";
+        canvasString += '</div>';
     }
 
     var $canvas = $(canvasString);
 
     $canvasContainer.append($canvas);
 
-    var canvas = withinDiv ? $canvas.find("canvas").get(0) : $canvas.get(0);
-    var ctx = canvas.getContext("2d");
+    var canvas = withinDiv ? $canvas.find('canvas').get(0) : $canvas.get(0);
+    var ctx = canvas.getContext('2d');
 
     if (ctx) {
         pr.updateSize();
@@ -69,18 +69,18 @@ function CurvePreviewComponent() {
     this.targetMinY = 10;
     this.targetMaxY = this.canvasHeight - 10;
 
-    this.otherCssClasses.push("ui-widget-content");
-    this.otherCssClasses.push("curve-preview-component");
+    this.otherCssClasses.push('ui-widget-content');
+    this.otherCssClasses.push('curve-preview-component');
 }
 
 CurvePreviewComponent.prototype = new PreviewComponent();
 
 CurvePreviewComponent.prototype.getHtmlContentBeforeChildren = function(resultArr) {
-    resultArr.push("<div>");
-    resultArr.push("<canvas id='" + this.id + "-canvas' width='" + this.canvasWidth + "' height='" + this.canvasHeight + "' ></canvas>");
-    resultArr.push("</div>");
-    resultArr.push("<button id='" + this.id + "-update-button' >Update</button>");
-    resultArr.push("<button id='" + this.id + "-set-view-button' >Set View Rectangle</button>");
+    resultArr.push('<div>');
+    resultArr.push('<canvas id=\'' + this.id + '-canvas\' width=\'' + this.canvasWidth + '\' height=\'' + this.canvasHeight + '\' ></canvas>');
+    resultArr.push('</div>');
+    resultArr.push('<button id=\'' + this.id + '-update-button\' >Update</button>');
+    resultArr.push('<button id=\'' + this.id + '-set-view-button\' >Set View Rectangle</button>');
 };
 
 CurvePreviewComponent.prototype.jQueryCreated = function($localRoot) {
@@ -88,19 +88,19 @@ CurvePreviewComponent.prototype.jQueryCreated = function($localRoot) {
 
     var comp = this;
 
-    var $canvas = this.$component.find("#" + this.id + "-canvas");
-    var $updateButton = this.$component.find("#" + this.id + "-update-button");
-    var $viewButton = this.$component.find("#" + this.id + "-set-view-button");
+    var $canvas = this.$component.find('#' + this.id + '-canvas');
+    var $updateButton = this.$component.find('#' + this.id + '-update-button');
+    var $viewButton = this.$component.find('#' + this.id + '-set-view-button');
 
     $updateButton.button();
     $viewButton.button();
 
-    $updateButton.on("click", function() {
+    $updateButton.on('click', function() {
         comp.paintPreview();
     });
 
     this.canvas = $canvas.get(0);
-    this.canvasContext = this.canvas.getContext("2d");
+    this.canvasContext = this.canvas.getContext('2d');
 
     if (this.previewOnShow) {
         this.paintPreview();
@@ -111,8 +111,8 @@ CurvePreviewComponent.prototype.paintPreview = function() {
     var ctx = this.canvasContext;
     var canvas = this.canvas;
     if (ctx) {
-        ctx.fillStyle = "#ffffff";
-        ctx.strokeStyle = "#00ff00";
+        ctx.fillStyle = '#ffffff';
+        ctx.strokeStyle = '#00ff00';
 
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -164,8 +164,8 @@ function PianoRollPreviewComponent() {
     this.previewNumerator = 4;
     this.previewDenominator = 4;
 
-    this.otherCssClasses.push("ui-widget-content");
-    this.otherCssClasses.push("piano-roll-preview-component");
+    this.otherCssClasses.push('ui-widget-content');
+    this.otherCssClasses.push('piano-roll-preview-component');
 }
 
 PianoRollPreviewComponent.prototype = new PreviewComponent();
@@ -186,17 +186,17 @@ PianoRollPreviewComponent.prototype.stopPreview = function() {
 };
 
 PianoRollPreviewComponent.prototype.getHtmlContentBeforeChildren = function(resultArr) {
-    resultArr.push("<div>Preview</div>");
-    resultArr.push("<div class='canvas-container-div' >");
-    resultArr.push("</div>");
+    resultArr.push('<div>Preview</div>');
+    resultArr.push('<div class=\'canvas-container-div\' >');
+    resultArr.push('</div>');
     if (this.addUpdateButton) {
-        resultArr.push("<button id='" + this.id + "-update-button' >Update</button>");
+        resultArr.push('<button id=\'' + this.id + '-update-button\' >Update</button>');
     }
     if (this.addPlayButton) {
-        resultArr.push("<button id='" + this.id + "-play-button' >Play</button>");
+        resultArr.push('<button id=\'' + this.id + '-play-button\' >Play</button>');
     }
     if (this.addStopButton) {
-        resultArr.push("<button id='" + this.id + "-stop-button' >Stop</button>");
+        resultArr.push('<button id=\'' + this.id + '-stop-button\' >Stop</button>');
     }
 };
 
@@ -205,32 +205,32 @@ PianoRollPreviewComponent.prototype.jQueryCreated = function($localRoot) {
 
     var comp = this;
 
-    this.$canvasContainer = this.$component.find(".canvas-container-div");
+    this.$canvasContainer = this.$component.find('.canvas-container-div');
 
     if (this.addUpdateButton) {
-        var $updateButton = this.$component.find("#" + this.id + "-update-button");
+        var $updateButton = this.$component.find('#' + this.id + '-update-button');
 
         $updateButton.button();
 
-        $updateButton.on("click", function() {
+        $updateButton.on('click', function() {
             comp.paintPreview();
         });
     }
     if (this.addPlayButton) {
-        var $playButton = this.$component.find("#" + this.id + "-play-button");
+        var $playButton = this.$component.find('#' + this.id + '-play-button');
 
         $playButton.button();
 
-        $playButton.on("click", function() {
+        $playButton.on('click', function() {
             comp.playPreview();
         });
     }
     if (this.addStopButton) {
-        var $stopButton = this.$component.find("#" + this.id + "-stop-button");
+        var $stopButton = this.$component.find('#' + this.id + '-stop-button');
 
         $stopButton.button();
 
-        $stopButton.on("click", function() {
+        $stopButton.on('click', function() {
             comp.stopPreview();
         });
     }
@@ -263,7 +263,7 @@ RythmPreviewComponent.prototype.getPianoRollOptions = function() {
 
     // Create some notes that have the same length as the rythm
     var dummyChannel = new RenderChannel();
-    dummyChannel.id = "dummyChannel";
+    dummyChannel.id = 'dummyChannel';
 
     var renderData = new RenderData();
     var currentTime = 0;
@@ -309,17 +309,17 @@ MotifPreviewComponent.prototype.getPianoRollOptions = function() {
     var harmony = new ConstantHarmonicRythm([new ConstantHarmonyElement()]);
 
     var dummyChannel = new RenderChannel();
-    dummyChannel.id = "dummyChannel";
+    dummyChannel.id = 'dummyChannel';
 
 
     var mre = new MotifRenderElement();
-    mre.voiceLine = "dummyVoiceLine";
+    mre.voiceLine = 'dummyVoiceLine';
     mre.motif = motif.id;
 
     var renderData = new RenderData();
 
     var voiceLine = new ConstantVoiceLine();
-    voiceLine.id = "dummyVoiceLine";
+    voiceLine.id = 'dummyVoiceLine';
     voiceLine.addVoiceLineElement(new ConstantVoiceLineElement());
 
     var state = new RenderState(module, renderData);
@@ -353,7 +353,7 @@ PercussionMotifPreviewComponent.prototype.getPianoRollOptions = function() {
     var harmony = new ConstantHarmonicRythm([new ConstantHarmonyElement()]);
 
     var dummyChannel = new RenderChannel();
-    dummyChannel.id = "dummyChannel";
+    dummyChannel.id = 'dummyChannel';
 
     var mre = new PercussionMotifRenderElement();
     mre.motifs = [motif.id];
@@ -397,7 +397,7 @@ HarmonyPreviewComponent.prototype.getPianoRollOptions = function() {
         harmonyElements);
 
     var dummyChannel = new RenderChannel();
-    dummyChannel.id = "dummyChannel";
+    dummyChannel.id = 'dummyChannel';
 
     var renderData = new RenderData();
 

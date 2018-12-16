@@ -8,8 +8,8 @@ class FigurationGridCellInfo {
 
 class FigurationGrid {
     constructor(options) {
-        this.beatCellSize = getValueOrDefault(options, "beatCellSize", 1);
-        this.noteCellSize = getValueOrDefault(options, "noteCellSize", 5);
+        this.beatCellSize = getValueOrDefault(options, 'beatCellSize', 1);
+        this.noteCellSize = getValueOrDefault(options, 'noteCellSize', 5);
 
         this.infos = [];
         this.nextIndices = [];

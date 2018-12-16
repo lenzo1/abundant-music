@@ -6,12 +6,12 @@ const ControlChannelDatatype = {
 
     toString(type) {
         switch (type) {
-            case ControlChannelDatatype.DOUBLE:
-                return "Double";
-            case ControlChannelDatatype.BOOLEAN:
-                return "Boolean";
-            case ControlChannelDatatype.INTEGER:
-                return "Integer";
+        case ControlChannelDatatype.DOUBLE:
+            return 'Double';
+        case ControlChannelDatatype.BOOLEAN:
+            return 'Boolean';
+        case ControlChannelDatatype.INTEGER:
+            return 'Integer';
         }
         return `Unknown data type ${type}`;
     }
@@ -59,7 +59,7 @@ const ControlChannelControlWriteMode = {
 
 class ControlChannel {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.active = true;
         this.slotsPerBeat = 16;
         this.mixWithDefault = false; // Whether to consider the default value to be a written value that should be used when mixing
@@ -67,13 +67,13 @@ class ControlChannel {
 
         this.dataType = ControlChannelDatatype.DOUBLE;
 
-        this._constructorName = "ControlChannel";
+        this._constructorName = 'ControlChannel';
     }
 
     getControlEvents(slotData, beatOffset, module) {
         const result = [];
 
-        const active = getValueOrExpressionValue(this, "active", module);
+        const active = getValueOrExpressionValue(this, 'active', module);
 
         if (this.controlWriteMode != ControlChannelControlWriteMode.NONE && active) {
 
@@ -101,27 +101,27 @@ class ControlChannel {
     }
 
     writeInt(slot, slotData, intValue) {
-        logit("-- All control channels must implement writeInt()");
+        logit('-- All control channels must implement writeInt()');
     }
 
     writeDouble(slot, slotData, doubleValue) {
-        logit("-- All control channels must implement writeDouble()");
+        logit('-- All control channels must implement writeDouble()');
     }
 
     writeBoolean(slot, slotData, booleanValue) {
-        logit("-- All control channels must implement writeBoolean()");
+        logit('-- All control channels must implement writeBoolean()');
     }
 
     readInt(slot, slotData) {
-        logit("-- All control channels must implement readInt()");
+        logit('-- All control channels must implement readInt()');
     }
 
     readDouble(slot, slotData) {
-        logit("-- All control channels must implement readDouble()");
+        logit('-- All control channels must implement readDouble()');
     }
 
     readBoolean(slot, slotData) {
-        logit("-- All control channels must implement readBoolean()");
+        logit('-- All control channels must implement readBoolean()');
     }
 }
 
@@ -137,40 +137,40 @@ const NumericControlChannelMixMode = {
 
     mix(type, oldValue, newValue) {
         switch (type) {
-            case NumericControlChannelMixMode.ADD:
-                return oldValue + newValue;
-            case NumericControlChannelMixMode.MAX:
-                return Math.max(oldValue, newValue);
-            case NumericControlChannelMixMode.MEAN:
-                return (oldValue + newValue) / 2;
-            case NumericControlChannelMixMode.MIN:
-                return Math.min(oldValue, newValue);
-            case NumericControlChannelMixMode.MULT:
-                return oldValue * newValue;
-            case NumericControlChannelMixMode.OVERWRITE_FIRST:
-                return oldValue;
-            case NumericControlChannelMixMode.OVERWRITE_LAST:
-                return newValue;
+        case NumericControlChannelMixMode.ADD:
+            return oldValue + newValue;
+        case NumericControlChannelMixMode.MAX:
+            return Math.max(oldValue, newValue);
+        case NumericControlChannelMixMode.MEAN:
+            return (oldValue + newValue) / 2;
+        case NumericControlChannelMixMode.MIN:
+            return Math.min(oldValue, newValue);
+        case NumericControlChannelMixMode.MULT:
+            return oldValue * newValue;
+        case NumericControlChannelMixMode.OVERWRITE_FIRST:
+            return oldValue;
+        case NumericControlChannelMixMode.OVERWRITE_LAST:
+            return newValue;
         }
         return oldValue + newValue;
     },
 
     toString(type) {
         switch (type) {
-            case NumericControlChannelMixMode.ADD:
-                return "Add";
-            case NumericControlChannelMixMode.MAX:
-                return "Max";
-            case NumericControlChannelMixMode.MEAN:
-                return "Mean";
-            case NumericControlChannelMixMode.MIN:
-                return "Min";
-            case NumericControlChannelMixMode.MULT:
-                return "Mult";
-            case NumericControlChannelMixMode.OVERWRITE_FIRST:
-                return "Overwrite first";
-            case NumericControlChannelMixMode.OVERWRITE_LAST:
-                return "Overwrite last";
+        case NumericControlChannelMixMode.ADD:
+            return 'Add';
+        case NumericControlChannelMixMode.MAX:
+            return 'Max';
+        case NumericControlChannelMixMode.MEAN:
+            return 'Mean';
+        case NumericControlChannelMixMode.MIN:
+            return 'Min';
+        case NumericControlChannelMixMode.MULT:
+            return 'Mult';
+        case NumericControlChannelMixMode.OVERWRITE_FIRST:
+            return 'Overwrite first';
+        case NumericControlChannelMixMode.OVERWRITE_LAST:
+            return 'Overwrite last';
         }
         return `Unknown mix mode ${type}`;
     }
@@ -194,7 +194,7 @@ class DoubleControlChannel extends ControlChannel {
 
         this.dataType = ControlChannelDatatype.DOUBLE;
 
-        this._constructorName = "DoubleControlChannel";
+        this._constructorName = 'DoubleControlChannel';
     }
 
     writeDouble(slot, slotData, doubleValue) {
@@ -235,7 +235,7 @@ class IntegerControlChannel extends ControlChannel {
 
         this.dataType = ControlChannelDatatype.INTEGER;
 
-        this._constructorName = "IntegerControlChannel";
+        this._constructorName = 'IntegerControlChannel';
     }
 
     writeInt(slot, slotData, intValue) {
@@ -269,40 +269,40 @@ const BooleanControlChannelMixMode = {
 
     mix(type, oldValue, newValue) {
         switch (type) {
-            case BooleanControlChannelMixMode.OR:
-                return oldValue || newValue;
-            case BooleanControlChannelMixMode.AND:
-                return oldValue && newValue;
-            case BooleanControlChannelMixMode.NOR:
-                return !(oldValue || newValue);
-            case BooleanControlChannelMixMode.NAND:
-                return !(oldValue && newValue);
-            case BooleanControlChannelMixMode.XOR:
-                return (oldValue || newValue) && !(oldValue && newValue);
-            case BooleanControlChannelMixMode.OVERWRITE_FIRST:
-                return oldValue;
-            case BooleanControlChannelMixMode.OVERWRITE_LAST:
-                return newValue;
+        case BooleanControlChannelMixMode.OR:
+            return oldValue || newValue;
+        case BooleanControlChannelMixMode.AND:
+            return oldValue && newValue;
+        case BooleanControlChannelMixMode.NOR:
+            return !(oldValue || newValue);
+        case BooleanControlChannelMixMode.NAND:
+            return !(oldValue && newValue);
+        case BooleanControlChannelMixMode.XOR:
+            return (oldValue || newValue) && !(oldValue && newValue);
+        case BooleanControlChannelMixMode.OVERWRITE_FIRST:
+            return oldValue;
+        case BooleanControlChannelMixMode.OVERWRITE_LAST:
+            return newValue;
         }
         return oldValue || newValue;
     },
 
     toString(type) {
         switch (type) {
-            case BooleanControlChannelMixMode.OR:
-                return "Or";
-            case BooleanControlChannelMixMode.AND:
-                return "And";
-            case BooleanControlChannelMixMode.NOR:
-                return "Nor";
-            case BooleanControlChannelMixMode.NAND:
-                return "Nand";
-            case BooleanControlChannelMixMode.XOR:
-                return "Xor";
-            case BooleanControlChannelMixMode.OVERWRITE_FIRST:
-                return "Overwrite first";
-            case BooleanControlChannelMixMode.OVERWRITE_LAST:
-                return "Overwrite last";
+        case BooleanControlChannelMixMode.OR:
+            return 'Or';
+        case BooleanControlChannelMixMode.AND:
+            return 'And';
+        case BooleanControlChannelMixMode.NOR:
+            return 'Nor';
+        case BooleanControlChannelMixMode.NAND:
+            return 'Nand';
+        case BooleanControlChannelMixMode.XOR:
+            return 'Xor';
+        case BooleanControlChannelMixMode.OVERWRITE_FIRST:
+            return 'Overwrite first';
+        case BooleanControlChannelMixMode.OVERWRITE_LAST:
+            return 'Overwrite last';
         }
         return `Unknown mix mode ${type}`;
     }
@@ -329,7 +329,7 @@ class BooleanControlChannel extends ControlChannel {
 
         this.dataType = ControlChannelDatatype.BOOLEAN;
 
-        this._constructorName = "BooleanControlChannel";
+        this._constructorName = 'BooleanControlChannel';
     }
 
     writeBoolean(slot, slotData, booleanValue) {

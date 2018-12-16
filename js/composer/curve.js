@@ -1,9 +1,9 @@
 
 class Curve {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.evaluateExpressions = true;
-        this._constructorName = "Curve";
+        this._constructorName = 'Curve';
     }
 
     setId(v) {
@@ -36,36 +36,36 @@ const PredefinedCurveType = {
 
     toString(type) {
         switch (type) {
-            case PredefinedCurveType.CONSTANT:
-                return "Constant";
-            case PredefinedCurveType.CONSTANT_NOISE:
-                return "Constant noise";
-            case PredefinedCurveType.COSINE:
-                return "Cosine";
-            case PredefinedCurveType.EXP:
-                return "Exponential";
-            case PredefinedCurveType.LINEAR:
-                return "Linear";
-            case PredefinedCurveType.LINEAR_NOISE:
-                return "Linear noise";
-            case PredefinedCurveType.QUADRATIC:
-                return "Quadratic";
-            case PredefinedCurveType.QUADRATIC_NOISE:
-                return "Quadratic noise";
-            case PredefinedCurveType.SAW:
-                return "Saw";
-            case PredefinedCurveType.SINE:
-                return "Sine";
-            case PredefinedCurveType.SQUARE:
-                return "Square";
-            case PredefinedCurveType.TRIANGLE:
-                return "Triangle";
-            case PredefinedCurveType.WHITE_NOISE:
-                return "White noise";
-            case PredefinedCurveType.CUBIC_NOISE:
-                return "Cubic noise";
-            case PredefinedCurveType.PERLIN_NOISE:
-                return "Perlin noise";
+        case PredefinedCurveType.CONSTANT:
+            return 'Constant';
+        case PredefinedCurveType.CONSTANT_NOISE:
+            return 'Constant noise';
+        case PredefinedCurveType.COSINE:
+            return 'Cosine';
+        case PredefinedCurveType.EXP:
+            return 'Exponential';
+        case PredefinedCurveType.LINEAR:
+            return 'Linear';
+        case PredefinedCurveType.LINEAR_NOISE:
+            return 'Linear noise';
+        case PredefinedCurveType.QUADRATIC:
+            return 'Quadratic';
+        case PredefinedCurveType.QUADRATIC_NOISE:
+            return 'Quadratic noise';
+        case PredefinedCurveType.SAW:
+            return 'Saw';
+        case PredefinedCurveType.SINE:
+            return 'Sine';
+        case PredefinedCurveType.SQUARE:
+            return 'Square';
+        case PredefinedCurveType.TRIANGLE:
+            return 'Triangle';
+        case PredefinedCurveType.WHITE_NOISE:
+            return 'White noise';
+        case PredefinedCurveType.CUBIC_NOISE:
+            return 'Cubic noise';
+        case PredefinedCurveType.PERLIN_NOISE:
+            return 'Perlin noise';
         }
         return `Unknown type ${type}`;
     }
@@ -93,7 +93,7 @@ class PredefinedCurve extends Curve {
 
         this.data = null; // Can be used to hold extra stuff
 
-        this._constructorName = "PredefinedCurve";
+        this._constructorName = 'PredefinedCurve';
     }
 
     setAmplitude(a) {
@@ -127,11 +127,11 @@ class PredefinedCurve extends Curve {
     }
 
     getValue(module, x) {
-        const theType = getValueOrExpressionValue(this, "type", module);
-        const theAmp = getValueOrExpressionValue(this, "amplitude", module);
-        const theFreq = getValueOrExpressionValue(this, "frequency", module);
-        const thePhase = getValueOrExpressionValue(this, "phase", module);
-        const theSeed = getValueOrExpressionValue(this, "seed", module);
+        const theType = getValueOrExpressionValue(this, 'type', module);
+        const theAmp = getValueOrExpressionValue(this, 'amplitude', module);
+        const theFreq = getValueOrExpressionValue(this, 'frequency', module);
+        const thePhase = getValueOrExpressionValue(this, 'phase', module);
+        const theSeed = getValueOrExpressionValue(this, 'seed', module);
         return this.getPredefinedValue(x, theType, theAmp, theFreq, thePhase, theSeed);
     }
 
@@ -148,75 +148,75 @@ class PredefinedCurve extends Curve {
         let result = 0;
 
         switch (type) {
-            case PredefinedCurveType.CONSTANT:
-                result = amplitude;
-                break;
-            case PredefinedCurveType.SINE:
-                result = amplitude
+        case PredefinedCurveType.CONSTANT:
+            result = amplitude;
+            break;
+        case PredefinedCurveType.SINE:
+            result = amplitude
                     * Math.sin(Math.PI * 2.0 * frequency * (x - phase));
-                break;
-            case PredefinedCurveType.COSINE:
-                result = amplitude
+            break;
+        case PredefinedCurveType.COSINE:
+            result = amplitude
                     * Math.cos(Math.PI * 2.0 * frequency * (x - phase));
-                break;
-            case PredefinedCurveType.WHITE_NOISE:
-                result = amplitude * (2.0 * Math.random() - 1);
-                break;
-            case PredefinedCurveType.CONSTANT_NOISE:
-                // Use a simple lattice noise
-                if (!this.data || this.checkSeedOrTypeChange(seed, type)) {
-                    this.data = new LatticeNoise(new MersenneTwister(seed));
-                }
-                result = amplitude * this.data.whiteNoise1((x - phase) * frequency);
-                break;
-            case PredefinedCurveType.LINEAR_NOISE:
-                if (!this.data || this.checkSeedOrTypeChange(seed, type)) {
-                    this.data = new LatticeNoise(new MersenneTwister(seed));
-                }
-                result = amplitude * this.data.lerpNoise1((x - phase) * frequency);
-                break;
-            case PredefinedCurveType.QUADRATIC_NOISE:
-                if (!this.data || this.checkSeedOrTypeChange(seed, type)) {
-                    this.data = new LatticeNoise(new MersenneTwister(seed));
-                }
-                result = amplitude * this.data.quadraticNoise1((x - phase) * frequency);
-                break;
-            case PredefinedCurveType.CUBIC_NOISE:
-                if (!this.data || this.checkSeedOrTypeChange(seed, type)) {
-                    this.data = new LatticeNoise(new MersenneTwister(seed));
-                }
-                result = amplitude * this.data.cubicNoise1((x - phase) * frequency);
-                break;
-            case PredefinedCurveType.PERLIN_NOISE:
-                break;
-            case PredefinedCurveType.LINEAR:
-                result = amplitude * (x - phase) * frequency;
-                break;
-            case PredefinedCurveType.QUADRATIC:
-                result = amplitude * (x - phase) * (x - phase) * frequency;
-                break;
-            case PredefinedCurveType.EXP:
-                result = amplitude * Math.exp((x - phase) * frequency);
-                break;
-            case PredefinedCurveType.SAW:
-                result = amplitude * (2.0 * mod((x - phase) * frequency, 1) - 1);
-                break;
-            case PredefinedCurveType.SQUARE:
-                let temp1 = mod((x - phase) * frequency, 1);
-                if (temp1 < 0.5) {
-                    result = amplitude;
-                } else {
-                    result = -amplitude;
-                }
-                break;
-            case PredefinedCurveType.TRIANGLE:
-                let temp2 = mod((x - phase) * frequency, 1);
-                if (temp2 < 0.5) {
-                    result = amplitude * (4.0 * temp2 - 1.0);
-                } else {
-                    result = amplitude * (3.0 - 4.0 * temp2);
-                }
-                break;
+            break;
+        case PredefinedCurveType.WHITE_NOISE:
+            result = amplitude * (2.0 * Math.random() - 1);
+            break;
+        case PredefinedCurveType.CONSTANT_NOISE:
+            // Use a simple lattice noise
+            if (!this.data || this.checkSeedOrTypeChange(seed, type)) {
+                this.data = new LatticeNoise(new MersenneTwister(seed));
+            }
+            result = amplitude * this.data.whiteNoise1((x - phase) * frequency);
+            break;
+        case PredefinedCurveType.LINEAR_NOISE:
+            if (!this.data || this.checkSeedOrTypeChange(seed, type)) {
+                this.data = new LatticeNoise(new MersenneTwister(seed));
+            }
+            result = amplitude * this.data.lerpNoise1((x - phase) * frequency);
+            break;
+        case PredefinedCurveType.QUADRATIC_NOISE:
+            if (!this.data || this.checkSeedOrTypeChange(seed, type)) {
+                this.data = new LatticeNoise(new MersenneTwister(seed));
+            }
+            result = amplitude * this.data.quadraticNoise1((x - phase) * frequency);
+            break;
+        case PredefinedCurveType.CUBIC_NOISE:
+            if (!this.data || this.checkSeedOrTypeChange(seed, type)) {
+                this.data = new LatticeNoise(new MersenneTwister(seed));
+            }
+            result = amplitude * this.data.cubicNoise1((x - phase) * frequency);
+            break;
+        case PredefinedCurveType.PERLIN_NOISE:
+            break;
+        case PredefinedCurveType.LINEAR:
+            result = amplitude * (x - phase) * frequency;
+            break;
+        case PredefinedCurveType.QUADRATIC:
+            result = amplitude * (x - phase) * (x - phase) * frequency;
+            break;
+        case PredefinedCurveType.EXP:
+            result = amplitude * Math.exp((x - phase) * frequency);
+            break;
+        case PredefinedCurveType.SAW:
+            result = amplitude * (2.0 * mod((x - phase) * frequency, 1) - 1);
+            break;
+        case PredefinedCurveType.SQUARE:
+            let temp1 = mod((x - phase) * frequency, 1);
+            if (temp1 < 0.5) {
+                result = amplitude;
+            } else {
+                result = -amplitude;
+            }
+            break;
+        case PredefinedCurveType.TRIANGLE:
+            let temp2 = mod((x - phase) * frequency, 1);
+            if (temp2 < 0.5) {
+                result = amplitude * (4.0 * temp2 - 1.0);
+            } else {
+                result = amplitude * (3.0 - 4.0 * temp2);
+            }
+            break;
         }
         result += this.bias;
         if (this.clampUpper) {
@@ -240,7 +240,7 @@ class LinearInterpolationCurve extends Curve {
         this.oldYValues = [];
 
         this.interpolator = null;
-        this._constructorName = "LinearInterpolationCurve";
+        this._constructorName = 'LinearInterpolationCurve';
     }
 
     getValue(module, x) {
@@ -249,8 +249,8 @@ class LinearInterpolationCurve extends Curve {
         let yValues = this.yValues;
 
         if (this.evaluateExpressions) {
-            xValues = getValueOrExpressionValue(this, "xValues", module);
-            yValues = getValueOrExpressionValue(this, "yValues", module);
+            xValues = getValueOrExpressionValue(this, 'xValues', module);
+            yValues = getValueOrExpressionValue(this, 'yValues', module);
         }
 
         if (xValues.length != this.oldXValues.length || yValues.length != this.oldYValues.length) {
@@ -286,9 +286,9 @@ class LinearInterpolationCurve extends Curve {
 class ExpressionCurve extends Curve {
     constructor() {
         super();
-        this.valueExpression = "0.0";
-        this.inputVariableName = "x";
-        this._constructorName = "ExpressionCurve";
+        this.valueExpression = '0.0';
+        this.inputVariableName = 'x';
+        this._constructorName = 'ExpressionCurve';
     }
 
     getValue(module, x) {
@@ -296,7 +296,7 @@ class ExpressionCurve extends Curve {
         extraVars[this.inputVariableName] = x;
         const result = getExpressionValue(this.valueExpression, module, extraVars);
 
-    //    logit("ehh?");
+        //    logit("ehh?");
         return result;
     }
 }
@@ -305,7 +305,7 @@ class ComputationCurve extends Curve {
     constructor() {
         super();
         this.computation = new DelayCurveComputation();
-        this._constructorName = "ComputationCurve";
+        this._constructorName = 'ComputationCurve';
     }
 
     setComputation(c) {
@@ -320,9 +320,9 @@ class ComputationCurve extends Curve {
 
 class CurveComputation {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.evaluateExpressions = true;
-        this._constructorName = "CurveComputation";
+        this._constructorName = 'CurveComputation';
     }
 
     getValue(module, x) {
@@ -356,12 +356,12 @@ class CurveComputation {
 class DelayCurveComputation extends CurveComputation {
     constructor() {
         super();
-        this.inputCurve = "";
+        this.inputCurve = '';
         this.delayConstant = 0;
-        this.delayCurve = "";
+        this.delayCurve = '';
         this.theInputCurve = null;
         this.theDelayCurve = null;
-        this._constructorName = "DelayCurveComputation";
+        this._constructorName = 'DelayCurveComputation';
     }
 
     getValue(module, x) {
@@ -377,9 +377,9 @@ class DelayCurveComputation extends CurveComputation {
 class AbsCurveComputation extends CurveComputation {
     constructor() {
         super();
-        this.inputCurve = "";
+        this.inputCurve = '';
         this.theInputCurve = null;
-        this._constructorName = "AbsCurveComputation";
+        this._constructorName = 'AbsCurveComputation';
     }
 
     getValue(module, x) {
@@ -392,14 +392,14 @@ class AbsCurveComputation extends CurveComputation {
 class RemapCurveComputation extends CurveComputation {
     constructor() {
         super();
-        this.inputCurve = "";
-        this.remapCurve = "";
+        this.inputCurve = '';
+        this.remapCurve = '';
         this.fromInterval = [0.0, 1.0];
         this.toInterval = [0.0, 1.0];
         this.clampResult = false;
         this.theInputCurve = null;
         this.remapCurve = null;
-        this._constructorName = "RemapCurveComputation";
+        this._constructorName = 'RemapCurveComputation';
     }
 
     getValue(module, x) {
@@ -428,15 +428,15 @@ class RemapCurveComputation extends CurveComputation {
 class ClampCurveComputation extends CurveComputation {
     constructor() {
         super();
-        this.inputCurve = "";
-        this.upperCurve = "";
-        this.lowerCurve = "";
+        this.inputCurve = '';
+        this.upperCurve = '';
+        this.lowerCurve = '';
         this.upperLimit = 1.0;
         this.lowerLimit = -1.0;
         this.theInputCurve = null;
         this.theUpperCurve = null;
         this.theLowerCurve = null;
-        this._constructorName = "ClampCurveComputation";
+        this._constructorName = 'ClampCurveComputation';
     }
 
     getValue(module, x) {
@@ -454,11 +454,11 @@ class ClampCurveComputation extends CurveComputation {
 class MirrorCurveComputation extends CurveComputation {
     constructor() {
         super();
-        this.inputCurve = "";
+        this.inputCurve = '';
         this.mirrorX = 0.0;
 
         this.theInputCurve = null;
-        this._constructorName = "MirrorCurveComputation";
+        this._constructorName = 'MirrorCurveComputation';
     }
 
     getValue(module, x) {
@@ -481,18 +481,18 @@ const Mix1DType = {
 class MixCurveComputation extends CurveComputation {
     constructor() {
         super();
-        this.inputCurve1 = "";
-        this.inputCurve2 = "";
+        this.inputCurve1 = '';
+        this.inputCurve2 = '';
 
         this.mixConstant = 0.5;
-        this.mixCurve = "";
+        this.mixCurve = '';
 
         this.mixType = Mix1DType.FUBAR;
 
         this.theInputCurve1 = null;
         this.theInputCurve2 = null;
         this.theMixCurve = null;
-        this._constructorName = "MixCurveComputation";
+        this._constructorName = 'MixCurveComputation';
     }
 
     getValue(module, x) {
@@ -512,24 +512,24 @@ class MixCurveComputation extends CurveComputation {
 class PeriodicCurveComputation extends CurveComputation {
     constructor() {
         super();
-        this.inputCurve = "";
+        this.inputCurve = '';
         this.period = 1.0;
         this.theInputCurve = null;
-        this._constructorName = "PeriodicCurveComputation";
+        this._constructorName = 'PeriodicCurveComputation';
     }
 
     getValue(module, x) {
         this.theInputCurve = this.getCurveReference(module, this.theInputCurve, this.inputCurve);
         let period = this.period;
         if (this.evaluateExpressions) {
-            period = getValueOrExpressionValue(this, "period", module);
+            period = getValueOrExpressionValue(this, 'period', module);
         }
 
         const result = this.getCurveOrConstantValue(module, mod(x, period), this.theInputCurve, 0);
 
-    //    if (this.verbose) {
-    //        logit(this._constructorName + " x: " + x + " period: " + period + " result: " + result);
-    //    }
+        //    if (this.verbose) {
+        //        logit(this._constructorName + " x: " + x + " period: " + period + " result: " + result);
+        //    }
 
         return result;
     }
@@ -538,12 +538,12 @@ class PeriodicCurveComputation extends CurveComputation {
 class SnapCurveComputation extends CurveComputation {
     constructor() {
         super();
-        this.inputCurve = "";
+        this.inputCurve = '';
         this.snapMetrics = SnapMetrics.ROUND;
         this.preMultiplier = 1.0;
         this.postMultiplier = 1.0;
         this.theInputCurve = null;
-        this._constructorName = "SnapCurveComputation";
+        this._constructorName = 'SnapCurveComputation';
     }
 
     getValue(module, x) {
@@ -572,7 +572,7 @@ class MultiInputCurveComputation extends CurveComputation {
         super();
         this.inputCurves = [];
         this.theInputCurves = [];
-        this._constructorName = "MultiInputCurveComputation";
+        this._constructorName = 'MultiInputCurveComputation';
     }
 
     setInputCurves(v) {
@@ -601,10 +601,10 @@ class MultiInputCurveComputation extends CurveComputation {
 class ExpressionCurveComputation extends MultiInputCurveComputation {
     constructor() {
         super();
-        this.inputCurvePrefix = "input";
-        this.inputVariableName = "x";
-        this.valueExpression = "x";
-        this._constructorName = "ExpressionCurveComputation";
+        this.inputCurvePrefix = 'input';
+        this.inputVariableName = 'x';
+        this.valueExpression = 'x';
+        this._constructorName = 'ExpressionCurveComputation';
     }
 
     createCurveFunction(module, curve) {
@@ -638,7 +638,7 @@ class OscillatorCurveComputation extends MultiInputCurveComputation {
         this.curveAmplitudes = [1.0];
         this.curveFrequencyMultipliers = [1.0];
         this.curvePhases = [0.0];
-        this._constructorName = "OscillatorCurveComputation";
+        this._constructorName = 'OscillatorCurveComputation';
     }
 
     getValueReferencesOk(module, x) {
@@ -679,7 +679,7 @@ class OscillatorCurveComputation extends MultiInputCurveComputation {
 class AddCurveComputation extends MultiInputCurveComputation {
     constructor() {
         super();
-        this._constructorName = "AddCurveComputation";
+        this._constructorName = 'AddCurveComputation';
     }
 
     getValueReferencesOk(module, x) {
@@ -697,7 +697,7 @@ class AddCurveComputation extends MultiInputCurveComputation {
 class MultiplyCurveComputation extends MultiInputCurveComputation {
     constructor() {
         super();
-        this._constructorName = "MultiplyCurveComputation";
+        this._constructorName = 'MultiplyCurveComputation';
     }
 
     getValueReferencesOk(module, x) {
@@ -715,7 +715,7 @@ class MultiplyCurveComputation extends MultiInputCurveComputation {
 class MinCurveComputation extends MultiInputCurveComputation {
     constructor() {
         super();
-        this._constructorName = "MinCurveComputation";
+        this._constructorName = 'MinCurveComputation';
     }
 
     getValueReferencesOk(module, x) {
@@ -738,7 +738,7 @@ class MinCurveComputation extends MultiInputCurveComputation {
 class MaxCurveComputation extends MultiInputCurveComputation {
     constructor() {
         super();
-        this._constructorName = "MaxCurveComputation";
+        this._constructorName = 'MaxCurveComputation';
     }
 
     getValueReferencesOk(module, x) {

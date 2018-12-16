@@ -667,7 +667,7 @@
                     var q = queues[key];
                     delete queues[key];
                     for (var i = 0, l = q.length; i < l; i++) {
-                      q[i].apply(null, arguments);
+                        q[i].apply(null, arguments);
                     }
                 }]));
             }
@@ -677,9 +677,9 @@
     };
 
     async.unmemoize = function (fn) {
-      return function () {
-        return (fn.unmemoized || fn).apply(null, arguments);
-      };
+        return function () {
+            return (fn.unmemoized || fn).apply(null, arguments);
+        };
     };
 
     // AMD / RequireJS

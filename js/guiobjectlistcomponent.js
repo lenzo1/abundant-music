@@ -3,13 +3,13 @@
 function GuiObjectListComponent(object, propertyInfo) {
     GuiAbstractListComponent.call(this, object, propertyInfo);
     this.$details = null;
-    this.cssClassName = "object-list-panel";
-    this.otherCssClasses.push("ui-widget-content");
+    this.cssClassName = 'object-list-panel';
+    this.otherCssClasses.push('ui-widget-content');
     this.setUniqueId();
 
     this.setIds();
 
-    this._constructorName = "GuiObjectListComponent";
+    this._constructorName = 'GuiObjectListComponent';
 
     this.currentDetailComponent = null;
 
@@ -23,7 +23,7 @@ GuiObjectListComponent.prototype = new GuiAbstractListComponent();
 GuiObjectListComponent.prototype.componentRemoved = function() {
     GuiAbstractListComponent.prototype.componentRemoved.call(this);
     var uiInfo = this.propertyInfo.uniqueIdInfo;
-//    uiInfo.manager.removeUniqueIdListener(uiInfo.namespace, this);
+    //    uiInfo.manager.removeUniqueIdListener(uiInfo.namespace, this);
     if (this.currentDetailComponent) {
         this.currentDetailComponent.componentRemoved();
     }
@@ -37,10 +37,10 @@ GuiObjectListComponent.prototype.getHtmlContentBeforeChildren = function(resultA
 
 
     // Details panel
-    resultArr.push("<div ");
-    resultArr.push("id=\"" + this.detailsId + "\" ");
-    resultArr.push(">\n");
-    resultArr.push("</div>\n");
+    resultArr.push('<div ');
+    resultArr.push('id="' + this.detailsId + '" ');
+    resultArr.push('>\n');
+    resultArr.push('</div>\n');
 
 };
 
@@ -48,7 +48,7 @@ GuiObjectListComponent.prototype.getHtmlContentBeforeChildren = function(resultA
 GuiObjectListComponent.prototype.jQueryCreated = function($localRoot) {
     GuiAbstractListComponent.prototype.jQueryCreated.call(this, $localRoot);
 
-    this.$details = this.$component.find("#" + this.detailsId);
+    this.$details = this.$component.find('#' + this.detailsId);
 };
 
 GuiObjectListComponent.prototype.itemAppended = function($newItem, newValue) {
@@ -80,7 +80,7 @@ GuiObjectListComponent.prototype.updateDetailsPanel = function() {
     if (selectedArr.length == 1) {
         var item = selectedArr[0];
 
-        var valueItem = $(item).data("value");
+        var valueItem = $(item).data('value');
 
         if (valueItem) {
             this.$details.empty();
@@ -112,11 +112,11 @@ GuiObjectListComponent.prototype.updateDetailsPanel = function() {
                     var items = that.getSelectedItems();
                     for (var i=0; i<items.length; i++) {
                         var item = items[i];
-                        var valueItem = $(item).data("value");
+                        var valueItem = $(item).data('value');
                         var rArr = [];
                         that.getListItemContentHtml(valueItem, rArr);
-//                            logit("new item html " + rArr.join(""));
-                        $(item).find(".object-list-item-content")[0].innerHTML = rArr.join("");
+                        //                            logit("new item html " + rArr.join(""));
+                        $(item).find('.object-list-item-content')[0].innerHTML = rArr.join('');
                     }
                 }
             );
@@ -124,7 +124,7 @@ GuiObjectListComponent.prototype.updateDetailsPanel = function() {
             this.$details.show();
             newComponent.spawn(this.$details);
             if (instanceText) {
-                newComponent.$component.prepend($("<div><p>" + instanceText + "</p></div>"));
+                newComponent.$component.prepend($('<div><p>' + instanceText + '</p></div>'));
             }
             newComponent.alignComponents();
 

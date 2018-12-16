@@ -1,7 +1,7 @@
 
 function FigurationPlanner() {
-    this.id = "";
-    this._constructorName = "FigurationPlanner";
+    this.id = '';
+    this._constructorName = 'FigurationPlanner';
 }
 
 FigurationPlanner.prototype.getFigurator = function(options) {
@@ -13,7 +13,7 @@ function ClassicalFigurationPlanner() {
     FigurationPlanner.call(this);
     this.maxMLSolutions = 10;
     this.maxSearchSteps = 1000;
-    this._constructorName = "ClassicalFigurationPlanner";
+    this._constructorName = 'ClassicalFigurationPlanner';
 }
 
 ClassicalFigurationPlanner.prototype = new FigurationPlanner();

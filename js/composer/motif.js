@@ -2,24 +2,24 @@
 
 class Motif {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.motifElements = [];
         this.motifZones = [];
         this.modifiers = [];
         this.rythmBased = false;
-        this.rythm = "";
+        this.rythm = '';
         //    this.inherits = false;
-        this.inheritedMotif = "";
+        this.inheritedMotif = '';
         this.seed = 12345;
         this.useExternalSeed = false;
 
-        this._constructorName = "Motif";
+        this._constructorName = 'Motif';
     }
 
     toString(options) {
-        let result = "{";
+        let result = '{';
         result += `${$.map(this.motifElements, (o, i) => o.toString(options))}`;
-        result += "}";
+        result += '}';
         return result;
     }
 
@@ -34,7 +34,7 @@ class Motif {
             if (motif) {
                 if (visitedMotifs.get(this)) {
                     // Inherit loop...
-                    logit("Motif detected inherit loop...");
+                    logit('Motif detected inherit loop...');
                 } else {
                     // Make sure that we add ourself to the visited motifs
                     visitedMotifs.put(this, this);
@@ -173,11 +173,11 @@ class Motif {
 
 class MotifElement {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.length = 1;
         this.lengthUnit = PositionUnit.BEATS;
         this.strength = 1.0;
-        this._constructorName = "MotifElement";
+        this._constructorName = 'MotifElement';
     }
 
     getConstantMotifElements(module, harmony, harmonyBeatOffset, visitedMotifs) {
@@ -185,10 +185,10 @@ class MotifElement {
     }
 
     toString(options) {
-        const showLength = getValueOrDefault(options, "showLength", false);
-        const showLengthUnit = getValueOrDefault(options, "showLength", false);
+        const showLength = getValueOrDefault(options, 'showLength', false);
+        const showLengthUnit = getValueOrDefault(options, 'showLength', false);
 
-        let result = "";
+        let result = '';
         if (showLength) {
             result += `len:${this.length} `;
         }
@@ -248,7 +248,7 @@ class SimpleSequenceMotifElement extends MotifElement {
         this.minElementLength = 0;
         this.minElementLengthUnit = PositionUnit.BEATS;
 
-        this._constructorName = "SimpleSequenceMotifElement";
+        this._constructorName = 'SimpleSequenceMotifElement';
     }
 
     getConstantMotifElements(module, harmony, harmonyBeatOffset, visitedMotifs) {
@@ -338,7 +338,7 @@ class FillerNote extends MotifElement {
         this.offset = 1;
         this.snapType = SnapType.NONE;
         this.lengthMode = FillerNoteLengthMode.INDEPENDENT;
-        this._constructorName = "FillerNote";
+        this._constructorName = 'FillerNote';
     }
 
     copy() {
@@ -368,7 +368,7 @@ class ConstantMotifElement extends MotifElement {
         super();
         this.rest = false;
         this.fillers = [];
-        this._constructorName = "ConstantMotifElement";
+        this._constructorName = 'ConstantMotifElement';
     }
 
     addFiller(f) {
@@ -379,10 +379,10 @@ class ConstantMotifElement extends MotifElement {
     toString(options) {
         const result = MotifElement.prototype.toString.call(this, options);
         const strs = [];
-        const showVelocity = getValueOrDefault(options, "showVelocity", false);
-        const showRest = getValueOrDefault(options, "showRest", true);
+        const showVelocity = getValueOrDefault(options, 'showVelocity', false);
+        const showRest = getValueOrDefault(options, 'showRest', true);
         if (this.rest && showRest) {
-            strs.push("R");
+            strs.push('R');
         }
         if (showVelocity) {
             strs.push(`vel:${this.strength}`);
@@ -418,18 +418,18 @@ class VerticalRelativeMotifElement extends ConstantMotifElement {
         this.offsetType = OffsetType.SCALE;
         this.beforeOffsetSnapType = SnapType.NONE;
         this.afterOffsetSnapType = SnapType.NONE;
-        this._constructorName = "VerticalRelativeMotifElement";
+        this._constructorName = 'VerticalRelativeMotifElement';
     }
 
     toString(options) {
         const result = ConstantMotifElement.prototype.toString.call(this, options);
         const strs = [];
-        const showIndex = getValueOrDefault(options, "showIndex", true);
-        const showRelativeType = getValueOrDefault(options, "showRelativeType", false);
-        const showOffsetType = getValueOrDefault(options, "showOffsetType", false);
-        const showBeforeOffsetSnapType = getValueOrDefault(options, "showBeforeOffsetSnapType", false);
-        const showAfterOffsetSnapType = getValueOrDefault(options, "showAfterOffsetSnapType", false);
-        const showLength = getValueOrDefault(options, "showAfterOffsetSnapType", true);
+        const showIndex = getValueOrDefault(options, 'showIndex', true);
+        const showRelativeType = getValueOrDefault(options, 'showRelativeType', false);
+        const showOffsetType = getValueOrDefault(options, 'showOffsetType', false);
+        const showBeforeOffsetSnapType = getValueOrDefault(options, 'showBeforeOffsetSnapType', false);
+        const showAfterOffsetSnapType = getValueOrDefault(options, 'showAfterOffsetSnapType', false);
+        const showLength = getValueOrDefault(options, 'showAfterOffsetSnapType', true);
         if (showIndex) {
             strs.push(`ind:${this.index}`);
         }
@@ -488,7 +488,7 @@ class ClusterableMotifElement extends ConstantMotifElement {
         this.clusterPositionIndex = 0; // Just counting notes
         this.clusterPositionFraction = 0; // Between 0 and 1. Uses beat position within cluster
         this.clusterId = 0;
-        this._constructorName = "ClusterableMotifElement";
+        this._constructorName = 'ClusterableMotifElement';
     }
 
     set(e) {
@@ -507,7 +507,7 @@ class HorizontalRelativeMotifElement extends ClusterableMotifElement {
         this.offsetType = OffsetType.SCALE;
         this.beforeOffsetSnapType = SnapType.NONE;
         this.afterOffsetSnapType = SnapType.NONE;
-        this._constructorName = "HorizontalRelativeMotifElement";
+        this._constructorName = 'HorizontalRelativeMotifElement';
     }
 
     setIndex(index) {
@@ -556,12 +556,12 @@ const AdaptiveVerticalDomainType = {
 
     toString(type) {
         switch (type) {
-            case AdaptiveVerticalDomainType.ENUMERABLE:
-                return "Enumerable";
-            case AdaptiveVerticalDomainType.RANGE:
-                return "Range";
-            case AdaptiveVerticalDomainType.CURVE:
-                return "Curve";
+        case AdaptiveVerticalDomainType.ENUMERABLE:
+            return 'Enumerable';
+        case AdaptiveVerticalDomainType.RANGE:
+            return 'Range';
+        case AdaptiveVerticalDomainType.CURVE:
+            return 'Curve';
         }
         return `Unknown ad. vert. dom. type ${type}`;
     }
@@ -576,10 +576,10 @@ const AdaptiveHorizontalDomainType = {
 
     toString(type) {
         switch (type) {
-            case AdaptiveHorizontalDomainType.ENUMERABLE:
-                return "Enumerable";
-            case AdaptiveHorizontalDomainType.RANGE:
-                return "Range";
+        case AdaptiveHorizontalDomainType.ENUMERABLE:
+            return 'Enumerable';
+        case AdaptiveHorizontalDomainType.RANGE:
+            return 'Range';
         }
         return `Unknown ad. horiz. dom. type ${type}`;
     }
@@ -601,7 +601,7 @@ class AdaptiveMotifElement extends ClusterableMotifElement {
         this.verticalDomainOffsetRange = [-15, 15];
         this.verticalDomainOffsetElements = [-1, 0, 1];
         this.verticalDomainOffsetElementLikelihoods = [1, 1, 1];
-        this.verticalDomainCurve = "";
+        this.verticalDomainCurve = '';
         this.verticalDomainCurveOffsetRange = [-1, 1]; // How far off the curve to go
         this.verticalDomainCurveOffsetLikelihoodMultiplier = 0.1; // What to multiply the likelihood when getting outside curve
 
@@ -612,7 +612,7 @@ class AdaptiveMotifElement extends ClusterableMotifElement {
         this.horizontalDomainOffsetElements = [[-1, 0, 1]];
         this.horizontalDomainOffsetLikelihoods = [[1, 1, 1]];
 
-        this._constructorName = "AdaptiveMotifElement";
+        this._constructorName = 'AdaptiveMotifElement';
     }
 
     setVerticalDomainType(a) {

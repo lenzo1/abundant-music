@@ -32,11 +32,11 @@ Visualizer.prototype.setSectionInfos = function(times, structure) {
 
 Visualizer.prototype.setMode = function(mode) {
     this.mode = mode;
-//    switch (mode) {
-//        case VisualizerMode.STOP:
-//            this.clearHighlightNotes();
-//            break;
-//    }
+    //    switch (mode) {
+    //        case VisualizerMode.STOP:
+    //            this.clearHighlightNotes();
+    //            break;
+    //    }
     return this;
 };
 
@@ -49,7 +49,7 @@ Visualizer.prototype.step = function(dt) {
 
 Visualizer.prototype.setCurrentPlayBeatTime = function(beatTime) {
     this.currentBeatTime = beatTime;
-//    logit(" someone setting beat time " + beatTime);
+    //    logit(" someone setting beat time " + beatTime);
     return this;
 };
 
@@ -94,39 +94,39 @@ function Visualizer3D(canvas, options) {
 
         var that = this;
 
-//        $(canvas).on("touchmove", function (event) {
-//            var e = event.originalEvent;
-//            if (e.touches && e.touches.length > 0) {
-//                var touch = e.touches[0];
-//
-//                var dx = touch.clientX - that.mousePageX;
-//                var dy = touch.clientY - that.mousePageY;
-//                that.mouseCanvasDragDx += dx;
-//                that.mouseCanvasDragDy += dy;
-//            }
-//        });
-//        $(canvas).on("touchstart", function (event) {
-//            var e = event.originalEvent;
-//            if (e.touches && e.touches.length > 0) {
-//                var touch = e.touches[0];
-//                that.mouseCanvasDown = true;
-//                that.mousePageX = touch.clientX;
-//                that.mousePageY = touch.clientY;
-//            }
-//        });
-//        $(canvas).on("touchend", function (event) {
-//            var e = event.originalEvent;
-//            if (e.touches && e.touches.length > 0) {
-//                var touch = e.touches[0];
-//                var dx = touch.clientX - that.mousePageX;
-//                var dy = touch.clientY - that.mousePageY;
-//                that.mouseCanvasDragDx += dx;
-//                that.mouseCanvasDragDy += dy;
-//            }
-//            that.mouseCanvasDown = false;
-//        });
+        //        $(canvas).on("touchmove", function (event) {
+        //            var e = event.originalEvent;
+        //            if (e.touches && e.touches.length > 0) {
+        //                var touch = e.touches[0];
+        //
+        //                var dx = touch.clientX - that.mousePageX;
+        //                var dy = touch.clientY - that.mousePageY;
+        //                that.mouseCanvasDragDx += dx;
+        //                that.mouseCanvasDragDy += dy;
+        //            }
+        //        });
+        //        $(canvas).on("touchstart", function (event) {
+        //            var e = event.originalEvent;
+        //            if (e.touches && e.touches.length > 0) {
+        //                var touch = e.touches[0];
+        //                that.mouseCanvasDown = true;
+        //                that.mousePageX = touch.clientX;
+        //                that.mousePageY = touch.clientY;
+        //            }
+        //        });
+        //        $(canvas).on("touchend", function (event) {
+        //            var e = event.originalEvent;
+        //            if (e.touches && e.touches.length > 0) {
+        //                var touch = e.touches[0];
+        //                var dx = touch.clientX - that.mousePageX;
+        //                var dy = touch.clientY - that.mousePageY;
+        //                that.mouseCanvasDragDx += dx;
+        //                that.mouseCanvasDragDy += dy;
+        //            }
+        //            that.mouseCanvasDown = false;
+        //        });
 
-        $(document).on("mousemove", function(event) {
+        $(document).on('mousemove', function(event) {
             if (that.mouseCanvasDown) {
                 var dx = event.pageX - that.mousePageX;
                 var dy = event.pageY - that.mousePageY;
@@ -136,7 +136,7 @@ function Visualizer3D(canvas, options) {
             that.mousePageX = event.pageX;
             that.mousePageY = event.pageY;
         });
-        $(canvas).on("mousemove", function(event) {
+        $(canvas).on('mousemove', function(event) {
             if (that.mouseCanvasDown) {
                 that.mouseCanvasDragDx += event.pageX - that.mouseCanvasX;
                 that.mouseCanvasDragDy += event.pageY - that.mouseCanvasY;
@@ -144,10 +144,10 @@ function Visualizer3D(canvas, options) {
             that.mouseCanvasX = event.pageX;
             that.mouseCanvasY = event.pageY;
         });
-        $(canvas).on("mousedown", function(event) {
+        $(canvas).on('mousedown', function(event) {
             that.mouseCanvasDown = true;
         });
-        $(document).on("mouseup", function(event) {
+        $(document).on('mouseup', function(event) {
             that.mouseCanvasDown = false;
         });
 
@@ -167,11 +167,11 @@ function Visualizer3D(canvas, options) {
         var far = 1000;
 
         this.canvas = canvas;
-//        this.camera = new THREE.PerspectiveCamera( fov, w / h, near, far );
+        //        this.camera = new THREE.PerspectiveCamera( fov, w / h, near, far );
         this.camera = new THREE.CombinedCamera(w, h, fov, near, far, near, far);
         this.camera.position.set(0, 60, 50);
         this.camera.lookAt(new THREE.Vector3(0, 40, 0));
-//        this.camera.toOrthographic();
+        //        this.camera.toOrthographic();
         this.scene = new THREE.Scene();
 
         this.scene.fog = new THREE.FogExp2( this.clearColor, 0.008);
@@ -186,7 +186,7 @@ function Visualizer3D(canvas, options) {
         this.frustumChunks = new FrustumCullingChunks();
 
         this.createLandscape();
-//        this.scene.add(this.createLandscape());
+        //        this.scene.add(this.createLandscape());
 
         this.addGlobalLights();
 
@@ -222,7 +222,7 @@ Visualizer3D.prototype.clearHighlightNotes = function() {
 
 Visualizer3D.prototype.highlightNotes = function(beat) {
     var b = Math.floor(beat);
-//    logit("Checking beat " + beat);
+    //    logit("Checking beat " + beat);
 
     this.upperLight.intensity = 0;
     this.middleLight.intensity = 0;
@@ -254,14 +254,14 @@ Visualizer3D.prototype.highlightNotes = function(beat) {
         var arr = this.noteCollisionGrid[b];
 
         if (arr) {
-//            logit("Checking beat " + beat + " " + arr.length);
+            //            logit("Checking beat " + beat + " " + arr.length);
 
 
             for (var i=0; i<arr.length; i++) {
                 var dat = arr[i];
                 var onEvent = dat.onEvent;
                 var channel = onEvent.c;
-//                logit(channel);
+                //                logit(channel);
 
                 var channelName = this.renderChannelNames[channel];
 
@@ -277,9 +277,9 @@ Visualizer3D.prototype.highlightNotes = function(beat) {
                     dat.mesh.scale.set(dat.w, 1 + amp * invFrac, 1 + amp * invFrac);
 
                     var lightIndex = 0;
-                    if (channelName.indexOf("inner") == 0) {
+                    if (channelName.indexOf('inner') == 0) {
                         lightIndex = 1;
-                    } else if (channelName.indexOf("bass") == 0 || channelName.indexOf("percussion") == 0) {
+                    } else if (channelName.indexOf('bass') == 0 || channelName.indexOf('percussion') == 0) {
                         lightIndex = 2;
                     }
                     var lightData = lightDatas[lightIndex];
@@ -304,7 +304,7 @@ Visualizer3D.prototype.highlightNotes = function(beat) {
         if (lightData.count > 0) {
             lightData.pos.divideScalar(lightData.count);
             lightData.light.position.copy(lightData.pos);
-//            logit(lightData.pos.x + ", " + lightData.pos.y + ", " + lightData.pos.z);
+            //            logit(lightData.pos.x + ", " + lightData.pos.y + ", " + lightData.pos.z);
             lightData.light.intensity = 0.5 * lightData.colorVec.length();
             lightData.colorVec.normalize();
             var lightColor = new THREE.Color();
@@ -364,128 +364,128 @@ Visualizer3D.prototype.step = function(dt) {
     }
 
     switch (this.mode) {
-        case VisualizerMode.PLAY:
-            var posX = this.currentBeatTime * this.beatLengthScale;
-            var distanceZ = 70;
+    case VisualizerMode.PLAY:
+        var posX = this.currentBeatTime * this.beatLengthScale;
+        var distanceZ = 70;
 
-            var lookAtY = 70;
+        var lookAtY = 70;
 
-            towardsPosition.set(posX, lookAtY, distanceZ);
-            towardsLookAt.set(posX, lookAtY, 0);
+        towardsPosition.set(posX, lookAtY, distanceZ);
+        towardsLookAt.set(posX, lookAtY, 0);
 
-            this.highlightNotes(this.currentBeatTime);
+        this.highlightNotes(this.currentBeatTime);
+        break;
+    case VisualizerMode.PAUSE:
+    case VisualizerMode.STOP:
+        this.currentStopBeatTime += dt * 0.002;
+        var seconds = this.currentStopBeatTime;
+        //            this.clearHighlightNotes();
+        switch (this.stopMovementMode) {
+        case Visualizer3DStopMovementMode.ROTATE_INTERACTIVE_HOVER:
+            var centerX = this.maxBeat * 0.5 * this.beatLengthScale;
+
+            var distance = 150 - 100 * fractionY;
+            var height = 150 - 100 * fractionY;
+            var phase = Math.PI * fractionX;
+
+            towardsPosition.set(distance * Math.cos(phase) + centerX, height, distance * Math.sin(phase));
+            towardsLookAt.set(centerX, 60, 0);
+
             break;
-        case VisualizerMode.PAUSE:
-        case VisualizerMode.STOP:
-            this.currentStopBeatTime += dt * 0.002;
-            var seconds = this.currentStopBeatTime;
-//            this.clearHighlightNotes();
-            switch (this.stopMovementMode) {
-                case Visualizer3DStopMovementMode.ROTATE_INTERACTIVE_HOVER:
-                    var centerX = this.maxBeat * 0.5 * this.beatLengthScale;
+        case Visualizer3DStopMovementMode.ROTATE_PAN_INTERACTIVE_HOVER:
+            var centerX = this.maxBeat * fractionX * this.beatLengthScale;
 
-                    var distance = 150 - 100 * fractionY;
-                    var height = 150 - 100 * fractionY;
-                    var phase = Math.PI * fractionX;
+            var distance = 100 - 50 * fractionY;
+            var height = 100 - 50 * fractionY;
+            var phase = -0.75 * Math.PI * (fractionX - 0.5) - Math.PI * 1.5;
 
-                    towardsPosition.set(distance * Math.cos(phase) + centerX, height, distance * Math.sin(phase));
-                    towardsLookAt.set(centerX, 60, 0);
+            towardsPosition.set(distance * Math.cos(phase) + centerX, height, distance * Math.sin(phase));
+            towardsLookAt.set(centerX, 60, 0);
 
-                    break;
-                case Visualizer3DStopMovementMode.ROTATE_PAN_INTERACTIVE_HOVER:
-                    var centerX = this.maxBeat * fractionX * this.beatLengthScale;
+            break;
+        case Visualizer3DStopMovementMode.PAN_INTERACTIVE_HOVER:
+            var centerX = this.maxBeat * fractionX * this.beatLengthScale;
 
-                    var distance = 100 - 50 * fractionY;
-                    var height = 100 - 50 * fractionY;
-                    var phase = -0.75 * Math.PI * (fractionX - 0.5) - Math.PI * 1.5;
+            var depth = 60;
+            var height = 80 - 40 * fractionY;
 
-                    towardsPosition.set(distance * Math.cos(phase) + centerX, height, distance * Math.sin(phase));
-                    towardsLookAt.set(centerX, 60, 0);
+            towardsPosition.set(centerX, height, depth);
+            towardsLookAt.set(centerX, height, 0);
+            break;
+        case Visualizer3DStopMovementMode.PAN_INTERACTIVE_DRAG:
 
-                    break;
-                case Visualizer3DStopMovementMode.PAN_INTERACTIVE_HOVER:
-                    var centerX = this.maxBeat * fractionX * this.beatLengthScale;
+            var targetX = clamp(currentLookAt.x - docW * this.fractionDragVelX * dSec, 0, this.maxBeat * this.beatLengthScale);
+            var targetY = clamp(currentLookAt.y + docH * this.fractionDragVelY * dSec, 0, 127);
 
-                    var depth = 60;
-                    var height = 80 - 40 * fractionY;
+            var depth = 60;
 
-                    towardsPosition.set(centerX, height, depth);
-                    towardsLookAt.set(centerX, height, 0);
-                    break;
-                case Visualizer3DStopMovementMode.PAN_INTERACTIVE_DRAG:
+            towardsPosition.set(targetX, targetY, depth);
+            towardsLookAt.set(targetX, targetY, 0);
+            break;
+        case Visualizer3DStopMovementMode.ROTATE_INTERACTIVE_DRAG:
 
-                    var targetX = clamp(currentLookAt.x - docW * this.fractionDragVelX * dSec, 0, this.maxBeat * this.beatLengthScale);
-                    var targetY = clamp(currentLookAt.y + docH * this.fractionDragVelY * dSec, 0, 127);
+            var centerX = this.maxBeat * 0.5 * this.beatLengthScale;
+            this.currentAngle += this.fractionDragVelX * dSec;
 
-                    var depth = 60;
+            var camPos = this.camera.position;
+            var targetDistance = clamp(camPos.y + docH * this.fractionDragVelY * dSec, 40, 500);
 
-                    towardsPosition.set(targetX, targetY, depth);
-                    towardsLookAt.set(targetX, targetY, 0);
-                    break;
-                case Visualizer3DStopMovementMode.ROTATE_INTERACTIVE_DRAG:
+            var height = targetDistance;
+            var distance = targetDistance;
+            var lookAtY = 60;
 
-                    var centerX = this.maxBeat * 0.5 * this.beatLengthScale;
-                    this.currentAngle += this.fractionDragVelX * dSec;
+            towardsPosition.set(centerX + distance * Math.cos(this.currentAngle), height, distance * Math.sin(this.currentAngle));
+            towardsLookAt.set(centerX, lookAtY, 0);
+            break;
+        case Visualizer3DStopMovementMode.ROTATE_PAN_INTERACTIVE_DRAG:
 
-                    var camPos = this.camera.position;
-                    var targetDistance = clamp(camPos.y + docH * this.fractionDragVelY * dSec, 40, 500);
+            var camPos = this.camera.position;
+            var targetX = clamp(currentLookAt.x - docW * this.fractionDragVelX * dSec, 0, this.maxBeat * this.beatLengthScale);
+            var targetY = clamp(camPos.y + 500 * this.fractionDragVelY * dSec, 20, 300);
 
-                    var height = targetDistance;
-                    var distance = targetDistance;
-                    var lookAtY = 60;
+            fractionX = targetX / (this.maxBeat * this.beatLengthScale);
+            var phase = 0.25 * Math.PI * (fractionX - 0.5) - Math.PI * 1.5;
 
-                    towardsPosition.set(centerX + distance * Math.cos(this.currentAngle), height, distance * Math.sin(this.currentAngle));
-                    towardsLookAt.set(centerX, lookAtY, 0);
-                    break;
-                case Visualizer3DStopMovementMode.ROTATE_PAN_INTERACTIVE_DRAG:
+            var distance = targetY;
 
-                    var camPos = this.camera.position;
-                    var targetX = clamp(currentLookAt.x - docW * this.fractionDragVelX * dSec, 0, this.maxBeat * this.beatLengthScale);
-                    var targetY = clamp(camPos.y + 500 * this.fractionDragVelY * dSec, 20, 300);
+            towardsPosition.set(distance * Math.cos(phase) + targetX, targetY, distance * Math.sin(phase));
+            towardsLookAt.set(targetX, 60, 0);
+            break;
+        case Visualizer3DStopMovementMode.PAN:
+            var beatsPerSeconds = 1;
 
-                    fractionX = targetX / (this.maxBeat * this.beatLengthScale);
-                    var phase = 0.25 * Math.PI * (fractionX - 0.5) - Math.PI * 1.5;
+            var distance = 60;
+            var frac = 0;
+            if (this.maxBeat > 5) {
+                var period = 2 * this.maxBeat * this.beatLengthScale;
 
-                    var distance = targetY;
+                var x = beatsPerSeconds * this.beatLengthScale * seconds;
+                frac = mod(x, period) / period;
 
-                    towardsPosition.set(distance * Math.cos(phase) + targetX, targetY, distance * Math.sin(phase));
-                    towardsLookAt.set(targetX, 60, 0);
-                    break;
-                case Visualizer3DStopMovementMode.PAN:
-                    var beatsPerSeconds = 1;
-
-                    var distance = 60;
-                    var frac = 0;
-                    if (this.maxBeat > 5) {
-                        var period = 2 * this.maxBeat * this.beatLengthScale;
-
-                        var x = beatsPerSeconds * this.beatLengthScale * seconds;
-                        frac = mod(x, period) / period;
-
-                        if (frac >= 0.5) {
-                            frac = 1.0 - (frac - 0.5) * 2;
-                        } else {
-                            frac *= 2;
-                        }
-                    }
-                    var posX = frac * this.maxBeat * 2;
-
-                    towardsPosition.set(posX, distance, distance);
-                    towardsLookAt.set(posX, 60, 0);
-                    break;
-                case Visualizer3DStopMovementMode.ROTATE:
-                    var centerX = this.maxBeat * 0.5 * this.beatLengthScale;
-
-                    var distance = 100;
-                    var height = 100;
-                    var frequency = 0.01;
-                    var phase = frequency * Math.PI * 2 * seconds + Math.PI / 2;
-
-                    towardsPosition.set(100 * Math.cos(phase) + centerX, height, 100 * Math.sin(phase));
-                    towardsLookAt.set(centerX, 60, 0);
-                    break;
+                if (frac >= 0.5) {
+                    frac = 1.0 - (frac - 0.5) * 2;
+                } else {
+                    frac *= 2;
+                }
             }
+            var posX = frac * this.maxBeat * 2;
+
+            towardsPosition.set(posX, distance, distance);
+            towardsLookAt.set(posX, 60, 0);
             break;
+        case Visualizer3DStopMovementMode.ROTATE:
+            var centerX = this.maxBeat * 0.5 * this.beatLengthScale;
+
+            var distance = 100;
+            var height = 100;
+            var frequency = 0.01;
+            var phase = frequency * Math.PI * 2 * seconds + Math.PI / 2;
+
+            towardsPosition.set(100 * Math.cos(phase) + centerX, height, 100 * Math.sin(phase));
+            towardsLookAt.set(centerX, 60, 0);
+            break;
+        }
+        break;
     }
 
     var invFactor = 1.0 - factor;
@@ -524,7 +524,7 @@ Visualizer3D.prototype.getLandscapeNormal = function(x, y) {
     var dzdx = (this.randomHeight(x + d, y) - h) / d;
     var dzdy = (this.randomHeight(x, y + d) - h) / d;
 
-//    logit("d stuff " + dzdx + " " + dzdy);
+    //    logit("d stuff " + dzdx + " " + dzdy);
 
     var result = new THREE.Vector3(-dzdx, 1, -dzdy).normalize();
 
@@ -547,7 +547,7 @@ Visualizer3D.prototype.randomHeight = function(x, y) {
     freq *= 2;
     z = 43.24891;
     n += 0.25 * perlin.noise(freq * x / landscapeChunkSize, freq * y / landscapeChunkSize, z);
-//        var n = perlin.noise(x, y, 21.32124432);
+    //        var n = perlin.noise(x, y, 21.32124432);
 
     var result = 40 + n * 20;
 
@@ -605,10 +605,10 @@ Visualizer3D.prototype.createLandscapeChunk = function(cx, cz) {
 
 
     landscapeGeom.computeFaceNormals();
-//    landscapeGeom.computeVertexNormals();
+    //    landscapeGeom.computeVertexNormals();
     landscapeGeom.normalsNeedUpdate = true;
 
-//    var material = this.getLandscapeMaterial(0x444444, 0x000000);
+    //    var material = this.getLandscapeMaterial(0x444444, 0x000000);
     var material = this.getLandscapeMaterial(0x444444, 0x333333);
 
     landscapeGeom.computeCentroids();
@@ -626,7 +626,7 @@ Visualizer3D.prototype.createLandscape = function() {
     this.landscapeInfos = [];
 
 
-//    var landscapeParent = new THREE.Object3D();
+    //    var landscapeParent = new THREE.Object3D();
 
     var minChunkIndexX = -1;
     var maxChunkIndexX = 5;
@@ -710,16 +710,16 @@ Visualizer3D.prototype.addRenderData = function(data, length) {
 
     this.renderChannelNames = data.renderChannelNames;
 
-//    logit(this.renderChannelNames);
+    //    logit(this.renderChannelNames);
 
     var events = data.events;
 
     var parent = new THREE.Object3D();
-//    parent.position.set(beatOffset * this.beatLengthScale, 0, 0);
+    //    parent.position.set(beatOffset * this.beatLengthScale, 0, 0);
 
     this.maxBeat = Math.max(this.maxBeat, length);
 
-//    logit("setting pos to " + beatOffset * this.beatLengthScale);
+    //    logit("setting pos to " + beatOffset * this.beatLengthScale);
 
     var notesDone = gatherNotesFromEvents(events);
 
@@ -775,18 +775,18 @@ Visualizer3D.prototype.addRenderData = function(data, length) {
         var rawChannelIndex = parseInt(ch);
         var realChannelName = data.renderChannelNames[rawChannelIndex];
 
-        if (realChannelName == "chordsRenderChannel") {
+        if (realChannelName == 'chordsRenderChannel') {
             continue;
         }
 
         var datas = notesDone[ch];
-//    logit("Adding " + ch + " to scene");
+        //    logit("Adding " + ch + " to scene");
 
         addAll(this.allNoteDatas, datas);
 
         var channelIndex = parseInt(realChannelName.charAt(realChannelName.length - 1)) - 1;
 
-//        logit("real channel: " + realChannelName + " " + channelIndex);
+        //        logit("real channel: " + realChannelName + " " + channelIndex);
 
         var color = getFromPrefix(channelColors, realChannelName, 0xffffff)[channelIndex];
         var playColor = getFromPrefix(channelPlayColors, realChannelName, 0xffffff)[channelIndex];
@@ -798,7 +798,7 @@ Visualizer3D.prototype.addRenderData = function(data, length) {
             var onEvent = dat.onEvent;
             var offEvent = dat.offEvent;
             if (!offEvent) {
-//            logit("Found on event without off event in final for");
+                //            logit("Found on event without off event in final for");
                 continue;
             }
 
@@ -924,7 +924,7 @@ Visualizer3D.prototype.updateSectionFramework = function() {
                 frameworkObject.add(createText(x + 1, maxY, 0, text, 2));
             }
         }
-//        console.log(this.songStructureInfo);
+        //        console.log(this.songStructureInfo);
 
         this.scene.add(frameworkObject);
     }
@@ -998,9 +998,9 @@ CanvasVisualizer3D.prototype.getLandscapeMaterial = function(color, emissive) {
 function WebGLVisualizer3D(canvas, options) {
     Visualizer3D.call(this, canvas, options);
 
-    this.addBloom = getValueOrDefault(options, "addBloom", true);
-    this.addVignette = getValueOrDefault(options, "addVignette", true);
-    this.addSimulatedAA = getValueOrDefault(options, "addSimulatedAA", true);
+    this.addBloom = getValueOrDefault(options, 'addBloom', true);
+    this.addVignette = getValueOrDefault(options, 'addVignette', true);
+    this.addSimulatedAA = getValueOrDefault(options, 'addSimulatedAA', true);
 
     var w = canvas.width;
     var h = canvas.height;
@@ -1012,7 +1012,7 @@ function WebGLVisualizer3D(canvas, options) {
     this.renderer.setClearColorHex(this.clearColor, 1);
     this.renderer.autoClear = false;
 
-//    var renderTargetParameters = { generateMipmaps: false, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false };
+    //    var renderTargetParameters = { generateMipmaps: false, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false };
 
     var renderModel = new THREE.RenderPass( this.scene, this.camera );
     var effectBloom = new THREE.BloomPass(1, 25, 4.0, 512);
@@ -1055,7 +1055,7 @@ WebGLVisualizer3D.prototype.render = function() {
 WebGLVisualizer3D.prototype.resized = function(w, h) {
     Visualizer3D.prototype.resized.call(this, w, h);
     this.effectFXAA.uniforms[ 'resolution' ].value.set( 1 / w, 1 / h );
-//    this.glowcomposer.reset();
+    //    this.glowcomposer.reset();
     this.composer.reset();
 };
 

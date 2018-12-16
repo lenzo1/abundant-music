@@ -5,12 +5,12 @@ class HarmonyGenerator extends DfsSolver {
         super(options);
         this.maxMLSolutions = 20;
         this.maxSearchSteps = 5000;
-        this.count = getValueOrDefault(options, "count", 1);
-        this.startBeatStrengths = getValueOrDefault(options, "startBeatStrengths", [1.0]);
-        this.seed = getValueOrDefault(options, "seed", 12345);
+        this.count = getValueOrDefault(options, 'count', 1);
+        this.startBeatStrengths = getValueOrDefault(options, 'startBeatStrengths', [1.0]);
+        this.seed = getValueOrDefault(options, 'seed', 12345);
         this.setSeed(this.seed);
-        this.failReason = "";
-        this._constructorName = "HarmonyGenerator";
+        this.failReason = '';
+        this._constructorName = 'HarmonyGenerator';
     }
 
     extractStateResultData(state) {
@@ -62,7 +62,7 @@ class HarmonyGenerator extends DfsSolver {
                 const toRoot = positiveMod(toHarmony.chordRoot, 7);
                 if (fromRoot == toRoot && fromHarmony.isSeventh() && toHarmony.isTriad()) {
                     const cost = 5;
-    //                logit("Compensating for seventh to triad");
+                    //                logit("Compensating for seventh to triad");
                     possibleNextStateCosts[i] += cost;
                 }
             }
@@ -103,9 +103,9 @@ class HarmonyGenerator extends DfsSolver {
                     const toPitchClasses = toHarmony.getChordPitchClasses();
                     if (!arrayContains(toPitchClasses, (susAbsNote - 1) % 12) && !arrayContains(toPitchClasses, (susAbsNote - 2) % 12)) {
                         cost += 2;
-    //                    logit("Avoiding sus " + fromHarmony.toRomanString() + " -> " + toHarmony.toRomanString());
+                        //                    logit("Avoiding sus " + fromHarmony.toRomanString() + " -> " + toHarmony.toRomanString());
                     } else {
-    //                    logit("Not Avoiding sus " + fromHarmony.toRomanString() + " -> " + toHarmony.toRomanString());
+                        //                    logit("Not Avoiding sus " + fromHarmony.toRomanString() + " -> " + toHarmony.toRomanString());
                     }
 
                     if (toHarmony.isSus()) {
@@ -129,20 +129,20 @@ class HarmonyGenerator extends DfsSolver {
 
                 if (fromRoot == toRoot) {
                     cost += 5;
-    //                        logit("  root was same...");
+                    //                        logit("  root was same...");
                 }
                 const fromBass = fromHarmony.getAbsoluteNoteFromChordBassIndex(0);
                 const toBass = toHarmony.getAbsoluteNoteFromChordBassIndex(0);
 
                 if (fromBass == toBass) {
                     cost += 5;
-    //                        logit("  bass was same...");
+                    //                        logit("  bass was same...");
                 }
 
                 // V and VII is treated as the same chord
                 if ((fromRoot == 6 && toRoot == 4) || (fromRoot == 4 && toRoot == 6)) {
                     cost += 5;
-    //                        logit("Compensating for V <-> VII");
+                    //                        logit("Compensating for V <-> VII");
                 }
             }
         }
@@ -164,7 +164,7 @@ class HarmonyGenerator extends DfsSolver {
             if (toBeatStrength > fromBeatStrength) {
                 const fromHarmony = state.harmony;
 
-    //            logit("Checking " + fromBeatStrength + " " + toBeatStrength + " " + fromHarmony.toRomanString());
+                //            logit("Checking " + fromBeatStrength + " " + toBeatStrength + " " + fromHarmony.toRomanString());
                 for (let i=0; i<possibleNextStates.length; i++) {
 
                     const toHarmony = possibleNextStates[i].harmony;
@@ -172,8 +172,8 @@ class HarmonyGenerator extends DfsSolver {
                     const cost = this.calculateBeatStrengthRepetitionCost(fromHarmony, fromBeatStrength, toHarmony, toBeatStrength);
 
                     if (cost > 0) {
-    //                    let likelihood = possibleNextStateLikelihoods[i];
-    //                    possibleNextStateLikelihoods[i] = likelihood * multiplier;
+                        //                    let likelihood = possibleNextStateLikelihoods[i];
+                        //                    possibleNextStateLikelihoods[i] = likelihood * multiplier;
                         possibleNextStateCosts[i] += cost;
                     }
                 }
@@ -314,7 +314,7 @@ class HarmonyGenerator extends DfsSolver {
             if (!fromHarmony.isSus()) {
                 // A sus2 chord with the same root
                 // Not a good neighbour since it doesn't resolve down
-    //            harmonies.push(fromHarmony.copy().setChordType(ChordType.SUS2));
+                //            harmonies.push(fromHarmony.copy().setChordType(ChordType.SUS2));
 
                 // A sus4 chord with the same root
                 harmonies.push(fromHarmony.copy().setChordType(ChordType.SUS4));
@@ -322,11 +322,11 @@ class HarmonyGenerator extends DfsSolver {
             if (fromHarmony.scaleType == ScaleType.MAJOR) {
                 if (fromHarmony.chordRoot == 0 && fromHarmony.chordType == ChordType.TRIAD) {
                     harmonies.push(fromHarmony.copy().setChordRoot(3).setChordInversions(2).setScaleType(ScaleType.HARMONIC_MINOR));
-    //                logit("adding mixture 1");
+                    //                logit("adding mixture 1");
                 }
                 if (fromHarmony.chordRoot == 4 && fromHarmony.chordType == ChordType.TRIAD) {
                     harmonies.push(fromHarmony.copy().setChordRoot(0).setChordInversions(2).setScaleType(ScaleType.HARMONIC_MINOR));
-    //                logit("adding mixture 2");
+                    //                logit("adding mixture 2");
                 }
             }
         } else {
@@ -385,14 +385,14 @@ class HarmonyGenerator extends DfsSolver {
             if (isMixture) {
                 // Mixture of some kind perhaps...
 
-    //            logit("filtering mixture chords...");
+                //            logit("filtering mixture chords...");
                 if (possibleMixtureRoots) {
                     // Scale types
                     if (!arrayContains(possibleMixtureRoots, chordRoot)) {
                         ok = false;
-    //                    logit(" removed " + possibleMixtureRoots + " : " + chordRoot);
+                        //                    logit(" removed " + possibleMixtureRoots + " : " + chordRoot);
                     } else {
-    //                    logit(" keeping mixture chord! " + ok);
+                        //                    logit(" keeping mixture chord! " + ok);
                     }
 
                 } else {
@@ -419,7 +419,7 @@ class HarmonyGenerator extends DfsSolver {
         absIncrement = Math.min(absIncrement, absDiff);
         let increment = absIncrement;
         if (diff == 0) {
-            logit("Can not find a passing chord when the basses are the same <br />");
+            logit('Can not find a passing chord when the basses are the same <br />');
             return tempResult;
         } else if (diff < 0) {
             increment = -increment;
@@ -427,71 +427,71 @@ class HarmonyGenerator extends DfsSolver {
 
         const fromChordRoot = fromHarmony.getChordRootScaleIndex();
 
-    //    if (fromHarmony.hasSeventh()) {
-    //        logit("getBassPassingChords() does not support seventh chords yet <br />");
+        //    if (fromHarmony.hasSeventh()) {
+        //        logit("getBassPassingChords() does not support seventh chords yet <br />");
         if (fromHarmony.chordInversions > 1) {
-            logit("getBassPassingChords() does not support chords with inversions > 1 yet <br />");
+            logit('getBassPassingChords() does not support chords with inversions > 1 yet <br />');
         } else if (fromHarmony.chordInversions == 0) {
             // A 53 chord
             switch (increment) {
-                case -2:
-                    // A 63 chord with its root a 5th below (for example I and IV6)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 4).setChordInversions(1));
-                    // A 53 chord with its root a 3nd below (for example I and VI)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 2).setChordInversions(0));
-                    break;
-                case -1:
-                    // A 63 chord with its root a 4th below (for example I and V6)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 3).setChordInversions(1));
-                    // A 53 chord with its root a 2nd below (for example I and VII, which should be avoided in major)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 1).setChordInversions(0));
-                    break;
-                case 1:
-                    // A 63 chord with its root a 2nd below (for example I and VII6)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 1).setChordInversions(1));
-                    // A 53 chord with its root a 2nd above (for example I and II, which should be avoided in minor)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 1).setChordInversions(0));
-                    break;
-                case 2:
-                    // A 53 chord with its root a 3rd above (for example I and III)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 2).setChordInversions(0));
-                    // A 63 chord with same root (for example I and I6)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot).setChordInversions(1));
-                    break;
-                default:
-                    logit(`getBassPassingChords() does not support increments ${increment}<br />`);
-                    break;
+            case -2:
+                // A 63 chord with its root a 5th below (for example I and IV6)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 4).setChordInversions(1));
+                // A 53 chord with its root a 3nd below (for example I and VI)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 2).setChordInversions(0));
+                break;
+            case -1:
+                // A 63 chord with its root a 4th below (for example I and V6)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 3).setChordInversions(1));
+                // A 53 chord with its root a 2nd below (for example I and VII, which should be avoided in major)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 1).setChordInversions(0));
+                break;
+            case 1:
+                // A 63 chord with its root a 2nd below (for example I and VII6)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 1).setChordInversions(1));
+                // A 53 chord with its root a 2nd above (for example I and II, which should be avoided in minor)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 1).setChordInversions(0));
+                break;
+            case 2:
+                // A 53 chord with its root a 3rd above (for example I and III)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 2).setChordInversions(0));
+                // A 63 chord with same root (for example I and I6)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot).setChordInversions(1));
+                break;
+            default:
+                logit(`getBassPassingChords() does not support increments ${increment}<br />`);
+                break;
             }
         } else {
             // A 63 chord
             switch (increment) {
-                case -2:
-                    // A 63 chord with its root a 3rd below (for example I6 and VI6)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 2).setChordInversions(1));
-                    // A 53 chord with same root (for example I6 and I)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot).setChordInversions(0));
-                    break;
-                case -1:
-                    // A 53 chord with its root a 2nd above (for example I6 and II)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 1).setChordInversions(0));
-                    // A 63 chord with its root a 2nd below (for example I6 and VII6)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 1).setChordInversions(1));
-                    break;
-                case 1:
-                    // A 53 chord with its root a 4th above (for example I6 and IV)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 3).setChordInversions(0));
-                    // A 63 chord with its root a 2nd above (for example I6 and II6)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 1).setChordInversions(1));
-                    break;
-                case 2:
-                    // A 63 chord with its root a 3rd above (for example I6 and III6)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 2).setChordInversions(1));
-                    // A 53 chord with its root a fifth above (for example I6 and V)
-                    tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 4).setChordInversions(0));
-                    break;
-                default:
-                    logit(`getBassPassingChords() does not support increments ${increment}<br />`);
-                    break;
+            case -2:
+                // A 63 chord with its root a 3rd below (for example I6 and VI6)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 2).setChordInversions(1));
+                // A 53 chord with same root (for example I6 and I)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot).setChordInversions(0));
+                break;
+            case -1:
+                // A 53 chord with its root a 2nd above (for example I6 and II)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 1).setChordInversions(0));
+                // A 63 chord with its root a 2nd below (for example I6 and VII6)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot - 1).setChordInversions(1));
+                break;
+            case 1:
+                // A 53 chord with its root a 4th above (for example I6 and IV)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 3).setChordInversions(0));
+                // A 63 chord with its root a 2nd above (for example I6 and II6)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 1).setChordInversions(1));
+                break;
+            case 2:
+                // A 63 chord with its root a 3rd above (for example I6 and III6)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 2).setChordInversions(1));
+                // A 53 chord with its root a fifth above (for example I6 and V)
+                tempResult.push(fromHarmony.copy().setChordRoot(fromChordRoot + 4).setChordInversions(0));
+                break;
+            default:
+                logit(`getBassPassingChords() does not support increments ${increment}<br />`);
+                break;
             }
         }
 

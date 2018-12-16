@@ -79,11 +79,11 @@ FrustumCullingChunks.prototype.updateScene = function(scene, m) {
 
     for (var i=0; i<sceneObjectsToAdd.length; i++) {
         scene.add(sceneObjectsToAdd[i]);
-//        logit("Adding chunk..." + i + " " + this.objectsInScene.length + " " + this.objectsNotInScene.length);
+        //        logit("Adding chunk..." + i + " " + this.objectsInScene.length + " " + this.objectsNotInScene.length);
     }
     for (var i=0; i<sceneObjectsToRemove.length; i++) {
         scene.remove(sceneObjectsToRemove[i]);
-//        logit("Removing chunk... " + i + " " + this.objectsInScene.length + " " + this.objectsNotInScene.length);
+        //        logit("Removing chunk... " + i + " " + this.objectsInScene.length + " " + this.objectsNotInScene.length);
     }
 
 };

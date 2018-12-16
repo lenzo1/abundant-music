@@ -2,7 +2,7 @@
 
 
 SequenceHarmonyElement.prototype.getTsNumerator = function(module) {
-    const tsNumerators = getValueOrExpressionValue(this, "tsNumerators", module);
+    const tsNumerators = getValueOrExpressionValue(this, 'tsNumerators', module);
 
     const tsNumerator = tsNumerators.length == 0 ? 4 : tsNumerators[0];
 
@@ -23,78 +23,78 @@ SequenceHarmonyElement.prototype.getBeatLengths = function(module) {
         showStacktraceDialog(null, `no module in ${this._constructorName}`);
     }
 
-    const tsNumerators = getValueOrExpressionValue(this, "tsNumerators", module);
-    const tsDenominators = getValueOrExpressionValue(this, "tsDenominators", module);
+    const tsNumerators = getValueOrExpressionValue(this, 'tsNumerators', module);
+    const tsDenominators = getValueOrExpressionValue(this, 'tsDenominators', module);
 
-    let theCount = getValueOrExpressionValue(this, "count", module);
+    let theCount = getValueOrExpressionValue(this, 'count', module);
 
     let tsNumerator = tsNumerators.length == 0 ? 4 : tsNumerators[0];
     let tsDenominator = tsDenominators.length == 0 ? 4 : tsDenominators[0];
 
     switch (this.harmonyLengthMode) {
-        case HarmonyLengthMode.COUNT_AND_RYTHM:
-        case HarmonyLengthMode.RYTHM_ONLY:
-            const lengthRythmId = getValueOrExpressionValue(this, "lengthRythm", module);
-            const rythm = module.getRythm(lengthRythmId);
-            if (!rythm) {
-                logit(`Unable to find rythm ${lengthRythmId}<br />`);
-                break;
-            }
-
-            const rythmTsNumerator = getValueOrExpressionValue(this, "rythmTsNumerator", module);
-
-//            logit(" rythmTsNumerator: " + rythmTsNumerator);
-
-            const rythmHarmony = new ConstantHarmonicRythm([new ConstantHarmonyElement().setTimeSignature(rythmTsNumerator, this.rythmTsDenominator)]);
-
-//            logit("  getting harmony rythm rythm " + rythmHarmony.)
-
-            const elements = rythm.getNoteRythmElements(module, rythmHarmony, 0);
-            if (this.harmonyLengthMode == HarmonyLengthMode.RYTHM_ONLY) {
-                theCount = elements.length;
-            }
-
-
-            let rythmBeatLength = 0.0;
-            for (let i=0; i<Math.max(1, theCount); i++) {
-                tsNumerator = getItemFromArrayWithStartEndItems(4, tsNumerators, theCount, i, this.startTsNumerators, this.endTsNumerators);
-                tsDenominator = getItemFromArrayWithStartEndItems(4, tsDenominators, theCount, i, this.startTsDenominators, this.endTsDenominators);
-                let beatLength = Math.max(1.0, tsDenominator);
-                if (elements.length > 0) {
-                    const dummyHarmony = new ConstantHarmonicRythm([new ConstantHarmonyElement().setTimeSignature(tsNumerator, tsDenominator)]);
-                    const element = elements[i % elements.length];
-                    beatLength = positionUnitToBeats(element.length, element.lengthUnit, tsNumerator, tsDenominator, dummyHarmony);
-                }
-                result.push(beatLength);
-                rythmBeatLength += beatLength;
-            }
-
-//            logit(" Beatlengths in element: " + result.join(", ") + " total length: " + rythmBeatLength);
-
-            // Scale the lengths so the total length becomes equal to totalLength
-            const theTotalLength = getValueOrExpressionValue(this, "totalLength", module);
-            const totalBeatLength = positionUnitToBeats(theTotalLength, this.totalLengthUnit, tsNumerator, tsDenominator, rythmHarmony);
-
-            const scaleFactor = totalBeatLength / rythmBeatLength;
-            for (let i=0; i<result.length; i++) {
-                result[i] = result[i] * scaleFactor;
-            }
-//            logit("    corrected Beatlengths in element: " + result.join(", "));
-
+    case HarmonyLengthMode.COUNT_AND_RYTHM:
+    case HarmonyLengthMode.RYTHM_ONLY:
+        const lengthRythmId = getValueOrExpressionValue(this, 'lengthRythm', module);
+        const rythm = module.getRythm(lengthRythmId);
+        if (!rythm) {
+            logit(`Unable to find rythm ${lengthRythmId}<br />`);
             break;
-        case HarmonyLengthMode.COUNT_AND_LENGTH_PATTERN:
-            const theLengthPattern = getValueOrExpressionValue(this, "lengthPattern", module);
-            const theStartLengthPattern = getValueOrExpressionValue(this, "startLengthPattern", module);
-            const theEndLengthPattern = getValueOrExpressionValue(this, "endLengthPattern", module);
-            for (let i=0; i<Math.max(1, theCount); i++) {
-                tsNumerator = getItemFromArrayWithStartEndItems(4, tsNumerators, theCount, i, this.startTsNumerators, this.endTsNumerators);
-                tsDenominator = getItemFromArrayWithStartEndItems(4, tsDenominators, theCount, i, this.startTsDenominators, this.endTsDenominators);
-                let length = getItemFromArrayWithStartEndItems(1.0, theLengthPattern, theCount, i, theStartLengthPattern, theEndLengthPattern);
-                let beatLength = positionUnitToBeats(length, this.lengthPatternUnit, tsNumerator, tsDenominator, null);
-                beatLength = Math.max(1.0, beatLength);
-                result.push(beatLength);
+        }
+
+        const rythmTsNumerator = getValueOrExpressionValue(this, 'rythmTsNumerator', module);
+
+        //            logit(" rythmTsNumerator: " + rythmTsNumerator);
+
+        const rythmHarmony = new ConstantHarmonicRythm([new ConstantHarmonyElement().setTimeSignature(rythmTsNumerator, this.rythmTsDenominator)]);
+
+        //            logit("  getting harmony rythm rythm " + rythmHarmony.)
+
+        const elements = rythm.getNoteRythmElements(module, rythmHarmony, 0);
+        if (this.harmonyLengthMode == HarmonyLengthMode.RYTHM_ONLY) {
+            theCount = elements.length;
+        }
+
+
+        let rythmBeatLength = 0.0;
+        for (let i=0; i<Math.max(1, theCount); i++) {
+            tsNumerator = getItemFromArrayWithStartEndItems(4, tsNumerators, theCount, i, this.startTsNumerators, this.endTsNumerators);
+            tsDenominator = getItemFromArrayWithStartEndItems(4, tsDenominators, theCount, i, this.startTsDenominators, this.endTsDenominators);
+            let beatLength = Math.max(1.0, tsDenominator);
+            if (elements.length > 0) {
+                const dummyHarmony = new ConstantHarmonicRythm([new ConstantHarmonyElement().setTimeSignature(tsNumerator, tsDenominator)]);
+                const element = elements[i % elements.length];
+                beatLength = positionUnitToBeats(element.length, element.lengthUnit, tsNumerator, tsDenominator, dummyHarmony);
             }
-            break;
+            result.push(beatLength);
+            rythmBeatLength += beatLength;
+        }
+
+        //            logit(" Beatlengths in element: " + result.join(", ") + " total length: " + rythmBeatLength);
+
+        // Scale the lengths so the total length becomes equal to totalLength
+        const theTotalLength = getValueOrExpressionValue(this, 'totalLength', module);
+        const totalBeatLength = positionUnitToBeats(theTotalLength, this.totalLengthUnit, tsNumerator, tsDenominator, rythmHarmony);
+
+        const scaleFactor = totalBeatLength / rythmBeatLength;
+        for (let i=0; i<result.length; i++) {
+            result[i] = result[i] * scaleFactor;
+        }
+        //            logit("    corrected Beatlengths in element: " + result.join(", "));
+
+        break;
+    case HarmonyLengthMode.COUNT_AND_LENGTH_PATTERN:
+        const theLengthPattern = getValueOrExpressionValue(this, 'lengthPattern', module);
+        const theStartLengthPattern = getValueOrExpressionValue(this, 'startLengthPattern', module);
+        const theEndLengthPattern = getValueOrExpressionValue(this, 'endLengthPattern', module);
+        for (let i=0; i<Math.max(1, theCount); i++) {
+            tsNumerator = getItemFromArrayWithStartEndItems(4, tsNumerators, theCount, i, this.startTsNumerators, this.endTsNumerators);
+            tsDenominator = getItemFromArrayWithStartEndItems(4, tsDenominators, theCount, i, this.startTsDenominators, this.endTsDenominators);
+            let length = getItemFromArrayWithStartEndItems(1.0, theLengthPattern, theCount, i, theStartLengthPattern, theEndLengthPattern);
+            let beatLength = positionUnitToBeats(length, this.lengthPatternUnit, tsNumerator, tsDenominator, null);
+            beatLength = Math.max(1.0, beatLength);
+            result.push(beatLength);
+        }
+        break;
     }
     const origLength = result.length;
     for (let i=0; i<this.lengthRepeats; i++) {
@@ -137,31 +137,31 @@ SequenceHarmonyElement.prototype.getBeatLengths = function(module) {
                 let lengthInc = 0;
 
                 switch (this.positionSnapMetrics) {
-                    case SnapMetrics.CEIL:
-                        if (shorterLengthInc >= 0) {
+                case SnapMetrics.CEIL:
+                    if (shorterLengthInc >= 0) {
+                        lengthInc = shorterLengthInc;
+                    } else {
+                        lengthInc = longerLengthInc;
+                    }
+                    break;
+                case SnapMetrics.FLOOR:
+                    if (shorterLengthInc + length > (1.0 / 16.0)) {
+                        lengthInc = shorterLengthInc;
+                    } else {
+                        lengthInc = longerLengthInc;
+                    }
+                    break;
+                case SnapMetrics.ROUND:
+                    if (shorterLengthInc + length > (1.0 / 16.0)) {
+                        if (Math.abs(shorterLengthInc) < Math.abs(longerLengthInc)) {
                             lengthInc = shorterLengthInc;
                         } else {
                             lengthInc = longerLengthInc;
                         }
-                        break;
-                    case SnapMetrics.FLOOR:
-                        if (shorterLengthInc + length > (1.0 / 16.0)) {
-                            lengthInc = shorterLengthInc;
-                        } else {
-                            lengthInc = longerLengthInc;
-                        }
-                        break;
-                    case SnapMetrics.ROUND:
-                        if (shorterLengthInc + length > (1.0 / 16.0)) {
-                            if (Math.abs(shorterLengthInc) < Math.abs(longerLengthInc)) {
-                                lengthInc = shorterLengthInc;
-                            } else {
-                                lengthInc = longerLengthInc;
-                            }
-                        } else {
-                            lengthInc = longerLengthInc;
-                        }
-                        break;
+                    } else {
+                        lengthInc = longerLengthInc;
+                    }
+                    break;
                 }
                 length += lengthInc;
                 currentBeat += lengthInc;
@@ -174,12 +174,12 @@ SequenceHarmonyElement.prototype.getBeatLengths = function(module) {
 
 
 
-    const useMaxElementLength = getValueOrExpressionValue(this, "useMaxElementLength", module);
+    const useMaxElementLength = getValueOrExpressionValue(this, 'useMaxElementLength', module);
     if (useMaxElementLength) {
         const newResult = [];
 
-        const maxElementLength = getValueOrExpressionValue(this, "maxElementLength", module);
-        const maxElementLengthUnit = getValueOrExpressionValue(this, "maxElementLengthUnit", module);
+        const maxElementLength = getValueOrExpressionValue(this, 'maxElementLength', module);
+        const maxElementLengthUnit = getValueOrExpressionValue(this, 'maxElementLengthUnit', module);
 
         const maxBeatLength = positionUnitToBeats(maxElementLength, maxElementLengthUnit, tsNumerator, tsDenominator);
 
@@ -199,7 +199,7 @@ SequenceHarmonyElement.prototype.getBeatLengths = function(module) {
         }
 
         if (result.length != newResult.length) {
-//            logit(this._constructorName + " Splitted up the beat lengths from " + result.join(",") + " to " + newResult.join(","));
+            //            logit(this._constructorName + " Splitted up the beat lengths from " + result.join(",") + " to " + newResult.join(","));
         }
 
         result = newResult;
@@ -225,7 +225,7 @@ SequenceHarmonyElement.prototype.setLengthsAndPhraseStructure = function(solutio
             che.startBeatStrength = startBeatStrengths[i % startBeatStrengths.length];
         }
 
-        let thePhraseStructureCounts = getValueOrExpressionValue(this, "phraseStructureCounts", module);
+        let thePhraseStructureCounts = getValueOrExpressionValue(this, 'phraseStructureCounts', module);
 
         if (!thePhraseStructureCounts || typeof(thePhraseStructureCounts) === 'undefined') {
             thePhraseStructureCounts = [];
@@ -270,7 +270,7 @@ SimpleSequenceHarmonyElement.prototype.getConstantHarmonyElements = function(mod
         const chordTypeIndex = getItemFromArrayWithStartEndItems(0, this.chordTypeIndices, beatLengths.length, i, this.startChordTypeIndices, this.endChordTypeIndices);
         che.chordType = this.chordTypes.length > 0 ? this.chordTypes[chordTypeIndex % this.chordTypes.length] : ChordType.TRIAD;
 
-//        logit("Setting chord type to " + JSON.stringify(che.chordType) + " for index " + i + " all: " + JSON.stringify(this.chordTypes));
+        //        logit("Setting chord type to " + JSON.stringify(che.chordType) + " for index " + i + " all: " + JSON.stringify(this.chordTypes));
 
         che.chordRoot = getItemFromArrayWithStartEndItems(0, this.chordRoots, beatLengths.length, i, this.startChordRoots, this.endChordRoots);
         che.chordInversions = getItemFromArrayWithStartEndItems(0, this.chordInversions, beatLengths.length, i, this.startChordInversions, this.endChordInversions);
@@ -289,7 +289,7 @@ SimpleSequenceHarmonyElement.prototype.getConstantHarmonyElements = function(mod
 
         if (this.voiceLineConstraints.length > 0) {
             const constraintIndices = getItemFromArrayWithStartEndItems([], this.voiceLineConstraintIndices, beatLengths.length, i, this.startVoiceLineConstraintIndices, this.endVoiceLineConstraintIndices);
-//            logit("Voice line constraints " + JSON.stringify(this.voiceLineConstraints) + " and indices" + JSON.stringify(constraintIndices));
+            //            logit("Voice line constraints " + JSON.stringify(this.voiceLineConstraints) + " and indices" + JSON.stringify(constraintIndices));
             if (constraintIndices.length > 0) {
                 for (const cIndex of constraintIndices) {
                     if (cIndex >= 0) {
@@ -303,9 +303,9 @@ SimpleSequenceHarmonyElement.prototype.getConstantHarmonyElements = function(mod
 
         result.push(che);
 
-//        logit("chord scale type: " + che.scaleType + " chord type: " + che.chordType + " chord root: " + che.chordRoot);
-//        logit("chord scale indices: " + che.getChordScaleIndices().join(", "));
-//        logit("chord absolute notes: " + che.getChordAbsoluteNotes().join(", "));
+        //        logit("chord scale type: " + che.scaleType + " chord type: " + che.chordType + " chord root: " + che.chordRoot);
+        //        logit("chord scale indices: " + che.getChordScaleIndices().join(", "));
+        //        logit("chord absolute notes: " + che.getChordAbsoluteNotes().join(", "));
     }
 
 

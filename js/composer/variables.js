@@ -1,8 +1,8 @@
 
 class EditorFunctionOrVariable {
     constructor() {
-        this.id = "";
-        this._constructorName = "EditorFunctionOrVariable";
+        this.id = '';
+        this._constructorName = 'EditorFunctionOrVariable';
     }
 }
 
@@ -23,30 +23,30 @@ const EnumType = {
 
     toString(unit) {
         switch (unit) {
-            case EnumType.CHORD_TYPE:
-                return "ChordType";
-            case EnumType.COUNT_UNIT:
-                return "CountUnit";
-            case EnumType.HORIZONTAL_RELATIVE_TYPE:
-                return "HorizontalRelativeType";
-            case EnumType.INDEX_BORDER_MODE:
-                return "IndexBorderMode";
-            case EnumType.INDEX_TYPE:
-                return "IndexType";
-            case EnumType.OFFSET_TYPE:
-                return "OffsetType";
-            case EnumType.POSITION_UNIT:
-                return "PositionUnit";
-            case EnumType.SCALE_TYPE:
-                return "ScaleType";
-            case EnumType.SNAP_METRICS:
-                return "SnapMetrics";
-            case EnumType.SNAP_TYPE:
-                return "SnapType";
-            case EnumType.VERTICAL_RELATIVE_TYPE:
-                return "VerticalRelativeType";
-            case EnumType.PREDEFINED_CURVE_TYPE:
-                return "PredefinedCurveType";
+        case EnumType.CHORD_TYPE:
+            return 'ChordType';
+        case EnumType.COUNT_UNIT:
+            return 'CountUnit';
+        case EnumType.HORIZONTAL_RELATIVE_TYPE:
+            return 'HorizontalRelativeType';
+        case EnumType.INDEX_BORDER_MODE:
+            return 'IndexBorderMode';
+        case EnumType.INDEX_TYPE:
+            return 'IndexType';
+        case EnumType.OFFSET_TYPE:
+            return 'OffsetType';
+        case EnumType.POSITION_UNIT:
+            return 'PositionUnit';
+        case EnumType.SCALE_TYPE:
+            return 'ScaleType';
+        case EnumType.SNAP_METRICS:
+            return 'SnapMetrics';
+        case EnumType.SNAP_TYPE:
+            return 'SnapType';
+        case EnumType.VERTICAL_RELATIVE_TYPE:
+            return 'VerticalRelativeType';
+        case EnumType.PREDEFINED_CURVE_TYPE:
+            return 'PredefinedCurveType';
         }
         return `Unknown enum type ${unit}`;
     }
@@ -73,35 +73,35 @@ class SimpleEnumEditorVariable extends EditorFunctionOrVariable {
         this.countUnitValue = CountUnit.PLAIN;
         this.predefinedCurveTypeValue = PredefinedCurveType.CONSTANT;
 
-        this._constructorName = "SimpleEnumEditorVariable";
+        this._constructorName = 'SimpleEnumEditorVariable';
     }
 
     getValue(module) {
         switch (this.enumType) {
-            case EnumType.CHORD_TYPE:
-                return this.chordTypeValue;
-            case EnumType.COUNT_UNIT:
-                return this.countUnitValue;
-            case EnumType.HORIZONTAL_RELATIVE_TYPE:
-                return this.horizontalRelativeTypeValue;
-            case EnumType.INDEX_BORDER_MODE:
-                return this.indexBorderModeValue;
-            case EnumType.INDEX_TYPE:
-                return this.indexTypeValue;
-            case EnumType.OFFSET_TYPE:
-                return this.offsetTypeValue;
-            case EnumType.POSITION_UNIT:
-                return this.positionUnitValue;
-            case EnumType.PREDEFINED_CURVE_TYPE:
-                return this.predefinedCurveTypeValue;
-            case EnumType.SCALE_TYPE:
-                return this.scaleTypeValue;
-            case EnumType.SNAP_METRICS:
-                return this.snapMetricsValue;
-            case EnumType.SNAP_TYPE:
-                return this.snapTypeValue;
-            case EnumType.VERTICAL_RELATIVE_TYPE:
-                return this.verticalRelativeTypeValue;
+        case EnumType.CHORD_TYPE:
+            return this.chordTypeValue;
+        case EnumType.COUNT_UNIT:
+            return this.countUnitValue;
+        case EnumType.HORIZONTAL_RELATIVE_TYPE:
+            return this.horizontalRelativeTypeValue;
+        case EnumType.INDEX_BORDER_MODE:
+            return this.indexBorderModeValue;
+        case EnumType.INDEX_TYPE:
+            return this.indexTypeValue;
+        case EnumType.OFFSET_TYPE:
+            return this.offsetTypeValue;
+        case EnumType.POSITION_UNIT:
+            return this.positionUnitValue;
+        case EnumType.PREDEFINED_CURVE_TYPE:
+            return this.predefinedCurveTypeValue;
+        case EnumType.SCALE_TYPE:
+            return this.scaleTypeValue;
+        case EnumType.SNAP_METRICS:
+            return this.snapMetricsValue;
+        case EnumType.SNAP_TYPE:
+            return this.snapTypeValue;
+        case EnumType.VERTICAL_RELATIVE_TYPE:
+            return this.verticalRelativeTypeValue;
         }
         return 0;
     }
@@ -110,7 +110,7 @@ class SimpleEnumEditorVariable extends EditorFunctionOrVariable {
 class BooleanEditorVariable extends EditorFunctionOrVariable {
     constructor() {
         super();
-        this._constructorName = "BooleanEditorVariable";
+        this._constructorName = 'BooleanEditorVariable';
     }
 }
 
@@ -119,7 +119,7 @@ class SimpleBooleanEditorVariable extends BooleanEditorVariable {
         super();
         this.value = false;
 
-        this._constructorName = "SimpleBooleanEditorVariable";
+        this._constructorName = 'SimpleBooleanEditorVariable';
     }
 
     getValue(module) {
@@ -130,7 +130,7 @@ class SimpleBooleanEditorVariable extends BooleanEditorVariable {
 class ObjectEditorVariable extends EditorFunctionOrVariable {
     constructor() {
         super();
-        this._constructorName = "ObjectEditorVariable";
+        this._constructorName = 'ObjectEditorVariable';
     }
 }
 
@@ -140,27 +140,27 @@ class SimpleObjectEditorVariable extends ObjectEditorVariable {
 
         this.value = {};
 
-        this._constructorName = "SimpleObjectEditorVariable";
+        this._constructorName = 'SimpleObjectEditorVariable';
     }
 
     getValue(module) {
-        return getValueOrExpressionValue(this, "value", module);
+        return getValueOrExpressionValue(this, 'value', module);
     }
 }
 
 class StringEditorVariable extends EditorFunctionOrVariable {
     constructor() {
         super();
-        this._constructorName = "StringEditorVariable";
+        this._constructorName = 'StringEditorVariable';
     }
 }
 
 class SimpleStringEditorVariable extends StringEditorVariable {
     constructor() {
         super();
-        this.value = "";
+        this.value = '';
 
-        this._constructorName = "SimpleStringEditorVariable";
+        this._constructorName = 'SimpleStringEditorVariable';
     }
 
     getValue(module) {
@@ -186,26 +186,26 @@ const EditorIdReferenceType = {
 
     toString(unit) {
         switch (unit) {
-            case EditorIdReferenceType.CONTROL_CHANNEL:
-                return "Control channel";
-            case EditorIdReferenceType.CURVE:
-                return "Curve";
-            case EditorIdReferenceType.HARMONY:
-                return "Harmony";
-            case EditorIdReferenceType.MOTIF:
-                return "Motif";
-            case EditorIdReferenceType.NAMED_NOTE:
-                return "Named note";
-            case EditorIdReferenceType.PERCUSSION_MOTIF:
-                return "Percussion motif";
-            case EditorIdReferenceType.RENDER_CHANNEL:
-                return "Render channel";
-            case EditorIdReferenceType.RYTHM:
-                return "Rythm";
-            case EditorIdReferenceType.SECTION:
-                return "Section";
-            case EditorIdReferenceType.STRUCTURE:
-                return "Structure";
+        case EditorIdReferenceType.CONTROL_CHANNEL:
+            return 'Control channel';
+        case EditorIdReferenceType.CURVE:
+            return 'Curve';
+        case EditorIdReferenceType.HARMONY:
+            return 'Harmony';
+        case EditorIdReferenceType.MOTIF:
+            return 'Motif';
+        case EditorIdReferenceType.NAMED_NOTE:
+            return 'Named note';
+        case EditorIdReferenceType.PERCUSSION_MOTIF:
+            return 'Percussion motif';
+        case EditorIdReferenceType.RENDER_CHANNEL:
+            return 'Render channel';
+        case EditorIdReferenceType.RYTHM:
+            return 'Rythm';
+        case EditorIdReferenceType.SECTION:
+            return 'Section';
+        case EditorIdReferenceType.STRUCTURE:
+            return 'Structure';
         }
         return `Unknown id reference type ${unit}`;
     }
@@ -218,51 +218,51 @@ class IdReferenceEditorVariable extends StringEditorVariable {
     constructor() {
         super();
         this.referenceType = EditorIdReferenceType.HARMONY;
-        this.structure = "";
-        this.section = "";
-        this.harmony = "";
-        this.motif = "";
-        this.percussionMotif = "";
-        this.rythm = "";
-        this.curve = "";
-        this.renderChannel = "";
-        this.controlChannel = "";
-        this.namedNote = "";
+        this.structure = '';
+        this.section = '';
+        this.harmony = '';
+        this.motif = '';
+        this.percussionMotif = '';
+        this.rythm = '';
+        this.curve = '';
+        this.renderChannel = '';
+        this.controlChannel = '';
+        this.namedNote = '';
 
-        this._constructorName = "IdReferenceEditorVariable";
+        this._constructorName = 'IdReferenceEditorVariable';
     }
 
     getValue(module) {
         switch (this.referenceType) {
-            case EditorIdReferenceType.CONTROL_CHANNEL:
-                return this.controlChannel
-            case EditorIdReferenceType.CURVE:
-                return this.curve;
-            case EditorIdReferenceType.HARMONY:
-                return this.harmony;
-            case EditorIdReferenceType.MOTIF:
-                return this.motif;
-            case EditorIdReferenceType.NAMED_NOTE:
-                return this.namedNote;
-            case EditorIdReferenceType.PERCUSSION_MOTIF:
-                return this.percussionMotif;
-            case EditorIdReferenceType.RENDER_CHANNEL:
-                return this.renderChannel;
-            case EditorIdReferenceType.RYTHM:
-                return this.rythm;
-            case EditorIdReferenceType.SECTION:
-                return this.section;
-            case EditorIdReferenceType.STRUCTURE:
-                return this.structure;
+        case EditorIdReferenceType.CONTROL_CHANNEL:
+            return this.controlChannel
+        case EditorIdReferenceType.CURVE:
+            return this.curve;
+        case EditorIdReferenceType.HARMONY:
+            return this.harmony;
+        case EditorIdReferenceType.MOTIF:
+            return this.motif;
+        case EditorIdReferenceType.NAMED_NOTE:
+            return this.namedNote;
+        case EditorIdReferenceType.PERCUSSION_MOTIF:
+            return this.percussionMotif;
+        case EditorIdReferenceType.RENDER_CHANNEL:
+            return this.renderChannel;
+        case EditorIdReferenceType.RYTHM:
+            return this.rythm;
+        case EditorIdReferenceType.SECTION:
+            return this.section;
+        case EditorIdReferenceType.STRUCTURE:
+            return this.structure;
         }
-        return "";
+        return '';
     }
 }
 
 class DoubleEditorVariable extends EditorFunctionOrVariable {
     constructor() {
         super();
-        this._constructorName = "DoubleEditorVariable";
+        this._constructorName = 'DoubleEditorVariable';
     }
 }
 
@@ -271,7 +271,7 @@ class SimpleDoubleEditorVariable extends DoubleEditorVariable {
         super();
         this.value = 0.0;
 
-        this._constructorName = "SimpleDoubleEditorVariable";
+        this._constructorName = 'SimpleDoubleEditorVariable';
     }
 
     getValue(module) {
@@ -282,7 +282,7 @@ class SimpleDoubleEditorVariable extends DoubleEditorVariable {
 class IntegerEditorVariable extends EditorFunctionOrVariable {
     constructor() {
         super();
-        this._constructorName = "IntegerEditorVariable";
+        this._constructorName = 'IntegerEditorVariable';
     }
 }
 
@@ -291,7 +291,7 @@ class SimpleIntegerEditorVariable extends IntegerEditorVariable {
         super();
         this.value = 0;
 
-        this._constructorName = "SimpleIntegerEditorVariable";
+        this._constructorName = 'SimpleIntegerEditorVariable';
     }
 
     getValue(module) {
@@ -302,7 +302,7 @@ class SimpleIntegerEditorVariable extends IntegerEditorVariable {
 class DoubleArrayEditorVariable extends EditorFunctionOrVariable {
     constructor() {
         super();
-        this._constructorName = "DoubleArrayEditorVariable";
+        this._constructorName = 'DoubleArrayEditorVariable';
     }
 
     getValue(module) {
@@ -315,7 +315,7 @@ class SimpleDoubleArrayEditorVariable extends DoubleArrayEditorVariable {
         super();
         this.value = [];
 
-        this._constructorName = "SimpleDoubleArrayEditorVariable";
+        this._constructorName = 'SimpleDoubleArrayEditorVariable';
     }
 
     getValue(module) {
@@ -326,7 +326,7 @@ class SimpleDoubleArrayEditorVariable extends DoubleArrayEditorVariable {
 class IntegerArrayEditorVariable extends EditorFunctionOrVariable {
     constructor() {
         super();
-        this._constructorName = "IntegerArrayEditorVariable";
+        this._constructorName = 'IntegerArrayEditorVariable';
     }
 
     getValue(module) {
@@ -337,7 +337,7 @@ class IntegerArrayEditorVariable extends EditorFunctionOrVariable {
 class IntegerArray2DEditorVariable extends EditorFunctionOrVariable {
     constructor() {
         super();
-        this._constructorName = "IntegerArray2DEditorVariable";
+        this._constructorName = 'IntegerArray2DEditorVariable';
     }
 
     getValue(module) {
@@ -350,7 +350,7 @@ class SimpleIntegerArray2DEditorVariable extends IntegerArray2DEditorVariable {
         super();
         this.value = [];
 
-        this._constructorName = "SimpleIntegerArray2DEditorVariable";
+        this._constructorName = 'SimpleIntegerArray2DEditorVariable';
     }
 
     getValue(module) {
@@ -366,12 +366,12 @@ class SimpleRandomIntegerArrayEditorVariable extends IntegerArrayEditorVariable 
         this.domain = [0, 1];
         this.domainLikelihoods = [1];
 
-        this._constructorName = "SimpleRandomIntegerArrayEditorVariable";
+        this._constructorName = 'SimpleRandomIntegerArrayEditorVariable';
     }
 
     getValue(module, params) {
-        const theSeed = getValueOrDefault(params, "seed", this.seed);
-        const theCount = getValueOrDefault(params, "count", this.count);
+        const theSeed = getValueOrDefault(params, 'seed', this.seed);
+        const theCount = getValueOrDefault(params, 'count', this.count);
         const rnd = new MersenneTwister(theSeed);
         let theLikelihoods = this.domainLikelihoods;
         if (theLikelihoods.length == 0) {
@@ -404,12 +404,12 @@ class MarkovRandomIntegerArrayEditorVariable extends IntegerArrayEditorVariable 
         this.stateDomainLikelihoods = [[1], [1]];
         this.stateTransitionLikelihoods = [[1, 1], [1, 1]];
 
-        this._constructorName = "MarkovRandomIntegerArrayEditorVariable";
+        this._constructorName = 'MarkovRandomIntegerArrayEditorVariable';
     }
 
     getValue(module, params) {
-        const theSeed = getValueOrDefault(params, "seed", this.seed);
-        const theCount = getValueOrDefault(params, "count", this.count);
+        const theSeed = getValueOrDefault(params, 'seed', this.seed);
+        const theCount = getValueOrDefault(params, 'count', this.count);
         const rnd = new MersenneTwister(theSeed);
 
 
@@ -478,7 +478,7 @@ class SimpleIntegerArrayEditorVariable extends IntegerArrayEditorVariable {
         super();
         this.value = [];
 
-        this._constructorName = "SimpleIntegerArrayEditorVariable";
+        this._constructorName = 'SimpleIntegerArrayEditorVariable';
     }
 
     getValue(module) {
@@ -494,7 +494,7 @@ class PatternIntegerArrayEditorVariable extends IntegerArrayEditorVariable {
         this.startElements = [];
         this.endElements = [];
 
-        this._constructorName = "PatternIntegerArrayEditorVariable";
+        this._constructorName = 'PatternIntegerArrayEditorVariable';
     }
 
     getValue(module) {
@@ -515,7 +515,7 @@ class PatternDoubleArrayEditorVariable extends DoubleArrayEditorVariable {
         this.startElements = [];
         this.endElements = [];
 
-        this._constructorName = "PatternDoubleArrayEditorVariable";
+        this._constructorName = 'PatternDoubleArrayEditorVariable';
     }
 
     getValue(module) {

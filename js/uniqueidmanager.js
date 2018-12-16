@@ -4,14 +4,14 @@ function UniqueIdManager() {
     this.uniqueIdInfos = {};
 
     this.globalListeners = [];
-//var uniqueIdListener = {
-//    uniqueIdAdded: function(owner, namespace, id) {
-//    },
-//    uniqueIdChanged: function(owner, namespace, oldId, newId) {
-//    },
-//    uniqueIdRemoved: function(owner, namespace, id) {
-//    }
-//}
+    //var uniqueIdListener = {
+    //    uniqueIdAdded: function(owner, namespace, id) {
+    //    },
+    //    uniqueIdChanged: function(owner, namespace, oldId, newId) {
+    //    },
+    //    uniqueIdRemoved: function(owner, namespace, id) {
+    //    }
+    //}
 
 }
 
@@ -70,7 +70,7 @@ UniqueIdManager.prototype.getNextUniqueId = function(namespace, prefix) {
     var counter = 1;
     var idInfos = this.uniqueIdInfos[namespace];
     while (true) {
-        var testId = prefix + "" + counter;
+        var testId = prefix + '' + counter;
         if (!idInfos || typeof idInfos.get(testId) === 'undefined') {
             return testId;
         }
@@ -111,7 +111,7 @@ UniqueIdManager.prototype.addUniqueId = function(owner, namespace, newId) {
             this.globalListeners[i].uniqueIdAdded(owner, namespace, newId);
         }
     } else {
-        logit("id already existed in addUniqueId() " + namespace + " " + newId + "<br />");
+        logit('id already existed in addUniqueId() ' + namespace + ' ' + newId + '<br />');
     }
 };
 
@@ -129,7 +129,7 @@ UniqueIdManager.prototype.changeUniqueId = function(owner, namespace, oldId, new
         //            logit("old owner not the same as new owner in changeUniqueId() " + namespace + " " + oldId + " " + newId + "<br />");
         //        }
     } else {
-        logit("could not find any ids for namespace " + namespace + " in changeUniqueId()<br />");
+        logit('could not find any ids for namespace ' + namespace + ' in changeUniqueId()<br />');
     }
     for (var i=0; i<this.globalListeners.length; i++) {
         this.globalListeners[i].uniqueIdChanged(owner, namespace, oldId, newId);
@@ -143,7 +143,7 @@ UniqueIdManager.prototype.removeUniqueId = function(namespace, id) {
     if (idInfos) {
         var owner = idInfos.get(id);
         if (typeof owner === 'undefined') {
-            logit("owner not exist in removeUniqueId() " + namespace + " " + id + "<br />");
+            logit('owner not exist in removeUniqueId() ' + namespace + ' ' + id + '<br />');
         } else {
             idInfos.remove(id);
             $.each(this.getListeners(namespace), function(key, value) {
@@ -151,7 +151,7 @@ UniqueIdManager.prototype.removeUniqueId = function(namespace, id) {
             });
         }
     } else {
-        logit("could not find any ids for namespace " + namespace + " in removeUniqueId()<br />");
+        logit('could not find any ids for namespace ' + namespace + ' in removeUniqueId()<br />');
     }
 
     for (var i=0; i<this.globalListeners.length; i++) {

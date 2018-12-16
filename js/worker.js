@@ -2,73 +2,73 @@
 var that = self;
 
 function logit(str) {
-    that.postMessage({type: "log", data: str});
+    that.postMessage({type: 'log', data: str});
 }
 
 
 importScripts(
-    "composer/random.js",
-    "composer/mersennetwister.js",
-    "composer/utils.js",
-    "composer/constants.js",
-    "composer/interpolation.js",
-    "composer/splineinterpolation.js",
-    "composer/map.js",
-    "composer/latticenoise.js",
-    "composer/perlinnoise.js",
-    "composer/variables.js",
-    "composer/soundfont.js",
-    "composer/perftimer.js",
-    "composer/procedures.js",
-    "composer/dfssolver.js",
-    "composer/controlchannel.js",
-    "composer/renderchannel.js",
-    "composer/curve.js",
-    "composer/figurationgrid.js",
-    "composer/figurator.js",
-    "composer/renderline.js",
-    "composer/motifrenderelement.js",
-    "composer/controlline.js",
-    "composer/genmusicmodule.js",
-    "composer/splitzone.js",
-    "composer/rythm.js",
-    "composer/section.js",
-    "composer/sectionmodifier.js",
-    "composer/motifzone.js",
-    "composer/percussionmotifzone.js",
-    "composer/motif.js",
-    "composer/percussionmotif.js",
-    "composer/predefinedpercussion.js",
-    "composer/harmonicrythm.js",
-    "composer/harmonyelement.js",
-    "composer/harmonymodifier.js",
-    "composer/sequenceharmonyelement.js",
-    "composer/plannedharmonyelement.js",
-    "composer/phraseharmonyelement.js",
-    "composer/voiceline.js",
-    "composer/structure.js",
-    "composer/renderstate.js",
-    "composer/renderdata.js",
-    "composer/harmonygenerator.js",
-    "composer/staticharmonygenerator.js",
-    "composer/dynamicharmonygeneratorconstants.js",
-    "composer/dynamicharmonygenerator.js",
-    "composer/chromatictransitionharmonygenerator.js",
-    "composer/chromaticoscillationharmonygenerator.js",
-    "composer/dominantharmonygenerator.js",
-    "composer/toniccadenceharmonygenerator.js",
-    "composer/suspantstrategies.js",
-    "composer/voicelinegenerator.js",
-    "composer/classicalvoicelinegenerator.js",
-    "composer/voicelineconstraintsinclude.js",
-    "composer/voicelineconstraints.js",
-    "composer/classicalvoicelineplanner.js",
-    "composer/midiconstants.js",
-    "composer/midirenderer.js",
-    "composer/datasample.js",
-    "composer/geninfo.js",
-    "composer/testmoduleconstants.js",
-    "composer/testmodule.js");
+    'composer/random.js',
+    'composer/mersennetwister.js',
+    'composer/utils.js',
+    'composer/constants.js',
+    'composer/interpolation.js',
+    'composer/splineinterpolation.js',
+    'composer/map.js',
+    'composer/latticenoise.js',
+    'composer/perlinnoise.js',
+    'composer/variables.js',
+    'composer/soundfont.js',
+    'composer/perftimer.js',
+    'composer/procedures.js',
+    'composer/dfssolver.js',
+    'composer/controlchannel.js',
+    'composer/renderchannel.js',
+    'composer/curve.js',
+    'composer/figurationgrid.js',
+    'composer/figurator.js',
+    'composer/renderline.js',
+    'composer/motifrenderelement.js',
+    'composer/controlline.js',
+    'composer/genmusicmodule.js',
+    'composer/splitzone.js',
+    'composer/rythm.js',
+    'composer/section.js',
+    'composer/sectionmodifier.js',
+    'composer/motifzone.js',
+    'composer/percussionmotifzone.js',
+    'composer/motif.js',
+    'composer/percussionmotif.js',
+    'composer/predefinedpercussion.js',
+    'composer/harmonicrythm.js',
+    'composer/harmonyelement.js',
+    'composer/harmonymodifier.js',
+    'composer/sequenceharmonyelement.js',
+    'composer/plannedharmonyelement.js',
+    'composer/phraseharmonyelement.js',
+    'composer/voiceline.js',
+    'composer/structure.js',
+    'composer/renderstate.js',
+    'composer/renderdata.js',
+    'composer/harmonygenerator.js',
+    'composer/staticharmonygenerator.js',
+    'composer/dynamicharmonygeneratorconstants.js',
+    'composer/dynamicharmonygenerator.js',
+    'composer/chromatictransitionharmonygenerator.js',
+    'composer/chromaticoscillationharmonygenerator.js',
+    'composer/dominantharmonygenerator.js',
+    'composer/toniccadenceharmonygenerator.js',
+    'composer/suspantstrategies.js',
+    'composer/voicelinegenerator.js',
+    'composer/classicalvoicelinegenerator.js',
+    'composer/voicelineconstraintsinclude.js',
+    'composer/voicelineconstraints.js',
+    'composer/classicalvoicelineplanner.js',
+    'composer/midiconstants.js',
+    'composer/midirenderer.js',
+    'composer/datasample.js',
+    'composer/geninfo.js',
+    'composer/testmoduleconstants.js',
+    'composer/testmodule.js');
 
 //importScripts("composeworkersource-min.js");
 
@@ -76,26 +76,26 @@ importScripts(
 
 //importScripts("midisynthsourceconcat.js");
 
-importScripts("midisynth/riffwave.js", 
-    "midisynth/midisynthsource.js", 
-    "midisynth/midisynthenvelope.js", 
-    "midisynth/midisynthfilter.js", 
-    "midisynth/midisynthoscillator.js", 
-    "midisynth/midisynthvoice.js", 
-    "midisynth/midisynthinstrument.js", 
-    "midisynth/midisynth.js");
+importScripts('midisynth/riffwave.js', 
+    'midisynth/midisynthsource.js', 
+    'midisynth/midisynthenvelope.js', 
+    'midisynth/midisynthfilter.js', 
+    'midisynth/midisynthoscillator.js', 
+    'midisynth/midisynthvoice.js', 
+    'midisynth/midisynthinstrument.js', 
+    'midisynth/midisynth.js');
 
-importScripts("stacktrace.js");
+importScripts('stacktrace.js');
 
 function inputOk(genInfo, correct) {
     var valid = true;
     try {
-        valid = validateValueWithSafeValue(genInfo, new GenInfo(), null, {"array": 1, "number": 1}, correct);
+        valid = validateValueWithSafeValue(genInfo, new GenInfo(), null, {'array': 1, 'number': 1}, correct);
         if (!valid) {
-            logit("Input validation failed");
+            logit('Input validation failed');
         }
     } catch (exc) {
-        logit("Input validation threw exception:");
+        logit('Input validation threw exception:');
         logit(exc.toString());
         valid = false;
     }
@@ -106,7 +106,7 @@ function render(data, progressMultiplier) {
 
     var content = data.content;
 
-//                        logit("Worker is composing with seed " + content.seed);
+    //                        logit("Worker is composing with seed " + content.seed);
     var seed = content.seed;
     var sectionIndex = content.sectionIndex;
 
@@ -120,7 +120,7 @@ function render(data, progressMultiplier) {
         var maxSections = 40;
         var module = createTestModule(rnd.genrand_int31(), genInfo, resultObj);
 
-        var midiRenderer = module.getSynthRenderer("midiRenderer");
+        var midiRenderer = module.getSynthRenderer('midiRenderer');
 
         var result = {
             songStructureInfo: resultObj.songStructureInfo,
@@ -138,7 +138,7 @@ function render(data, progressMultiplier) {
         var sectionTimes = [];
         structure.renderBatch(state, function(progress) {
             sectionTimes.push(state.sectionTime);
-            that.postMessage({type: "progressReport", progress: progress * progressMultiplier});
+            that.postMessage({type: 'progressReport', progress: progress * progressMultiplier});
         });
         renderData.sort();
 
@@ -173,90 +173,90 @@ self.addEventListener('message', function(e) {
         }
 
         switch (data.type) {
-            case "startTask":
-                var taskType = data.taskType;
-                switch (taskType) {
-                    case 0:
-//                        logit("Worker is composing...");
+        case 'startTask':
+            var taskType = data.taskType;
+            switch (taskType) {
+            case 0:
+                //                        logit("Worker is composing...");
 
-                        var result = render(data, 1);
-                        if (result) {
-                            delete result.origRenderData; // No use to us
-                            delete result.module; // No use to us
-                            self.postMessage({type: "progressReport", progress: 1});
-                            self.postMessage({type: "result", data: JSON.stringify(result)});
-                        } else {
-                            self.postMessage({type: "error", data: "No result from render"});
-                        }
-                        break;
-                    case 1: // Midi
-                    case 2: // Wav
-//                        logit("Worker is exporting midi...");
-
-
-                        var progMult = taskType == 1 ? 1 : 0.5;
-
-                        var result = render(data, progMult);
-                        if (result) {
-                            var midiRenderer = result.module.getSynthRenderer("midiRenderer");
-                            var midiData = midiRenderer.getMidiData(result.origRenderData, result.module, data.content.genInfo);
-                            result.midiData = midiData;
-
-//                            logit("Result midi data " + JSON.stringify(result.midiData));
-
-                            delete result.origRenderData; // No use to us now after midi has been rendered
-                            delete result.module; // No use to us now after midi has been rendered
-
-                            var that = self;
-                            if (taskType == 2) {
-                                // Render wav and send the buffer first
-                                var options = {sampleFreq: 44100, channels: 2};
-                                var synth = new MidiSynth(options);
-                                var floatResult = synth.synthesizeBatch(result.midiData, function(progress) {
-                                    that.postMessage({type: "progressReport", progress: 0.5 + 0.5 * progress});
-                                });
-
-                                var maxShort = (256 * 256) / 2 - 1;
-
-                                var len = floatResult[0].length;
-
-                                var dataView = new DataView(new ArrayBuffer(len * 4));
-
-                                for (var i=0; i<len; i++) {
-                                    var value = floatResult[0][i];
-                                    dataView.setInt16(i * 4, Math.round(maxShort * value), true);
-                                    var value = floatResult[1][i];
-                                    dataView.setInt16(i * 4 + 2, Math.round(maxShort * value), true);
-                                }
-
-                                var rw = new RIFFWAVE();
-                                var buffer = rw.create(dataView);
-                                if (data.transferableSupported) {
-//                                    logit("Using transferable!");
-                                    self.postMessage(buffer, [buffer]);
-                                } else {
-                                    self.postMessage(buffer);
-                                }
-                            }
-                            self.postMessage({type: "progressReport", progress: 1});
-                            self.postMessage({type: "result", data: JSON.stringify(result)});
-
-                        } else {
-                            logit("Error, no result");
-                            self.postMessage({type: "error", data: "No result from render"});
-                        }
-                        break;
+                var result = render(data, 1);
+                if (result) {
+                    delete result.origRenderData; // No use to us
+                    delete result.module; // No use to us
+                    self.postMessage({type: 'progressReport', progress: 1});
+                    self.postMessage({type: 'result', data: JSON.stringify(result)});
+                } else {
+                    self.postMessage({type: 'error', data: 'No result from render'});
                 }
                 break;
-            case "cancelTask":
-                break;
-        }
-//        self.close();
-    } catch (exc) {
-        logit("Exception in worker " + exc + " ");
-        logit(printStackTrace({e: exc}).join("\n"));
+            case 1: // Midi
+            case 2: // Wav
+                //                        logit("Worker is exporting midi...");
 
-        self.postMessage({type: "error", data: exc.toString()});
-//        self.close();
+
+                var progMult = taskType == 1 ? 1 : 0.5;
+
+                var result = render(data, progMult);
+                if (result) {
+                    var midiRenderer = result.module.getSynthRenderer('midiRenderer');
+                    var midiData = midiRenderer.getMidiData(result.origRenderData, result.module, data.content.genInfo);
+                    result.midiData = midiData;
+
+                    //                            logit("Result midi data " + JSON.stringify(result.midiData));
+
+                    delete result.origRenderData; // No use to us now after midi has been rendered
+                    delete result.module; // No use to us now after midi has been rendered
+
+                    var that = self;
+                    if (taskType == 2) {
+                        // Render wav and send the buffer first
+                        var options = {sampleFreq: 44100, channels: 2};
+                        var synth = new MidiSynth(options);
+                        var floatResult = synth.synthesizeBatch(result.midiData, function(progress) {
+                            that.postMessage({type: 'progressReport', progress: 0.5 + 0.5 * progress});
+                        });
+
+                        var maxShort = (256 * 256) / 2 - 1;
+
+                        var len = floatResult[0].length;
+
+                        var dataView = new DataView(new ArrayBuffer(len * 4));
+
+                        for (var i=0; i<len; i++) {
+                            var value = floatResult[0][i];
+                            dataView.setInt16(i * 4, Math.round(maxShort * value), true);
+                            var value = floatResult[1][i];
+                            dataView.setInt16(i * 4 + 2, Math.round(maxShort * value), true);
+                        }
+
+                        var rw = new RIFFWAVE();
+                        var buffer = rw.create(dataView);
+                        if (data.transferableSupported) {
+                            //                                    logit("Using transferable!");
+                            self.postMessage(buffer, [buffer]);
+                        } else {
+                            self.postMessage(buffer);
+                        }
+                    }
+                    self.postMessage({type: 'progressReport', progress: 1});
+                    self.postMessage({type: 'result', data: JSON.stringify(result)});
+
+                } else {
+                    logit('Error, no result');
+                    self.postMessage({type: 'error', data: 'No result from render'});
+                }
+                break;
+            }
+            break;
+        case 'cancelTask':
+            break;
+        }
+        //        self.close();
+    } catch (exc) {
+        logit('Exception in worker ' + exc + ' ');
+        logit(printStackTrace({e: exc}).join('\n'));
+
+        self.postMessage({type: 'error', data: exc.toString()});
+        //        self.close();
     }
 }, false);

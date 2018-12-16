@@ -12,11 +12,11 @@ class ConstantHarmonicRythm {
     constructor(harmonyElements) {
         this.harmonyElements = harmonyElements ? harmonyElements : [];
         this.modifiers = [];
-        this._constructorName = "ConstantHarmonicRythm";
+        this._constructorName = 'ConstantHarmonicRythm';
     }
 
     toRomanString() {
-        let result = "[";
+        let result = '[';
         let prevScaleBase = -1;
         let prevScaleType = -1;
         for (let i=0; i<this.harmonyElements.length; i++) {
@@ -30,10 +30,10 @@ class ConstantHarmonicRythm {
                 prevScaleType = scaleType;
             }
             if (i<this.harmonyElements.length - 1) {
-                result += ", ";
+                result += ', ';
             }
         }
-        result += "]";
+        result += ']';
         return result;
     }
 

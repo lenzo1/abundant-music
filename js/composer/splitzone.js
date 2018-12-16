@@ -10,22 +10,22 @@ const SplitStrategy = {
     DOT_DOT_NORMAL: 7,
     toString(s) {
         switch (s) {
-            case SplitStrategy.DOT_DOT_NORMAL:
-                return "Dot dot normal";
-            case SplitStrategy.DOT_FIRST:
-                return "Dot first";
-            case SplitStrategy.DOT_NORMAL_DOT:
-                return "Dot normal dot";
-            case SplitStrategy.DOT_SECOND:
-                return "Dot second";
-            case SplitStrategy.HALVE:
-                return "Halve";
-            case SplitStrategy.NEVER:
-                return "Never";
-            case SplitStrategy.NORMAL_DOT_DOT:
-                return "Normal dot dot";
-            case SplitStrategy.TRIPLET:
-                return "Triplet";
+        case SplitStrategy.DOT_DOT_NORMAL:
+            return 'Dot dot normal';
+        case SplitStrategy.DOT_FIRST:
+            return 'Dot first';
+        case SplitStrategy.DOT_NORMAL_DOT:
+            return 'Dot normal dot';
+        case SplitStrategy.DOT_SECOND:
+            return 'Dot second';
+        case SplitStrategy.HALVE:
+            return 'Halve';
+        case SplitStrategy.NEVER:
+            return 'Never';
+        case SplitStrategy.NORMAL_DOT_DOT:
+            return 'Normal dot dot';
+        case SplitStrategy.TRIPLET:
+            return 'Triplet';
         }
         return `Unknown strategy ${s}`;
     }
@@ -40,14 +40,14 @@ const DottedSplitStrategy = {
 
     toString(s) {
         switch (s) {
-            case DottedSplitStrategy.LONGEST_FIRST:
-                return "Longest first";
-            case DottedSplitStrategy.LONGEST_LAST:
-                return "Longest last";
-            case DottedSplitStrategy.NEVER:
-                return "Never";
-            case DottedSplitStrategy.TWO_DOTTED:
-                return "Two dotted";
+        case DottedSplitStrategy.LONGEST_FIRST:
+            return 'Longest first';
+        case DottedSplitStrategy.LONGEST_LAST:
+            return 'Longest last';
+        case DottedSplitStrategy.NEVER:
+            return 'Never';
+        case DottedSplitStrategy.TWO_DOTTED:
+            return 'Two dotted';
         }
         return `Unknown strategy ${s}`;
     }
@@ -60,10 +60,10 @@ const TripletSplitStrategy = {
 
     toString(s) {
         switch (s) {
-            case TripletSplitStrategy.HALVE:
-                return "Halve";
-            case TripletSplitStrategy.NEVER:
-                return "Never";
+        case TripletSplitStrategy.HALVE:
+            return 'Halve';
+        case TripletSplitStrategy.NEVER:
+            return 'Never';
         }
         return `Unknown strategy ${s}`;
     }
@@ -73,7 +73,7 @@ addPossibleValuesFunction(TripletSplitStrategy, TripletSplitStrategy.NEVER, Trip
 
 class SplitZone {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.noteLengthInterval = [0, 16];
         this.noteLengthIntervalUnit = PositionUnit.BEATS;
         this.splitStrategy = SplitStrategy.HALVE;
@@ -89,7 +89,7 @@ class SplitZone {
         this.noteCountInterval = [0, 128];
         this.keepPattern = [1];
         this.maxApplications = 128;
-        this._constructorName = "SplitZone";
+        this._constructorName = 'SplitZone';
     }
 
     applicable(toSplit, beatIntensity, iteration, numerator, denominator, beatPosition) {
@@ -162,7 +162,7 @@ class SplitZone {
 
 class SplitZoneCollection {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.minLength = 0.25;
         this.minLengthUnit = PositionUnit.BEATS;
         this.zones = [];
@@ -176,7 +176,7 @@ class SplitZoneCollection {
 
         this.tryHalveIfStrategyFails = true;
         this.seed = 12345;
-        this._constructorName = "SplitZoneCollection";
+        this._constructorName = 'SplitZoneCollection';
     }
 
     addSplitZone(zone) {
@@ -215,7 +215,7 @@ class SplitZoneCollection {
                     }
                     nl.strength = velocity * velMult;
 
-    //                logit("Setting strength to " + velocity + " * " + velMult);
+                    //                logit("Setting strength to " + velocity + " * " + velMult);
 
                     result.push(nl);
                 }
@@ -247,71 +247,71 @@ class SplitZoneCollection {
         let theVelocityMultipliers = velocityMultipliers;
 
         switch (note.lengthType) {
-            case NoteRythmElementLengthType.NORMAL:
-                theVelocityMultipliers = velocityMultipliers;
-                switch (splitStrategy) {
-                    case SplitStrategy.HALVE:
-                        newLengthMultipliers = [0.5, 0.5];
-                        newLengthTypes = [NoteRythmElementLengthType.NORMAL];
-                        break;
-                    case SplitStrategy.DOT_FIRST:
-                        newLengthMultipliers = [0.75, 0.25];
-                        newLengthTypes = [NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.NORMAL];
-                        break;
-                    case SplitStrategy.DOT_DOT_NORMAL:
-                        newLengthMultipliers = [0.375, 0.375, 0.25];
-                        newLengthTypes = [NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.NORMAL];
-                        break;
-                    case SplitStrategy.DOT_NORMAL_DOT:
-                        newLengthMultipliers = [0.375, 0.25, 0.375];
-                        newLengthTypes = [NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.NORMAL, NoteRythmElementLengthType.DOT];
-                        break;
-                    case SplitStrategy.NORMAL_DOT_DOT:
-                        newLengthMultipliers = [0.25, 0.375, 0.375];
-                        newLengthTypes = [NoteRythmElementLengthType.NORMAL, NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.DOT];
-                        break;
-                    case SplitStrategy.DOT_SECOND:
-                        newLengthMultipliers = [0.25, 0.75];
-                        newLengthTypes = [NoteRythmElementLengthType.NORMAL, NoteRythmElementLengthType.DOT];
-                        break;
-                    case SplitStrategy.TRIPLET:
-                        newLengthMultipliers = [1/3.0, 1/3.0, 1/3.0];
-                        newLengthTypes = [NoteRythmElementLengthType.TRIPLET, NoteRythmElementLengthType.TRIPLET, NoteRythmElementLengthType.TRIPLET];
-                        break;
-                    case SplitStrategy.NEVER:
-                        return null;
-                }
+        case NoteRythmElementLengthType.NORMAL:
+            theVelocityMultipliers = velocityMultipliers;
+            switch (splitStrategy) {
+            case SplitStrategy.HALVE:
+                newLengthMultipliers = [0.5, 0.5];
+                newLengthTypes = [NoteRythmElementLengthType.NORMAL];
                 break;
-            case NoteRythmElementLengthType.TRIPLET:
-                theVelocityMultipliers = tripletVelocityMultipliers;
-                switch (tripletSplitStrategy) {
-                    case TripletSplitStrategy.HALVE:
-                        newLengthMultipliers = [0.5, 0.5];
-                        newLengthTypes = [NoteRythmElementLengthType.TRIPLET, NoteRythmElementLengthType.TRIPLET];
-                        break;
-                    case TripletSplitStrategy.NEVER:
-                        return null;
-                }
+            case SplitStrategy.DOT_FIRST:
+                newLengthMultipliers = [0.75, 0.25];
+                newLengthTypes = [NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.NORMAL];
                 break;
-            case NoteRythmElementLengthType.DOT:
-                theVelocityMultipliers = dottedVelocityMultipliers;
-                switch (dottedSplitStrategy) {
-                    case DottedSplitStrategy.LONGEST_FIRST:
-                        newLengthMultipliers = [2.0 / 3.0, 1.0 / 3.0];
-                        newLengthTypes = [NoteRythmElementLengthType.NORMAL, NoteRythmElementLengthType.NORMAL];
-                        break;
-                    case DottedSplitStrategy.LONGEST_LAST:
-                        newLengthMultipliers = [1.0 / 3.0, 2.0 / 3.0];
-                        newLengthTypes = [NoteRythmElementLengthType.NORMAL, NoteRythmElementLengthType.NORMAL];
-                        break;
-                    case DottedSplitStrategy.TWO_DOTTED:
-                        newLengthMultipliers = [0.5, 0.5];
-                        newLengthTypes = [NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.DOT];
-                        break;
-                    case DottedSplitStrategy.NEVER:
-                        return null;
-                }
+            case SplitStrategy.DOT_DOT_NORMAL:
+                newLengthMultipliers = [0.375, 0.375, 0.25];
+                newLengthTypes = [NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.NORMAL];
                 break;
+            case SplitStrategy.DOT_NORMAL_DOT:
+                newLengthMultipliers = [0.375, 0.25, 0.375];
+                newLengthTypes = [NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.NORMAL, NoteRythmElementLengthType.DOT];
+                break;
+            case SplitStrategy.NORMAL_DOT_DOT:
+                newLengthMultipliers = [0.25, 0.375, 0.375];
+                newLengthTypes = [NoteRythmElementLengthType.NORMAL, NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.DOT];
+                break;
+            case SplitStrategy.DOT_SECOND:
+                newLengthMultipliers = [0.25, 0.75];
+                newLengthTypes = [NoteRythmElementLengthType.NORMAL, NoteRythmElementLengthType.DOT];
+                break;
+            case SplitStrategy.TRIPLET:
+                newLengthMultipliers = [1/3.0, 1/3.0, 1/3.0];
+                newLengthTypes = [NoteRythmElementLengthType.TRIPLET, NoteRythmElementLengthType.TRIPLET, NoteRythmElementLengthType.TRIPLET];
+                break;
+            case SplitStrategy.NEVER:
+                return null;
+            }
+            break;
+        case NoteRythmElementLengthType.TRIPLET:
+            theVelocityMultipliers = tripletVelocityMultipliers;
+            switch (tripletSplitStrategy) {
+            case TripletSplitStrategy.HALVE:
+                newLengthMultipliers = [0.5, 0.5];
+                newLengthTypes = [NoteRythmElementLengthType.TRIPLET, NoteRythmElementLengthType.TRIPLET];
+                break;
+            case TripletSplitStrategy.NEVER:
+                return null;
+            }
+            break;
+        case NoteRythmElementLengthType.DOT:
+            theVelocityMultipliers = dottedVelocityMultipliers;
+            switch (dottedSplitStrategy) {
+            case DottedSplitStrategy.LONGEST_FIRST:
+                newLengthMultipliers = [2.0 / 3.0, 1.0 / 3.0];
+                newLengthTypes = [NoteRythmElementLengthType.NORMAL, NoteRythmElementLengthType.NORMAL];
+                break;
+            case DottedSplitStrategy.LONGEST_LAST:
+                newLengthMultipliers = [1.0 / 3.0, 2.0 / 3.0];
+                newLengthTypes = [NoteRythmElementLengthType.NORMAL, NoteRythmElementLengthType.NORMAL];
+                break;
+            case DottedSplitStrategy.TWO_DOTTED:
+                newLengthMultipliers = [0.5, 0.5];
+                newLengthTypes = [NoteRythmElementLengthType.DOT, NoteRythmElementLengthType.DOT];
+                break;
+            case DottedSplitStrategy.NEVER:
+                return null;
+            }
+            break;
         }
 
         const newNotes = [];
@@ -388,7 +388,7 @@ class SplitZoneCollection {
             if (beatLength > minLengthBeats * 1.0001) {
                 const fraction = currentPosition / totalTicksLength;
                 const wantedDensityFactor = density
-                .getValue(module, fraction);
+                    .getValue(module, fraction);
 
                 const wantedNoteLength = meanNoteLength
                 / Math.pow(2.0, wantedDensityFactor);
@@ -397,7 +397,7 @@ class SplitZoneCollection {
                     minDecreaseFraction = decreaseFraction;
                     bestIndex = i;
                 }
-    //            logit("density factor " + wantedDensityFactor + " " + fraction + " <br />");
+                //            logit("density factor " + wantedDensityFactor + " " + fraction + " <br />");
             }
             currentPosition += beatLength;
         }
@@ -483,19 +483,19 @@ class SplitZoneCollection {
                 applications++;
                 applicationMap.put(zone, applications);
 
-                const splitStrategy = getValueOrExpressionValue(zone, "splitStrategy", module);
+                const splitStrategy = getValueOrExpressionValue(zone, 'splitStrategy', module);
 
-    //            function getBeatLengths(arr) {
-    //                let result = [];
-    //                for (let k =0; k<arr.length; k++) {
-    //                    result[k] = arr[k].length;
-    //                }
-    //                return result;
-    //            }
+                //            function getBeatLengths(arr) {
+                //                let result = [];
+                //                for (let k =0; k<arr.length; k++) {
+                //                    result[k] = arr[k].length;
+                //                }
+                //                return result;
+                //            }
 
-    //            if (zone.verbose) {
-    //                logit(" split zone using " + splitStrategy + " on " + getBeatLengths(input).join(", "));
-    //            }
+                //            if (zone.verbose) {
+                //                logit(" split zone using " + splitStrategy + " on " + getBeatLengths(input).join(", "));
+                //            }
 
                 result = this.split(splitStrategy,
                     zone.dottedSplitStrategy,

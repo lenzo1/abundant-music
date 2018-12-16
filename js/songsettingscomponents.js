@@ -3,19 +3,19 @@ var SongSettingsComponent = (function() {
     function changeComponentValue(newValue, createdComps, index, tabsId, changeListener) {
         var oldComp = createdComps[index];
         var oldValue = oldComp.object;
-//            logit("Searching for " + oldComp.id);
-        $("#" + oldComp.id).remove();
+        //            logit("Searching for " + oldComp.id);
+        $('#' + oldComp.id).remove();
 
         copyObjectPropertiesDeep(oldValue, newValue);
-//            logit("New value " + JSON.stringify(newValue) + " " + oldValue._constructorName);
+        //            logit("New value " + JSON.stringify(newValue) + " " + oldValue._constructorName);
         var comp = new GuiPropertiesComponent({object: oldValue, propertyInfoProvider: propertyInfoProvider});
         createdComps[index] = comp;
         var contentArr = [];
         comp.createJQueryStrings(contentArr);
 
-        var $theTab = $("#" + tabsId + index);
-        $theTab.append($(contentArr.join("")));
-        var $tabs = $("#" + tabsId);
+        var $theTab = $('#' + tabsId + index);
+        $theTab.append($(contentArr.join('')));
+        var $tabs = $('#' + tabsId);
         comp.jQueryCreated($tabs);
 
         // Code duplication below...
@@ -28,7 +28,7 @@ var SongSettingsComponent = (function() {
 
         comp.$component.detach();
 
-        $("#topdiv").append(comp.$component);
+        $('#topdiv').append(comp.$component);
         comp.alignComponents();
 
         comp.$component.detach();
@@ -51,7 +51,7 @@ var SongSettingsComponent = (function() {
 
     function compIsSeed(c) {
         var propInfo = c.propertyInfo;
-        return stringEndsWith(propInfo.propertyName.toLowerCase(), "seed");
+        return stringEndsWith(propInfo.propertyName.toLowerCase(), 'seed');
     }
 
     function compIsControlEtc(c) {
@@ -59,12 +59,12 @@ var SongSettingsComponent = (function() {
         var test = propInfo.propertyName.toLowerCase();
 
         var result =
-            stringEndsWith(test, "volumemultipliers") ||
-                stringEndsWith(test, "volumemultiplier") ||
-                stringEndsWith(test, "reverbsends") ||
-                stringEndsWith(test, "reverbsend") ||
-                stringEndsWith(test, "chorussends") ||
-                stringEndsWith(test, "chorussend");
+            stringEndsWith(test, 'volumemultipliers') ||
+                stringEndsWith(test, 'volumemultiplier') ||
+                stringEndsWith(test, 'reverbsends') ||
+                stringEndsWith(test, 'reverbsend') ||
+                stringEndsWith(test, 'chorussends') ||
+                stringEndsWith(test, 'chorussend');
         return result;
     }
 
@@ -73,37 +73,37 @@ var SongSettingsComponent = (function() {
         var test = propInfo.propertyName.toLowerCase();
 
         var result =
-            stringEndsWith(test, "renderamountoverride") ||
-                stringEndsWith(test, "probsoverride") ||
-                stringEndsWith(test, "likelihood") ||
-                stringEndsWith(test, "likelihoods") ||
-                stringEndsWith(test, "likelihoodmultiplier") ||
-                stringEndsWith(test, "likelihoodmultipliers") ||
-                stringEndsWith(test, "probmultipliers") ||
-                stringEndsWith(test, "fraction") ||
-                stringEndsWith(test, "probability") ||
-                stringEndsWith(test, "probabilities");
+            stringEndsWith(test, 'renderamountoverride') ||
+                stringEndsWith(test, 'probsoverride') ||
+                stringEndsWith(test, 'likelihood') ||
+                stringEndsWith(test, 'likelihoods') ||
+                stringEndsWith(test, 'likelihoodmultiplier') ||
+                stringEndsWith(test, 'likelihoodmultipliers') ||
+                stringEndsWith(test, 'probmultipliers') ||
+                stringEndsWith(test, 'fraction') ||
+                stringEndsWith(test, 'probability') ||
+                stringEndsWith(test, 'probabilities');
         return result;
     }
 
 
     function zeroInput(comp) {
-        comp.$input.val("0");
+        comp.$input.val('0');
         comp.setValueVerifyRaw();
     }
 
     function oneInput(comp) {
-        comp.$input.val("1");
+        comp.$input.val('1');
         comp.setValueVerifyRaw();
     }
 
     function clearSeed(comp) {
-        comp.$input.val("");
+        comp.$input.val('');
         comp.setValueVerifyRaw();
     }
     function randomizeSeed(comp) {
         var seed = globalRnd.genrand_int32();
-        comp.$input.val("" + seed);
+        comp.$input.val('' + seed);
         comp.setValueVerifyRaw();
     }
     function explicitizeSeed(comp) {
@@ -117,7 +117,7 @@ var SongSettingsComponent = (function() {
         var explicitSeed = globalGenInfo[propInfo.propertyName];
 
         if (explicitSeed) {
-            comp.$input.val("" + explicitSeed);
+            comp.$input.val('' + explicitSeed);
             comp.setValueVerifyRaw();
         }
     }
@@ -170,7 +170,7 @@ var SongSettingsComponent = (function() {
 
         function addButtonValueEventHandler(child, $button, value) {
             $button.click(function() {
-                child.$input.val("" + value);
+                child.$input.val('' + value);
                 child.setValueVerifyRaw();
             });
         }
@@ -178,17 +178,17 @@ var SongSettingsComponent = (function() {
         for (var i=0; i<comp.children.length; i++) {
             var child = comp.children[i];
 
-//            var test = stringEndsWith(child.propertyInfo.propertyName.toLowerCase(), "likelihoods");
-//            if (test) {
-//                logit(child.propertyInfo.propertyName + " was seed or etc" + test);
-//            }
+            //            var test = stringEndsWith(child.propertyInfo.propertyName.toLowerCase(), "likelihoods");
+            //            if (test) {
+            //                logit(child.propertyInfo.propertyName + " was seed or etc" + test);
+            //            }
 
 
             if (compIsLikelihoodOrProbEtc(child)) {
                 var propInfo = child.propertyInfo;
 
-                var $zeroButton = $("<button style=\"height: 3em; font-size: 60%\" title=\"Set to zero\" class=\"zero-likelihood-button\">0</button>");
-                var $oneButton = $("<button style=\"height: 3em; font-size: 60%\" title=\"Set to one\" class=\"one-likelihood-button\">1</button>");
+                var $zeroButton = $('<button style="height: 3em; font-size: 60%" title="Set to zero" class="zero-likelihood-button">0</button>');
+                var $oneButton = $('<button style="height: 3em; font-size: 60%" title="Set to one" class="one-likelihood-button">1</button>');
                 child.$component.append($zeroButton);
                 child.$component.append($oneButton);
 
@@ -208,13 +208,13 @@ var SongSettingsComponent = (function() {
 
                 } else {
 
-                    var $ctrlSlider = $("<div style=\"width: 10em; margin-right: 1em; height: 1em; display: inline-block; font-size: 60%\"  class=\"ctrl-slider\"></div>");
+                    var $ctrlSlider = $('<div style="width: 10em; margin-right: 1em; height: 1em; display: inline-block; font-size: 60%"  class="ctrl-slider"></div>');
                     child.$component.append($ctrlSlider);
 
                     function refreshCtrl(toRefresh, $slider) {
                         return function() {
-                            var value = clamp((1 / divisions) * $slider.slider("value"), 0, 1);
-                            toRefresh.$input.val("" + value);
+                            var value = clamp((1 / divisions) * $slider.slider('value'), 0, 1);
+                            toRefresh.$input.val('' + value);
                             toRefresh.setValueVerifyRaw();
                         };
                     }
@@ -230,7 +230,7 @@ var SongSettingsComponent = (function() {
                     var values = [0, 1];
                     for (var j=0; j<values.length; j++) {
                         var value = values[j];
-                        var $valueButton = $("<button style=\"height: 3em; font-size: 60%\" title=\"Set to zero\" class=\"zero-ctrl-button\">" + value + "</button>");
+                        var $valueButton = $('<button style="height: 3em; font-size: 60%" title="Set to zero" class="zero-ctrl-button">' + value + '</button>');
                         child.$component.append($valueButton);
                         $valueButton.button();
 
@@ -239,7 +239,7 @@ var SongSettingsComponent = (function() {
                                 var $slider = $ctrlSlider;
                                 var v = value;
                                 return function() {
-                                    $slider.slider("option", "value", clamp(v * divisions, 0, divisions));
+                                    $slider.slider('option', 'value', clamp(v * divisions, 0, divisions));
                                 }
                             })()
                         );
@@ -253,8 +253,8 @@ var SongSettingsComponent = (function() {
             if (compIsSeed(child)) {
                 var propInfo = child.propertyInfo;
 
-                var $clearButton = $("<button style=\"height: 3em; font-size: 60%\" title=\"Clear seed\" class=\"clear-seed-button\">C</button>");
-                var $randomizeButton = $("<button style=\"height: 3em; font-size: 60%\" title=\"Randomize seed\" class=\"randomizer-seed-button\">R</button>");
+                var $clearButton = $('<button style="height: 3em; font-size: 60%" title="Clear seed" class="clear-seed-button">C</button>');
+                var $randomizeButton = $('<button style="height: 3em; font-size: 60%" title="Randomize seed" class="randomizer-seed-button">R</button>');
                 child.$component.append($clearButton);
                 child.$component.append($randomizeButton);
 
@@ -263,7 +263,7 @@ var SongSettingsComponent = (function() {
                 var $explicitButton = null;
 
                 if (globalGenInfo[propInfo.propertyName]) {
-                    var $explicitButton = $("<button style=\"height: 3em; font-size: 60%\" title=\"Explicit seed\" class=\"explicit-seed-button\">E</button>");
+                    var $explicitButton = $('<button style="height: 3em; font-size: 60%" title="Explicit seed" class="explicit-seed-button">E</button>');
                     child.$component.append($explicitButton);
                     $explicitButton.button();
                 }
@@ -280,16 +280,16 @@ var SongSettingsComponent = (function() {
             addSeeds = [];
         }
 
-        var tabsArr = ["<div id=\"" + tabsId + "\">"];
+        var tabsArr = ['<div id="' + tabsId + '">'];
 
         var createdComps = [];
         var contentArrs = [];
 
         tabsArr.push('<ul class="' + tabsClass + '-ul">');
         for (var i=0; i<tabCaptions.length; i++) {
-            tabsArr.push("<li><a href=\"#" + (tabsId + i) + "\" >" + tabCaptions[i] + "</a></li>");
+            tabsArr.push('<li><a href="#' + (tabsId + i) + '" >' + tabCaptions[i] + '</a></li>');
         }
-        tabsArr.push("</ul>");
+        tabsArr.push('</ul>');
 
         var hasSeeds = [];
         var hasLikelihoods = [];
@@ -305,30 +305,30 @@ var SongSettingsComponent = (function() {
         }
 
         function addHeaderHtml(arr, index) {
-            var defaultButtonId = (tabsId + "_default_button_" + index);
-            var saveButtonId = (tabsId + "_save_button_" + index);
-            var loadButtonId = (tabsId + "_load_button_" + index);
-            var manageButtonId = (tabsId + "_manage_button_" + index);
-            var clearSeedsButtonId = (tabsId + "_clear_seeds_button_" + index);
-            var randomizeSeedsButtonId = (tabsId + "_randomize_seeds_button_" + index);
-            var explicitSeedsButtonId = (tabsId + "_explicit_seeds_button_" + index);
+            var defaultButtonId = (tabsId + '_default_button_' + index);
+            var saveButtonId = (tabsId + '_save_button_' + index);
+            var loadButtonId = (tabsId + '_load_button_' + index);
+            var manageButtonId = (tabsId + '_manage_button_' + index);
+            var clearSeedsButtonId = (tabsId + '_clear_seeds_button_' + index);
+            var randomizeSeedsButtonId = (tabsId + '_randomize_seeds_button_' + index);
+            var explicitSeedsButtonId = (tabsId + '_explicit_seeds_button_' + index);
 
-            var buttonStyle = "style=\"height: 3em; font-size: 50%\"";
+            var buttonStyle = 'style="height: 3em; font-size: 50%"';
             var headerArr = [
-                "<div " +
-                    "id=\"" + (tabsId + "_header_" + i) + "\" " +
-                    "class=\"" + tabsClass + "\" " +
-                    " >",
-                (presets ? "<button  style=\"" + buttonStyle + "\" id=\"" + defaultButtonId + "\" title=\"All settings to default values\"  >Set Default</button>" : ""),
-                (hasSeeds[index] && addSeeds[index] ? "<button  style=\"" + buttonStyle + "\" id=\"" + clearSeedsButtonId + "\" title=\"Clear all seed values\" >Clear Seeds</button>" : ""),
-                (hasSeeds[index] && addSeeds[index] ? "<button  style=\"" + buttonStyle + "\" id=\"" + randomizeSeedsButtonId + "\" title=\"Randomize all seed values\" >Randomize Seeds</button>" : ""),
-                (hasSeeds[index] && addSeeds[index] ? "<button  style=\"" + buttonStyle + "\" id=\"" + explicitSeedsButtonId + "\" title=\"Set all seeds to their explicit values\"  >Explicit Seeds</button>" : ""),
-                (presets ? "<button  style=\"" + buttonStyle + "\" id=\"" + saveButtonId + "\" title=\"Save current settings as a preset\" >Save</button>" : ""),
-                (presets ? "<button  style=\"" + buttonStyle + "\" id=\"" + loadButtonId + "\" title=\"Load settings preset\" >Load</button>" : ""),
-                (presets ? "<button  style=\"" + buttonStyle + "\" id=\"" + manageButtonId + "\" title=\"Edit settings presets\" >Edit Presets</button>" : ""),
-                "</div>"
+                '<div ' +
+                    'id="' + (tabsId + '_header_' + i) + '" ' +
+                    'class="' + tabsClass + '" ' +
+                    ' >',
+                (presets ? '<button  style="' + buttonStyle + '" id="' + defaultButtonId + '" title="All settings to default values"  >Set Default</button>' : ''),
+                (hasSeeds[index] && addSeeds[index] ? '<button  style="' + buttonStyle + '" id="' + clearSeedsButtonId + '" title="Clear all seed values" >Clear Seeds</button>' : ''),
+                (hasSeeds[index] && addSeeds[index] ? '<button  style="' + buttonStyle + '" id="' + randomizeSeedsButtonId + '" title="Randomize all seed values" >Randomize Seeds</button>' : ''),
+                (hasSeeds[index] && addSeeds[index] ? '<button  style="' + buttonStyle + '" id="' + explicitSeedsButtonId + '" title="Set all seeds to their explicit values"  >Explicit Seeds</button>' : ''),
+                (presets ? '<button  style="' + buttonStyle + '" id="' + saveButtonId + '" title="Save current settings as a preset" >Save</button>' : ''),
+                (presets ? '<button  style="' + buttonStyle + '" id="' + loadButtonId + '" title="Load settings preset" >Load</button>' : ''),
+                (presets ? '<button  style="' + buttonStyle + '" id="' + manageButtonId + '" title="Edit settings presets" >Edit Presets</button>' : ''),
+                '</div>'
             ];
-            arr.push(headerArr.join(""));
+            arr.push(headerArr.join(''));
         }
 
 
@@ -336,29 +336,29 @@ var SongSettingsComponent = (function() {
 
         function createHeaderComponents(index) {
 
-            var defaultButtonId = (tabsId + "_default_button_" + index);
-            var saveButtonId = (tabsId + "_save_button_" + index);
-            var loadButtonId = (tabsId + "_load_button_" + index);
-            var manageButtonId = (tabsId + "_manage_button_" + index);
+            var defaultButtonId = (tabsId + '_default_button_' + index);
+            var saveButtonId = (tabsId + '_save_button_' + index);
+            var loadButtonId = (tabsId + '_load_button_' + index);
+            var manageButtonId = (tabsId + '_manage_button_' + index);
 
-            var clearSeedsButtonId = (tabsId + "_clear_seeds_button_" + index);
-            var randomizeSeedsButtonId = (tabsId + "_randomize_seeds_button_" + index);
-            var explicitSeedsButtonId = (tabsId + "_explicit_seeds_button_" + index);
+            var clearSeedsButtonId = (tabsId + '_clear_seeds_button_' + index);
+            var randomizeSeedsButtonId = (tabsId + '_randomize_seeds_button_' + index);
+            var explicitSeedsButtonId = (tabsId + '_explicit_seeds_button_' + index);
 
             if (hasSeeds[index] && addSeeds[index]) {
-                $("#" + clearSeedsButtonId).button().click(function() {
+                $('#' + clearSeedsButtonId).button().click(function() {
                     var seedChildren = getAllSeedChildren(index, createdComps);
                     for (var i=0; i<seedChildren.length; i++) {
                         clearSeed(seedChildren[i]);
                     }
                 });
-                $("#" + randomizeSeedsButtonId).button().click(function() {
+                $('#' + randomizeSeedsButtonId).button().click(function() {
                     var seedChildren = getAllSeedChildren(index, createdComps);
                     for (var i=0; i<seedChildren.length; i++) {
                         randomizeSeed(seedChildren[i]);
                     }
                 });
-                $("#" + explicitSeedsButtonId).button().click(function() {
+                $('#' + explicitSeedsButtonId).button().click(function() {
                     var seedChildren = getAllSeedChildren(index, createdComps);
                     for (var i=0; i<seedChildren.length; i++) {
                         explicitizeSeed(seedChildren[i]);
@@ -367,20 +367,20 @@ var SongSettingsComponent = (function() {
             }
 
             if (presets) {
-                $("#" + saveButtonId).button().click(function() {
-                    var content = "";
-                    var idSuggest = uidManager.getNextUniqueId(tabsId + index, tabCaptions[index] + " Sub-Settings ");
-                    content += "<div>";
-                    content += "<span class=\"preset-name-label\" >Name:</span>";
-                    content += "<input class=\"preset-name-input ui-corner-all\" value=\"" + idSuggest + "\" />";
-                    content += "</div>";
+                $('#' + saveButtonId).button().click(function() {
+                    var content = '';
+                    var idSuggest = uidManager.getNextUniqueId(tabsId + index, tabCaptions[index] + ' Sub-Settings ');
+                    content += '<div>';
+                    content += '<span class="preset-name-label" >Name:</span>';
+                    content += '<input class="preset-name-input ui-corner-all" value="' + idSuggest + '" />';
+                    content += '</div>';
                     var options = {
                         modal: true,
                         width: 450,
                         buttons: {
-                            "Save": function() {
+                            'Save': function() {
                                 if (presets) {
-                                    var newId = $(this).find(".preset-name-input")[0].value;
+                                    var newId = $(this).find('.preset-name-input')[0].value;
                                     var preset = presets[index];
                                     var item = preset.getItemWithName(newId);
 
@@ -394,38 +394,38 @@ var SongSettingsComponent = (function() {
 
                                     preset.saveToLocalStorage();
                                 }
-//                        logit("Creating new item with name " + newItem.name);
-                                $( this ).dialog( "close" );
+                                //                        logit("Creating new item with name " + newItem.name);
+                                $( this ).dialog( 'close' );
                             },
-                            "Cancel": function() {
-                                $( this ).dialog( "close" );
+                            'Cancel': function() {
+                                $( this ).dialog( 'close' );
                             }
                         }
                     };
-                    showModalDialog("Save " + tabCaptions[index] + " Sub-Settings", content, options);
+                    showModalDialog('Save ' + tabCaptions[index] + ' Sub-Settings', content, options);
                 });
 
-                $("#" + loadButtonId).button().click(function() {
+                $('#' + loadButtonId).button().click(function() {
 
-                    var content = "";
-                    content += "<div>";
-                    content += "<select class=\"preset-name-select ui-corner-all\" >";
+                    var content = '';
+                    content += '<div>';
+                    content += '<select class="preset-name-select ui-corner-all" >';
                     if (presets) {
                         var preset = presets[index];
                         for (var i=0; i<preset.items.length; i++) {
                             var item = preset.items[i];
-                            content += "<option value=\"" + item.name + "\" >" + item.name + "</option>";
+                            content += '<option value="' + item.name + '" >' + item.name + '</option>';
                         }
                     }
-                    content += "</select>";
-                    content += "</div>";
+                    content += '</select>';
+                    content += '</div>';
                     var options = {
                         modal: true,
                         width: 450,
                         buttons: {
-                            "Load": function() {
+                            'Load': function() {
                                 if (presets) {
-                                    var presetName = $(this).find(".preset-name-select")[0].value;
+                                    var presetName = $(this).find('.preset-name-select')[0].value;
                                     var preset = presets[index];
                                     var item = null;
                                     for (var i=0; i<preset.items.length; i++) {
@@ -437,50 +437,50 @@ var SongSettingsComponent = (function() {
                                     if (item && item.data) {
                                         changeComponentValue(item.data, createdComps, index, tabsId, changeListener);
                                     }
-//                            logit("Loading preset item " + JSON.stringify(item));
+                                    //                            logit("Loading preset item " + JSON.stringify(item));
                                 }
-                                $( this ).dialog( "close" );
+                                $( this ).dialog( 'close' );
                             },
-                            "Cancel": function() {
-                                $( this ).dialog( "close" );
+                            'Cancel': function() {
+                                $( this ).dialog( 'close' );
                             }
                         }
                     };
-                    showModalDialog("Load " + tabCaptions[index] + " Sub-Settings", content, options);
+                    showModalDialog('Load ' + tabCaptions[index] + ' Sub-Settings', content, options);
                 });
 
-                $("#" + manageButtonId).button().click(function() {
-                    var content = "";
-                    content += "<div>";
-                    content += "<ol class=\"preset-list\" >";
+                $('#' + manageButtonId).button().click(function() {
+                    var content = '';
+                    content += '<div>';
+                    content += '<ol class="preset-list" >';
                     if (presets) {
                         var preset = presets[index];
                         for (var i=0; i<preset.items.length; i++) {
                             var item = preset.items[i];
-                            content += "<li class=\"ui-widget-content\" >" + item.name + "</li>";
+                            content += '<li class="ui-widget-content" >' + item.name + '</li>';
                         }
                     }
-                    content += "</ol>";
-                    content += "</div>";
+                    content += '</ol>';
+                    content += '</div>';
 
-                    content += "<div>";
-                    content += "<button class=\"preset-rename-button\">Rename</button>";
-                    content += "<button class=\"preset-duplicate-button\">Duplicate</button>";
-                    content += "<button class=\"preset-delete-button\">Delete</button>";
-                    content += "</div>";
+                    content += '<div>';
+                    content += '<button class="preset-rename-button">Rename</button>';
+                    content += '<button class="preset-duplicate-button">Duplicate</button>';
+                    content += '<button class="preset-delete-button">Delete</button>';
+                    content += '</div>';
                     var options = {
                         modal: true,
                         width: 450,
                         buttons: {
-                            "Close": function() {
-                                $( this ).dialog( "close" );
+                            'Close': function() {
+                                $( this ).dialog( 'close' );
                             }
                         }
                     };
                     var selectedList = [];
                     var selectedSet = {};
-                    var $dialog = showModalDialog("Edit " + tabCaptions[index] + " Sub-Settings", content, options);
-                    var $list = $dialog.find(".preset-list").selectable({
+                    var $dialog = showModalDialog('Edit ' + tabCaptions[index] + ' Sub-Settings', content, options);
+                    var $list = $dialog.find('.preset-list').selectable({
                         selected: function(event, ui) {
                             var selected = ui.selected;
                             if (!arrayContains(selectedList, selected.innerHTML)) {
@@ -494,13 +494,13 @@ var SongSettingsComponent = (function() {
                             selectedSet[unselected.innerHTML] = null;
                         }
                     });
-                    var $renameButton = $dialog.find(".preset-rename-button").button();
-                    var $duplicateButton = $dialog.find(".preset-duplicate-button").button();
-                    var $deleteButton = $dialog.find(".preset-delete-button").button();
+                    var $renameButton = $dialog.find('.preset-rename-button').button();
+                    var $duplicateButton = $dialog.find('.preset-duplicate-button').button();
+                    var $deleteButton = $dialog.find('.preset-delete-button').button();
                     $renameButton.click(
                         function() {
                             if (selectedList.length == 1) {
-                                logit("Renaming " + selectedList[0]);
+                                logit('Renaming ' + selectedList[0]);
                             }
                         }
                     );
@@ -522,8 +522,8 @@ var SongSettingsComponent = (function() {
                     );
                 });
 
-                $("#" + defaultButtonId).button().click(function() {
-                    var newValue = eval("new " + tabObjects[index]._constructorName + "()");
+                $('#' + defaultButtonId).button().click(function() {
+                    var newValue = eval('new ' + tabObjects[index]._constructorName + '()');
                     changeComponentValue(newValue, createdComps, index, tabsId, changeListener);
                 });
             }
@@ -550,23 +550,23 @@ var SongSettingsComponent = (function() {
             }
 
             tabsArr.push(
-                "<div " +
-                    "id=\"" + (tabsId + i) + "\" " +
-                    "class=\"" + tabsClass + "\" " +
-                    " >" +
-                    headerArr.join("") +
-                    contentArr.join("") +
-                    "</div>");
+                '<div ' +
+                    'id="' + (tabsId + i) + '" ' +
+                    'class="' + tabsClass + '" ' +
+                    ' >' +
+                    headerArr.join('') +
+                    contentArr.join('') +
+                    '</div>');
         }
 
-        tabsArr.push("</div>");
+        tabsArr.push('</div>');
 
 
-        var $tabs = $(tabsArr.join(""));
+        var $tabs = $(tabsArr.join(''));
         $parent.append($tabs);
 
         for (var i=0; i<tabCaptions.length; i++) {
-            var $tab = $("#" + tabsId + i);
+            var $tab = $('#' + tabsId + i);
         }
 
 

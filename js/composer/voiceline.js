@@ -1,10 +1,10 @@
 
 class VoiceLine {
     constructor() {
-        this.id = "voiceLine";
+        this.id = 'voiceLine';
         this.lineElements = [];
         this.modifiers = [];
-        this._constructorName = "VoiceLine";
+        this._constructorName = 'VoiceLine';
     }
 
     add(e) {
@@ -55,8 +55,8 @@ class DoubledVoiceLine extends VoiceLine {
     constructor() {
         super();
         this.octaves = 0;
-        this.toDouble = "";
-        this._constructorName = "DoubledVoiceLine";
+        this.toDouble = '';
+        this._constructorName = 'DoubledVoiceLine';
     }
 
     doubleVoiceLine(constantLines) {
@@ -92,7 +92,7 @@ class SimpleBassVoiceLine extends VoiceLine {
         this.octaves = -1;
         this.startOctaves = [];
         this.endOctaves = [];
-        this._constructorName = "SimpleBassVoiceLine";
+        this._constructorName = 'SimpleBassVoiceLine';
     }
 
     getSingleStepVoiceLineElements(harmony, module) {
@@ -131,7 +131,7 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
         this.isUndefined = false;
 
         this.useHintCurve = false;
-        this.hintCurve = "";
+        this.hintCurve = '';
         this.hintCurveMultiplier = 1.0;
         this.hintCurveBias = 0.0;
         this.hintCurveSnapMetrics = SnapMetrics.ROUND;
@@ -204,7 +204,7 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
         this.leapOffsetType = OffsetType.HALF_STEP;
 
         // Insert penalties here...
-        this._constructorName = "ClassicalAdaptiveVoiceLine";
+        this._constructorName = 'ClassicalAdaptiveVoiceLine';
     }
 
     getSingleStepVoiceLineElements(harmony, module) {
@@ -214,19 +214,19 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
 
         let theCurve = null;
 
-        const useHintCurve = getValueOrExpressionValue(this, "useHintCurve", module);
+        const useHintCurve = getValueOrExpressionValue(this, 'useHintCurve', module);
 
         if (useHintCurve) {
-    //        if (this.hintCurveExpression) {
-    //            logit(this._constructorName + " evaluating " + this.hintCurveExpression);
-    //        }
+            //        if (this.hintCurveExpression) {
+            //            logit(this._constructorName + " evaluating " + this.hintCurveExpression);
+            //        }
 
-            const hintCurveId = getValueOrExpressionValue(this, "hintCurve", module);
+            const hintCurveId = getValueOrExpressionValue(this, 'hintCurve', module);
 
-    //        logit("Generating with hint curve " + hintCurveId);
-    //        if (this.hintCurveExpression) {
-    //            logit(this._constructorName + " result: " + hintCurveId);
-    //        }
+            //        logit("Generating with hint curve " + hintCurveId);
+            //        if (this.hintCurveExpression) {
+            //            logit(this._constructorName + " result: " + hintCurveId);
+            //        }
             theCurve = module.getCurve(hintCurveId);
             if (!theCurve) {
                 logit(`${this._constructorName} could not find curve ${hintCurveId}<br />`);
@@ -234,23 +234,23 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
             }
         }
 
-        let hintCurveMultiplier = getValueOrExpressionValue(this, "hintCurveMultiplier", module);
-        const hintCurveBias = getValueOrExpressionValue(this, "hintCurveBias", module);
-        const hintIndices = getValueOrExpressionValue(this, "hintIndices", module);
-        const startHintIndices = getValueOrExpressionValue(this, "startHintIndices", module);
-        const endHintIndices = getValueOrExpressionValue(this, "endHintIndices", module);
-        let suspendPattern = getValueOrExpressionValue(this, "suspendPattern", module);
-        let startSuspendPattern = getValueOrExpressionValue(this, "startSuspendPattern", module);
-        let endSuspendPattern = getValueOrExpressionValue(this, "endSuspendPattern", module);
-        const phraseSuspendPattern = getValueOrExpressionValue(this, "phraseSuspendPattern", module);
-        const startPhraseSuspendPattern = getValueOrExpressionValue(this, "startPhraseSuspendPattern", module);
-        const endPhraseSuspendPattern = getValueOrExpressionValue(this, "endPhraseSuspendPattern", module);
+        let hintCurveMultiplier = getValueOrExpressionValue(this, 'hintCurveMultiplier', module);
+        const hintCurveBias = getValueOrExpressionValue(this, 'hintCurveBias', module);
+        const hintIndices = getValueOrExpressionValue(this, 'hintIndices', module);
+        const startHintIndices = getValueOrExpressionValue(this, 'startHintIndices', module);
+        const endHintIndices = getValueOrExpressionValue(this, 'endHintIndices', module);
+        let suspendPattern = getValueOrExpressionValue(this, 'suspendPattern', module);
+        let startSuspendPattern = getValueOrExpressionValue(this, 'startSuspendPattern', module);
+        let endSuspendPattern = getValueOrExpressionValue(this, 'endSuspendPattern', module);
+        const phraseSuspendPattern = getValueOrExpressionValue(this, 'phraseSuspendPattern', module);
+        const startPhraseSuspendPattern = getValueOrExpressionValue(this, 'startPhraseSuspendPattern', module);
+        const endPhraseSuspendPattern = getValueOrExpressionValue(this, 'endPhraseSuspendPattern', module);
 
-        const chordBassPitchClassConstraints = getValueOrExpressionValue(this, "chordBassPitchClassConstraints", module);
-        const startChordBassPitchClassConstraints = getValueOrExpressionValue(this, "startChordBassPitchClassConstraints", module);
-        const endChordBassPitchClassConstraints = getValueOrExpressionValue(this, "endChordBassPitchClassConstraints", module);
+        const chordBassPitchClassConstraints = getValueOrExpressionValue(this, 'chordBassPitchClassConstraints', module);
+        const startChordBassPitchClassConstraints = getValueOrExpressionValue(this, 'startChordBassPitchClassConstraints', module);
+        const endChordBassPitchClassConstraints = getValueOrExpressionValue(this, 'endChordBassPitchClassConstraints', module);
 
-        const useHintCurveLengthFractionAmplitudeMultiplier = getValueOrExpressionValue(this, "useHintCurveLengthFractionAmplitudeMultiplier", module);
+        const useHintCurveLengthFractionAmplitudeMultiplier = getValueOrExpressionValue(this, 'useHintCurveLengthFractionAmplitudeMultiplier', module);
 
         if (useHintCurveLengthFractionAmplitudeMultiplier) {
             const referenceFraction = harmonyLength / this.hintCurveReferenceCount;
@@ -273,7 +273,7 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
                     2 * this.hintCurveLengthFractionAmplitudeMultiplier * referenceFraction -
                         2 * this.hintCurveLengthFractionAmplitudeMultiplier + 1));
 
-    //            logit("Amp multiplier " + ampMultiplier + " " + harmonyLength + " before: " + hintCurveMultiplier + " after: " + (hintCurveMultiplier * ampMultiplier));
+                //            logit("Amp multiplier " + ampMultiplier + " " + harmonyLength + " before: " + hintCurveMultiplier + " after: " + (hintCurveMultiplier * ampMultiplier));
 
                 hintCurveMultiplier *= ampMultiplier;
 
@@ -295,7 +295,7 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
                 if (theCurve) {
                     const valueBeforeSnap = hintCurveBias + hintCurveMultiplier * theCurve.getValue(module, fraction);
                     theHintIndex = SnapMetrics.snap(valueBeforeSnap, this.hintCurveSnapMetrics);
-    //                logit(i + " The hint index " + theHintIndex +  " for fraction " + fraction + " bias: " + hintCurveBias + " mult: " + hintCurveMultiplier);
+                    //                logit(i + " The hint index " + theHintIndex +  " for fraction " + fraction + " bias: " + hintCurveBias + " mult: " + hintCurveMultiplier);
                 } else {
                     theHintIndex = getItemFromArrayWithStartEndItems(theHintIndex, hintIndices, harmonyLength, i,
                         startHintIndices, endHintIndices);
@@ -374,7 +374,7 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
                         endSuspendPattern = endPhraseSuspendPattern[i % endPhraseSuspendPattern.length];
                     }
 
-    //            logit("Suspend stuff " + i + " " + [JSON.stringify(suspendPattern), JSON.stringify(startSuspendPattern), JSON.stringify(endSuspendPattern)].join(";;;") + "<br />");
+                    //            logit("Suspend stuff " + i + " " + [JSON.stringify(suspendPattern), JSON.stringify(startSuspendPattern), JSON.stringify(endSuspendPattern)].join(";;;") + "<br />");
 
                     for (let j=phraseRange[0]; j<=phraseRange[1]; j++) {
                         const phraseIndex = j - phraseRange[0];
@@ -382,9 +382,9 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
                             startSuspendPattern, endSuspendPattern);
                         let vle = result[j];
                         vle.suspend = !!suspend;
-    //                if (vle.suspend) {
-    //                    logit("Setting suspend for index " + j + "<br />");
-    //                }
+                        //                if (vle.suspend) {
+                        //                    logit("Setting suspend for index " + j + "<br />");
+                        //                }
                     }
                 }
             }
@@ -397,11 +397,11 @@ class ClassicalAdaptiveVoiceLine extends VoiceLine {
 class ConstantVoiceLine extends VoiceLine {
     constructor() {
         super();
-        this._constructorName = "ConstantVoiceLine";
+        this._constructorName = 'ConstantVoiceLine';
     }
 
     toString(options) {
-        let result = "[";
+        let result = '[';
         for (let i=0; i<this.lineElements.length; i++) {
             const e = this.lineElements[i];
             result += e.index;
@@ -415,10 +415,10 @@ class ConstantVoiceLine extends VoiceLine {
                 result += ` (${innerStrs})`;
             }
             if (i < this.lineElements.length - 1) {
-                result += ", ";
+                result += ', ';
             }
         }
-        result += "]";
+        result += ']';
         return result;
     }
 }
@@ -429,19 +429,19 @@ const HarmonyStepLengthType = {
 
     toString(type) {
         switch (type) {
-            case HarmonyStepLengthType.HARMONY_STEPS:
-                return "Harmony steps";
-            case HarmonyStepLengthType.HARMONY_LENGTH_PLUS_STEPS:
-                return "Harmony steps plus harmony length";
+        case HarmonyStepLengthType.HARMONY_STEPS:
+            return 'Harmony steps';
+        case HarmonyStepLengthType.HARMONY_LENGTH_PLUS_STEPS:
+            return 'Harmony steps plus harmony length';
         }
         return `Unknown step length type ${type}`;
     },
     getStepLength(harmony, type, length) {
         switch (type) {
-            case HarmonyStepLengthType.HARMONY_STEPS:
-                return length;
-            case HarmonyStepLengthType.HARMONY_LENGTH_PLUS_STEPS:
-                return harmony.getCount() + length;
+        case HarmonyStepLengthType.HARMONY_STEPS:
+            return length;
+        case HarmonyStepLengthType.HARMONY_LENGTH_PLUS_STEPS:
+            return harmony.getCount() + length;
         }
         return length;
     }
@@ -451,11 +451,11 @@ addPossibleValuesFunction(HarmonyStepLengthType, HarmonyStepLengthType.HARMONY_S
 
 class VoiceLineElement {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.length = 1;
         this.lengthType = HarmonyStepLengthType.HARMONY_STEPS;
         this.modifiers = [];
-        this._constructorName = "VoiceLineElement";
+        this._constructorName = 'VoiceLineElement';
     }
 
     getLength(harmony) {
@@ -466,7 +466,7 @@ class VoiceLineElement {
         if (this instanceof SingleStepVoiceLineElement) {
             return [this];
         } else {
-            logit("Missing getSingleStepVoiceLineElements() for non-SingleStepVoiceLineElement <br />");
+            logit('Missing getSingleStepVoiceLineElements() for non-SingleStepVoiceLineElement <br />');
             return null;
         }
     }
@@ -480,7 +480,7 @@ class ConstantSequenceVoiceLineElement extends VoiceLineElement {
         this.indices = [0];
         this.indexType = IndexType.SCALE;
         this.snapType = SnapType.CHORD;
-        this._constructorName = "ConstantSequenceVoiceLineElement";
+        this._constructorName = 'ConstantSequenceVoiceLineElement';
     }
 }
 
@@ -503,7 +503,7 @@ class SingleStepVoiceLineElement extends VoiceLineElement {
         super();
         this.suspend = false;
         this.anticipate = false;
-        this._constructorName = "SingleStepVoiceLineElement";
+        this._constructorName = 'SingleStepVoiceLineElement';
     }
 
     getSingleStepVoiceLineElements(harmony, module, harmonyOffset) {
@@ -514,7 +514,7 @@ class SingleStepVoiceLineElement extends VoiceLineElement {
 class UndefinedVoiceLineElement extends SingleStepVoiceLineElement {
     constructor() {
         super();
-        this._constructorName = "UndefinedVoiceLineElement";
+        this._constructorName = 'UndefinedVoiceLineElement';
     }
 }
 
@@ -525,7 +525,7 @@ class ConstantVoiceLineElement extends SingleStepVoiceLineElement {
         this.index = 0;
         this.indexType = IndexType.SCALE;
         this.snapType = SnapType.CHORD;
-        this._constructorName = "ConstantVoiceLineElement";
+        this._constructorName = 'ConstantVoiceLineElement';
     }
 
     setIndex(index) {
@@ -583,7 +583,7 @@ class ClassicalAdaptiveVoiceLineElement extends AdaptiveVoiceLineElement {
 
         // Insert penalties here...
 
-        this._constructorName = "ClassicalAdaptiveVoiceLineElement";
+        this._constructorName = 'ClassicalAdaptiveVoiceLineElement';
     }
 }
 

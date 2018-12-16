@@ -29,97 +29,97 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
         super(options);
 
         this.voiceCount = getValueOrDefault(options,
-            "voiceCount", 4);
+            'voiceCount', 4);
 
         this.maxDomainSize = getValueOrDefault(options,
-            "maxDomainSize", 100);
+            'maxDomainSize', 100);
 
         // General constraints, one for each harmony index
-        this.constraints = getValueOrDefault(options, "constraints", []);
+        this.constraints = getValueOrDefault(options, 'constraints', []);
 
         // For constant voices
-        this.constants = getValueOrDefault(options, "constants", [[false], [false], [false], [false]]);
+        this.constants = getValueOrDefault(options, 'constants', [[false], [false], [false], [false]]);
 
         // For undefined voices
-        this.undefines = getValueOrDefault(options, "undefines", [[false], [false], [false], [false]]);
+        this.undefines = getValueOrDefault(options, 'undefines', [[false], [false], [false], [false]]);
 
-        this.anticipations = getValueOrDefault(options, "anticipations", [[false], [false], [false], [false]]);
-        this.suspensions = getValueOrDefault(options, "suspensions", [[false], [false], [false], [false]]);
+        this.anticipations = getValueOrDefault(options, 'anticipations', [[false], [false], [false], [false]]);
+        this.suspensions = getValueOrDefault(options, 'suspensions', [[false], [false], [false], [false]]);
 
         // Ranges
-        this.absoluteNoteRanges = getValueOrDefault(options, "absoluteNoteRanges", [[[65, 85]], [[50, 75]], [[40, 70]], [[35, 60]]]); // Hard limit
-        this.penaltyAbsoluteNoteRanges = getValueOrDefault(options, "penaltyAbsoluteNoteRanges", [[[65, 85]], [[50, 75]], [[40, 70]], [[35, 60]]]); // Soft limit
-        this.noteRangePenalties = getValueOrDefault(options, "noteRangePenalties", [[0.5], [0.5], [0.5], [0.5]]);
+        this.absoluteNoteRanges = getValueOrDefault(options, 'absoluteNoteRanges', [[[65, 85]], [[50, 75]], [[40, 70]], [[35, 60]]]); // Hard limit
+        this.penaltyAbsoluteNoteRanges = getValueOrDefault(options, 'penaltyAbsoluteNoteRanges', [[[65, 85]], [[50, 75]], [[40, 70]], [[35, 60]]]); // Soft limit
+        this.noteRangePenalties = getValueOrDefault(options, 'noteRangePenalties', [[0.5], [0.5], [0.5], [0.5]]);
 
         // Hints
-        this.absoluteNoteHints = getValueOrDefault(options, "absoluteNoteHints", [[70], null, null, [40]]);
-        this.maxAbsoluteHintDistances = getValueOrDefault(options, "maxAbsoluteHintDistances", [[6], null, null, [10]]); // Hard limit
+        this.absoluteNoteHints = getValueOrDefault(options, 'absoluteNoteHints', [[70], null, null, [40]]);
+        this.maxAbsoluteHintDistances = getValueOrDefault(options, 'maxAbsoluteHintDistances', [[6], null, null, [10]]); // Hard limit
 
-        this.penaltyMaxAbsoluteHintDistances = getValueOrDefault(options, "penaltyMaxAbsoluteHintDistances", [[3], null, null, [3]]); // Soft limit
-    //    this.hintDistancePenalties = getValueOrDefault(options, "hintDistancePenalties", [[0.3], [0.2], [0.2], [0.2]]);
-        this.hintDistancePenalties = getValueOrDefault(options, "hintDistancePenalties", [[0.5], [0.5], [0.5], [0.5]]);
+        this.penaltyMaxAbsoluteHintDistances = getValueOrDefault(options, 'penaltyMaxAbsoluteHintDistances', [[3], null, null, [3]]); // Soft limit
+        //    this.hintDistancePenalties = getValueOrDefault(options, "hintDistancePenalties", [[0.3], [0.2], [0.2], [0.2]]);
+        this.hintDistancePenalties = getValueOrDefault(options, 'hintDistancePenalties', [[0.5], [0.5], [0.5], [0.5]]);
 
 
 
         // Pitch class constraints
-        this.chordRootPitchClassConstraints = getValueOrDefault(options, "chordRootPitchClassConstraints", [null, null, null, null]);
-        this.chordBassPitchClassConstraints = getValueOrDefault(options, "chordBassPitchClassConstraints", [null, null, null, [[0]]]);
+        this.chordRootPitchClassConstraints = getValueOrDefault(options, 'chordRootPitchClassConstraints', [null, null, null, null]);
+        this.chordBassPitchClassConstraints = getValueOrDefault(options, 'chordBassPitchClassConstraints', [null, null, null, [[0]]]);
 
         // Voice spacings
-        this.maxSpacings = getValueOrDefault(options, "maxSpacings", [[12], [12], [12], [24]]); // Hard limit
+        this.maxSpacings = getValueOrDefault(options, 'maxSpacings', [[12], [12], [12], [24]]); // Hard limit
 
-        this.penaltyMaxSpacings = getValueOrDefault(options, "penaltyMaxSpacings", [[12], [12], [12], [24]]); // Soft limit
-        this.spacingPenalties = getValueOrDefault(options, "spacingPenalties", [[0.5], [0.5], [0.5], [0.5]]);
+        this.penaltyMaxSpacings = getValueOrDefault(options, 'penaltyMaxSpacings', [[12], [12], [12], [24]]); // Soft limit
+        this.spacingPenalties = getValueOrDefault(options, 'spacingPenalties', [[0.5], [0.5], [0.5], [0.5]]);
 
 
         // Parallel perfects
-        this.parallelOctavesAndUnisonsPenalties = getValueOrDefault(options, "parallelOctavesAndUnisonsPenalties", [4, 4, 4, 4]);
-        this.parallelFifthsPenalties = getValueOrDefault(options, "parallelFifthsPenalties", [3, 3, 3, 3]);
+        this.parallelOctavesAndUnisonsPenalties = getValueOrDefault(options, 'parallelOctavesAndUnisonsPenalties', [4, 4, 4, 4]);
+        this.parallelFifthsPenalties = getValueOrDefault(options, 'parallelFifthsPenalties', [3, 3, 3, 3]);
 
         // Leaps
-        this.maxLeapSizes = getValueOrDefault(options, "maxLeapSizes", [[12], [5], [5], [12]]);
-        this.maxLeapSizePenalties = getValueOrDefault(options, "maxLeapSizePenalties", [[1], [1], [1], [1]]);
-        this.maxFinalLeapSizes = getValueOrDefault(options, "maxFinalLeapSizes", [[4], [5], [5], [12]]);
-        this.maxFinalLeapSizePenalties = getValueOrDefault(options, "maxFinalLeapSizePenalties", [[3], [0.5], [0.5], [0.5]]);
-        this.suspensionLeapPenalties = getValueOrDefault(options, "suspensionLeapPenalties", [[2], [2], [2], [2]]);
-        this.largeLeapReverseDirectionPenaltyFactors = getValueOrDefault(options, "largeLeapReverseDirectionPenaltyFactor", [1, 1, 1, 1]);
+        this.maxLeapSizes = getValueOrDefault(options, 'maxLeapSizes', [[12], [5], [5], [12]]);
+        this.maxLeapSizePenalties = getValueOrDefault(options, 'maxLeapSizePenalties', [[1], [1], [1], [1]]);
+        this.maxFinalLeapSizes = getValueOrDefault(options, 'maxFinalLeapSizes', [[4], [5], [5], [12]]);
+        this.maxFinalLeapSizePenalties = getValueOrDefault(options, 'maxFinalLeapSizePenalties', [[3], [0.5], [0.5], [0.5]]);
+        this.suspensionLeapPenalties = getValueOrDefault(options, 'suspensionLeapPenalties', [[2], [2], [2], [2]]);
+        this.largeLeapReverseDirectionPenaltyFactors = getValueOrDefault(options, 'largeLeapReverseDirectionPenaltyFactor', [1, 1, 1, 1]);
 
         // Sus chord preparations and resolution
-        this.unresolvedSusChordPenalties = getValueOrDefault(options, "unresolvedSusChordPenalties", [[1], [1], [1], [1]]);
-        this.unpreparedSusChordPenalties = getValueOrDefault(options, "unpreparedSusChordPenalties", [[0.2], [0.2], [0.2], [0.2]]);
+        this.unresolvedSusChordPenalties = getValueOrDefault(options, 'unresolvedSusChordPenalties', [[1], [1], [1], [1]]);
+        this.unpreparedSusChordPenalties = getValueOrDefault(options, 'unpreparedSusChordPenalties', [[0.2], [0.2], [0.2], [0.2]]);
 
 
         // Melodic dissonances
-        this.augmentedSecondPenalties = getValueOrDefault(options, "augmentedSecondPenalties", [3]);
+        this.augmentedSecondPenalties = getValueOrDefault(options, 'augmentedSecondPenalties', [3]);
 
         // Doublings
-        this.rootDoublingPenalties = getValueOrDefault(options, "rootDoublingPenalties", [0]);
-        this.thirdDoublingPenalties = getValueOrDefault(options, "thirdDoublingPenalties", [1]);
-        this.fifthDoublingPenalties = getValueOrDefault(options, "fifthDoublingPenalties", [1]);
-        this.seventhDoublingPenalties = getValueOrDefault(options, "seventhDoublingPenalties", [1]);
+        this.rootDoublingPenalties = getValueOrDefault(options, 'rootDoublingPenalties', [0]);
+        this.thirdDoublingPenalties = getValueOrDefault(options, 'thirdDoublingPenalties', [1]);
+        this.fifthDoublingPenalties = getValueOrDefault(options, 'fifthDoublingPenalties', [1]);
+        this.seventhDoublingPenalties = getValueOrDefault(options, 'seventhDoublingPenalties', [1]);
 
-        this.leadingToneDoublingPenalties = getValueOrDefault(options, "leadingToneDoublingPenalties", [3]);
+        this.leadingToneDoublingPenalties = getValueOrDefault(options, 'leadingToneDoublingPenalties', [3]);
 
         // Chord completeness
-        this.missingRootPenalties = getValueOrDefault(options, "missingRootPenalties", [3]);
-        this.missingThirdPenalties = getValueOrDefault(options, "missingThirdPenalties", [2]);
-        this.missingFifthPenalties = getValueOrDefault(options, "missingFifthPenalties", [0.25]);
-        this.missingSeventhPenalties = getValueOrDefault(options, "missingSeventhPenalties", [2]);
+        this.missingRootPenalties = getValueOrDefault(options, 'missingRootPenalties', [3]);
+        this.missingThirdPenalties = getValueOrDefault(options, 'missingThirdPenalties', [2]);
+        this.missingFifthPenalties = getValueOrDefault(options, 'missingFifthPenalties', [0.25]);
+        this.missingSeventhPenalties = getValueOrDefault(options, 'missingSeventhPenalties', [2]);
 
-        this.invertedMissingRootPenalties = getValueOrDefault(options, "missingRootPenalties", [3]);
-        this.invertedMissingThirdPenalties = getValueOrDefault(options, "missingThirdPenalties", [2]);
-        this.invertedMissingFifthPenalties = getValueOrDefault(options, "missingFifthPenalties", [1]);
-        this.invertedMissingSeventhPenalties = getValueOrDefault(options, "missingSeventhPenalties", [2]);
+        this.invertedMissingRootPenalties = getValueOrDefault(options, 'missingRootPenalties', [3]);
+        this.invertedMissingThirdPenalties = getValueOrDefault(options, 'missingThirdPenalties', [2]);
+        this.invertedMissingFifthPenalties = getValueOrDefault(options, 'missingFifthPenalties', [1]);
+        this.invertedMissingSeventhPenalties = getValueOrDefault(options, 'missingSeventhPenalties', [2]);
 
         // Preparations and resolutions of dissonances
-        this.unpreparedSeventhPenalties = getValueOrDefault(options, "unpreparedSeventhPenalties", [0.25]);
-        this.unresolvedSeventhPenalties = getValueOrDefault(options, "unresolvedSeventhPenalties", [0.5]);
+        this.unpreparedSeventhPenalties = getValueOrDefault(options, 'unpreparedSeventhPenalties', [0.25]);
+        this.unresolvedSeventhPenalties = getValueOrDefault(options, 'unresolvedSeventhPenalties', [0.5]);
 
-        this.unprepared64FourthPenalties = getValueOrDefault(options, "unprepared64FourthPenalties", [0.2]);
-        this.unresolved64FourthPenalties = getValueOrDefault(options, "unresolved64FourthPenalties", [0.4]);
+        this.unprepared64FourthPenalties = getValueOrDefault(options, 'unprepared64FourthPenalties', [0.2]);
+        this.unresolved64FourthPenalties = getValueOrDefault(options, 'unresolved64FourthPenalties', [0.4]);
 
         // Cross relations
-        this.crossRelationPenalties = getValueOrDefault(options, "crossRelationPenalties", [3]);
+        this.crossRelationPenalties = getValueOrDefault(options, 'crossRelationPenalties', [3]);
 
 
         // The following properties will be set in prepareBeforeSearch()
@@ -249,15 +249,15 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
                         }
                     }
                     if (!foundSmoothInUpper) {
-    //                    logit("is cross relation! " + (new ConstantHarmonicRythm([prevHarmonyElement, harmonyElement]).toRomanString()));
+                        //                    logit("is cross relation! " + (new ConstantHarmonicRythm([prevHarmonyElement, harmonyElement]).toRomanString()));
                         stepCost += this.crossRelationPenalties[harmonyIndex % this.crossRelationPenalties.length];
                         wasCrossRelation = true;
                     }
                 }
             }
-    //        if (!wasCrossRelation) {
-    //            stepCost += 10;
-    //        }
+            //        if (!wasCrossRelation) {
+            //            stepCost += 10;
+            //        }
         }
 
 
@@ -270,9 +270,9 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
             // Moving within a seventh chord with same root is OK
             const seventhExpanded = hasSeventh && prevHasSeventh && rootPitchClass == prevRootPitchClass;
 
-    //        if (seventhExpanded) {
-    //            logit("Seventh expanded!");
-    //        }
+            //        if (seventhExpanded) {
+            //            logit("Seventh expanded!");
+            //        }
 
             if (hasSeventh && !seventhExpanded) {
                 const prepareSeventhFactor = this.unpreparedSeventhPenalties[harmonyIndex % this.unpreparedSeventhPenalties.length];
@@ -280,12 +280,12 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
             }
             if (prevHasSeventh && !seventhExpanded) {
                 const resolveSeventhFactor = this.unresolvedSeventhPenalties[harmonyIndex % this.unresolvedSeventhPenalties.length];
-    //            stepCost += resolveSeventhFactor * this.getlargeLeapFromPitchClassPenaltyCount(prevAbsNote, curAbsNote, 1, prevSeventhPitchClass);
+                //            stepCost += resolveSeventhFactor * this.getlargeLeapFromPitchClassPenaltyCount(prevAbsNote, curAbsNote, 1, prevSeventhPitchClass);
                 const seventhResolveCost = resolveSeventhFactor * this.getLeapRangeFromPitchClassPenaltyCount(prevAbsNote, curAbsNote, -2, -1, prevSeventhPitchClass);
                 stepCost += seventhResolveCost;
-    //            if (seventhResolveCost == 0 && (prevAbsNote % 12) == prevSeventhPitchClass) {
-    //                logit(" 7th resolve cost " + seventhResolveCost + " " + prevAbsNote + " " + curAbsNote);
-    //            }
+                //            if (seventhResolveCost == 0 && (prevAbsNote % 12) == prevSeventhPitchClass) {
+                //                logit(" 7th resolve cost " + seventhResolveCost + " " + prevAbsNote + " " + curAbsNote);
+                //            }
             }
             // Check preparation and resolution of of the fourths in 64 chords
             if (is64) {
@@ -294,7 +294,7 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
             }
             if (prevIs64) {
                 const resolve64Factor = this.unresolved64FourthPenalties[harmonyIndex % this.unresolved64FourthPenalties.length];
-    //            stepCost += resolve64Factor * this.getlargeLeapFromPitchClassPenaltyCount(prevAbsNote, curAbsNote, 1, prev64PitchClass);
+                //            stepCost += resolve64Factor * this.getlargeLeapFromPitchClassPenaltyCount(prevAbsNote, curAbsNote, 1, prev64PitchClass);
                 const resolve64Cost = resolve64Factor * this.getLeapRangeFromPitchClassPenaltyCount(prevAbsNote, curAbsNote, -2, -1, prev64PitchClass);
                 stepCost += resolve64Cost;
             }
@@ -314,14 +314,14 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
 
                     if (!curAbsNotePartOfPreviousScale || !prevAbsNotePartOfCurrentScale) {
                         wasAug2nd = true;
-    //                    logit("Found aug2nd " + scalePitchClasses.join(", ") + "  " + prevScalePitchClasses.join(", ") + " " + curAbsNote + " " + prevAbsNote);
+                        //                    logit("Found aug2nd " + scalePitchClasses.join(", ") + "  " + prevScalePitchClasses.join(", ") + " " + curAbsNote + " " + prevAbsNote);
                     }
                 } else if (Math.abs(prevScaleIndex - scaleIndex) == 1) {
                     // Moved within same scale a single index and this resulted in a minor third/aug 2nd
                     wasAug2nd = true;
                 }
                 if (wasAug2nd) {
-    //                logit("Found aug2nd!!");
+                    //                logit("Found aug2nd!!");
                     stepCost += this.augmentedSecondPenalties[harmonyIndex % this.augmentedSecondPenalties.length];
                 }
             }
@@ -353,7 +353,7 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
                 const maxFinalLeapArr = this.maxFinalLeapSizes[i % this.maxFinalLeapSizes.length];
                 const finalLeapCost = finalLeapSizePenaltyArr[harmonyIndex % finalLeapSizePenaltyArr.length] * this.getlargeLeapPenaltyCount(prevAbsNote, curAbsNote, maxFinalLeapArr[harmonyIndex % maxFinalLeapArr.length]);
                 stepCost += finalLeapCost;
-    //            logit("final leap cost " + finalLeapCost + " " + i + " " + maxFinalLeapArr);
+                //            logit("final leap cost " + finalLeapCost + " " + i + " " + maxFinalLeapArr);
             }
             const lineSuspensions = this.suspensions[i % this.suspensions.length];
             if (lineSuspensions[(harmonyIndex - 1) % lineSuspensions.length]) {
@@ -450,9 +450,9 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
             const penalty = penaltyArr[harmonyIndex % penaltyArr.length] * wrongCount;
             stepCost += penalty;
 
-    //        if (i == 0) {
-    //            logit("hint: " + hint + " note: " + note + " wrongCount: " + wrongCount + " dist: " + dist + " penalty: " + penalty)
-    //        }
+            //        if (i == 0) {
+            //            logit("hint: " + hint + " note: " + note + " wrongCount: " + wrongCount + " dist: " + dist + " penalty: " + penalty)
+            //        }
         }
 
         const pitchClassMap = this.getPitchClassMap(absoluteNotes);
@@ -524,7 +524,7 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
             // Doubled or tripled leading tone
             stepCost += this.leadingToneDoublingPenalties[harmonyIndex % this.leadingToneDoublingPenalties.length] *
                 (pitchClassMap[leadingTonePitchClass] - 1);
-    //        logit("Doubled leading tone " + pitchClassMap[leadingTonePitchClass]);
+            //        logit("Doubled leading tone " + pitchClassMap[leadingTonePitchClass]);
         }
 
         return stepCost;
@@ -573,7 +573,7 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
 
         stepCost += this.zeroStepCosts[index][state.stateIndex];
 
-    //    logit("___ zero step costs for state index " + state.stateIndex + ": " + JSON.stringify(this.zeroStepCosts[index]));
+        //    logit("___ zero step costs for state index " + state.stateIndex + ": " + JSON.stringify(this.zeroStepCosts[index]));
 
         return stepCost;
     }
@@ -588,38 +588,38 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
 
         const domainIndices = this.zeroStepDomainIndices[index];
 
-    //    if (index > 0) {
-    //        let domainLength = domainIndices.length;
-    //
-    //        let prevState = this.resultStates[index - 1];
-    //        domainIndices = this.oneStepDomainIndices[index][prevState.stateIndex];
-    //
-    //        if (!domainIndices) {
-    //            let that = this;
-    //            // Create sorted domains for each possible previous state index
-    //            let j = prevState.stateIndex;
-    //            domainIndices = createFilledNumericIncArray(domainLength, 0, 1);
-    //            this.oneStepDomainIndices[index][j] = domainIndices;
-    //
-    //            domainIndices.sort(function(a, b) {
-    //                return (that.zeroStepCosts[index][a] + that.oneStepHeuristicCosts[index][j][a]) -
-    //                    (that.zeroStepCosts[index][b] + that.oneStepHeuristicCosts[index][j][b]);
-    //            });
-    //        }
-    //    }
+        //    if (index > 0) {
+        //        let domainLength = domainIndices.length;
+        //
+        //        let prevState = this.resultStates[index - 1];
+        //        domainIndices = this.oneStepDomainIndices[index][prevState.stateIndex];
+        //
+        //        if (!domainIndices) {
+        //            let that = this;
+        //            // Create sorted domains for each possible previous state index
+        //            let j = prevState.stateIndex;
+        //            domainIndices = createFilledNumericIncArray(domainLength, 0, 1);
+        //            this.oneStepDomainIndices[index][j] = domainIndices;
+        //
+        //            domainIndices.sort(function(a, b) {
+        //                return (that.zeroStepCosts[index][a] + that.oneStepHeuristicCosts[index][j][a]) -
+        //                    (that.zeroStepCosts[index][b] + that.oneStepHeuristicCosts[index][j][b]);
+        //            });
+        //        }
+        //    }
 
         for (let i=0; i<domainIndices.length; i++) {
             const newState = new ClassicalVoiceLineState();
             newState.stateIndex = domainIndices[i];
             result.push(newState);
 
-    //        if (newState.stateIndex > 49) {
-    //            logit("state index " + newState.stateIndex);
-    //        }
+            //        if (newState.stateIndex > 49) {
+            //            logit("state index " + newState.stateIndex);
+            //        }
         }
 
-    //    logit("Getting states at index " + index);
-    //    logit("  Result: " + JSON.stringify(result));
+        //    logit("Getting states at index " + index);
+        //    logit("  Result: " + JSON.stringify(result));
 
         return result;
     }
@@ -672,15 +672,15 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
                 for (const step of steps) {
                     let cArr = null;
                     switch (step) {
-                        case 0:
-                            cArr = this.zeroStepConstraints;
-                            break;
-                        case 1:
-                            cArr = this.oneStepConstraints;
-                            break;
-                        case 2:
-                            cArr = this.twoStepConstraints;
-                            break;
+                    case 0:
+                        cArr = this.zeroStepConstraints;
+                        break;
+                    case 1:
+                        cArr = this.oneStepConstraints;
+                        break;
+                    case 2:
+                        cArr = this.twoStepConstraints;
+                        break;
                     }
                     if (cArr != null) {
                         cArr[i].push(constraint);
@@ -706,7 +706,7 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
         const maxSpacings = this.maxSpacings;
         const absoluteNoteHints = this.absoluteNoteHints;
 
-    //    logit(JSON.stringify(absoluteNoteHints));
+        //    logit(JSON.stringify(absoluteNoteHints));
 
         const maxAbsoluteHintDistances = this.maxAbsoluteHintDistances;
         const chordRootPitchClassConstraints = this.chordRootPitchClassConstraints; // = getValueOrDefault(options, "chordRootPitchClassConstraints", [null, null, null, null]);
@@ -716,8 +716,8 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
 
         // Recursivly gather all combinations of scale indices and absolute notes
         function gatherDomain(harmonyIndex, voiceIndex,
-                              previousAbsNote, previousScaleIndex, currentAbsTuple, currentScaleIndexTuple,
-                              resultAbsoluteNoteTuples, resultScaleIndexTuples) {
+            previousAbsNote, previousScaleIndex, currentAbsTuple, currentScaleIndexTuple,
+            resultAbsoluteNoteTuples, resultScaleIndexTuples) {
 
             const constantsArr = constants[voiceIndex];
 
@@ -843,21 +843,21 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
         const resultScaleIndexTuples = [];
 
 
-    //    voiceLeadingPrepareTimer.start();
+        //    voiceLeadingPrepareTimer.start();
 
         // Calculate all the possible state combinations without any concerns for
         // horizontal stuff like maximum leaps etc.
 
-    //    logit("Calculating index ");
-    //    let reusableIndex = JSON.stringify([absoluteNoteRanges, harmonyElements, voiceCount, maxSpacings, absoluteNoteHints, maxAbsoluteHintDistances,
-    //        chordRootPitchClassConstraints, chordBassPitchClassConstraints, chordPitchClassesArr, constants]);
-    ////    logit("Done Calculating index " + reusableIndex);
-    //    let toReuse = this.reusables[reusableIndex];
-    //    if (toReuse) {
-    //        logit("REusing domain for voice leading");
-    //        resultAbsoluteNoteTuples = copyValueDeep(toReuse[0]);
-    //        resultScaleIndexTuples = copyValueDeep(toReuse[1]);
-    //    } else {
+        //    logit("Calculating index ");
+        //    let reusableIndex = JSON.stringify([absoluteNoteRanges, harmonyElements, voiceCount, maxSpacings, absoluteNoteHints, maxAbsoluteHintDistances,
+        //        chordRootPitchClassConstraints, chordBassPitchClassConstraints, chordPitchClassesArr, constants]);
+        ////    logit("Done Calculating index " + reusableIndex);
+        //    let toReuse = this.reusables[reusableIndex];
+        //    if (toReuse) {
+        //        logit("REusing domain for voice leading");
+        //        resultAbsoluteNoteTuples = copyValueDeep(toReuse[0]);
+        //        resultScaleIndexTuples = copyValueDeep(toReuse[1]);
+        //    } else {
 
         for (let i=0; i<harmonyElements.length; i++) {
             let harmonyElement = harmonyElements[i];
@@ -869,10 +869,10 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
             gatherDomain(i, 0, upperMaxAbsNote, upperMaxScaleIndex, [], [], resultAbsoluteNoteTuples, resultScaleIndexTuples);
             //        logit("Domain for harmony " + i + ": " + JSON.stringify(resultAbsoluteNoteTuples[i]) + "<br />");
         }
-    //        this.reusables[reusableIndex] = copyValueDeep([resultAbsoluteNoteTuples, resultScaleIndexTuples]);
-    //    }
+        //        this.reusables[reusableIndex] = copyValueDeep([resultAbsoluteNoteTuples, resultScaleIndexTuples]);
+        //    }
 
-    //    voiceLeadingPrepareTimer.pause();
+        //    voiceLeadingPrepareTimer.pause();
 
 
         this.possibleAbsoluteNoteTuples = resultAbsoluteNoteTuples;
@@ -882,13 +882,13 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
         for (let i=0; i<harmonyElements.length; i++) {
             let domain = this.possibleAbsoluteNoteTuples[i];
             let scaleDomain = this.possibleScaleIndexTuples[i];
-    //        logit(scaleDomain);
+            //        logit(scaleDomain);
             for (let j=0; j<scaleDomain.length; j++) {
                 for (let k=0; k<scaleDomain[j].length; k++) {
                     scaleDomain[j][k] = parseInt(scaleDomain[j][k]);
                 }
             }
-    //        logit(scaleDomain);
+            //        logit(scaleDomain);
             // logit("Domain size for index " + i + ": " + domain.length + "<br />");
             //        logit("Domain for index " + i + ": " + domain.join(", ") + "<br />");
         }
@@ -917,7 +917,7 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
             for (let j=0; j<domain.length; j++) {
                 costs[j] = this.getZeroStepCost(i, j);
                 if (isNaN(costs[j])) {
-                    logit(`NaN cost for domain ${domain[j].join(",")} verbose follows:<br />`);
+                    logit(`NaN cost for domain ${domain[j].join(',')} verbose follows:<br />`);
                     this.getZeroStepCost(i, j, true);
                 }
             }
@@ -937,7 +937,7 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
                 newScaleDomain[j] = scaleDomain[index];
                 newCosts[j] = costs[index];
             }
-    //        logit(i + " Domain before " + domain.length + " Domain after: " + newDomain.length);
+            //        logit(i + " Domain before " + domain.length + " Domain after: " + newDomain.length);
 
             // Reset the indices, the domain is now sorted
             this.zeroStepDomainIndices[i] = createFilledNumericIncArray(newDomain.length, 0, 1);
@@ -948,9 +948,9 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
 
 
 
-    //        logit(i + " new scale domain " + JSON.stringify(newScaleDomain));
-    //        logit(i + " new domain " + JSON.stringify(newDomain));
-    //        logit(i + " new costs " + JSON.stringify(newCosts));
+            //        logit(i + " new scale domain " + JSON.stringify(newScaleDomain));
+            //        logit(i + " new domain " + JSON.stringify(newDomain));
+            //        logit(i + " new costs " + JSON.stringify(newCosts));
             if (i > 0) {
                 this.oneStepCosts[i] = [];
                 this.oneStepHeuristicCosts[i] = [];
@@ -961,18 +961,18 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
                 for (let j=0; j<prevDomain.length; j++) {
                     this.oneStepCosts[i][j] = [];
                     this.oneStepHeuristicCosts[i][j] = [];
-    //                let fromAbsNotes = prevDomain[j];
-    //                for (let k=0; k<newDomain.length; k++) {
-    //                    let toAbsNotes = newDomain[k];
-    //
-    //                    let heurCost = 0;
-    //                    for (let l=0; l<fromAbsNotes.length; l++) {
-    //                        let from = fromAbsNotes[l];
-    //                        let to = toAbsNotes[l];
-    //                        heurCost += 0.25 * Math.abs(from - to);
-    //                    }
-    //                    this.oneStepHeuristicCosts[i][j][k] = heurCost; // this.getOneStepCost(i, j, k);
-    //                }
+                    //                let fromAbsNotes = prevDomain[j];
+                    //                for (let k=0; k<newDomain.length; k++) {
+                    //                    let toAbsNotes = newDomain[k];
+                    //
+                    //                    let heurCost = 0;
+                    //                    for (let l=0; l<fromAbsNotes.length; l++) {
+                    //                        let from = fromAbsNotes[l];
+                    //                        let to = toAbsNotes[l];
+                    //                        heurCost += 0.25 * Math.abs(from - to);
+                    //                    }
+                    //                    this.oneStepHeuristicCosts[i][j][k] = heurCost; // this.getOneStepCost(i, j, k);
+                    //                }
                 }
 
                 //            let that = this;
@@ -990,12 +990,12 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
         }
 
 
-    //    logit("maxSpacings: " + JSON.stringify(this.maxSpacings) + " <br />");
-    //    logit("absoluteNoteRanges: " + JSON.stringify(this.absoluteNoteRanges) + " <br />");
-    //    logit("penaltyMaxSpacings: " + JSON.stringify(this.penaltyMaxSpacings) + " <br />");
-    //    logit("penaltyMaxAbsoluteHintDistances: " + JSON.stringify(this.penaltyMaxAbsoluteHintDistances) + " <br />");
-    //    logit("penaltyAbsoluteNoteRanges: " + JSON.stringify(this.penaltyAbsoluteNoteRanges) + " <br />");
-    //    logit("absoluteNoteHints: " + JSON.stringify(this.absoluteNoteHints) + " <br />");
+        //    logit("maxSpacings: " + JSON.stringify(this.maxSpacings) + " <br />");
+        //    logit("absoluteNoteRanges: " + JSON.stringify(this.absoluteNoteRanges) + " <br />");
+        //    logit("penaltyMaxSpacings: " + JSON.stringify(this.penaltyMaxSpacings) + " <br />");
+        //    logit("penaltyMaxAbsoluteHintDistances: " + JSON.stringify(this.penaltyMaxAbsoluteHintDistances) + " <br />");
+        //    logit("penaltyAbsoluteNoteRanges: " + JSON.stringify(this.penaltyAbsoluteNoteRanges) + " <br />");
+        //    logit("absoluteNoteHints: " + JSON.stringify(this.absoluteNoteHints) + " <br />");
 
     }
 
@@ -1006,7 +1006,7 @@ class ClassicalVoiceLineGenerator extends VoiceLineGenerator {
     extractSolution(state, harmonyIndex) {
         const result = [];
         //    let absoluteNotes = this.possibleAbsoluteNoteTuples[harmonyIndex][state.stateIndex];
-    //    logit("state index: " + state.stateIndex + " harmonyIndex: " + harmonyIndex);
+        //    logit("state index: " + state.stateIndex + " harmonyIndex: " + harmonyIndex);
         const scaleIndices = this.possibleScaleIndexTuples[harmonyIndex][state.stateIndex];
         for (let i=0; i<scaleIndices.length; i++) {
             let undef = false;

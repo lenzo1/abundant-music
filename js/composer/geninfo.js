@@ -151,7 +151,7 @@ function GenInfo() {
     this.harmonyLengthLikelihoodMultipliers = [{}];
     this.harmonyLengthLikelihoodOverwriters = [{}];
     this.overwriteHarmonyLengthLikelihoods = [false];
-    this.harmonyLengthLikelihoods = [{"4": 1}];
+    this.harmonyLengthLikelihoods = [{'4': 1}];
 
 
     // Domains
@@ -170,49 +170,49 @@ function GenInfo() {
     this.bassEndLevels = [[MelodyOffsetLevel.VERY_LOW, MelodyOffsetLevel.LOW, MelodyOffsetLevel.MIDDLE, MelodyOffsetLevel.HIGH, MelodyOffsetLevel.VERY_HIGH]];
 
     this.majorDeceptiveRootRndInfos = [
-        {data: 6, likelihood: 1, _constructorName: "IntDataSample"},
-        {data: 5, likelihood: 4, _constructorName: "IntDataSample"},
-        {data: 3, likelihood: 4, _constructorName: "IntDataSample"},
-        {data: 2, likelihood: 1, _constructorName: "IntDataSample"},
-        {data: 1, likelihood: 1, _constructorName: "IntDataSample"}
+        {data: 6, likelihood: 1, _constructorName: 'IntDataSample'},
+        {data: 5, likelihood: 4, _constructorName: 'IntDataSample'},
+        {data: 3, likelihood: 4, _constructorName: 'IntDataSample'},
+        {data: 2, likelihood: 1, _constructorName: 'IntDataSample'},
+        {data: 1, likelihood: 1, _constructorName: 'IntDataSample'}
     ];
 
     this.minorDeceptiveRootRndInfos = [
-        {data: 6, likelihood: 1, _constructorName: "IntDataSample"},
-        {data: 5, likelihood: 4, _constructorName: "IntDataSample"},
-        {data: 3, likelihood: 4, _constructorName: "IntDataSample"},
-        {data: 2, likelihood: 1, _constructorName: "IntDataSample"},
-        {data: 1, likelihood: 1, _constructorName: "IntDataSample"}
+        {data: 6, likelihood: 1, _constructorName: 'IntDataSample'},
+        {data: 5, likelihood: 4, _constructorName: 'IntDataSample'},
+        {data: 3, likelihood: 4, _constructorName: 'IntDataSample'},
+        {data: 2, likelihood: 1, _constructorName: 'IntDataSample'},
+        {data: 1, likelihood: 1, _constructorName: 'IntDataSample'}
     ];
 
     this.electronicMelodyInstrInfos = [
         // {data: MidiProgram.CALLIOPE_LEAD, likelihood: 1},
-//        {data: MidiProgram.CHIFF_LEAD, likelihood: 1},
+        //        {data: MidiProgram.CHIFF_LEAD, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}),
-//        {data: MidiProgram.FIFTHS_LEAD, likelihood: 1},
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
+        //        {data: MidiProgram.FIFTHS_LEAD, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SAW_LEAD, likelihood: 1})
-//        {data: MidiProgram.SQUARE_LEAD, likelihood: 1}
-//        {data: MidiProgram.VOICE_LEAD, likelihood: 1}
-//        {data: MidiProgram.CHARANG_LEAD, likelihood: 1}
+        //        {data: MidiProgram.SQUARE_LEAD, likelihood: 1}
+        //        {data: MidiProgram.VOICE_LEAD, likelihood: 1}
+        //        {data: MidiProgram.CHARANG_LEAD, likelihood: 1}
     ];
     this.electronicInnerFastInstrInfos = [
-//        {data: MidiProgram.CALLIOPE_LEAD, likelihood: 1},
-//        {data: MidiProgram.CHIFF_LEAD, likelihood: 1},
+        //        {data: MidiProgram.CALLIOPE_LEAD, likelihood: 1},
+        //        {data: MidiProgram.CHIFF_LEAD, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}),
-//        {data: MidiProgram.SAW_LEAD, likelihood: 1},
-//        {data: MidiProgram.SQUARE_LEAD, likelihood: 1}
-//        {data: MidiProgram.VOICE_LEAD, likelihood: 1},
+        //        {data: MidiProgram.SAW_LEAD, likelihood: 1},
+        //        {data: MidiProgram.SQUARE_LEAD, likelihood: 1}
+        //        {data: MidiProgram.VOICE_LEAD, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_GRAND_PIANO, likelihood: 1})
-//        {data: MidiProgram.ELECTRIC_JAZZ_GUITAR, likelihood: 1},
-//        {data: MidiProgram.ELECTRIC_MUTED_GUITAR, likelihood: 1}
-//        {data: MidiProgram.CHARANG_LEAD, likelihood: 1}
+        //        {data: MidiProgram.ELECTRIC_JAZZ_GUITAR, likelihood: 1},
+        //        {data: MidiProgram.ELECTRIC_MUTED_GUITAR, likelihood: 1}
+        //        {data: MidiProgram.CHARANG_LEAD, likelihood: 1}
     ];
     this.electronicInnerSlowInstrInfos = [
-//        {data: MidiProgram.BOWED_PAD, likelihood: 1},
+        //        {data: MidiProgram.BOWED_PAD, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.HALO_PAD, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.METALLIC_PAD, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.NEW_AGE_PAD, likelihood: 1}),
@@ -224,12 +224,12 @@ function GenInfo() {
     ];
 
     this.electronicBassInstrInfos = [
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.SYNTH_BASS_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_BASS_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_BASS_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_BASS_2, likelihood: 1})
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}
     ];
 
 
@@ -238,14 +238,14 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_GRAND_PIANO, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.PERCUSSIVE_ORGAN, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ROCK_ORGAN, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_JAZZ_GUITAR, likelihood: 1},
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_MUTED_GUITAR, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_JAZZ_GUITAR, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_MUTED_GUITAR, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.OVERDRIVEN_GUITAR, likelihood: 1})
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_CLEAN_GUITAR, likelihood: 1}
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_CLEAN_GUITAR, likelihood: 1}
     ];
     this.electricInnerFastInstrInfos = [
         new MidiProgramDataSample({data: MidiProgram.DISTORTION_GUITAR, likelihood: 1}),
@@ -255,16 +255,16 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.OVERDRIVEN_GUITAR, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_CHOIR, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_CLEAN_GUITAR, likelihood: 1})
     ];
     this.electricInnerSlowInstrInfos = [
         new MidiProgramDataSample({data: MidiProgram.DISTORTION_GUITAR, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.OVERDRIVEN_GUITAR, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_CHOIR, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.BOWED_PAD, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.HALO_PAD, likelihood: 1}),
@@ -275,7 +275,7 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.SYNTH_STRINGS_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_STRINGS_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.WARM_PAD, likelihood: 1})
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_CLEAN_GUITAR, likelihood: 1}
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_CLEAN_GUITAR, likelihood: 1}
     ];
     this.electricBassInstrInfos = [
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_GRAND_PIANO, likelihood: 1}),
@@ -283,8 +283,8 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PICK_BASS, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_BASS_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_BASS_2, likelihood: 1})
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1},
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}
     ];
 
     this.acousticMelodyInstrInfos = [
@@ -299,13 +299,13 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.PIZZICATO_STRINGS, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.RECORDER, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.VIOLIN, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.TRUMPET, likelihood: 1},
-//        new MidiProgramDataSample({data: MidiProgram.MUTED_TRUMPET, likelihood: 1},
-//        new MidiProgramDataSample({data: MidiProgram.SOPRANO_SAX, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.TRUMPET, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.MUTED_TRUMPET, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.SOPRANO_SAX, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.OBOE, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.REED_ORGAN, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ROCK_ORGAN, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.TROMBONE, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.TROMBONE, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.VIOLA, likelihood: 1})
     ];
 
@@ -322,9 +322,9 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.PIZZICATO_STRINGS, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.RECORDER, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.VIOLIN, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.TRUMPET, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.MUTED_TRUMPET, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SOPRANO_SAX, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.TRUMPET, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.MUTED_TRUMPET, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SOPRANO_SAX, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.OBOE, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.REED_ORGAN, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ROCK_ORGAN, likelihood: 1}),
@@ -336,20 +336,20 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.STRING_ENSEMBLE_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.STRING_ENSEMBLE_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.VOICE_OOHS, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.ALTO_SAX, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.BARITONE_SAX, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.ALTO_SAX, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.BARITONE_SAX, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.CHOIR_AAHS, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.CHURCH_ORGAN, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.CLARINET, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.CLAVINET, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ENGLISH_HORN, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.MUTED_TRUMPET, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.MUTED_TRUMPET, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.OBOE, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.OCARINA, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.PAN_FLUTE, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.REED_ORGAN, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ROCK_ORGAN, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SOPRANO_SAX, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SOPRANO_SAX, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.CELLO, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.FLUTE, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.PICCOLO, likelihood: 1}),
@@ -361,8 +361,8 @@ function GenInfo() {
     this.acousticBassInstrInfos = [
         new MidiProgramDataSample({data: MidiProgram.ACOUSTIC_GRAND_PIANO, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.BRIGHT_ACOUSTIC_PIANO, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.CONTRABASS, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.BASSOON, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.CONTRABASS, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.BASSOON, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.FRETLESS_BASS, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SLAP_BASS_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SLAP_BASS_2, likelihood: 1}),
@@ -383,8 +383,8 @@ function GenInfo() {
 
     this.snareRndInfos = [
         new MidiDrumDataSample({data: MidiDrum.SNARE_DRUM_1, likelihood: 30}),
-//        new MidiDrumDataSample({data: MidiDrum.CRASH_CYMBAL_1, likelihood: 1}),
-//        new MidiDrumDataSample({data: MidiDrum.CRASH_CYMBAL_2, likelihood: 1}),
+        //        new MidiDrumDataSample({data: MidiDrum.CRASH_CYMBAL_1, likelihood: 1}),
+        //        new MidiDrumDataSample({data: MidiDrum.CRASH_CYMBAL_2, likelihood: 1}),
         new MidiDrumDataSample({data: MidiDrum.HAND_CLAP, likelihood: 1}),
         new MidiDrumDataSample({data: MidiDrum.HIGH_TOM_1, likelihood: 1}),
         new MidiDrumDataSample({data: MidiDrum.HIGH_TOM_2, likelihood: 1}),
@@ -416,103 +416,103 @@ function GenInfo() {
     ];
 
     this.fillIndexPatternRndInfos = [
-        {data: [0], likelihood: 10, _constructorName: "IntListDataSample"},
-        {data: [0, 1], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 0], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 1], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 2], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 0, 1], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 0, 0, 1], likelihood: 5, _constructorName: "IntListDataSample"},
-        {data: [0, 0, 1, 0], likelihood: 3, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 0, 0], likelihood: 2, _constructorName: "IntListDataSample"},
-        {data: [0, 0, 1, 1], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 1, 1], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 1, 0], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 0, 1, 2], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 2, 0], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 2, 1], likelihood: 1, _constructorName: "IntListDataSample"}
+        {data: [0], likelihood: 10, _constructorName: 'IntListDataSample'},
+        {data: [0, 1], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 0], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 1], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 2], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 0, 1], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 0, 0, 1], likelihood: 5, _constructorName: 'IntListDataSample'},
+        {data: [0, 0, 1, 0], likelihood: 3, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 0, 0], likelihood: 2, _constructorName: 'IntListDataSample'},
+        {data: [0, 0, 1, 1], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 1, 1], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 1, 0], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 0, 1, 2], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 2, 0], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 2, 1], likelihood: 1, _constructorName: 'IntListDataSample'}
     ];
 
 
     this.phraseGroupTypes = [
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_TONICIZE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample"}, // Better to use in a harmonic plan
-        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE, likelihood: 0.125, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_MODULATE_BACK, likelihood: 0.125, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT, likelihood: 0.25, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT_SHORTEN, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_DIFFERENT_SCALE_TYPE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" }, // No shortening as in ant/cons
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE, likelihood: 0.5, _constructorName: "PhraseGroupTypeDataSample" }, // Start with dynamic harmony
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DOMINANT_PROLONG_CADENCE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_COMPLETE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_COMPLETE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_TONIC_CADENCE_PROLONG, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" }, //
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLAGIAL_PLUS_COMPLETE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_PLAGIAL, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE, likelihood: 0.5, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.025, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.025, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.025, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.025, _constructorName: "PhraseGroupTypeDataSample" }
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_TONICIZE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample'}, // Better to use in a harmonic plan
+        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE, likelihood: 0.125, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_MODULATE_BACK, likelihood: 0.125, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT, likelihood: 0.25, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT_SHORTEN, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_DIFFERENT_SCALE_TYPE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' }, // No shortening as in ant/cons
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE, likelihood: 0.5, _constructorName: 'PhraseGroupTypeDataSample' }, // Start with dynamic harmony
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DOMINANT_PROLONG_CADENCE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_COMPLETE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_COMPLETE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_TONIC_CADENCE_PROLONG, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' }, //
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLAGIAL_PLUS_COMPLETE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_PLAGIAL, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE, likelihood: 0.5, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.025, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.025, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.025, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.025, _constructorName: 'PhraseGroupTypeDataSample' }
     ];
 
     this.modulatePhraseGroupTypes = [
-        {data: SimpleModuleGeneratorPhraseGroupType.PHRASE_MODULATE, likelihood: 0.5, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE, likelihood: 0.5, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE, likelihood: 0.5, _constructorName: "PhraseGroupTypeDataSample"}
+        {data: SimpleModuleGeneratorPhraseGroupType.PHRASE_MODULATE, likelihood: 0.5, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE, likelihood: 0.5, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE, likelihood: 0.5, _constructorName: 'PhraseGroupTypeDataSample'}
     ];
 
     this.introGroupTypes = [
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" }
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' }
     ];
 
     this.endGroupTypes = [
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.25, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" }
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.25, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' }
     ];
     this.glueGroupTypes = [
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_SILENT, likelihood: 0.25, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 3, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.25, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" }
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_SILENT, likelihood: 0.25, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 3, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.25, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' }
     ];
 
     this.harmonyRythmDensityCurveFrequencyOverrides = [];
@@ -542,12 +542,12 @@ function GenInfo() {
 
 
     this.minorHarmonicPlans = [
-        {data: [DynamicHarmonyModulationTarget.MEDIANT, DynamicHarmonyModulationTarget.MEDIANT, DynamicHarmonyModulationTarget.SUBDOMINANT], likelihood: 1, _constructorName: "HarmonicPlanDataSample"},
-        {data: [DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget.SUBDOMINANT], likelihood: 1, _constructorName: "HarmonicPlanDataSample"}
+        {data: [DynamicHarmonyModulationTarget.MEDIANT, DynamicHarmonyModulationTarget.MEDIANT, DynamicHarmonyModulationTarget.SUBDOMINANT], likelihood: 1, _constructorName: 'HarmonicPlanDataSample'},
+        {data: [DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget.SUBDOMINANT], likelihood: 1, _constructorName: 'HarmonicPlanDataSample'}
     ];
     this.majorHarmonicPlans = [
-        {data: [DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget.SUBDOMINANT], likelihood: 1, _constructorName: "HarmonicPlanDataSample"},
-        {data: [DynamicHarmonyModulationTarget.SUPERTONIC, DynamicHarmonyModulationTarget.MEDIANT, DynamicHarmonyModulationTarget.DOMINANT], likelihood: 1, _constructorName: "HarmonicPlanDataSample"}
+        {data: [DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget.SUBDOMINANT], likelihood: 1, _constructorName: 'HarmonicPlanDataSample'},
+        {data: [DynamicHarmonyModulationTarget.SUPERTONIC, DynamicHarmonyModulationTarget.MEDIANT, DynamicHarmonyModulationTarget.DOMINANT], likelihood: 1, _constructorName: 'HarmonicPlanDataSample'}
     ];
 
     this.renderAmountStrengthMap = {
@@ -556,75 +556,75 @@ function GenInfo() {
         medium: [0.4],
         strong: [0.7],
         veryStrong: [1.0],
-        _constructorName: "RenderAmountStrengthMap"
+        _constructorName: 'RenderAmountStrengthMap'
     };
 
 
     this.majorModulationTargetInfos = [
-        {data: DynamicHarmonyModulationTarget.MEDIANT, likelihood: 0.1, _constructorName: "ModulationTargetDataSample"},
-//        {data: DynamicHarmonyModulationTarget.SUBDOMINANT, likelihood: 0.02},
-        {data: DynamicHarmonyModulationTarget.SUBMEDIANT, likelihood: 0.1, _constructorName: "ModulationTargetDataSample"},
-        {data: DynamicHarmonyModulationTarget.SUPERTONIC, likelihood: 0.2, _constructorName: "ModulationTargetDataSample"},
-        {data: DynamicHarmonyModulationTarget.DOMINANT, likelihood: 1, _constructorName: "ModulationTargetDataSample"}
+        {data: DynamicHarmonyModulationTarget.MEDIANT, likelihood: 0.1, _constructorName: 'ModulationTargetDataSample'},
+        //        {data: DynamicHarmonyModulationTarget.SUBDOMINANT, likelihood: 0.02},
+        {data: DynamicHarmonyModulationTarget.SUBMEDIANT, likelihood: 0.1, _constructorName: 'ModulationTargetDataSample'},
+        {data: DynamicHarmonyModulationTarget.SUPERTONIC, likelihood: 0.2, _constructorName: 'ModulationTargetDataSample'},
+        {data: DynamicHarmonyModulationTarget.DOMINANT, likelihood: 1, _constructorName: 'ModulationTargetDataSample'}
     ];
     this.minorModulationTargetInfos = [
-        {data: DynamicHarmonyModulationTarget.MEDIANT, likelihood: 1, _constructorName: "ModulationTargetDataSample"},
-//        {data: DynamicHarmonyModulationTarget.SUBDOMINANT, likelihood: 0.05},
-        {data: DynamicHarmonyModulationTarget.SUBMEDIANT, likelihood: 0.1, _constructorName: "ModulationTargetDataSample"},
-        {data: DynamicHarmonyModulationTarget.SUBTONIC, likelihood: 0.1, _constructorName: "ModulationTargetDataSample"},
-        {data: DynamicHarmonyModulationTarget.DOMINANT, likelihood: 0.2, _constructorName: "ModulationTargetDataSample"}
+        {data: DynamicHarmonyModulationTarget.MEDIANT, likelihood: 1, _constructorName: 'ModulationTargetDataSample'},
+        //        {data: DynamicHarmonyModulationTarget.SUBDOMINANT, likelihood: 0.05},
+        {data: DynamicHarmonyModulationTarget.SUBMEDIANT, likelihood: 0.1, _constructorName: 'ModulationTargetDataSample'},
+        {data: DynamicHarmonyModulationTarget.SUBTONIC, likelihood: 0.1, _constructorName: 'ModulationTargetDataSample'},
+        {data: DynamicHarmonyModulationTarget.DOMINANT, likelihood: 0.2, _constructorName: 'ModulationTargetDataSample'}
     ];
 
     this.melodyMotifIndexPatternInfos = [
-        {data: [[1], [1], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [2], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [2], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [1], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [2], [3]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [1], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [1], [3]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [3]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [3], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [3], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [1], [0], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [0], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [3], [0], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [3], [0], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [0], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [1], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [3], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [2], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [1], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"}
+        {data: [[1], [1], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [2], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [2], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [1], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [2], [3]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [1], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [1], [3]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [3]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [3], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [3], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [1], [0], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [0], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [3], [0], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [3], [0], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [0], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [1], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [3], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [2], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [1], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'}
     ];
 
     this.bassMotifIndexPatternInfos = [
-        {data: [[1], [1], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [2], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [2], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [1], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [2], [3]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [1], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [1], [3]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [3]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [3], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [3], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [1], [0], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [0], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [3], [0], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [3], [0], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [0], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [1], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [3], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [2], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [1], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"}
+        {data: [[1], [1], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [2], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [2], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [1], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [2], [3]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [1], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [1], [3]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [3]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [3], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [3], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [1], [0], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [0], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [3], [0], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [3], [0], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [0], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [1], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [3], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [2], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [1], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'}
     ];
 
     this.harmonyElements = [];
@@ -712,14 +712,14 @@ function GenInfo() {
 
 
     // General export stuff
-    this.songName = "song";
+    this.songName = 'song';
 
     // Midi render stuff
     this.instrumentVolumeHints = {};
-//    this.instrumentVolumeHints[MidiProgram.SYNTH_STRINGS_1] = 90 / 127.0;
-//    this.instrumentVolumeHints[MidiProgram.PAN_FLUTE] = 90 / 127.0;
-//    this.instrumentVolumeHints[MidiProgram.CHURCH_ORGAN] = 110 / 127.0;
-//    this.instrumentVolumeHints[MidiProgram.METALLIC_PAD] = 90 / 127.0;
+    //    this.instrumentVolumeHints[MidiProgram.SYNTH_STRINGS_1] = 90 / 127.0;
+    //    this.instrumentVolumeHints[MidiProgram.PAN_FLUTE] = 90 / 127.0;
+    //    this.instrumentVolumeHints[MidiProgram.CHURCH_ORGAN] = 110 / 127.0;
+    //    this.instrumentVolumeHints[MidiProgram.METALLIC_PAD] = 90 / 127.0;
     this.applyInstrumentVolumeHintsToMelody = false;
     this.applyInstrumentVolumeHintsToInner1 = true;
     this.applyInstrumentVolumeHintsToInner1 = true;
@@ -759,45 +759,45 @@ function GenInfo() {
     this.normalizeRenderedResult = false;
     this.compressRenderedResult = false;
 
-    this._constructorName = "GenInfo";
+    this._constructorName = 'GenInfo';
 }
 
-GenInfo.prototype.phraseGroupTypes_allowedTypes = {"PhraseGroupTypeDataSample": 1};
-GenInfo.prototype.modulatePhraseGroupTypes_allowedTypes = {"PhraseGroupTypeDataSample": 1};
-GenInfo.prototype.introGroupTypes_allowedTypes = {"PhraseGroupTypeDataSample": 1};
-GenInfo.prototype.endGroupTypes_allowedTypes = {"PhraseGroupTypeDataSample": 1};
-GenInfo.prototype.glueGroupTypes_allowedTypes = {"PhraseGroupTypeDataSample": 1};
-GenInfo.prototype.majorDeceptiveRootRndInfos_allowedTypes = {"IntDataSample": 1};
-GenInfo.prototype.minorDeceptiveRootRndInfos_allowedTypes = {"IntDataSample": 1};
-GenInfo.prototype.electronicMelodyInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electronicInnerFastInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electronicInnerSlowInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electronicBassInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electricMelodyInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electricInnerFastInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electricInnerSlowInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electricBassInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.acousticMelodyInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.acousticInnerFastInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.acousticInnerSlowInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.acousticBassInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.bassDrumRndInfos_allowedTypes = {"MidiDrumDataSample": 1};
-GenInfo.prototype.snareRndInfos_allowedTypes = {"MidiDrumDataSample": 1};
-GenInfo.prototype.crashRndInfos_allowedTypes = {"MidiDrumDataSample": 1};
-GenInfo.prototype.rideRndInfos_allowedTypes = {"MidiDrumDataSample": 1};
-GenInfo.prototype.fillIndexPatternRndInfos_allowedTypes = {"IntListDataSample": 1};
-GenInfo.prototype.songPartStructure_allowedTypes = {"SongPartStructureInfo": 1};
-GenInfo.prototype.songPartStructureRndInfos_allowedTypes = {"SongPartStructureInfoDataSample": 1};
-GenInfo.prototype.majorHarmonicPlans_allowedTypes = {"HarmonicPlanDataSample": 1};
-GenInfo.prototype.minorHarmonicPlans_allowedTypes = {"HarmonicPlanDataSample": 1};
-GenInfo.prototype.majorModulationTargetInfos_allowedTypes = {"ModulationTargetDataSample": 1};
-GenInfo.prototype.minorModulationTargetInfos_allowedTypes = {"ModulationTargetDataSample": 1};
-GenInfo.prototype.melodyMotifIndexPatternInfos_allowedTypes = {"IntList2DDataSample": 1};
-GenInfo.prototype.bassMotifIndexPatternInfos_allowedTypes = {"IntList2DDataSample": 1};
-GenInfo.prototype.songPartTypeOverrideInfos_allowedTypes = {"SongPartTypeOverrideInfo": 1};
-GenInfo.prototype.harmonyElements_allowedTypes = {"SimpleSequenceHarmonyElement": 1, "PhraseHarmonyElement": 1};
-GenInfo.prototype.customMelodyCurveInfos_allowedTypes = {"LinearInterpolatedCustomVoiceLineCurveInfo": 1};
-GenInfo.prototype.customBassCurveInfos_allowedTypes = {"LinearInterpolatedCustomVoiceLineCurveInfo": 1};
+GenInfo.prototype.phraseGroupTypes_allowedTypes = {'PhraseGroupTypeDataSample': 1};
+GenInfo.prototype.modulatePhraseGroupTypes_allowedTypes = {'PhraseGroupTypeDataSample': 1};
+GenInfo.prototype.introGroupTypes_allowedTypes = {'PhraseGroupTypeDataSample': 1};
+GenInfo.prototype.endGroupTypes_allowedTypes = {'PhraseGroupTypeDataSample': 1};
+GenInfo.prototype.glueGroupTypes_allowedTypes = {'PhraseGroupTypeDataSample': 1};
+GenInfo.prototype.majorDeceptiveRootRndInfos_allowedTypes = {'IntDataSample': 1};
+GenInfo.prototype.minorDeceptiveRootRndInfos_allowedTypes = {'IntDataSample': 1};
+GenInfo.prototype.electronicMelodyInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electronicInnerFastInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electronicInnerSlowInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electronicBassInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electricMelodyInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electricInnerFastInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electricInnerSlowInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electricBassInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.acousticMelodyInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.acousticInnerFastInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.acousticInnerSlowInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.acousticBassInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.bassDrumRndInfos_allowedTypes = {'MidiDrumDataSample': 1};
+GenInfo.prototype.snareRndInfos_allowedTypes = {'MidiDrumDataSample': 1};
+GenInfo.prototype.crashRndInfos_allowedTypes = {'MidiDrumDataSample': 1};
+GenInfo.prototype.rideRndInfos_allowedTypes = {'MidiDrumDataSample': 1};
+GenInfo.prototype.fillIndexPatternRndInfos_allowedTypes = {'IntListDataSample': 1};
+GenInfo.prototype.songPartStructure_allowedTypes = {'SongPartStructureInfo': 1};
+GenInfo.prototype.songPartStructureRndInfos_allowedTypes = {'SongPartStructureInfoDataSample': 1};
+GenInfo.prototype.majorHarmonicPlans_allowedTypes = {'HarmonicPlanDataSample': 1};
+GenInfo.prototype.minorHarmonicPlans_allowedTypes = {'HarmonicPlanDataSample': 1};
+GenInfo.prototype.majorModulationTargetInfos_allowedTypes = {'ModulationTargetDataSample': 1};
+GenInfo.prototype.minorModulationTargetInfos_allowedTypes = {'ModulationTargetDataSample': 1};
+GenInfo.prototype.melodyMotifIndexPatternInfos_allowedTypes = {'IntList2DDataSample': 1};
+GenInfo.prototype.bassMotifIndexPatternInfos_allowedTypes = {'IntList2DDataSample': 1};
+GenInfo.prototype.songPartTypeOverrideInfos_allowedTypes = {'SongPartTypeOverrideInfo': 1};
+GenInfo.prototype.harmonyElements_allowedTypes = {'SimpleSequenceHarmonyElement': 1, 'PhraseHarmonyElement': 1};
+GenInfo.prototype.customMelodyCurveInfos_allowedTypes = {'LinearInterpolatedCustomVoiceLineCurveInfo': 1};
+GenInfo.prototype.customBassCurveInfos_allowedTypes = {'LinearInterpolatedCustomVoiceLineCurveInfo': 1};
 
 
 GenInfo.prototype.randomize = function(rnd) {
@@ -897,7 +897,7 @@ GenInfo.prototype.set = function(inputGenInfo) {
         } else {
             this[prop] = inputGenInfo[prop];
         }
-//        logit("setting " + prop + " to " + inputGenInfo[prop]);
+        //        logit("setting " + prop + " to " + inputGenInfo[prop]);
     }
 //    for (let prop in this) {
 //        let test = inputGenInfo[prop];

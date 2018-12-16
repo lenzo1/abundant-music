@@ -4,115 +4,115 @@
 
 THREE.EffectComposer = function ( renderer, renderTarget ) {
 
-	this.renderer = renderer;
+    this.renderer = renderer;
 
-	this.renderTarget1 = renderTarget;
+    this.renderTarget1 = renderTarget;
 
-	if ( this.renderTarget1 === undefined ) {
+    if ( this.renderTarget1 === undefined ) {
 
-		var width = window.innerWidth || 1;
-		var height = window.innerHeight || 1;
+        var width = window.innerWidth || 1;
+        var height = window.innerHeight || 1;
 
-		this.renderTargetParameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false };
-		this.renderTarget1 = new THREE.WebGLRenderTarget( width, height, this.renderTargetParameters );
+        this.renderTargetParameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false };
+        this.renderTarget1 = new THREE.WebGLRenderTarget( width, height, this.renderTargetParameters );
 
-	}
+    }
 
-	this.renderTarget2 = this.renderTarget1.clone();
+    this.renderTarget2 = this.renderTarget1.clone();
 
-	this.writeBuffer = this.renderTarget1;
-	this.readBuffer = this.renderTarget2;
+    this.writeBuffer = this.renderTarget1;
+    this.readBuffer = this.renderTarget2;
 
-	this.passes = [];
+    this.passes = [];
 
-	if ( THREE.CopyShader === undefined )
-		console.error( "THREE.EffectComposer relies on THREE.CopyShader" );
+    if ( THREE.CopyShader === undefined )
+        console.error( 'THREE.EffectComposer relies on THREE.CopyShader' );
 
-	this.copyPass = new THREE.ShaderPass( THREE.CopyShader );
+    this.copyPass = new THREE.ShaderPass( THREE.CopyShader );
 
 };
 
 THREE.EffectComposer.prototype = {
 
-	swapBuffers: function() {
+    swapBuffers: function() {
 
-		var tmp = this.readBuffer;
-		this.readBuffer = this.writeBuffer;
-		this.writeBuffer = tmp;
+        var tmp = this.readBuffer;
+        this.readBuffer = this.writeBuffer;
+        this.writeBuffer = tmp;
 
-	},
+    },
 
-	addPass: function ( pass ) {
+    addPass: function ( pass ) {
 
-		this.passes.push( pass );
+        this.passes.push( pass );
 
-	},
+    },
 
-	render: function ( delta ) {
+    render: function ( delta ) {
 
-		this.writeBuffer = this.renderTarget1;
-		this.readBuffer = this.renderTarget2;
+        this.writeBuffer = this.renderTarget1;
+        this.readBuffer = this.renderTarget2;
 
-		var maskActive = false;
+        var maskActive = false;
 
-		var pass, i, il = this.passes.length;
+        var pass, i, il = this.passes.length;
 
-		for ( i = 0; i < il; i ++ ) {
+        for ( i = 0; i < il; i ++ ) {
 
-			pass = this.passes[ i ];
+            pass = this.passes[ i ];
 
-			if ( !pass.enabled ) continue;
+            if ( !pass.enabled ) continue;
 
-			pass.render( this.renderer, this.writeBuffer, this.readBuffer, delta, maskActive );
+            pass.render( this.renderer, this.writeBuffer, this.readBuffer, delta, maskActive );
 
-			if ( pass.needsSwap ) {
+            if ( pass.needsSwap ) {
 
-				if ( maskActive ) {
+                if ( maskActive ) {
 
-					var context = this.renderer.context;
+                    var context = this.renderer.context;
 
-					context.stencilFunc( context.NOTEQUAL, 1, 0xffffffff );
+                    context.stencilFunc( context.NOTEQUAL, 1, 0xffffffff );
 
-					this.copyPass.render( this.renderer, this.writeBuffer, this.readBuffer, delta );
+                    this.copyPass.render( this.renderer, this.writeBuffer, this.readBuffer, delta );
 
-					context.stencilFunc( context.EQUAL, 1, 0xffffffff );
+                    context.stencilFunc( context.EQUAL, 1, 0xffffffff );
 
-				}
+                }
 
-				this.swapBuffers();
+                this.swapBuffers();
 
-			}
+            }
 
-			if ( pass instanceof THREE.MaskPass ) {
+            if ( pass instanceof THREE.MaskPass ) {
 
-				maskActive = true;
+                maskActive = true;
 
-			} else if ( pass instanceof THREE.ClearMaskPass ) {
+            } else if ( pass instanceof THREE.ClearMaskPass ) {
 
-				maskActive = false;
+                maskActive = false;
 
-			}
+            }
 
-		}
+        }
 
-	},
+    },
 
-	reset: function ( renderTarget ) {
+    reset: function ( renderTarget ) {
 
-		this.renderTarget1 = renderTarget;
+        this.renderTarget1 = renderTarget;
 
-		if ( this.renderTarget1 === undefined ) {
+        if ( this.renderTarget1 === undefined ) {
 
-			this.renderTarget1 = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, this.renderTargetParameters );
+            this.renderTarget1 = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, this.renderTargetParameters );
 
-		}
+        }
 
-		this.renderTarget2 = this.renderTarget1.clone();
+        this.renderTarget2 = this.renderTarget1.clone();
 
-		this.writeBuffer = this.renderTarget1;
-		this.readBuffer = this.renderTarget2;
+        this.writeBuffer = this.renderTarget1;
+        this.readBuffer = this.renderTarget2;
 
-	}
+    }
 
 };
 

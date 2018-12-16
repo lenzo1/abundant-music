@@ -2,8 +2,8 @@
 class VoiceLinePlannerConstraint {
 
     constructor () {
-        this.id = "";
-        this._constructorName = "VoiceLinePlannerConstraint";
+        this.id = '';
+        this._constructorName = 'VoiceLinePlannerConstraint';
     }
 
     // The steps this constraint checks backward for costs and validity.
@@ -42,7 +42,7 @@ class VoiceLinePlannerConstraint {
 class EmptyVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
     constructor() {
         super();
-        this._constructorName = "EmptyVoiceLinePlannerConstraint";
+        this._constructorName = 'EmptyVoiceLinePlannerConstraint';
     }
 
     getCheckCostSteps() {
@@ -58,7 +58,7 @@ class MinVoiceLinePlannerConstraint extends VoiceLinePlannerConstraint {
     constructor() {
         super();
         this.constraints = [];
-        this._constructorName = "MinVoiceLinePlannerConstraint";
+        this._constructorName = 'MinVoiceLinePlannerConstraint';
 
     }
 
@@ -124,7 +124,7 @@ class VoiceChordNotesVoiceLinePlannerConstraint extends VoiceLinePlannerConstrai
         this.chordRootPitchClassConstraintCosts = [[1]]; // 2d arrays
         this.chordBassPitchClassConstraintCosts = [[1]];
 
-        this._constructorName = "VoiceChordNotesVoiceLinePlannerConstraint";
+        this._constructorName = 'VoiceChordNotesVoiceLinePlannerConstraint';
     }
 
     getCheckCostSteps() {
@@ -160,7 +160,7 @@ class VoiceChordNotesVoiceLinePlannerConstraint extends VoiceLinePlannerConstrai
                     if (rootIndex < chordPitchClasses.length) {
                         const chordNotePitchClass = chordPitchClasses[rootIndex];
                         if (pitchClass == chordNotePitchClass) {
-    //                        logit("chord pitch class " + chordNotePitchClass);
+                            //                        logit("chord pitch class " + chordNotePitchClass);
                             stepCost += cost;
                         }
                     }
@@ -168,9 +168,9 @@ class VoiceChordNotesVoiceLinePlannerConstraint extends VoiceLinePlannerConstrai
             }
         }
     
-    //    if (stepCost > 0) {
-    //        logit("Getting zero step cost for " + this._constructorName + " " + harmonyIndex + " " + stateIndex + " " + stepCost);
-    //    }
+        //    if (stepCost > 0) {
+        //        logit("Getting zero step cost for " + this._constructorName + " " + harmonyIndex + " " + stateIndex + " " + stepCost);
+        //    }
     
         return stepCost;
     };

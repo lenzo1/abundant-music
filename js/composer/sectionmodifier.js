@@ -2,9 +2,9 @@
 
 class SectionModifier {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.active = true;
-        this._constructorName = "SectionModifier";
+        this._constructorName = 'SectionModifier';
     }
 
     modifySection(section, state) {
@@ -35,12 +35,12 @@ class SectionModifier {
 class NoteVelocitiesSectionModifier extends SectionModifier {
     constructor() {
         super();
-        this.curve = "";
-        this.channel = "";
+        this.curve = '';
+        this.channel = '';
         this.curveBias = 0.0;
         this.curveMultiplier = 1.0;
         this.curveGlobalTime = true;
-        this._constructorName = "NoteVelocitiesSectionModifier";
+        this._constructorName = 'NoteVelocitiesSectionModifier';
     }
 
     beforeSectionFinalized(section, state) {
@@ -53,8 +53,8 @@ class NoteVelocitiesSectionModifier extends SectionModifier {
             theCurve = new PredefinedCurve().setType(PredefinedCurveType.CONSTANT).setAmplitude(1.0);
         }
 
-        const curveMultiplier = getValueOrExpressionValue(this, "curveMultiplier", state.module);
-        const curveBias = getValueOrExpressionValue(this, "curveBias", state.module);
+        const curveMultiplier = getValueOrExpressionValue(this, 'curveMultiplier', state.module);
+        const curveBias = getValueOrExpressionValue(this, 'curveBias', state.module);
 
         for (const e of events) {
             if (e.time >= state.oldSectionTime && e instanceof NoteOnEvent) {
@@ -64,7 +64,7 @@ class NoteVelocitiesSectionModifier extends SectionModifier {
                         time = e.time - state.oldSectionTime;
                     }
                     const curveValue = theCurve.getValue(state.module, time);
-    //                logit("vel curve value at " + e.time + ": " + curveValue);
+                    //                logit("vel curve value at " + e.time + ": " + curveValue);
                     const value = curveMultiplier * curveValue + curveBias;
                     e.onVelocity *= value;
                 }
@@ -78,12 +78,12 @@ class ConditionalSuspendSectionModifier extends SectionModifier {
         super();
         this.suspendPitchClassPairs = []; // [fromPc, toPc]
         this.harmonyIndex = 0;
-        this._constructorName = "ConditionalSuspendSectionModifier";
+        this._constructorName = 'ConditionalSuspendSectionModifier';
     }
 
     modifyPlannedVoiceLines(voiceLines, state) {
 
-        const active = getValueOrExpressionValue(this, "active", state.module);
+        const active = getValueOrExpressionValue(this, 'active', state.module);
 
         if (active) {
             voiceLines = copyValueDeep(voiceLines);
@@ -121,10 +121,10 @@ class ConditionalSuspendSectionModifier extends SectionModifier {
                     const toAbs = absNotes[i];
                     const toPc = toAbs % 12;
                     if (pair[0] == prevPc && pair[1] == toPc) {
-    //                    logit(this._constructorName + " Modifying vle at " + this.harmonyIndex + " voice order: " + i);
+                        //                    logit(this._constructorName + " Modifying vle at " + this.harmonyIndex + " voice order: " + i);
                         if (prevAbs <= toAbs || prevAbs - toAbs > 2) {
                         } else {
-    //                        logit(this._constructorName + " Modifying vle at " + this.harmonyIndex + " voice order: " + i);
+                            //                        logit(this._constructorName + " Modifying vle at " + this.harmonyIndex + " voice order: " + i);
                             prevVles[i].suspend = true;
                         }
                     }
@@ -138,16 +138,16 @@ class ConditionalSuspendSectionModifier extends SectionModifier {
 class SetVariableValueSectionModifier extends SectionModifier {
     constructor() {
         super();
-        this.variable = "";
-        this.variableProperty = "value";
-        this.valueExpression = "";
+        this.variable = '';
+        this.variableProperty = 'value';
+        this.valueExpression = '';
         this.value = 0;
         this.restoreAfterRender = true;
 
         this.valueBefore = null;
         this.hasBeenSet = false;
 
-        this._constructorName = "SetVariableValueSectionModifier";
+        this._constructorName = 'SetVariableValueSectionModifier';
     }
 
     setVariable(v) {
@@ -178,7 +178,7 @@ class SetVariableValueSectionModifier extends SectionModifier {
                         this.valueBefore = theVariable[this.variableProperty];
                         // Check if same type and if the variable has a value that can be set etc.
                         theVariable[this.variableProperty] = temp;
-    //                                            logit("Setting variable " + this.variable + " to " + temp);
+                        //                                            logit("Setting variable " + this.variable + " to " + temp);
                         this.hasBeenSet = true;
                     }
                 }
@@ -187,7 +187,7 @@ class SetVariableValueSectionModifier extends SectionModifier {
             logit(`${ex}`);
             logit(`${this._constructorName} Error in modifySection ${this.valueExpression}`);
             let temp = getExpressionValue(this.valueExpression, state.module);
-    //        logit(this._constructorName + " temp " + temp);
+            //        logit(this._constructorName + " temp " + temp);
         }
         return section;
     }
@@ -205,9 +205,9 @@ class SetVariableValueSectionModifier extends SectionModifier {
 class ChangeHarmonySectionModifier extends SectionModifier {
     constructor() {
         super();
-        this.harmony = "";
+        this.harmony = '';
 
-        this._constructorName = "ChangeHarmonySectionModifier";
+        this._constructorName = 'ChangeHarmonySectionModifier';
     }
 
     modifySection(section, state) {
@@ -222,7 +222,7 @@ class ChangeTempoSectionModifier extends SectionModifier {
         super();
         this.tempo = 60.0;
 
-        this._constructorName = "ChangeTempoSectionModifier";
+        this._constructorName = 'ChangeTempoSectionModifier';
     }
 
     modifySection(section, state) {
@@ -237,7 +237,7 @@ class TransposeSectionModifier extends SectionModifier {
         super();
         this.semiSteps = 0;
 
-        this._constructorName = "TransposeSectionModifier";
+        this._constructorName = 'TransposeSectionModifier';
     }
 
     modifyConstantHarmony(harmony, state) {

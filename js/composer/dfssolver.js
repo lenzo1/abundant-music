@@ -54,10 +54,10 @@ class RandomDfsStateIterator {
             result.stepCost = this.stepCosts[0];
             this.elements.length = 0;
         } else {
-            logit("Can not get next from iterator. empty");
+            logit('Can not get next from iterator. empty');
         }
         if (result.stepCost < 0) {
-            logit(" stepcost less than 0...");
+            logit(' stepcost less than 0...');
         }
         return result;
     }
@@ -92,7 +92,7 @@ class RandomDfsStateIterator2 {
             this.elements.length = 0;
             return result;
         } else {
-            logit("Can not get next from iterator. empty");
+            logit('Can not get next from iterator. empty');
             return null;
         }
     }
@@ -111,7 +111,7 @@ class SimpleDfsStateIterator {
         if (this.elements.length > 0) {
             return this.shift();
         } else {
-            logit("Can not get next from iterator. empty");
+            logit('Can not get next from iterator. empty');
             return null;
         }
     }
@@ -119,11 +119,11 @@ class SimpleDfsStateIterator {
 
 class DfsSolver {
     constructor(options) {
-        this.maxMLSolutions = getValueOrDefault(options, "maxMLSolutions", 10);
-        this.maxSearchSteps = getValueOrDefault(options, "maxSearchSteps", 1000);
+        this.maxMLSolutions = getValueOrDefault(options, 'maxMLSolutions', 10);
+        this.maxSearchSteps = getValueOrDefault(options, 'maxSearchSteps', 1000);
         this.steps = 0;
         this.mlSolutions = 0;
-        this._constructorName = "DfsSolver";
+        this._constructorName = 'DfsSolver';
     }
 
     getGoalLikelihood(node) {
@@ -131,29 +131,29 @@ class DfsSolver {
     }
 
     extractStateResultData(state) {
-        logit("DfsSolver need to implement extractStateResultData()");
+        logit('DfsSolver need to implement extractStateResultData()');
     }
 
     getStartStateIterator() {
-        logit("DfsSolver need to implement getStartStateIterator()<br />");
+        logit('DfsSolver need to implement getStartStateIterator()<br />');
     }
 
     isGoalState(state) {
-        logit("DfsSolver need to implement isGoalState()<br />");
+        logit('DfsSolver need to implement isGoalState()<br />');
         return true;
     }
 
     isInvalidState(state) {
-        logit("DfsSolver need to implement isInvalidState()<br />");
+        logit('DfsSolver need to implement isInvalidState()<br />');
         return false;
     }
 
     getSuccessorIterator(node) {
-        logit("DfsSolver need to implement getSuccessorIterator()<br />");
+        logit('DfsSolver need to implement getSuccessorIterator()<br />');
     }
 
     isGoalNode(node) {
-        logit("DfsSolver need to implement isGoalNode()<br />");
+        logit('DfsSolver need to implement isGoalNode()<br />');
     }
 
     isMaxDepth(node) {
@@ -189,7 +189,7 @@ class DfsSolver {
                 return node;
             }
         }
-        this.failReason = "Unable to find a solution";
+        this.failReason = 'Unable to find a solution';
         return null;
     }
 
@@ -225,7 +225,7 @@ class DfsSolver {
             if (node.totalCost < 0.999999 * this.bestSolutionCost) {
                 this.bestSolutionCost = Math.min(node.totalCost, this.bestSolutionCost);
                 this.mlSolutions++;
-    //                        logit(this._constructorName + " Found solution. solution count: " + this.mlSolutions + " this cost: " + node.totalCost + " best cost: " + this.bestSolutionCost + " steps: " + this.steps);
+                //                        logit(this._constructorName + " Found solution. solution count: " + this.mlSolutions + " this cost: " + node.totalCost + " best cost: " + this.bestSolutionCost + " steps: " + this.steps);
                 //            let result = this.extractSolutionFromMLGoalNode(node);
                 //            logit("___ The solution: " + result + "<br />");
                 
@@ -261,7 +261,7 @@ class DfsSolver {
             const stepCost = newState.stepCost;
             const totalCost = stepCost + node.totalCost;
 
-    //        logit("Checking state " + newState + "<br />");
+            //        logit("Checking state " + newState + "<br />");
 
             //        logit("Total cost " + totalCost + " on level " + node.depth + " stepCost: " + stepCost + " <br />");
             if (totalCost < this.bestSolutionCost) {
@@ -271,7 +271,7 @@ class DfsSolver {
                 if (result) {
                     node.next = newNode;
                     bestNode = result;
-    //                logit("__Found best node " + bestNode + " on depth " + node.depth + "<br />");
+                    //                logit("__Found best node " + bestNode + " on depth " + node.depth + "<br />");
                 }
             } else {
             //            logit("Pruning because of cost " + totalCost + " " + this.bestSolutionCost + " steps: " + this.steps + "<br />");
@@ -280,7 +280,7 @@ class DfsSolver {
                 break;
             }
         }
-    //    logit("Returning best node " + bestNode + " on depth " + node.depth + "<br />");
+        //    logit("Returning best node " + bestNode + " on depth " + node.depth + "<br />");
         return bestNode;
     }
 
@@ -309,15 +309,15 @@ class DfsSolver {
             const node = new DfsSearchNode(startState, null, 0);
             node.totalCost = startState.stepCost;
 
-    //        investigateObject(startState);
+            //        investigateObject(startState);
 
-    //        logit("Starting ML search from " + startState + " <br />");
+            //        logit("Starting ML search from " + startState + " <br />");
 
             const solution = this.searchMLRecursive(node);
             if (solution) {
                 bestSolution = this.extractSolutionFromMLGoalNode(solution);
                 const states = this.extractStatesFromMLGoalNode(solution);
-    //                    logit("Solution states: " + states + "<br />");
+                //                    logit("Solution states: " + states + "<br />");
             }
             if (this.mlSolutions >= this.maxMLSolutions) {
                 break;

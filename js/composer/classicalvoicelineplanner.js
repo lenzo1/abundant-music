@@ -1,13 +1,13 @@
 class VoiceLinePlanner {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.maxSearchStepsPerStep = 5000;
         this.constraintZones = [];
-        this._constructorName = "VoiceLinePlanner";
+        this._constructorName = 'VoiceLinePlanner';
     }
 
     planVoices(voiceLines, chr, module, result) {
-        logit("A voice line planner must implement planVoices()<br />");
+        logit('A voice line planner must implement planVoices()<br />');
     }
 }
 
@@ -18,7 +18,7 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
         this.defaultMaxSpacing = 12;
         this.defaultHintDistance = 6;
 
-        this._constructorName = "ClassicalVoiceLinePlanner";
+        this._constructorName = 'ClassicalVoiceLinePlanner';
     }
 
     planVoices(voiceLines, chr, module, result) {
@@ -108,7 +108,7 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
                         const penaltyUpper = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, element.penaltyMaxHintDistance, harmonyElement);
                         const penaltyLower = harmonyElement.offset(hintAbsNote, element.hintDistanceOffsetType, -element.penaltyMaxHintDistance, harmonyElement);
                         penaltyHintDistance = Math.max(Math.abs(hintAbsNote - penaltyUpper), Math.abs(hintAbsNote - penaltyLower));
-    //                    logit("Hinting " + hintAbsNote + " " + upper + " " + lower + " " + penaltyHintDistance);
+                        //                    logit("Hinting " + hintAbsNote + " " + upper + " " + lower + " " + penaltyHintDistance);
                     }
                     if (element.chordBassPitchClassConstraint) {
                         chordBassConstraint = element.chordBassPitchClassConstraint;
@@ -164,7 +164,7 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
             maxSpacings: maxSpacings,
             penaltyMaxSpacings: penaltyMaxSpacings,
             maxSearchSteps: this.maxSearchStepsPerStep
-    //        reusables: module.reusables
+            //        reusables: module.reusables
         };
 
         const vg = new ClassicalVoiceLineGenerator(options);
@@ -178,10 +178,10 @@ class ClassicalVoiceLinePlanner extends VoiceLinePlanner {
         vg.reusables = module.reusables;
         const toReuse = module.reusables[reusableIndex];
         if (toReuse) {
-    //        logit("Reusing voice leading solution!");
+            //        logit("Reusing voice leading solution!");
             plannedVoiceLines = copyValueDeep(toReuse);
         } else {
-    //        logit("NOT Reusing voice leading solution!");
+            //        logit("NOT Reusing voice leading solution!");
             plannedVoiceLines = vg.search();
             module.reusables[reusableIndex] = plannedVoiceLines;
         }

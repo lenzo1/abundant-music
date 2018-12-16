@@ -2,9 +2,9 @@
 
 class HarmonyModifier {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.active = true;
-        this._constructorName = "HarmonyModifier";
+        this._constructorName = 'HarmonyModifier';
     }
 
     modifyConstantHarmonyElements(elements, module) {
@@ -24,19 +24,19 @@ class SuspendHarmonyModifier extends HarmonyModifier {
         this.suspendProbabilities = [0.25];
         this.doubleSuspendProbabilities = [0.1];
         this.tripleSuspendProbabilities = [0.05];
-        this._constructorName = "SuspendHarmonyModifier";
+        this._constructorName = 'SuspendHarmonyModifier';
     }
 
     modifyConstantHarmonyElements(elements, module) {
         const result = copyValueDeep(elements);
 
-        const active = getValueOrExpressionValue(this, "active", module);
+        const active = getValueOrExpressionValue(this, 'active', module);
 
         if (active && elements.length > 0) {
 
 
-            const seed = getValueOrExpressionValue(this, "seed", module);
-            let probs = getValueOrExpressionValue(this, "suspendProbabilities", module);
+            const seed = getValueOrExpressionValue(this, 'seed', module);
+            let probs = getValueOrExpressionValue(this, 'suspendProbabilities', module);
 
             const allowDissonantPreparation = false;
 
@@ -131,7 +131,7 @@ class SuspendHarmonyModifier extends HarmonyModifier {
                 currentBeat += beatLength;
             }
 
-    //        logit(this._constructorName + " seed " + seed);
+            //        logit(this._constructorName + " seed " + seed);
 
             if (probs.length == 0) {
                 probs = [0.2];
@@ -168,14 +168,14 @@ class SuspendHarmonyModifier extends HarmonyModifier {
                         sectionModifier.suspendPitchClassPairs.push(pair);
                         result[i+1].sectionModifiers.push(sectionModifier);
 
-    //                    logit(this._constructorName + " adding constraint at " + (i+1) + " pair: " + JSON.stringify(pair));
+                        //                    logit(this._constructorName + " adding constraint at " + (i+1) + " pair: " + JSON.stringify(pair));
                     }
                 }
-    //            for (let j=0; j<info.pairs.length; j++) {
-    //
-    //            }
+                //            for (let j=0; j<info.pairs.length; j++) {
+                //
+                //            }
             }
-    //        logit(this._constructorName + " " + JSON.stringify(infos));
+            //        logit(this._constructorName + " " + JSON.stringify(infos));
         }
 
         return result;
@@ -193,7 +193,7 @@ class RandomShortenHarmonyModifier extends HarmonyModifier {
         this.minElementLength = 1;
         this.minElementLengthUnit = PositionUnit.BEATS;
         this.seed = 12345;
-        this._constructorName = "RandomShortenHarmonyModifier";
+        this._constructorName = 'RandomShortenHarmonyModifier';
     }
 
     modifyConstantHarmonyElements(elements, module) {
@@ -223,13 +223,13 @@ class RandomShortenHarmonyModifier extends HarmonyModifier {
 
                 const crossesArr = [];
 
-    //            let beatStarts = [];
+                //            let beatStarts = [];
 
                 const numerator = elements[0].tsNumerator;
                 const startBeatStrengths = HarmonyGenerator.prototype.getStartBeatStrengthsFromHarmonyElements(module, elements, 0, numerator);
 
                 for (let i=0; i<elements.length; i++) {
-    //                beatStarts[i] = currentBeat;
+                    //                beatStarts[i] = currentBeat;
                     let cost = 0.0;
                     if (i < elements.length - 1) {
                         cost = HarmonyGenerator.prototype.calculateBeatStrengthRepetitionCost(elements[i], startBeatStrengths[i],
@@ -247,7 +247,7 @@ class RandomShortenHarmonyModifier extends HarmonyModifier {
                     currentBeat += beatLength;
                 }
 
-    //            logit(" crosses: " + crossesArr.join(", "));
+                //            logit(" crosses: " + crossesArr.join(", "));
 
                 return crossesArr;
             }
@@ -278,8 +278,8 @@ class RandomShortenHarmonyModifier extends HarmonyModifier {
                             success = true;
                             break;
                         } else {
-    //                        logit("Cross before: " + crossBefore.join(", "));
-    //                        logit("Cross after:  " + crossAfter.join(", "));
+                            //                        logit("Cross before: " + crossBefore.join(", "));
+                            //                        logit("Cross after:  " + crossAfter.join(", "));
                             toShorten.length = oldLength;
                         }
                     }
@@ -304,7 +304,7 @@ class MultiRandomShortenHarmonyModifier extends HarmonyModifier {
         this.minElementLengths = [1];
         this.minElementLengthUnit = PositionUnit.BEATS;
         this.seed = 12345;
-        this._constructorName = "MultiRandomShortenHarmonyModifier";
+        this._constructorName = 'MultiRandomShortenHarmonyModifier';
     }
 
     modifyConstantHarmonyElements(elements, module) {
@@ -353,7 +353,7 @@ class AppendHarmonyModifier extends HarmonyModifier {
     constructor() {
         super();
         this.elements = [];
-        this._constructorName = "AppendHarmonyModifier";
+        this._constructorName = 'AppendHarmonyModifier';
     }
 
     modifyConstantHarmonyElements(elements, module) {
@@ -374,7 +374,7 @@ class AppendHarmonyModifier extends HarmonyModifier {
 class PartialHarmonyModifier extends HarmonyModifier {
     constructor() {
         super();
-        this._constructorName = "PartialHarmonyModifier";
+        this._constructorName = 'PartialHarmonyModifier';
     }
 
     getModifierIndexRanges(elements, module) {
@@ -421,7 +421,7 @@ class ModeMixtureHarmonyModifier extends HarmonyModifier {
         this.startModifyPattern = [];
         this.endModifyPattern = [];
         this.addCrossRelationConstraint = true;
-        this._constructorName = "ModeMixtureHarmonyModifier";
+        this._constructorName = 'ModeMixtureHarmonyModifier';
     }
 
     modify(index, elements, module, fromRoots, roots, scaleType) {
@@ -461,19 +461,19 @@ class ModeMixtureHarmonyModifier extends HarmonyModifier {
         const element = elements[index];
 
         switch (element.scaleType) {
-            case ScaleType.MAJOR:
-                this.modify(index, elements, module, this.majorFromRoots, this.majorRoots, this.majorNewScaleTypes[index % this.majorNewScaleTypes.length]);
-                break;
-            case ScaleType.NATURAL_MINOR:
-                this.modify(index, elements, module, this.minorFromRoots, this.minorRoots, this.minorNewScaleTypes[index % this.minorNewScaleTypes.length]);
-                break;
+        case ScaleType.MAJOR:
+            this.modify(index, elements, module, this.majorFromRoots, this.majorRoots, this.majorNewScaleTypes[index % this.majorNewScaleTypes.length]);
+            break;
+        case ScaleType.NATURAL_MINOR:
+            this.modify(index, elements, module, this.minorFromRoots, this.minorRoots, this.minorNewScaleTypes[index % this.minorNewScaleTypes.length]);
+            break;
         }
     }
 
     modifyConstantHarmonyElements(elements, module) {
         const result = copyValueDeep(elements);
 
-        const active = getValueOrExpressionValue(this, "active", module);
+        const active = getValueOrExpressionValue(this, 'active', module);
         if (!active) {
             return result;
         }

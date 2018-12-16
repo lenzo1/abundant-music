@@ -143,7 +143,7 @@ function createSectionInfos(genInfo) {
         });
         result.push(info);
 
-//        logit("Created section info: " + JSON.stringify(info) + "<br />");
+        //        logit("Created section info: " + JSON.stringify(info) + "<br />");
     }
 
     return result;
@@ -151,13 +151,13 @@ function createSectionInfos(genInfo) {
 
 
 function createOrGetRandom(obj, seedPropName) {
-    var prop = seedPropName + "Rnd";
+    var prop = seedPropName + 'Rnd';
     var rnd = obj[prop];
     if (!rnd) {
         var seed = obj[seedPropName];
         if (!seed) {
             seed = Math.round(Math.random() * 472389472);
-            logit("Could not find seed " + seedPropName); //  + " in " + JSON.stringify(obj) + "<br />");
+            logit('Could not find seed ' + seedPropName); //  + " in " + JSON.stringify(obj) + "<br />");
             obj[seedPropName] = seed;
         }
         rnd = new MersenneTwister(seed);
@@ -191,10 +191,10 @@ function getOscillatingIndices(rnd, value1, value2, stay1Likelihood, switch1Like
 function getMelodicVerticalIndices(rnd, options)  {
     var indices = [];
 
-    var maxLeaps = getValueOrDefault(options, "maxLeaps", 1);
-    var sameMultFactor = getValueOrDefault(options, "sameMultFactor", 1);
+    var maxLeaps = getValueOrDefault(options, 'maxLeaps', 1);
+    var sameMultFactor = getValueOrDefault(options, 'sameMultFactor', 1);
 
-    var leapRndInfos = getValueOrDefault(options, "leapRndInfos",
+    var leapRndInfos = getValueOrDefault(options, 'leapRndInfos',
         [
             {data: 2, likelihood: 1},
             {data: -2, likelihood: 1}
@@ -260,7 +260,7 @@ function getMelodicVerticalIndices(rnd, options)  {
 
 
 function setMelodyMotifVerticalIndices(index, motifInfo, genData, genInfo, sectionInfos) {
-    var rnd = createOrGetRandom(genInfo, "melodyMotifSeed");
+    var rnd = createOrGetRandom(genInfo, 'melodyMotifSeed');
 
     var indices = getMelodicVerticalIndices(rnd,
         {
@@ -285,7 +285,7 @@ function setMelodyMotifVerticalIndices(index, motifInfo, genData, genInfo, secti
             ]
         });
 
-//    logit("Melody indices: " + indices.join(", ") + "<br />");
+    //    logit("Melody indices: " + indices.join(", ") + "<br />");
     motifInfo.verticalIndices = indices;
 
 }
@@ -294,18 +294,18 @@ function setMelodyMotifVerticalIndices(index, motifInfo, genData, genInfo, secti
 function setMotifRythm(options, motifInfo, genData, genInfo, sectionInfos, seedName, namePrefix) {
     var motifRythmRnd = createOrGetRandom(genInfo, seedName);
 
-    var noteCountRange = getValueOrDefault(options, "noteCountRange", [0.25, 1.0]);
-    var zone1Prob = getValueOrDefault(options, "zone1Prob", 0.5);
-    var zone1TripletLikelihood = getValueOrDefault(options, "zone1TripletLikelihood", 0.5);
-    var zone1DotSecondLikelihood = getValueOrDefault(options, "zone1DotSecondLikelihood", 0.5);
-    var zone1DotFirstLikelihood = getValueOrDefault(options, "zone1DotFirstLikelihood", 2);
-    var zone1DotNormalDotLikelihood = getValueOrDefault(options, "zone1DotNormalDotLikelihood", 0.5);
-    var zone1NormalDotDotLikelihood = getValueOrDefault(options, "zone1NormalDotDotLikelihood", 0.5);
-    var zone1DotDotNormalLikelihood = getValueOrDefault(options, "zone1DotDotNormalLikelihood", 0.5);
-    var zone1StartPosRange = getValueOrDefault(options, "zone1StartPosRange", [0, 0]);
-    var zone1EndPosRange = getValueOrDefault(options, "zone1EndPosRange", [0.75, 0.75]);
-    var zone1StartEnd = getValueOrDefault(options, "zone1StartEnd", []);
-    var densityCurveType = getValueOrDefault(options, "densityCurveType", PredefinedCurveType.CONSTANT_NOISE);
+    var noteCountRange = getValueOrDefault(options, 'noteCountRange', [0.25, 1.0]);
+    var zone1Prob = getValueOrDefault(options, 'zone1Prob', 0.5);
+    var zone1TripletLikelihood = getValueOrDefault(options, 'zone1TripletLikelihood', 0.5);
+    var zone1DotSecondLikelihood = getValueOrDefault(options, 'zone1DotSecondLikelihood', 0.5);
+    var zone1DotFirstLikelihood = getValueOrDefault(options, 'zone1DotFirstLikelihood', 2);
+    var zone1DotNormalDotLikelihood = getValueOrDefault(options, 'zone1DotNormalDotLikelihood', 0.5);
+    var zone1NormalDotDotLikelihood = getValueOrDefault(options, 'zone1NormalDotDotLikelihood', 0.5);
+    var zone1DotDotNormalLikelihood = getValueOrDefault(options, 'zone1DotDotNormalLikelihood', 0.5);
+    var zone1StartPosRange = getValueOrDefault(options, 'zone1StartPosRange', [0, 0]);
+    var zone1EndPosRange = getValueOrDefault(options, 'zone1EndPosRange', [0.75, 0.75]);
+    var zone1StartEnd = getValueOrDefault(options, 'zone1StartEnd', []);
+    var densityCurveType = getValueOrDefault(options, 'densityCurveType', PredefinedCurveType.CONSTANT_NOISE);
 
     motifInfo.noteCount = 1;
     motifInfo.noteCountUnit = CountUnit.HARMONY_ELEMENT_BEATS;
@@ -334,7 +334,7 @@ function setMotifRythm(options, motifInfo, genData, genInfo, sectionInfos, seedN
     if (zone1StartEnd && zone1StartEnd.length > 1) {
         start = zone1StartEnd[0];
         end = zone1StartEnd[1];
-//        logit("Overwriting zone 1 start end " + zone1StartEnd.join(", ") + " " + seedName);
+        //        logit("Overwriting zone 1 start end " + zone1StartEnd.join(", ") + " " + seedName);
     }
     motifInfo.zone1PositionInterval = [start, end];
     motifInfo.zone1SplitStrategy = sampleData([
@@ -359,7 +359,7 @@ function setMelodyMotifEmbellishConnectStuff(motifInfo, genData, genInfo, sectio
     motifInfo.connectStart = 0.75;
     motifInfo.connectEnd = 1.0;
 
-    var motifRnd = createOrGetRandom(genInfo, "melodyMotifEmbellishConnectSeed");
+    var motifRnd = createOrGetRandom(genInfo, 'melodyMotifEmbellishConnectSeed');
     var rnd = motifRnd.random();
 
     motifInfo.embellishEnd = 0.25 + 0.5 * motifRnd.random();
@@ -392,7 +392,7 @@ function setHarmonyMotifEmbellishConnectStuff(motifInfo, genData, genInfo, secti
     motifInfo.embellishStart = 0.0;
     motifInfo.embellishEnd = 1.0;
 
-    var motifRnd = createOrGetRandom(genInfo, "harmonyMotifEmbellishConnectSeed");
+    var motifRnd = createOrGetRandom(genInfo, 'harmonyMotifEmbellishConnectSeed');
     var rnd = motifRnd.random();
     if (rnd < 0.25) {
         motifInfo.embellishStart = motifRnd.random() * 0.35;
@@ -412,7 +412,7 @@ function setBassMotifEmbellishConnectStuff(motifInfo, genData, genInfo, sectionI
     motifInfo.connectStart = 0.75;
     motifInfo.connectEnd = 1.0;
 
-    var motifRnd = createOrGetRandom(genInfo, "bassMotifEmbellishConnectSeed");
+    var motifRnd = createOrGetRandom(genInfo, 'bassMotifEmbellishConnectSeed');
 
     var rnd = motifRnd.random();
 
@@ -452,7 +452,7 @@ function createMelodyMotifInfo(index, genData, genInfo, sectionInfos) {
             zone1EndPosRange: getArrayValueOrDefault(genInfo.melodyMotifZone1EndPosRanges, index-1, [0.75, 0.75]),
             zone1StartEnd: getArrayValueOrDefault(genInfo.melodyMotifZone1StartEnds, index-1, []),
             noteCountRange: range
-        }, result, genData, genInfo, sectionInfos, "melodyMotifRythmSeed");
+        }, result, genData, genInfo, sectionInfos, 'melodyMotifRythmSeed');
         setMelodyMotifEmbellishConnectStuff(result, genData, genInfo, sectionInfos);
     }
     if (index > 0 && genInfo.melodyMotifRythmNoteCountOverrides.length > 0) {
@@ -463,7 +463,7 @@ function createMelodyMotifInfo(index, genData, genInfo, sectionInfos) {
     var levels = [0.95, 0.75, 0.5, 0.25];
 
     result.fillerOffsetsExpression =
-        createChainedLevelExpression(["[[1]]", "[[1]]", "[]", "[]", "[]" ], levels, "melodyRenderAmountVar");
+        createChainedLevelExpression(['[[1]]', '[[1]]', '[]', '[]', '[]' ], levels, 'melodyRenderAmountVar');
     result.fillerOffsetTypes = [OffsetType.OCTAVE];
 
     setMelodyMotifVerticalIndices(index, result, genData, genInfo, sectionInfos);
@@ -473,14 +473,14 @@ function createMelodyMotifInfo(index, genData, genInfo, sectionInfos) {
 
 function createChainedExpression(valueExpressions, levelExpressions, level, earlyFinishResult) {
     if (level == valueExpressions.length - 1) {
-        return "(" + valueExpressions[level] + ")";
+        return '(' + valueExpressions[level] + ')';
     }
     var expr = valueExpressions[level];
     var levelExpression = levelExpressions[level];
     if (levelExpression) {
-        return "(" + levelExpressions[level] + " ? " + expr + " : " + createChainedExpression(valueExpressions, levelExpressions, level + 1) + ")";
+        return '(' + levelExpressions[level] + ' ? ' + expr + ' : ' + createChainedExpression(valueExpressions, levelExpressions, level + 1) + ')';
     } else {
-        return "(" + earlyFinishResult + ")";
+        return '(' + earlyFinishResult + ')';
     }
 }
 
@@ -488,7 +488,7 @@ function createChainedExpression(valueExpressions, levelExpressions, level, earl
 function createChainedLevelExpression(valueExpressions, levelValues, varName) {
     var levelExpressions = [];
     for (var i=0; i<levelValues.length; i++) {
-        var expr = varName + " > " + levelValues[i];
+        var expr = varName + ' > ' + levelValues[i];
         levelExpressions[i] = expr;
     }
     return createChainedExpression(valueExpressions, levelExpressions, 0, valueExpressions[valueExpressions.length - 1]);
@@ -497,9 +497,9 @@ function createChainedLevelExpression(valueExpressions, levelValues, varName) {
 
 
 function setHarmonyMotif(motifInfo, genData, genInfo, sectionInfos, renderAmountVar, options) {
-    var motifRnd = createOrGetRandom(genInfo, "harmonyMotifSeed");
+    var motifRnd = createOrGetRandom(genInfo, 'harmonyMotifSeed');
 
-    var rythmDensityMultiplier = getValueOrDefault(options, "rythmDensityMultiplier", 1);
+    var rythmDensityMultiplier = getValueOrDefault(options, 'rythmDensityMultiplier', 1);
 
     var type = SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING;
 
@@ -520,9 +520,9 @@ function setHarmonyMotif(motifInfo, genData, genInfo, sectionInfos, renderAmount
         {data: SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_HARMONIZED, likelihood: 2}
     ], motifRnd);
 
-//    if (rnd < 0.5) {
-//        type = SimpleModuleGeneratorHarmonyStyleType.BLOCK_CHORDS_SIMPLE;
-//    }
+    //    if (rnd < 0.5) {
+    //        type = SimpleModuleGeneratorHarmonyStyleType.BLOCK_CHORDS_SIMPLE;
+    //    }
 
 
     // Generating expressions for turning on/off stuff when renderAmount changes
@@ -567,34 +567,34 @@ function setHarmonyMotif(motifInfo, genData, genInfo, sectionInfos, renderAmount
 
     var levels = [0.95, 0.75, 0.5, 0.25, 0.0];
 
-//    var expr = createChainedLevelExpression(["[[2, 7, 9]]", "[[2, 7]]", "[[2]]", "[[2]]", "[]" ], levels, renderAmountVar);
+    //    var expr = createChainedLevelExpression(["[[2, 7, 9]]", "[[2, 7]]", "[[2]]", "[[2]]", "[]" ], levels, renderAmountVar);
 
-//    logit(expr);
+    //    logit(expr);
 
     var useSimpleRythm = false;
     var useMelodicIndices = true;
 
     var noteCountMultiplier = 1;
-    var motifRythmRnd = createOrGetRandom(genInfo, "harmonyMotifRythmSeed");
+    var motifRythmRnd = createOrGetRandom(genInfo, 'harmonyMotifRythmSeed');
 
 
 
     switch (type) {
-        case SimpleModuleGeneratorHarmonyStyleType.STRUMS:
-            useMelodicIndices = false;
-            noteCountMultiplier = 0.25 + 0.25 * motifRythmRnd.random();
-            break;
-        case SimpleModuleGeneratorHarmonyStyleType.BLOCK_CHORDS_SMOOTH:
-            useMelodicIndices = false;
-            noteCountMultiplier = 0.25 + 0.5 * motifRythmRnd.random();
-            break;
-        case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING:
-        case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_OCTAVES:
-        case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_THIRDS:
-        case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_SIXTHS:
-        case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_HARMONIZED:
-            useSimpleRythm = true;
-            break;
+    case SimpleModuleGeneratorHarmonyStyleType.STRUMS:
+        useMelodicIndices = false;
+        noteCountMultiplier = 0.25 + 0.25 * motifRythmRnd.random();
+        break;
+    case SimpleModuleGeneratorHarmonyStyleType.BLOCK_CHORDS_SMOOTH:
+        useMelodicIndices = false;
+        noteCountMultiplier = 0.25 + 0.5 * motifRythmRnd.random();
+        break;
+    case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING:
+    case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_OCTAVES:
+    case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_THIRDS:
+    case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_SIXTHS:
+    case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_HARMONIZED:
+        useSimpleRythm = true;
+        break;
     }
 
 
@@ -605,7 +605,7 @@ function setHarmonyMotif(motifInfo, genData, genInfo, sectionInfos, renderAmount
 
         var relativeLengths = createFilledNumericIncArray(strumCount, -strumLength, -strumLength);
         var positionOffsets = createFilledNumericIncArray(strumCount, strumLength, strumLength);
-//                logit("relativeLengths: " + relativeLengths.join(", ") + " offsets: " + positionOffsets.join(", "));
+        //                logit("relativeLengths: " + relativeLengths.join(", ") + " offsets: " + positionOffsets.join(", "));
         motifInfo.fillerOffsets = [createFilledNumericIncArray(strumCount, 1, 1)];
 
         motifInfo.fillerRelativeStrengths = [createFilledNumericIncArray(strumCount, 0.8, -0.1)];
@@ -640,139 +640,139 @@ function setHarmonyMotif(motifInfo, genData, genInfo, sectionInfos, renderAmount
 
 
     switch (type) {
-        case SimpleModuleGeneratorHarmonyStyleType.STRUMS:
-        case SimpleModuleGeneratorHarmonyStyleType.BLOCK_CHORDS_SMOOTH:
-        case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING:
-        case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_OCTAVES:
-        case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_THIRDS:
-        case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_SIXTHS:
-        case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_HARMONIZED:
-        case SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING:
-        case SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_WITH_OCTAVES:
-        case SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_WITH_THIRDS:
-        case SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_WITH_SIXTHS:
-        case SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_HARMONIZED:
+    case SimpleModuleGeneratorHarmonyStyleType.STRUMS:
+    case SimpleModuleGeneratorHarmonyStyleType.BLOCK_CHORDS_SMOOTH:
+    case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING:
+    case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_OCTAVES:
+    case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_THIRDS:
+    case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_SIXTHS:
+    case SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_HARMONIZED:
+    case SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING:
+    case SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_WITH_OCTAVES:
+    case SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_WITH_THIRDS:
+    case SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_WITH_SIXTHS:
+    case SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_HARMONIZED:
 
-            var arpeggioIndices = useMelodicIndices ? getMelodicVerticalIndices(motifRnd, {
-                sameMultFactor: 0.9,
-                maxLeaps: sampleData([
-//                {data: 2, likelihood: 1},
-                    {data: 1, likelihood: 1},
-                    {data: 0, likelihood: 2}
-                ], motifRnd)}) : [0];
+        var arpeggioIndices = useMelodicIndices ? getMelodicVerticalIndices(motifRnd, {
+            sameMultFactor: 0.9,
+            maxLeaps: sampleData([
+                //                {data: 2, likelihood: 1},
+                {data: 1, likelihood: 1},
+                {data: 0, likelihood: 2}
+            ], motifRnd)}) : [0];
 
-            motifInfo.verticalOffsetType = OffsetType.CHORD;
-            motifInfo.verticalIndices = arpeggioIndices; // [0, 1, 2, 3, 2, 1];
-            motifInfo.verticalIndicesExpression = renderAmountVar + " > " + offLevel + " ? " + JSON.stringify(arpeggioIndices) + " : []"; // [0, 1, 2, 3, 2, 1];
-            motifInfo.startVerticalIndices = [0]; // [0, 1, 2, 3, 2, 1];
-            motifInfo.startVerticalIndicesExpression = renderAmountVar + " > " + offLevel + " ? [0] : []"; // [0, 1, 2, 3, 2, 1];
-            motifInfo.verticalOffsetDomains = [[0]];
-            motifInfo.verticalOffsetLikelihoods = [[1]];
-            motifInfo.verticalRelativeType = VerticalRelativeType.MIDI_ZERO;
-            motifInfo.constantVerticalOffset = Math.floor(50 + 20 * motifRnd.random());
-            motifInfo.constantVerticalOffsetType = OffsetType.HALF_STEP;
+        motifInfo.verticalOffsetType = OffsetType.CHORD;
+        motifInfo.verticalIndices = arpeggioIndices; // [0, 1, 2, 3, 2, 1];
+        motifInfo.verticalIndicesExpression = renderAmountVar + ' > ' + offLevel + ' ? ' + JSON.stringify(arpeggioIndices) + ' : []'; // [0, 1, 2, 3, 2, 1];
+        motifInfo.startVerticalIndices = [0]; // [0, 1, 2, 3, 2, 1];
+        motifInfo.startVerticalIndicesExpression = renderAmountVar + ' > ' + offLevel + ' ? [0] : []'; // [0, 1, 2, 3, 2, 1];
+        motifInfo.verticalOffsetDomains = [[0]];
+        motifInfo.verticalOffsetLikelihoods = [[1]];
+        motifInfo.verticalRelativeType = VerticalRelativeType.MIDI_ZERO;
+        motifInfo.constantVerticalOffset = Math.floor(50 + 20 * motifRnd.random());
+        motifInfo.constantVerticalOffsetType = OffsetType.HALF_STEP;
 
-            motifInfo.fillerRelativeStrengths = [[0.75]];
+        motifInfo.fillerRelativeStrengths = [[0.75]];
 
 
-//            logit(JSON.stringify(getIndicesStringForLevels(levels.length, [1, 2, 3], 3)))
+        //            logit(JSON.stringify(getIndicesStringForLevels(levels.length, [1, 2, 3], 3)))
 
-            if (type == SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_HARMONIZED ||
+        if (type == SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_HARMONIZED ||
                 type == SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_HARMONIZED) {
-                motifInfo.fillerOffsets = [[1]];
-//                motifInfo.fillerOffsetsExpression =
-//                    createChainedLevelExpression(["[[1, 2]]", "[[1, 2]]", "[[1]]", "[[1]]", "[]" ], levels, renderAmountVar);
-                motifInfo.fillerOffsetsExpression =
+            motifInfo.fillerOffsets = [[1]];
+            //                motifInfo.fillerOffsetsExpression =
+            //                    createChainedLevelExpression(["[[1, 2]]", "[[1, 2]]", "[[1]]", "[[1]]", "[]" ], levels, renderAmountVar);
+            motifInfo.fillerOffsetsExpression =
                     createChainedLevelExpression(getIndicesStringForLevels(levels.length, [1, 2, 3], 3), levels, renderAmountVar);
-                motifInfo.fillerOffsetTypes = [OffsetType.CHORD];
-            } else if (type == SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_WITH_OCTAVES ||
+            motifInfo.fillerOffsetTypes = [OffsetType.CHORD];
+        } else if (type == SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_WITH_OCTAVES ||
                 type == SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_OCTAVES) {
-                motifInfo.fillerOffsetsExpression =
+            motifInfo.fillerOffsetsExpression =
                     createChainedLevelExpression(getIndicesStringForLevels(levels.length, [1, 2], 2), levels, renderAmountVar);
-//                motifInfo.fillerOffsetsExpression =
-//                    createChainedLevelExpression(["[[1, 2]]", "[[1]]", "[[1]]", "[[1]]", "[]" ], levels, renderAmountVar);
-                motifInfo.fillerOffsets = [[1]];
-                motifInfo.fillerOffsetTypes = [OffsetType.OCTAVE];
-            } else if (type == SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_WITH_THIRDS ||
+            //                motifInfo.fillerOffsetsExpression =
+            //                    createChainedLevelExpression(["[[1, 2]]", "[[1]]", "[[1]]", "[[1]]", "[]" ], levels, renderAmountVar);
+            motifInfo.fillerOffsets = [[1]];
+            motifInfo.fillerOffsetTypes = [OffsetType.OCTAVE];
+        } else if (type == SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_WITH_THIRDS ||
                 type == SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_THIRDS) {
-//                motifInfo.fillerOffsetsExpression =
-//                    createChainedLevelExpression(["[[2, 7]]", "[[2, 7]]", "[[2]]", "[[2]]", "[]" ], levels, renderAmountVar);
-                motifInfo.fillerOffsetsExpression =
+            //                motifInfo.fillerOffsetsExpression =
+            //                    createChainedLevelExpression(["[[2, 7]]", "[[2, 7]]", "[[2]]", "[[2]]", "[]" ], levels, renderAmountVar);
+            motifInfo.fillerOffsetsExpression =
                     createChainedLevelExpression(getIndicesStringForLevels(levels.length, [2, 7], 2), levels, renderAmountVar);
-                motifInfo.fillerOffsets = [[2]];
-                motifInfo.fillerOffsetTypes = [OffsetType.SCALE];
-            } else if (type == SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_WITH_SIXTHS ||
+            motifInfo.fillerOffsets = [[2]];
+            motifInfo.fillerOffsetTypes = [OffsetType.SCALE];
+        } else if (type == SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING_WITH_SIXTHS ||
                 type == SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING_WITH_SIXTHS) {
-                motifInfo.fillerOffsetsExpression =
+            motifInfo.fillerOffsetsExpression =
                     createChainedLevelExpression(getIndicesStringForLevels(levels.length, [5, 7], 2), levels, renderAmountVar);
-//                motifInfo.fillerOffsetsExpression =
-//                    createChainedLevelExpression(["[[5, 7]]", "[[5, 7]]", "[[5]]", "[[5]]", "[]" ], levels, renderAmountVar);
-                motifInfo.fillerOffsets = [[5]];
-                motifInfo.fillerOffsetTypes = [OffsetType.SCALE];
-            } else if (type == SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING ||
+            //                motifInfo.fillerOffsetsExpression =
+            //                    createChainedLevelExpression(["[[5, 7]]", "[[5, 7]]", "[[5]]", "[[5]]", "[]" ], levels, renderAmountVar);
+            motifInfo.fillerOffsets = [[5]];
+            motifInfo.fillerOffsetTypes = [OffsetType.SCALE];
+        } else if (type == SimpleModuleGeneratorHarmonyStyleType.ARPEGGIO_RESTARTING ||
                 type == SimpleModuleGeneratorHarmonyStyleType.SIMPLE_ARPEGGIO_RESTARTING) {
 
-                motifInfo.fillerOffsetsExpression =
+            motifInfo.fillerOffsetsExpression =
                     createChainedLevelExpression(getIndicesStringForLevels(levels.length, [1], 1), levels, renderAmountVar);
 
-//                motifInfo.fillerOffsetsExpression =
-//                    createChainedLevelExpression(["[[1]]", "[]", "[]", "[]", "[]" ], levels, renderAmountVar);
-                motifInfo.fillerOffsetTypes = [OffsetType.OCTAVE];
-            } else if (type == SimpleModuleGeneratorHarmonyStyleType.BLOCK_CHORDS_SMOOTH) {
-                motifInfo.fillerOffsetsExpression =
-                    createChainedLevelExpression(getIndicesStringForLevels(levels.length, [1, 2, 3], 3), levels, renderAmountVar);
-//                motifInfo.fillerOffsetsExpression =
-//                    createChainedLevelExpression(["[[1, 2, 3]]", "[1, 2]", "[1, 2]", "[1]", "[]" ], levels, renderAmountVar);
-                motifInfo.fillerOffsetTypes = [OffsetType.CHORD];
-            } else if (type == SimpleModuleGeneratorHarmonyStyleType.STRUMS) {
-                motifInfo.fillerOffsetsExpression =
-                    createChainedLevelExpression(getIndicesStringForLevels(levels.length, [1, 2, 3], 3), levels, renderAmountVar);
-//                motifInfo.fillerOffsetsExpression =
-//                    createChainedLevelExpression(["[[1, 2, 3]]", "[1, 2]", "[1, 2]", "[1]", "[]" ], levels, renderAmountVar);
-                motifInfo.fillerOffsetTypes = [OffsetType.CHORD];
-                createStrum(motifInfo);
-            }
-            if (useSimpleRythm) {
-                setMotifRythm({
-                    zone1Prob: 0,
-                    noteCountRange: [0.5 * noteCountMultiplier * rythmDensityMultiplier, 2.0 * noteCountMultiplier * rythmDensityMultiplier],
-                    densityCurveType: PredefinedCurveType.LINEAR
-                }, motifInfo, genData, genInfo, sectionInfos, "harmonyMotifRythmSeed");
-                motifInfo.densityAmplitude = motifRythmRnd.random() * 0.1 - 0.05
-            } else {
-                setMotifRythm({
-                    zone1TripletLikelihood: 0.1,
-                    noteCountRange: [0.5 * noteCountMultiplier * rythmDensityMultiplier, 2.0 * noteCountMultiplier * rythmDensityMultiplier]
-                }, motifInfo, genData, genInfo, sectionInfos, "harmonyMotifRythmSeed");
-            }
-            break;
-        case SimpleModuleGeneratorHarmonyStyleType.SINGLE_BLOCK_CHORD:
-        case SimpleModuleGeneratorHarmonyStyleType.SINGLE_STRUM:
-            motifInfo.verticalOffsetType = OffsetType.CHORD;
-            motifInfo.verticalIndices = [0];
-            motifInfo.verticalOffsetDomains = [[0]];
-            motifInfo.verticalOffsetLikelihoods = [[1]];
-            motifInfo.verticalRelativeType = VerticalRelativeType.MIDI_ZERO;
-            motifInfo.constantVerticalOffset = Math.floor(50 + 20 * motifRnd.random());
-            motifInfo.constantVerticalOffsetType = OffsetType.HALF_STEP;
-            motifInfo.fillerOffsets = [[1, 2]];
+            //                motifInfo.fillerOffsetsExpression =
+            //                    createChainedLevelExpression(["[[1]]", "[]", "[]", "[]", "[]" ], levels, renderAmountVar);
+            motifInfo.fillerOffsetTypes = [OffsetType.OCTAVE];
+        } else if (type == SimpleModuleGeneratorHarmonyStyleType.BLOCK_CHORDS_SMOOTH) {
             motifInfo.fillerOffsetsExpression =
-                createChainedLevelExpression(["[[1, 2, 3]]", "[1, 2]", "[1, 2]", "[1]", "[]" ], levels, renderAmountVar);
+                    createChainedLevelExpression(getIndicesStringForLevels(levels.length, [1, 2, 3], 3), levels, renderAmountVar);
+            //                motifInfo.fillerOffsetsExpression =
+            //                    createChainedLevelExpression(["[[1, 2, 3]]", "[1, 2]", "[1, 2]", "[1]", "[]" ], levels, renderAmountVar);
             motifInfo.fillerOffsetTypes = [OffsetType.CHORD];
-            motifInfo.fillerRelativeStrengths = [[0.8]];
-            if (type == SimpleModuleGeneratorHarmonyStyleType.SINGLE_STRUM) {
-                createStrum(motifInfo);
-            }
-            motifInfo.noteCount = 1;
-            motifInfo.noteCountUnit = CountUnit.PLAIN;
-//            setMotifRythm({noteCountRange: [0.25, 1.5]}, motifInfo, genData, genInfo, sectionInfos);
-            break;
+        } else if (type == SimpleModuleGeneratorHarmonyStyleType.STRUMS) {
+            motifInfo.fillerOffsetsExpression =
+                    createChainedLevelExpression(getIndicesStringForLevels(levels.length, [1, 2, 3], 3), levels, renderAmountVar);
+            //                motifInfo.fillerOffsetsExpression =
+            //                    createChainedLevelExpression(["[[1, 2, 3]]", "[1, 2]", "[1, 2]", "[1]", "[]" ], levels, renderAmountVar);
+            motifInfo.fillerOffsetTypes = [OffsetType.CHORD];
+            createStrum(motifInfo);
+        }
+        if (useSimpleRythm) {
+            setMotifRythm({
+                zone1Prob: 0,
+                noteCountRange: [0.5 * noteCountMultiplier * rythmDensityMultiplier, 2.0 * noteCountMultiplier * rythmDensityMultiplier],
+                densityCurveType: PredefinedCurveType.LINEAR
+            }, motifInfo, genData, genInfo, sectionInfos, 'harmonyMotifRythmSeed');
+            motifInfo.densityAmplitude = motifRythmRnd.random() * 0.1 - 0.05
+        } else {
+            setMotifRythm({
+                zone1TripletLikelihood: 0.1,
+                noteCountRange: [0.5 * noteCountMultiplier * rythmDensityMultiplier, 2.0 * noteCountMultiplier * rythmDensityMultiplier]
+            }, motifInfo, genData, genInfo, sectionInfos, 'harmonyMotifRythmSeed');
+        }
+        break;
+    case SimpleModuleGeneratorHarmonyStyleType.SINGLE_BLOCK_CHORD:
+    case SimpleModuleGeneratorHarmonyStyleType.SINGLE_STRUM:
+        motifInfo.verticalOffsetType = OffsetType.CHORD;
+        motifInfo.verticalIndices = [0];
+        motifInfo.verticalOffsetDomains = [[0]];
+        motifInfo.verticalOffsetLikelihoods = [[1]];
+        motifInfo.verticalRelativeType = VerticalRelativeType.MIDI_ZERO;
+        motifInfo.constantVerticalOffset = Math.floor(50 + 20 * motifRnd.random());
+        motifInfo.constantVerticalOffsetType = OffsetType.HALF_STEP;
+        motifInfo.fillerOffsets = [[1, 2]];
+        motifInfo.fillerOffsetsExpression =
+                createChainedLevelExpression(['[[1, 2, 3]]', '[1, 2]', '[1, 2]', '[1]', '[]' ], levels, renderAmountVar);
+        motifInfo.fillerOffsetTypes = [OffsetType.CHORD];
+        motifInfo.fillerRelativeStrengths = [[0.8]];
+        if (type == SimpleModuleGeneratorHarmonyStyleType.SINGLE_STRUM) {
+            createStrum(motifInfo);
+        }
+        motifInfo.noteCount = 1;
+        motifInfo.noteCountUnit = CountUnit.PLAIN;
+        //            setMotifRythm({noteCountRange: [0.25, 1.5]}, motifInfo, genData, genInfo, sectionInfos);
+        break;
     }
 
 }
 
 function setBassMotifVerticalIndices(motifInfo, genData, genInfo, sectionInfos) {
-    var motifRnd = createOrGetRandom(genInfo, "bassMotifSeed");
+    var motifRnd = createOrGetRandom(genInfo, 'bassMotifSeed');
 
     var rnd = motifRnd.random();
 
@@ -791,59 +791,59 @@ function setBassMotifVerticalIndices(motifInfo, genData, genInfo, sectionInfos) 
     var levels = [0.95, 0.75, 0.5, 0.25];
 
     motifInfo.fillerOffsetsExpression =
-        createChainedLevelExpression(["[[1]]", "[[1]]", "[]", "[]", "[]" ], levels, "bassRenderAmountVar");
+        createChainedLevelExpression(['[[1]]', '[[1]]', '[]', '[]', '[]' ], levels, 'bassRenderAmountVar');
     motifInfo.fillerOffsetTypes = [OffsetType.OCTAVE];
 
     switch (type) {
-        case SimpleModuleGeneratorBassType.ARPEGGIO:
+    case SimpleModuleGeneratorBassType.ARPEGGIO:
 
-            var arpeggioIndices = getMelodicVerticalIndices(motifRnd, {
-                sameMultFactor: 0.9,
-                maxLeaps: sampleData([
-                    // {data: 2, likelihood: 1},
-                    {data: 1, likelihood: 2},
-                    {data: 0, likelihood: 4}
-                ], motifRnd)});
-            motifInfo.verticalIndices = arpeggioIndices; // [0, 2, 1, 0, 1, 2, 1, 0, -1, -2, -1];
-            motifInfo.verticalOffsetDomains = [[0]];
-            motifInfo.verticalOffsetLikelihoods = [[1]];
-            // logit(motifInfo);
-            break;
-        case SimpleModuleGeneratorBassType.FIFTHS:
-//            motifInfo.verticalIndices = [0, 2, 0, 2, 0, 2, 2, 0, 0, 0, 0];
-            var stay1Likelihood = 1;
-            var switch1Likelihood = 1;
-            var stay2Likelihood = 1;
-            var switch2Likelihood = 1;
-            motifInfo.verticalIndices = getOscillatingIndices(motifRnd, 0, 2, stay1Likelihood, switch1Likelihood, stay2Likelihood, switch2Likelihood);
-            motifInfo.verticalOffsetDomains = [[0]];
-            motifInfo.verticalOffsetLikelihoods = [[1]];
-            break;
-        case SimpleModuleGeneratorBassType.MELODIC:
-            var melodicIndices = getMelodicVerticalIndices(motifRnd, {
-                sameMultFactor: 0.9,
-                maxLeaps: sampleData([
+        var arpeggioIndices = getMelodicVerticalIndices(motifRnd, {
+            sameMultFactor: 0.9,
+            maxLeaps: sampleData([
+                // {data: 2, likelihood: 1},
+                {data: 1, likelihood: 2},
+                {data: 0, likelihood: 4}
+            ], motifRnd)});
+        motifInfo.verticalIndices = arpeggioIndices; // [0, 2, 1, 0, 1, 2, 1, 0, -1, -2, -1];
+        motifInfo.verticalOffsetDomains = [[0]];
+        motifInfo.verticalOffsetLikelihoods = [[1]];
+        // logit(motifInfo);
+        break;
+    case SimpleModuleGeneratorBassType.FIFTHS:
+        //            motifInfo.verticalIndices = [0, 2, 0, 2, 0, 2, 2, 0, 0, 0, 0];
+        var stay1Likelihood = 1;
+        var switch1Likelihood = 1;
+        var stay2Likelihood = 1;
+        var switch2Likelihood = 1;
+        motifInfo.verticalIndices = getOscillatingIndices(motifRnd, 0, 2, stay1Likelihood, switch1Likelihood, stay2Likelihood, switch2Likelihood);
+        motifInfo.verticalOffsetDomains = [[0]];
+        motifInfo.verticalOffsetLikelihoods = [[1]];
+        break;
+    case SimpleModuleGeneratorBassType.MELODIC:
+        var melodicIndices = getMelodicVerticalIndices(motifRnd, {
+            sameMultFactor: 0.9,
+            maxLeaps: sampleData([
 
-                    {data: 1, likelihood: 1},
-                    {data: 0, likelihood: 3}
-                ], motifRnd)});
-            motifInfo.verticalIndices = melodicIndices; // [0, 1, 2, 1, 0, 0, 0, 1, 0];
-            motifInfo.verticalOffsetType = OffsetType.SCALE;
-            break;
-        case SimpleModuleGeneratorBassType.OCTAVES:
-            var stay1Likelihood = 1;
-            var switch1Likelihood = 1;
-            var stay2Likelihood = 1;
-            var switch2Likelihood = 1;
-            motifInfo.verticalIndices = getOscillatingIndices(motifRnd, 0, 1, stay1Likelihood, switch1Likelihood, stay2Likelihood, switch2Likelihood);
-//            motifInfo.verticalIndices = [0, 1, 0, 1, 0, 0, 0, 1, 0];
-            motifInfo.verticalOffsetType = OffsetType.OCTAVE;
-            motifInfo.verticalOffsetDomains = [[0]];
-            motifInfo.verticalOffsetLikelihoods = [[1]];
-            break;
-        case SimpleModuleGeneratorBassType.REPEATED:
-            motifInfo.verticalIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-            break;
+                {data: 1, likelihood: 1},
+                {data: 0, likelihood: 3}
+            ], motifRnd)});
+        motifInfo.verticalIndices = melodicIndices; // [0, 1, 2, 1, 0, 0, 0, 1, 0];
+        motifInfo.verticalOffsetType = OffsetType.SCALE;
+        break;
+    case SimpleModuleGeneratorBassType.OCTAVES:
+        var stay1Likelihood = 1;
+        var switch1Likelihood = 1;
+        var stay2Likelihood = 1;
+        var switch2Likelihood = 1;
+        motifInfo.verticalIndices = getOscillatingIndices(motifRnd, 0, 1, stay1Likelihood, switch1Likelihood, stay2Likelihood, switch2Likelihood);
+        //            motifInfo.verticalIndices = [0, 1, 0, 1, 0, 0, 0, 1, 0];
+        motifInfo.verticalOffsetType = OffsetType.OCTAVE;
+        motifInfo.verticalOffsetDomains = [[0]];
+        motifInfo.verticalOffsetLikelihoods = [[1]];
+        break;
+    case SimpleModuleGeneratorBassType.REPEATED:
+        motifInfo.verticalIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        break;
     }
 
 }
@@ -861,19 +861,19 @@ function createBassMotifInfo(index, genData, genInfo, sectionInfos) {
 
 
     setMotifRythm({
-            zone1Prob: getArrayValueOrDefault(genInfo.bassMotifZone1Probabilities, index-1, 0.5),
-            zone1TripletLikelihood: getArrayValueOrDefault(genInfo.bassMotifZone1TripletLikelihoods, index-1, 0.01),
-            zone1DotDotNormalLikelihood: getArrayValueOrDefault(genInfo.bassMotifZone1DotDotNormalLikelihoods, index-1, 0.5),
-            zone1DotFirstLikelihood: getArrayValueOrDefault(genInfo.bassMotifZone1DotFirstLikelihoods, index-1, 2),
-            zone1DotNormalDotLikelihood: getArrayValueOrDefault(genInfo.bassMotifZone1DotNormalDotLikelihoods, index-1, 0.5),
-            zone1DotSecondLikelihood: getArrayValueOrDefault(genInfo.bassMotifZone1DotSecondLikelihoods, index-1, 0.5),
-            zone1NormalDotDotLikelihood: getArrayValueOrDefault(genInfo.bassMotifZone1NormalDotDotLikelihoods, index-1, 0.5),
-            zone1StartPosRange: getArrayValueOrDefault(genInfo.bassMotifZone1StartPosRanges, index-1, [0, 0]),
-            zone1EndPosRange: getArrayValueOrDefault(genInfo.bassMotifZone1EndPosRanges, index-1, [0.75, 0.75]),
-            zone1StartEnd: getArrayValueOrDefault(genInfo.bassMotifZone1StartEnds, index-1, []),
-            noteCountRange: range
-        }, result, genData, genInfo, sectionInfos,
-        "bassMotifRythmSeed");
+        zone1Prob: getArrayValueOrDefault(genInfo.bassMotifZone1Probabilities, index-1, 0.5),
+        zone1TripletLikelihood: getArrayValueOrDefault(genInfo.bassMotifZone1TripletLikelihoods, index-1, 0.01),
+        zone1DotDotNormalLikelihood: getArrayValueOrDefault(genInfo.bassMotifZone1DotDotNormalLikelihoods, index-1, 0.5),
+        zone1DotFirstLikelihood: getArrayValueOrDefault(genInfo.bassMotifZone1DotFirstLikelihoods, index-1, 2),
+        zone1DotNormalDotLikelihood: getArrayValueOrDefault(genInfo.bassMotifZone1DotNormalDotLikelihoods, index-1, 0.5),
+        zone1DotSecondLikelihood: getArrayValueOrDefault(genInfo.bassMotifZone1DotSecondLikelihoods, index-1, 0.5),
+        zone1NormalDotDotLikelihood: getArrayValueOrDefault(genInfo.bassMotifZone1NormalDotDotLikelihoods, index-1, 0.5),
+        zone1StartPosRange: getArrayValueOrDefault(genInfo.bassMotifZone1StartPosRanges, index-1, [0, 0]),
+        zone1EndPosRange: getArrayValueOrDefault(genInfo.bassMotifZone1EndPosRanges, index-1, [0.75, 0.75]),
+        zone1StartEnd: getArrayValueOrDefault(genInfo.bassMotifZone1StartEnds, index-1, []),
+        noteCountRange: range
+    }, result, genData, genInfo, sectionInfos,
+    'bassMotifRythmSeed');
 
     if (genInfo.bassMotifRythmNoteCountOverrides.length > 0) {
         result.noteCount = genInfo.bassMotifRythmNoteCountOverrides[index % genInfo.bassMotifRythmNoteCountOverrides.length];
@@ -900,12 +900,12 @@ function createHarmonyMotifInfo(renderAmountVar, genData, genInfo, sectionInfos,
 
 function createPercussionMotifInfos(grooveCount, fillCount, result, genData, genInfo, sectionInfos) {
 
-    var motifRnd = createOrGetRandom(genInfo, "percussionMotifSeed");
-    var fillRnd = createOrGetRandom(genInfo, "percussionFillMotifSeed");
-    var instrRnd = createOrGetRandom(genInfo, "percussionInstrumentSeed");
-    var fillInstrRnd = createOrGetRandom(genInfo, "percussionFillInstrumentSeed");
-    var rythmRnd = createOrGetRandom(genInfo, "percussionMotifRythmSeed");
-    var fillRythmRnd = createOrGetRandom(genInfo, "percussionFillMotifRythmSeed");
+    var motifRnd = createOrGetRandom(genInfo, 'percussionMotifSeed');
+    var fillRnd = createOrGetRandom(genInfo, 'percussionFillMotifSeed');
+    var instrRnd = createOrGetRandom(genInfo, 'percussionInstrumentSeed');
+    var fillInstrRnd = createOrGetRandom(genInfo, 'percussionFillInstrumentSeed');
+    var rythmRnd = createOrGetRandom(genInfo, 'percussionMotifRythmSeed');
+    var fillRythmRnd = createOrGetRandom(genInfo, 'percussionFillMotifRythmSeed');
 
     var songStructureInfo = genInfo.songStructureInfo;
 
@@ -944,19 +944,19 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
             rnd = rythmRnd;
         }
 
-        var pattern = getValueOrDefault(options, "pattern", []);
-        var strengths = getValueOrDefault(options, "strengths", []);
-        var patternLength = getValueOrDefault(options, "patternLength", 16);
-        var pertubations = getValueOrDefault(options, "pertubations", 1);
-        var addMod = getValueOrDefault(options, "addMod", 1);
-        var posShiftRndInfos = getValueOrDefault(options, "posShiftRndInfos", [{data: 1, likelihood: 1}]);
+        var pattern = getValueOrDefault(options, 'pattern', []);
+        var strengths = getValueOrDefault(options, 'strengths', []);
+        var patternLength = getValueOrDefault(options, 'patternLength', 16);
+        var pertubations = getValueOrDefault(options, 'pertubations', 1);
+        var addMod = getValueOrDefault(options, 'addMod', 1);
+        var posShiftRndInfos = getValueOrDefault(options, 'posShiftRndInfos', [{data: 1, likelihood: 1}]);
 
         var rndInfos = [
-            {data: "posShift", likelihood: 1},
-            {data: "addAccent", likelihood: 1},
-            {data: "addGhost", likelihood: 1},
-            {data: "addExtra", likelihood: 1},
-            {data: "remove", likelihood: 1}
+            {data: 'posShift', likelihood: 1},
+            {data: 'addAccent', likelihood: 1},
+            {data: 'addGhost', likelihood: 1},
+            {data: 'addExtra', likelihood: 1},
+            {data: 'remove', likelihood: 1}
         ];
 
         var posShift = sampleData(posShiftRndInfos, rnd);
@@ -989,65 +989,65 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
                 spaceAfter = element + 1 < nextElement;
                 spaceForShiftAfter = element + posShift < nextElement;
             }
-//                logit(operations[i] + " " + JSON.stringify(pattern) + " " + JSON.stringify(strengths));
+            //                logit(operations[i] + " " + JSON.stringify(pattern) + " " + JSON.stringify(strengths));
             switch (operations[i]) {
-                case "posShift":
-                    if (spaceBefore) {
-                        if (spaceAfter) {
-                            pattern[index] = rnd.random() < 0.5 ? element + posShift : element - posShift;
-                        } else {
-                            pattern[index] = element - posShift;
-                        }
-                    } else if (spaceAfter) {
-                        pattern[index] = element + posShift;
+            case 'posShift':
+                if (spaceBefore) {
+                    if (spaceAfter) {
+                        pattern[index] = rnd.random() < 0.5 ? element + posShift : element - posShift;
+                    } else {
+                        pattern[index] = element - posShift;
                     }
-                    break;
-                case "addAccent":
-                    strengths[index] = 1.0;
-                    break;
-                case "addGhost":
-                    if (spaceBefore) {
-                        pattern.splice(index, 0, element-1);
-                        strengths.splice(index, 0, defaultStrength * 0.7);
-                    }
-                    break;
-                case "addExtra":
-                    var rndInfos = [];
-                    var possible = createFilledNumericIncArray(patternLength, 0, 1);
-                    arrayDeleteAll(possible, pattern);
+                } else if (spaceAfter) {
+                    pattern[index] = element + posShift;
+                }
+                break;
+            case 'addAccent':
+                strengths[index] = 1.0;
+                break;
+            case 'addGhost':
+                if (spaceBefore) {
+                    pattern.splice(index, 0, element-1);
+                    strengths.splice(index, 0, defaultStrength * 0.7);
+                }
+                break;
+            case 'addExtra':
+                var rndInfos = [];
+                var possible = createFilledNumericIncArray(patternLength, 0, 1);
+                arrayDeleteAll(possible, pattern);
 
-                    var newPossible = [];
-                    for (var j=0; j<possible.length; j++) {
-                        var p = possible[j];
-                        if (p % addMod == 0) {
-                            newPossible.push(p);
+                var newPossible = [];
+                for (var j=0; j<possible.length; j++) {
+                    var p = possible[j];
+                    if (p % addMod == 0) {
+                        newPossible.push(p);
+                    }
+                }
+                possible = newPossible;
+                if (possible.length > 0) {
+                    var newElement = possible[Math.floor(rnd.random() * possible.length)];
+                    var at = pattern.length;
+                    for (var j=0; j<pattern.length; j++) {
+                        if (newElement < pattern[j]) {
+                            at = j;
+                            break;
                         }
                     }
-                    possible = newPossible;
-                    if (possible.length > 0) {
-                        var newElement = possible[Math.floor(rnd.random() * possible.length)];
-                        var at = pattern.length;
-                        for (var j=0; j<pattern.length; j++) {
-                            if (newElement < pattern[j]) {
-                                at = j;
-                                break;
-                            }
-                        }
-                        pattern.splice(at, 0, newElement);
-                        strengths.splice(at, 0, defaultStrength);
-                    }
-                    break;
-                case "remove":
-                    if (pattern.length > 1) {
-                        pattern.splice(index, 1);
-                        strengths.splice(index, 1);
-                    }
-                    break;
-                default:
-                    logit("unknown operation " + operations[i])
-                    break;
+                    pattern.splice(at, 0, newElement);
+                    strengths.splice(at, 0, defaultStrength);
+                }
+                break;
+            case 'remove':
+                if (pattern.length > 1) {
+                    pattern.splice(index, 1);
+                    strengths.splice(index, 1);
+                }
+                break;
+            default:
+                logit('unknown operation ' + operations[i])
+                break;
             }
-//                logit("  " + operations[i] + " after " + JSON.stringify(pattern) + " " + JSON.stringify(strengths));
+            //                logit("  " + operations[i] + " after " + JSON.stringify(pattern) + " " + JSON.stringify(strengths));
         }
     }
 
@@ -1084,8 +1084,8 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
 
     for (var i=0; i<grooveCount; i++) {
         var info = {};
-//        var infos = sampleData(typeInfos, rnd);
-//        info.predefinedType = sampleData(infos, rnd);
+        //        var infos = sampleData(typeInfos, rnd);
+        //        info.predefinedType = sampleData(infos, rnd);
 
         var renderAmountRangeRndInfosCopy = copyValueDeep(renderAmountRangeRndInfos);
 
@@ -1112,18 +1112,18 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
                 {data: 3, likelihood: 0.5}
             ], motifRnd);
             switch (index) {
-                case 0:
-                    addBassDrum = true;
-                    break;
-                case 1:
-                    addSnareDrum = true;
-                    break;
-                case 2:
-                    addRide = true;
-                    break;
-                case 3:
-                    addCrash = true;
-                    break;
+            case 0:
+                addBassDrum = true;
+                break;
+            case 1:
+                addSnareDrum = true;
+                break;
+            case 2:
+                addRide = true;
+                break;
+            case 3:
+                addCrash = true;
+                break;
             }
         }
 
@@ -1140,14 +1140,14 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
 
         function createAmountExpressionFromRange(prefix, range, rnd) {
             var amount = range[0] + rnd.random() * (range[1] - range[0]);
-//            logit("amount expr from range " + JSON.stringify(range) + " gives amoutn " + JSON.stringify(amount));
-            return prefix + "RenderAmountVar > " + amount;
+            //            logit("amount expr from range " + JSON.stringify(range) + " gives amoutn " + JSON.stringify(amount));
+            return prefix + 'RenderAmountVar > ' + amount;
         }
 
         if (addBassDrum) {
             var zoneInfo = {};
             var amountRange = bassRange;
-            zoneInfo.activatedExpression = createAmountExpressionFromRange("percussion", amountRange, motifRnd);
+            zoneInfo.activatedExpression = createAmountExpressionFromRange('percussion', amountRange, motifRnd);
             zoneInfo.multiplier = 4;
             zoneInfo.remainders = [0, 8];
             zoneInfo.remainderStrengths = createFilledArray(zoneInfo.remainders.length, 1.0);
@@ -1155,7 +1155,7 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
                 addMod: 2,
                 posShiftRndInfos: [
                     {data: 0, likelihood: 40},
-//                    {data: 1, likelihood: 1},
+                    //                    {data: 1, likelihood: 1},
                     {data: 2, likelihood: 10}],
                 strengths: zoneInfo.remainderStrengths,
                 pattern: zoneInfo.remainders,
@@ -1168,14 +1168,14 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
         if (addSnareDrum) {
             var zoneInfo = {};
             var amountRange = snareRange;
-            zoneInfo.activatedExpression = createAmountExpressionFromRange("percussion", amountRange, motifRnd);
+            zoneInfo.activatedExpression = createAmountExpressionFromRange('percussion', amountRange, motifRnd);
             zoneInfo.multiplier = 4;
             zoneInfo.remainders = [4, 12];
             zoneInfo.remainderStrengths = createFilledArray(zoneInfo.remainders.length, 1.0);
             perturbPattern({
                 addMod: 2,
                 posShiftRndInfos: [
-//                    {data: 1, likelihood: 1},
+                    //                    {data: 1, likelihood: 1},
                     {data: 2, likelihood: 20}],
                 strengths: zoneInfo.remainderStrengths,
                 pattern: zoneInfo.remainders,
@@ -1187,14 +1187,14 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
         }
         if (addRide) {
             var zoneInfo = {};
-//            var note2 = sampleData(rndInfos, rnd);
+            //            var note2 = sampleData(rndInfos, rnd);
             var amountRange = rideRange;
-            zoneInfo.activatedExpression = createAmountExpressionFromRange("percussion", amountRange, motifRnd);
+            zoneInfo.activatedExpression = createAmountExpressionFromRange('percussion', amountRange, motifRnd);
             zoneInfo.multiplier = 4;
 
             zoneInfo.remainders = sampleData([
                 {data: createFilledNumericIncArray(8, 0, 2), likelihood: 1}
-//                {data: createFilledNumericIncArray(16, 0, 1), likelihood: 1}
+                //                {data: createFilledNumericIncArray(16, 0, 1), likelihood: 1}
             ], motifRnd);
             zoneInfo.remainderStrengths = createFilledArray(zoneInfo.remainders.length, defaultStrength);
             perturbPattern({
@@ -1223,7 +1223,7 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
                 {data: [0, 1, 2, 0], likelihood: 1},
                 {data: [0, 1, 2, 1], likelihood: 1}
             ];
-//            rnd.random();
+            //            rnd.random();
 
 
             var pattern = sampleData(patternInfos, motifRnd);
@@ -1257,7 +1257,7 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
         if (addCrash) {
             var zoneInfo = {};
             var amountRange = crashRange;
-            zoneInfo.activatedExpression = createAmountExpressionFromRange("percussion", amountRange, motifRnd);
+            zoneInfo.activatedExpression = createAmountExpressionFromRange('percussion', amountRange, motifRnd);
             zoneInfo.multiplier = 4;
             zoneInfo.remainders = [0];
             zoneInfo.remainderStrengths = createFilledArray(zoneInfo.remainders.length, 1.0);
@@ -1301,7 +1301,7 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
         var fillActivatedRange = genInfo.fillActivatedRenderAmountRange;
         var zoneInfo = {};
         zoneInfo.multiplier = 4;
-        zoneInfo.activatedExpression = createAmountExpressionFromRange("percussion", fillActivatedRange, fillRnd);
+        zoneInfo.activatedExpression = createAmountExpressionFromRange('percussion', fillActivatedRange, fillRnd);
         var fillRndValue = fillRnd.random();
 
         var fillPatternRndInfos = [
@@ -1329,7 +1329,7 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
 
         var pattern = sampleData(fillIndexPatternRndInfos, fillRnd);
 
-//        pattern = assignIndices(pattern, fillNotes.length);
+        //        pattern = assignIndices(pattern, fillNotes.length);
 
         zoneInfo.noteIndexPattern = [];
         for (var j=0; j<pattern.length; j++) {
@@ -1340,7 +1340,7 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
             // Adding special start fill
             zoneInfo.startNoteIndexPattern = [];
             pattern = sampleData(fillIndexPatternRndInfos, fillRnd);
-//            pattern = assignIndices(pattern, fillNotes.length);
+            //            pattern = assignIndices(pattern, fillNotes.length);
             for (var j=0; j<pattern.length; j++) {
                 zoneInfo.startNoteIndexPattern.push([pattern[j]]);
             }
@@ -1349,20 +1349,20 @@ function createPercussionMotifInfos(grooveCount, fillCount, result, genData, gen
             // Adding special end fill
             zoneInfo.endNoteIndexPattern = [];
             pattern = sampleData(fillIndexPatternRndInfos, fillRnd);
-//            pattern = assignIndices(pattern, fillNotes.length);
+            //            pattern = assignIndices(pattern, fillNotes.length);
             for (var j=0; j<pattern.length; j++) {
                 zoneInfo.endNoteIndexPattern.push([pattern[j]]);
             }
         }
 
-//        logit("fill info " + JSON.stringify(info));
+        //        logit("fill info " + JSON.stringify(info));
         result.push(info);
     }
 
 }
 
 function createSuspendInfos(genData, genInfo, sectionInfos) {
-    var rnd = createOrGetRandom(genInfo, "suspendSeed");
+    var rnd = createOrGetRandom(genInfo, 'suspendSeed');
 
     var count = genInfo.suspendTypeCount;
 
@@ -1381,7 +1381,7 @@ function createSuspendInfos(genData, genInfo, sectionInfos) {
 
     var maxProb = 0.5 - 0.4 * tempoFraction;
 
-//    logit("sus maxprob: " + maxProb);
+    //    logit("sus maxprob: " + maxProb);
 
     for (var i=0; i<count; i++) {
         var useSuspend = false;
@@ -1432,10 +1432,10 @@ function createMotifInfos(genData, genInfo, sectionInfos) {
 
     // Copy the melody motifs to inner 1 and inner 2
     for (var i=0; i<melodyMotifCount; i++) {
-        genData.motifInfos[i + inner1StartIndex] = copyMotifInfoWithChanges(genData.motifInfos[i], "inner1");
+        genData.motifInfos[i + inner1StartIndex] = copyMotifInfoWithChanges(genData.motifInfos[i], 'inner1');
     }
     for (var i=0; i<melodyMotifCount; i++) {
-        genData.motifInfos[i + inner2StartIndex] = copyMotifInfoWithChanges(genData.motifInfos[i], "inner2");
+        genData.motifInfos[i + inner2StartIndex] = copyMotifInfoWithChanges(genData.motifInfos[i], 'inner2');
     }
 
 
@@ -1446,22 +1446,22 @@ function createMotifInfos(genData, genInfo, sectionInfos) {
     }
 
 
-    var propNames = ["melody", "inner1", "inner2"];
+    var propNames = ['melody', 'inner1', 'inner2'];
     var rythmDensityMultipliers = [1, 1, 0.25];
 
     for (var j=0; j<propNames.length; j++) {
         for (var i=0; i<harmonyMotifCount; i++) {
-            var motifInfo = createHarmonyMotifInfo(propNames[j] + "RenderAmountVar", genData, genInfo, sectionInfos,
+            var motifInfo = createHarmonyMotifInfo(propNames[j] + 'RenderAmountVar', genData, genInfo, sectionInfos,
                 {rythmDensityMultiplier: rythmDensityMultipliers[j]});
             var index = i + harmonyStartIndex + j * harmonyMotifCount;
-//            logit(propNames[j] + " harmony motif index " + i + " is " + index);
+            //            logit(propNames[j] + " harmony motif index " + i + " is " + index);
             genData.motifInfos[index] = motifInfo;
         }
     }
     genData.percussionMotifInfos = [];
     createPercussionMotifInfos(percussionGrooveMotifCount, percussionFillMotifCount, genData.percussionMotifInfos, genData, genInfo, sectionInfos);
 
-//    logit(genData.percussionMotifInfos);
+    //    logit(genData.percussionMotifInfos);
 
 }
 
@@ -1477,7 +1477,7 @@ function createHarmonyRythmInfos(genData, genInfo, sectionInfos) {
 
     var harmonyRythmCount = genInfo.harmonyRythmCount;
 
-    var hrRnd = createOrGetRandom(genInfo, "harmonyRythmSeed");
+    var hrRnd = createOrGetRandom(genInfo, 'harmonyRythmSeed');
 
     var songStructureInfo = genInfo.songStructureInfo;
 
@@ -1486,15 +1486,15 @@ function createHarmonyRythmInfos(genData, genInfo, sectionInfos) {
     var useOddTime = hrRnd.random() < genInfo.oddHarmonyRythmProbability;
 
     if (useOddTime) {
-        logit("Using odd time with numerator " + numerator);
+        logit('Using odd time with numerator ' + numerator);
     }
-//    logit(useOddTime);
+    //    logit(useOddTime);
 
 
     for (var i=0; i<harmonyRythmCount; i++) {
         var info = {};
 
-        var lengthLikelihoods = {"2": 30, "4": 70};
+        var lengthLikelihoods = {'2': 30, '4': 70};
 
         info.measureSplitStrategy = SplitStrategy.HALVE;
 
@@ -1505,53 +1505,53 @@ function createHarmonyRythmInfos(genData, genInfo, sectionInfos) {
         if (genInfo.adaptHarmonyRythmToTimeSignature) {
             if (useOddTime) {
                 switch (numerator) {
-                    case 2:
-                        lengthLikelihoods = {"3": 30, "6": 70};
-                        break;
-                    case 3:
-                        lengthLikelihoods = {"3": 70, "6": 30};
-                        break;
-                    case 4:
-                        lengthLikelihoods = {"3": 100};
-                        break;
+                case 2:
+                    lengthLikelihoods = {'3': 30, '6': 70};
+                    break;
+                case 3:
+                    lengthLikelihoods = {'3': 70, '6': 30};
+                    break;
+                case 4:
+                    lengthLikelihoods = {'3': 100};
+                    break;
                 }
             } else {
                 switch (numerator) {
-                    case 2:
-                        lengthLikelihoods = {"2": 0, "4": 100, "8": 50};
-                        break;
-                    case 3:
-                        lengthLikelihoods = {"2": 10, "4": 90};
-                        break;
-                    case 4:
-                        lengthLikelihoods = {"2": 30, "4": 70};
-                        break;
+                case 2:
+                    lengthLikelihoods = {'2': 0, '4': 100, '8': 50};
+                    break;
+                case 3:
+                    lengthLikelihoods = {'2': 10, '4': 90};
+                    break;
+                case 4:
+                    lengthLikelihoods = {'2': 30, '4': 70};
+                    break;
                 }
             }
         }
-        var lengthTypes = {"2": NoteRythmElementLengthType.NORMAL,
-            "3": NoteRythmElementLengthType.DOT,
-            "4": NoteRythmElementLengthType.NORMAL,
-            "6": NoteRythmElementLengthType.DOT,
-            "8": NoteRythmElementLengthType.NORMAL
+        var lengthTypes = {'2': NoteRythmElementLengthType.NORMAL,
+            '3': NoteRythmElementLengthType.DOT,
+            '4': NoteRythmElementLengthType.NORMAL,
+            '6': NoteRythmElementLengthType.DOT,
+            '8': NoteRythmElementLengthType.NORMAL
         };
 
         if (genInfo.adaptHarmonyRythmToTempo) {
             if (songStructureInfo.baseTempo > 110) {
                 if (useOddTime) {
-                    lengthLikelihoods["6"] *= 2;
-                    lengthLikelihoods["3"] *= 0.75;
+                    lengthLikelihoods['6'] *= 2;
+                    lengthLikelihoods['3'] *= 0.75;
                 } else {
-                    lengthLikelihoods["4"] = 100;
-                    lengthLikelihoods["2"] = 0;
+                    lengthLikelihoods['4'] = 100;
+                    lengthLikelihoods['2'] = 0;
                 }
             } else if (songStructureInfo.baseTempo < 80) {
                 if (useOddTime) {
-                    lengthLikelihoods["6"] = 0;
-                    lengthLikelihoods["3"] = 100;
+                    lengthLikelihoods['6'] = 0;
+                    lengthLikelihoods['3'] = 100;
                 } else {
-                    lengthLikelihoods["4"] *= 1;
-                    lengthLikelihoods["2"] *= 1;
+                    lengthLikelihoods['4'] *= 1;
+                    lengthLikelihoods['2'] *= 1;
                 }
             }
         }
@@ -1570,38 +1570,38 @@ function createHarmonyRythmInfos(genData, genInfo, sectionInfos) {
         }
 
         var maxCountAdds = {
-            "2": 3,
-            "3": 4,
-            "4": 6,
-            "6": 7,
-            "8": 8
+            '2': 3,
+            '3': 4,
+            '4': 6,
+            '6': 7,
+            '8': 8
         };
 
         var minCounts = {
-            "2": 4,
-            "3": 4,
-            "4": 4,
-            "6": 6,
-            "8": 7
+            '2': 4,
+            '3': 4,
+            '4': 4,
+            '6': 6,
+            '8': 7
         };
 
 
         if (genInfo.adaptHarmonyRythmToTempo) {
             if (songStructureInfo.baseTempo > 115) {
-                maxCountAdds["8"] = 2;
-                maxCountAdds["6"] = 2;
-                maxCountAdds["4"] = 3;
-                maxCountAdds["3"] = 2;
-                maxCountAdds["2"] = 2;
+                maxCountAdds['8'] = 2;
+                maxCountAdds['6'] = 2;
+                maxCountAdds['4'] = 3;
+                maxCountAdds['3'] = 2;
+                maxCountAdds['2'] = 2;
             } else if (songStructureInfo.baseTempo > 105) {
-                maxCountAdds["8"] = 2;
-                maxCountAdds["6"] = 2;
-                maxCountAdds["4"] = 4;
-                maxCountAdds["3"] = 3;
+                maxCountAdds['8'] = 2;
+                maxCountAdds['6'] = 2;
+                maxCountAdds['4'] = 4;
+                maxCountAdds['3'] = 3;
             } else if (songStructureInfo.baseTempo > 90) {
-                maxCountAdds["8"] = 4;
-                maxCountAdds["6"] = 4;
-                maxCountAdds["4"] = 5;
+                maxCountAdds['8'] = 4;
+                maxCountAdds['6'] = 4;
+                maxCountAdds['4'] = 5;
             }
         }
 
@@ -1612,12 +1612,12 @@ function createHarmonyRythmInfos(genData, genInfo, sectionInfos) {
             maxCountAdds[c] = add;
         }
 
-//        lengthLikelihoods["6"] = 10000;
+        //        lengthLikelihoods["6"] = 10000;
         if (genInfo.harmonyRythmMeasureCountOverrides.length > 0) {
             var c = genInfo.harmonyRythmMeasureCountOverrides[i % genInfo.harmonyRythmMeasureCountOverrides.length];
             lengthLikelihoods = {};
             lengthLikelihoods[c] = 1;
-//            logit("Overwriting harmony rythm count " + c + " for index " + i);
+            //            logit("Overwriting harmony rythm count " + c + " for index " + i);
         }
 
         var lengthRndInfos = [];
@@ -1647,7 +1647,7 @@ function createHarmonyRythmInfos(genData, genInfo, sectionInfos) {
         var count = minCount + Math.floor(hrRnd.random() * maxAdd);
 
 
-//        logit("HR count " + count + " " + minCount + " " + maxAdd + " " + totalLengthInfo.length);
+        //        logit("HR count " + count + " " + minCount + " " + maxAdd + " " + totalLengthInfo.length);
 
         info.lengthType = totalLengthInfo.lengthType;
 
@@ -1666,7 +1666,7 @@ function createHarmonyRythmInfos(genData, genInfo, sectionInfos) {
         }
         if (genInfo.harmonyRythmDensityCurveAmplitudeOverrides.length > 0) {
             info.densityAmplitude = genInfo.harmonyRythmDensityCurveAmplitudeOverrides[i % genInfo.harmonyRythmDensityCurveAmplitudeOverrides.length];
-//            logit("Forcing density amp to " + info.densityAmplitude);
+            //            logit("Forcing density amp to " + info.densityAmplitude);
         }
 
         info.staticLength = 10;
@@ -1675,10 +1675,10 @@ function createHarmonyRythmInfos(genData, genInfo, sectionInfos) {
         info.tonicCadenceLength = 10;
 
         var harmonyProlongInfos = [
-            {data: {propName: "staticLength"}, likelihood: genInfo.prolongStaticLikelihoods[i % genInfo.prolongStaticLikelihoods.length]},
-            {data: {propName: "dynamicLength"}, likelihood: genInfo.prolongDynamicLikelihoods[i % genInfo.prolongDynamicLikelihoods.length]},
-            {data: {propName: "dominantCadenceLength"}, likelihood: genInfo.prolongDominantCadenceLikelihoods[i % genInfo.prolongDominantCadenceLikelihoods.length]},
-            {data: {propName: "tonicCadenceLength"}, likelihood: genInfo.prolongTonicCadenceLikelihoods[i % genInfo.prolongTonicCadenceLikelihoods.length]}
+            {data: {propName: 'staticLength'}, likelihood: genInfo.prolongStaticLikelihoods[i % genInfo.prolongStaticLikelihoods.length]},
+            {data: {propName: 'dynamicLength'}, likelihood: genInfo.prolongDynamicLikelihoods[i % genInfo.prolongDynamicLikelihoods.length]},
+            {data: {propName: 'dominantCadenceLength'}, likelihood: genInfo.prolongDominantCadenceLikelihoods[i % genInfo.prolongDominantCadenceLikelihoods.length]},
+            {data: {propName: 'tonicCadenceLength'}, likelihood: genInfo.prolongTonicCadenceLikelihoods[i % genInfo.prolongTonicCadenceLikelihoods.length]}
         ];
 
         var lengthBias = genInfo.prolongHarmonyPartBiases[i % genInfo.prolongHarmonyPartBiases.length];
@@ -1718,7 +1718,7 @@ function getCustomLinearInterpolationCurveInfo(id, rndInfos, msRnd, bakeAmpBias)
 
     info.curveId = curve.id;
     info.curve = curve;
-//        logit("creating curve " + JSON.stringify(curve));
+    //        logit("creating curve " + JSON.stringify(curve));
 
     return info;
 }
@@ -1726,12 +1726,12 @@ function getCustomLinearInterpolationCurveInfo(id, rndInfos, msRnd, bakeAmpBias)
 
 function getRandomCurveInfos(options, rnd) {
 
-    var leapsRange = getValueOrDefault(options, "leapsRange", [1, 1]);
-    var startLevels = getValueOrDefault(options, "startLevels", [-10, -5, 0, 5, 10]);
-    var endLevels = getValueOrDefault(options, "endLevels", [-10, -5, 0, 5, 10]);
-    var depths = getValueOrDefault(options, "depths", [2, 3]);
-    var ampRange = getValueOrDefault(options, "ampRange", [10, 14]);
-    var biasRange = getValueOrDefault(options, "biasRange", [68, 76]);
+    var leapsRange = getValueOrDefault(options, 'leapsRange', [1, 1]);
+    var startLevels = getValueOrDefault(options, 'startLevels', [-10, -5, 0, 5, 10]);
+    var endLevels = getValueOrDefault(options, 'endLevels', [-10, -5, 0, 5, 10]);
+    var depths = getValueOrDefault(options, 'depths', [2, 3]);
+    var ampRange = getValueOrDefault(options, 'ampRange', [10, 14]);
+    var biasRange = getValueOrDefault(options, 'biasRange', [68, 76]);
 
     function getPossible(currentLevel, prevStep, prevPrevStep, depth, currentResult, allResults, maxDepth) {
         currentResult.push(currentLevel);
@@ -1799,7 +1799,7 @@ function getRandomCurveInfos(options, rnd) {
         }
     }
 
-//    logit(JSON.stringify(allResults));
+    //    logit(JSON.stringify(allResults));
 
     var rndInfos = [];
 
@@ -1818,13 +1818,13 @@ function getRandomCurveInfos(options, rnd) {
             // Perturb x somewhat
             var index = 1 + Math.floor(rnd.random() * (xValues.length - 2));
             xValues[index] += -xStep * 0.25 + rnd.random() * xStep * 0.5;
-//            logit("new xValues: " + JSON.stringify(xValues));
+            //            logit("new xValues: " + JSON.stringify(xValues));
         }
 
         rndInfos.push(
             {data:
             {ampRange: ampRange, biasRange: biasRange, xValues: xValues, yValues: yValues},
-                likelihood: 1});
+            likelihood: 1});
     }
 
     return rndInfos;
@@ -1833,8 +1833,8 @@ function getRandomCurveInfos(options, rnd) {
 
 function createMelodyShapeInfos(genData, genInfo, sectionInfos) {
 
-    var msRnd = createOrGetRandom(genInfo, "melodyShapeSeed");
-    var bsRnd = createOrGetRandom(genInfo, "bassShapeSeed");
+    var msRnd = createOrGetRandom(genInfo, 'melodyShapeSeed');
+    var bsRnd = createOrGetRandom(genInfo, 'bassShapeSeed');
 
     var melodyShapeCount = genInfo.melodyShapeCount;
 
@@ -1880,15 +1880,15 @@ function createMelodyShapeInfos(genData, genInfo, sectionInfos) {
         var biasRange = [68, 76];
         if (genInfo.melodyShapeAmpRanges.length > 0) {
             ampRange = genInfo.melodyShapeAmpRanges[i % genInfo.melodyShapeAmpRanges.length];
-//            logit("Overriding amp range for index " + i + " with " + ampRange.join(", "));
+            //            logit("Overriding amp range for index " + i + " with " + ampRange.join(", "));
         }
         if (genInfo.melodyShapeBiasRanges.length > 0) {
             biasRange = genInfo.melodyShapeBiasRanges[i % genInfo.melodyShapeBiasRanges.length];
-//            logit("Overriding bias range for index " + i + " with " + biasRange.join(", "));
+            //            logit("Overriding bias range for index " + i + " with " + biasRange.join(", "));
         }
         updateRndInfos(melodyRndInfos, copyValueDeep(ampRange), copyValueDeep(biasRange));
 
-        genData.melodyShapeInfos[i] = getCustomLinearInterpolationCurveInfo("melodyCurve" + (i+1), melodyRndInfos, msRnd);
+        genData.melodyShapeInfos[i] = getCustomLinearInterpolationCurveInfo('melodyCurve' + (i+1), melodyRndInfos, msRnd);
     }
 
     var bassShapeCount = genInfo.bassShapeCount;
@@ -1904,20 +1904,20 @@ function createMelodyShapeInfos(genData, genInfo, sectionInfos) {
             biasRange = genInfo.bassShapeBiasRanges[i % genInfo.bassShapeBiasRanges.length];
         }
         updateRndInfos(bassRndInfos, ampRange, biasRange);
-        genData.bassShapeInfos[i] = getCustomLinearInterpolationCurveInfo("bassCurve" + (i+1), bassRndInfos, bsRnd);
+        genData.bassShapeInfos[i] = getCustomLinearInterpolationCurveInfo('bassCurve' + (i+1), bassRndInfos, bsRnd);
     }
 
 }
 
 
 function createChannelDistributionInfos(genData, genInfo, sectionInfos) {
-    var prefixes = ["melody", "inner1", "inner2", "bass"];
+    var prefixes = ['melody', 'inner1', 'inner2', 'bass'];
 
     for (var j=0; j<prefixes.length; j++) {
         var prefix = prefixes[j];
         for (var i=0; i<3; i++) {
             var info = {channels: [[i]], endChannels: [[i]]};
-            genData[prefix + "ChannelDistributionInfos"][i] = info;
+            genData[prefix + 'ChannelDistributionInfos'][i] = info;
         }
     }
 }
@@ -1925,11 +1925,11 @@ function createChannelDistributionInfos(genData, genInfo, sectionInfos) {
 
 function createChannelInstruments(genData, genInfo, sectionInfos) {
 
-    var instrRnd = createOrGetRandom(genInfo, "instrumentTypeSeed");
-    var melodyInstrRnd = createOrGetRandom(genInfo, "melodyInstrumentSeed");
-    var inner1InstrRnd = createOrGetRandom(genInfo, "inner1InstrumentSeed");
-    var inner2InstrRnd = createOrGetRandom(genInfo, "inner2InstrumentSeed");
-    var bassInstrRnd = createOrGetRandom(genInfo, "bassInstrumentSeed");
+    var instrRnd = createOrGetRandom(genInfo, 'instrumentTypeSeed');
+    var melodyInstrRnd = createOrGetRandom(genInfo, 'melodyInstrumentSeed');
+    var inner1InstrRnd = createOrGetRandom(genInfo, 'inner1InstrumentSeed');
+    var inner2InstrRnd = createOrGetRandom(genInfo, 'inner2InstrumentSeed');
+    var bassInstrRnd = createOrGetRandom(genInfo, 'bassInstrumentSeed');
 
     var electronicMelodyInstrInfos = genInfo.electronicMelodyInstrInfos;
     var electronicInnerFastInstrInfos = genInfo.electronicInnerFastInstrInfos;
@@ -1960,24 +1960,24 @@ function createChannelInstruments(genData, genInfo, sectionInfos) {
         instrRnd);
 
     switch (instrType) {
-        case SimpleModuleGeneratorInstrumentSetType.ACOUSTIC:
-            melodyInstrumentInfos = acousticMelodyInstrInfos;
-            inner1InstrumentInfos = acousticInnerFastInstrInfos;
-            inner2InstrumentInfos = acousticInnerSlowInstrInfos;
-            bassInstrumentInfos = acousticBassInstrInfos;
-            break;
-        case SimpleModuleGeneratorInstrumentSetType.ELECTRIC:
-            melodyInstrumentInfos = electricMelodyInstrInfos;
-            inner1InstrumentInfos = electricInnerFastInstrInfos;
-            inner2InstrumentInfos = electricInnerSlowInstrInfos;
-            bassInstrumentInfos = electricBassInstrInfos;
-            break;
-        case SimpleModuleGeneratorInstrumentSetType.ELECTRONIC:
-            melodyInstrumentInfos = electronicMelodyInstrInfos;
-            inner1InstrumentInfos = electronicInnerFastInstrInfos;
-            inner2InstrumentInfos = electronicInnerSlowInstrInfos;
-            bassInstrumentInfos = electronicBassInstrInfos;
-            break;
+    case SimpleModuleGeneratorInstrumentSetType.ACOUSTIC:
+        melodyInstrumentInfos = acousticMelodyInstrInfos;
+        inner1InstrumentInfos = acousticInnerFastInstrInfos;
+        inner2InstrumentInfos = acousticInnerSlowInstrInfos;
+        bassInstrumentInfos = acousticBassInstrInfos;
+        break;
+    case SimpleModuleGeneratorInstrumentSetType.ELECTRIC:
+        melodyInstrumentInfos = electricMelodyInstrInfos;
+        inner1InstrumentInfos = electricInnerFastInstrInfos;
+        inner2InstrumentInfos = electricInnerSlowInstrInfos;
+        bassInstrumentInfos = electricBassInstrInfos;
+        break;
+    case SimpleModuleGeneratorInstrumentSetType.ELECTRONIC:
+        melodyInstrumentInfos = electronicMelodyInstrInfos;
+        inner1InstrumentInfos = electronicInnerFastInstrInfos;
+        inner2InstrumentInfos = electronicInnerSlowInstrInfos;
+        bassInstrumentInfos = electronicBassInstrInfos;
+        break;
     }
 
 
@@ -2004,7 +2004,7 @@ function createChannelInstruments(genData, genInfo, sectionInfos) {
     }
 
     if (genInfo.overwriteMelodyInstruments && genInfo.melodyInstruments.length > 0) {
-//        logit("Overwriting melod yinstrument " + genInfo.melodyInstruments);
+        //        logit("Overwriting melod yinstrument " + genInfo.melodyInstruments);
         genData.melodyChannelInstruments = copyValueDeep(createFilledPatternArray(3, genInfo.melodyInstruments));
     }
     if (genInfo.overwriteInner1Instruments && genInfo.inner1Instruments.length > 0) {
@@ -2022,14 +2022,14 @@ function createChannelInstruments(genData, genInfo, sectionInfos) {
 
 function createMotifDistributionInfos(genData, genInfo, sectionInfos) {
 
-    var melodyRnd = createOrGetRandom(genInfo, "melodyMotifDistributionSeed");
-    var inner1Rnd = createOrGetRandom(genInfo, "inner1MotifDistributionSeed");
-    var inner2Rnd = createOrGetRandom(genInfo, "inner2MotifDistributionSeed");
-    var bassRnd = createOrGetRandom(genInfo, "bassMotifDistributionSeed");
-    var percussionRnd = createOrGetRandom(genInfo, "percussionMotifDistributionSeed");
-    var percussionFillRnd = createOrGetRandom(genInfo, "percussionFillMotifDistributionSeed");
-    var melodyHarmPuncRnd = createOrGetRandom(genInfo, "melodyHarmonyPunctationSeed");
-    var innerHarmPuncRnd = createOrGetRandom(genInfo, "innerHarmonyPunctationSeed");
+    var melodyRnd = createOrGetRandom(genInfo, 'melodyMotifDistributionSeed');
+    var inner1Rnd = createOrGetRandom(genInfo, 'inner1MotifDistributionSeed');
+    var inner2Rnd = createOrGetRandom(genInfo, 'inner2MotifDistributionSeed');
+    var bassRnd = createOrGetRandom(genInfo, 'bassMotifDistributionSeed');
+    var percussionRnd = createOrGetRandom(genInfo, 'percussionMotifDistributionSeed');
+    var percussionFillRnd = createOrGetRandom(genInfo, 'percussionFillMotifDistributionSeed');
+    var melodyHarmPuncRnd = createOrGetRandom(genInfo, 'melodyHarmonyPunctationSeed');
+    var innerHarmPuncRnd = createOrGetRandom(genInfo, 'innerHarmonyPunctationSeed');
 
     var motifDistributionCount = genInfo.motifDistributionCount;
 
@@ -2058,7 +2058,7 @@ function createMotifDistributionInfos(genData, genInfo, sectionInfos) {
 
     var grooveRndInfos = [
         {data: [0], likelihood: 1}
-//        {data: [0, 1], likelihood: 1}
+        //        {data: [0, 1], likelihood: 1}
     ];
 
     for (var i=0; i<motifDistributionCount; i++) {
@@ -2110,7 +2110,7 @@ function createMotifDistributionInfos(genData, genInfo, sectionInfos) {
         } else {
             // No fill, just continue pattern
         }
-//        logit(info + " prob: " + prob);
+        //        logit(info + " prob: " + prob);
         genData.percussionFillMotifDistributionInfos[i] = info;
     }
 
@@ -2138,8 +2138,8 @@ function createMotifDistributionInfos(genData, genInfo, sectionInfos) {
         var endIndex = sampleData(possibleEndIndices, melodyRnd);
 
         info.endIndices = [[endIndex], [0]];
-//        info.endIndicesExpression = "melodyRenderAmountVar > 0 ? [[" + endIndex + "], [0]] : []";
-        var renderAmountExpression = "";
+        //        info.endIndicesExpression = "melodyRenderAmountVar > 0 ? [[" + endIndex + "], [0]] : []";
+        var renderAmountExpression = '';
 
         // Add harmony punctation
         function addHarmonyPunctation(endIndices, offset) {
@@ -2201,7 +2201,7 @@ function createMotifDistributionInfos(genData, genInfo, sectionInfos) {
 
         info.indices = createFilledArrayWithCopyValue(melodyInfo.indices.length, [inner1StartIndex]);
         info.endIndices = [];
-//        info.endIndices = createFilledArrayWithCopyValue(melodyInfo.endIndices.length, [0]);
+        //        info.endIndices = createFilledArrayWithCopyValue(melodyInfo.endIndices.length, [0]);
 
         genData.inner1MotifDistributionInfos[j] = info;
 
@@ -2229,18 +2229,18 @@ function createMotifDistributionInfos(genData, genInfo, sectionInfos) {
                 var index = sampleDataIndex(rndDatas, inner1Rnd);
                 var shareIndex = possibleShareIndices[index];
                 otherIndices[shareIndex].push(offset + shareMotifIndices[index]);
-//                logit("Melody indices before: " + JSON.stringify(melodyIndices) + "<br />");
+                //                logit("Melody indices before: " + JSON.stringify(melodyIndices) + "<br />");
                 arrayDelete(melodyIndices[shareIndex], shareMotifIndices[index]);
                 melodyIndices[shareIndex].push(0);
                 arrayDelete(otherIndices[shareIndex], offset);
-//                logit("Melody indices after: " + JSON.stringify(melodyIndices) + "<br />");
+                //                logit("Melody indices after: " + JSON.stringify(melodyIndices) + "<br />");
             }
         }
         if (shareMelody) {
             shareWithMelody(melodyInfo.indices, info.indices, inner1StartIndex);
         }
-//        logit("Can be shared: " + JSON.stringify(possibleShareIndices) + " " + JSON.stringify(shareMotifIndices) + "<br />");
-//        logit("Created inner1 motif distribution: " + JSON.stringify(info) + "<br />");
+        //        logit("Can be shared: " + JSON.stringify(possibleShareIndices) + " " + JSON.stringify(shareMotifIndices) + "<br />");
+        //        logit("Created inner1 motif distribution: " + JSON.stringify(info) + "<br />");
     }
 
     // Inner 2 is mainly for slow voices
@@ -2305,7 +2305,7 @@ function createMotifDistributionInfos(genData, genInfo, sectionInfos) {
         info.indices = copyValueDeep(indices);
 
         genData.bassMotifDistributionInfos[j] = info;
-//        logit("Created bass motif distribution: " + JSON.stringify(info) + "<br />");
+        //        logit("Created bass motif distribution: " + JSON.stringify(info) + "<br />");
     }
 
 
@@ -2313,10 +2313,10 @@ function createMotifDistributionInfos(genData, genInfo, sectionInfos) {
     // Inner 1 can render harmony and also help with punctate
 
     for (var k=0; k<2; k++) {
-        var prefix = "inner" + (k + 1);
+        var prefix = 'inner' + (k + 1);
         for (var j=0; j<motifDistributionCount; j++) {
 
-            var innerDistInfo = genData[prefix + "MotifDistributionInfos"][j];
+            var innerDistInfo = genData[prefix + 'MotifDistributionInfos'][j];
 
             var onOffPatterns = [ // Use 0 and 1 instead :)
                 {data: [true], likelihood: 10},
@@ -2351,7 +2351,7 @@ function createMotifDistributionInfos(genData, genInfo, sectionInfos) {
                     innerDistInfo.indices[i].push(index);
                 }
             }
-//        logit(inner1DistInfo);
+            //        logit(inner1DistInfo);
         }
     }
 }
@@ -2360,14 +2360,14 @@ function createRenderAmountInfos(genData, genInfo, sectionInfos) {
 
     var songStructure = genInfo.songStructureInfo;
 
-    var propNames = ["melodyRenderAmount", "inner1RenderAmount",
-        "inner2RenderAmount", "bassRenderAmount", "percussionRenderAmount"];
+    var propNames = ['melodyRenderAmount', 'inner1RenderAmount',
+        'inner2RenderAmount', 'bassRenderAmount', 'percussionRenderAmount'];
 
 
     function perturbRenderAmountInfo(info, rnd) {
         var operationRndInfos = [
-            {data: "partialRedistribute", likelihood: 1},
-            {data: "fullRedistribute", likelihood: 2}
+            {data: 'partialRedistribute', likelihood: 1},
+            {data: 'fullRedistribute', likelihood: 2}
         ];
 
         function infoOk(info) {
@@ -2378,7 +2378,7 @@ function createRenderAmountInfos(genData, genInfo, sectionInfos) {
                 var amount = info[p];
                 if (amount > 0) {
                     amountGtZeroCount++;
-                    if (p != "percussionRenderAmount") {
+                    if (p != 'percussionRenderAmount') {
                         voiceCount++;
                     }
                 }
@@ -2416,12 +2416,12 @@ function createRenderAmountInfos(genData, genInfo, sectionInfos) {
             var oldValue = info[propName];
 
             var maxDistribute = Math.min(totalOthersLeft, oldValue);
-//            var toDistribute = maxDistribute;
+            //            var toDistribute = maxDistribute;
 
 
             function distribute(info, amount, from) {
 
-//                logit("  Distributing " + amount + " from " + from);
+                //                logit("  Distributing " + amount + " from " + from);
                 var iterations = 0;
                 while (amount > 0.0001 && iterations < 5) {
                     var to = otherPropNames[Math.floor(rnd.random() * otherPropNames.length)];
@@ -2436,27 +2436,27 @@ function createRenderAmountInfos(genData, genInfo, sectionInfos) {
                     info[from] -= theAmount;
                     iterations++;
                     amount -= theAmount;
-//                    logit("    Moving " + theAmount + " from " + from + " to " + to + " left: " + amount);
+                    //                    logit("    Moving " + theAmount + " from " + from + " to " + to + " left: " + amount);
                 }
             }
 
             switch (op) {
-                case "partialRedistribute":
-                    toDistribute = maxDistribute * rnd.random();
-                    distribute(info, toDistribute, propName);
-                    break;
-                case "fullRedistribute":
-                    var toDistribute = maxDistribute;
-                    distribute(info, toDistribute, propName);
-                    break;
+            case 'partialRedistribute':
+                toDistribute = maxDistribute * rnd.random();
+                distribute(info, toDistribute, propName);
+                break;
+            case 'fullRedistribute':
+                var toDistribute = maxDistribute;
+                distribute(info, toDistribute, propName);
+                break;
             }
 
             if (infoOk(info)) {
-//                logit("   before " + op + ": " + JSON.stringify(result));
+                //                logit("   before " + op + ": " + JSON.stringify(result));
                 result = info;
-//                logit("   After " + op + ": " + JSON.stringify(result));
+                //                logit("   After " + op + ": " + JSON.stringify(result));
             } else {
-//                logit("info not ok " + JSON.stringify(info));
+                //                logit("info not ok " + JSON.stringify(info));
             }
         }
         return result;
@@ -2479,11 +2479,11 @@ function createRenderAmountInfos(genData, genInfo, sectionInfos) {
             info[propName] = (0.8 + rnd.random() * 0.2) * renderAmount;
         }
 
-//        logit("Info before " + JSON.stringify(info));
+        //        logit("Info before " + JSON.stringify(info));
 
         info = perturbRenderAmountInfo(info, rnd);
 
-//        logit("Info after " + JSON.stringify(info));
+        //        logit("Info after " + JSON.stringify(info));
 
         genData.renderAmountInfos[i] = info;
     }
@@ -2494,7 +2494,7 @@ function createRenderAmountInfos(genData, genInfo, sectionInfos) {
 
 function createTempoInfos(genData, genInfo, sectionInfos) {
 
-    var rnd = createOrGetRandom(genInfo, "tempoSeed");
+    var rnd = createOrGetRandom(genInfo, 'tempoSeed');
 
     var songStructure = genInfo.songStructureInfo;
 
@@ -2522,7 +2522,7 @@ function createTempoInfos(genData, genInfo, sectionInfos) {
 
 
 function getLinearInterpolationCurveControlElement(id, rndInfos, rnd) {
-    var curveInfo = getCustomLinearInterpolationCurveInfo(id + "Curve", rndInfos, rnd);
+    var curveInfo = getCustomLinearInterpolationCurveInfo(id + 'Curve', rndInfos, rnd);
     var cce = new CurveControlElement();
     cce.id = id;
     cce.curve = curveInfo.curveId;
@@ -2545,20 +2545,20 @@ function getCustomCurveControlElement(id, curve) {
 
 
 function getEffectInfo(options, rnd) {
-    var id = getValueOrDefault(options, "id", "");
-    var useStartEndTime = getValueOrDefault(options, "useStartEndTime", false);
-    var startTime = getValueOrDefault(options, "startTime", 0.0);
-    var startTimeUnit = getValueOrDefault(options, "startTimeUnit", PositionUnit.HARMONY);
-    var endTime = getValueOrDefault(options, "endTime", 0.0);
-    var endTimeUnit = getValueOrDefault(options, "endTimeUnit", PositionUnit.HARMONY);
-    var length = getValueOrDefault(options, "length", 1.0);
-    var lengthUnit = getValueOrDefault(options, "lengthUnit", PositionUnit.HARMONY);
-    var offset = getValueOrDefault(options, "offset", 0.0);
-    var activeExpression = getValueOrDefault(options, "activeExpression", "");
-    var phraseGroupIndex = getValueOrDefault(options, "phraseGroupIndex", -1); // -1 means don't use
-    var curveData = getValueOrDefault(options, "curveData", {ampRange: [1, 1], biasRange: [0.0, 0.0], xValues: [0, 1], yValues: [0, 1]});
-    var curve = getValueOrDefault(options, "curve", null);
-    var variables = getValueOrDefault(options, "variables", []);
+    var id = getValueOrDefault(options, 'id', '');
+    var useStartEndTime = getValueOrDefault(options, 'useStartEndTime', false);
+    var startTime = getValueOrDefault(options, 'startTime', 0.0);
+    var startTimeUnit = getValueOrDefault(options, 'startTimeUnit', PositionUnit.HARMONY);
+    var endTime = getValueOrDefault(options, 'endTime', 0.0);
+    var endTimeUnit = getValueOrDefault(options, 'endTimeUnit', PositionUnit.HARMONY);
+    var length = getValueOrDefault(options, 'length', 1.0);
+    var lengthUnit = getValueOrDefault(options, 'lengthUnit', PositionUnit.HARMONY);
+    var offset = getValueOrDefault(options, 'offset', 0.0);
+    var activeExpression = getValueOrDefault(options, 'activeExpression', '');
+    var phraseGroupIndex = getValueOrDefault(options, 'phraseGroupIndex', -1); // -1 means don't use
+    var curveData = getValueOrDefault(options, 'curveData', {ampRange: [1, 1], biasRange: [0.0, 0.0], xValues: [0, 1], yValues: [0, 1]});
+    var curve = getValueOrDefault(options, 'curve', null);
+    var variables = getValueOrDefault(options, 'variables', []);
 
     var info = {};
     var cce = null;
@@ -2583,9 +2583,9 @@ function getEffectInfo(options, rnd) {
         cce.activeUseExpression = true;
     }
     if (phraseGroupIndex >= 0) {
-        var expr = "indexInfoVar.phraseGroupIndex == " + phraseGroupIndex;
+        var expr = 'indexInfoVar.phraseGroupIndex == ' + phraseGroupIndex;
         if (cce.activeExpression) {
-            expr = "(" + cce.activeExpression + ") && " + expr;
+            expr = '(' + cce.activeExpression + ') && ' + expr;
         }
         cce.activeExpression = expr;
         cce.activeUseExpression = true;
@@ -2595,7 +2595,7 @@ function getEffectInfo(options, rnd) {
     info.curve = cce.theCurve;
     info.variables = variables;
 
-//    logit(JSON.stringify(info));
+    //    logit(JSON.stringify(info));
 
     return info;
 }
@@ -2603,13 +2603,13 @@ function getEffectInfo(options, rnd) {
 
 
 function getNoChangeEffectDescription(options) {
-    var prefixId = getValueOrDefault(options, "prefixId", "prefix");
-    var length = getValueOrDefault(options, "length", 1);
-    var lengthUnit = getValueOrDefault(options, "lengthUnit", PositionUnit.MEASURES);
-    var value = getValueOrDefault(options, "value", 1.0);
+    var prefixId = getValueOrDefault(options, 'prefixId', 'prefix');
+    var length = getValueOrDefault(options, 'length', 1);
+    var lengthUnit = getValueOrDefault(options, 'lengthUnit', PositionUnit.MEASURES);
+    var value = getValueOrDefault(options, 'value', 1.0);
 
     var constantCurve = new PredefinedCurve().setType(PredefinedCurveType.CONSTANT).setAmplitude(value).setBias(0.0);
-    constantCurve.id = prefixId + "NoChangeCurve";
+    constantCurve.id = prefixId + 'NoChangeCurve';
     var constantElement = new CurveControlElement();
     constantElement.endTime = length;
     constantElement.endTimeUnit = lengthUnit;
@@ -2650,112 +2650,112 @@ var PhraseGroupEffectType = {
     RANDOM_GROUP: 18,
 
     appendEffectInfos: function(type, options, rnd) {
-        var ampFraction = getValueOrDefault(options, "ampFraction", 0.5);
-        var xFraction = getValueOrDefault(options, "xFraction", 0.5);
-        var infos = getValueOrDefault(options, "infos", []);
-        var indices = getValueOrDefault(options, "indices", []);
-        var id = getValueOrDefault(options, "id", "theId");
-        var constraints1 = getValueOrDefault(options, "constraints1", []);
-        var constraints2 = getValueOrDefault(options, "constraints2", []);
+        var ampFraction = getValueOrDefault(options, 'ampFraction', 0.5);
+        var xFraction = getValueOrDefault(options, 'xFraction', 0.5);
+        var infos = getValueOrDefault(options, 'infos', []);
+        var indices = getValueOrDefault(options, 'indices', []);
+        var id = getValueOrDefault(options, 'id', 'theId');
+        var constraints1 = getValueOrDefault(options, 'constraints1', []);
+        var constraints2 = getValueOrDefault(options, 'constraints2', []);
 
         var xValues1 = [0, 1];
         var yValues1 = [1, 1];
         var xValues2 = [0, 1];
         var yValues2 = [1, 1];
 
-        var id1 = id + "1";
-        var id2 = id + "2";
+        var id1 = id + '1';
+        var id2 = id + '2';
 
         var curveData1 = null;
         var curveData2 = null;
 
         switch (type) {
+        case PhraseGroupEffectType.RANDOM_ALL_SAME:
+        case PhraseGroupEffectType.RANDOM_ALL_DIFFERENT:
+        case PhraseGroupEffectType.RANDOM_FIRST_PHRASE:
+        case PhraseGroupEffectType.RANDOM_GROUP:
+        case PhraseGroupEffectType.RANDOM_SECOND_PHRASE:
+            var curveRndInfos1 = getRandomCurveInfos({
+                ampRange: [0.3, 0.5], biasRange: [1, 1]
+            }, rnd);
+            var curveRndInfos2 = getRandomCurveInfos({
+                ampRange: [0.3, 0.5], biasRange: [1, 1]
+            }, rnd);
+            curveData1 = sampleData(curveRndInfos, rnd);
+            switch (type) {
             case PhraseGroupEffectType.RANDOM_ALL_SAME:
+                curveData2 = curveData1;
+                break;
             case PhraseGroupEffectType.RANDOM_ALL_DIFFERENT:
+                curveData2 = sampleData(curveRndInfos, rnd);
+                break;
             case PhraseGroupEffectType.RANDOM_FIRST_PHRASE:
-            case PhraseGroupEffectType.RANDOM_GROUP:
+                // Already done!
+                break;
             case PhraseGroupEffectType.RANDOM_SECOND_PHRASE:
-                var curveRndInfos1 = getRandomCurveInfos({
-                    ampRange: [0.3, 0.5], biasRange: [1, 1]
-                }, rnd);
-                var curveRndInfos2 = getRandomCurveInfos({
-                    ampRange: [0.3, 0.5], biasRange: [1, 1]
-                }, rnd);
-                curveData1 = sampleData(curveRndInfos, rnd);
-                switch (type) {
-                    case PhraseGroupEffectType.RANDOM_ALL_SAME:
-                        curveData2 = curveData1;
-                        break;
-                    case PhraseGroupEffectType.RANDOM_ALL_DIFFERENT:
-                        curveData2 = sampleData(curveRndInfos, rnd);
-                        break;
-                    case PhraseGroupEffectType.RANDOM_FIRST_PHRASE:
-                        // Already done!
-                        break;
-                    case PhraseGroupEffectType.RANDOM_SECOND_PHRASE:
-                        curveData2 = curveData1;
-                        curveData1 = null;
-                        break;
-                    case PhraseGroupEffectType.RANDOM_GROUP:
-                        break;
-                }
+                curveData2 = curveData1;
+                curveData1 = null;
+                break;
+            case PhraseGroupEffectType.RANDOM_GROUP:
+                break;
+            }
 
-                break;
-            case PhraseGroupEffectType.DEC_SECOND_PHRASE:
-                yValues2 = [1.0 - ampFraction, 1.0];
-                break;
-            case PhraseGroupEffectType.INC_SECOND_PHRASE:
-                yValues2 = [1.0 + ampFraction, 1.0];
-                break;
-            case PhraseGroupEffectType.DEC_INC_GROUP:
-                yValues1 = [1.0, 1.0 - ampFraction];
-                yValues2 = [1.0 - ampFraction, 1.0];
-                break;
-            case PhraseGroupEffectType.INC_DEC_GROUP:
-                yValues1 = [1.0, 1.0 + ampFraction];
-                yValues2 = [1.0 + ampFraction, 1.0];
-                break;
-            case PhraseGroupEffectType.DEC_FIRST_PHRASE_STAY:
-                yValues1 = [1.0, 1.0 - ampFraction];
-                yValues2 = [1.0 - ampFraction, 1.0 - ampFraction];
-                break;
-            case PhraseGroupEffectType.INC_FIRST_PHRASE_STAY:
-                yValues1 = [1.0, 1.0 + ampFraction];
-                yValues2 = [1.0 + ampFraction, 1.0 + ampFraction];
-                break;
-            case PhraseGroupEffectType.DEC_FIRST_PHRASE_RETURN:
-                yValues1 = [1, 1.0 - ampFraction];
-                break;
-            case PhraseGroupEffectType.INC_FIRST_PHRASE_RETURN:
-                yValues1 = [1, 1.0 + ampFraction];
-                break;
-            case PhraseGroupEffectType.INC_GROUP:
-                yValues1 = [1, 1.0 + ampFraction * xFraction];
-                yValues2 = [1.0 + ampFraction * xFraction, 1.0 + ampFraction];
-                break;
-            case PhraseGroupEffectType.DEC_GROUP:
-                yValues1 = [1, 1.0 - ampFraction * xFraction];
-                yValues2 = [1.0 - ampFraction * xFraction, 1.0 - ampFraction];
-                break;
-            case PhraseGroupEffectType.INC_DEC_FIRST_PHRASE:
-                xValues1 = [0, xFraction, 1];
-                yValues1 = [1, 1.0 + ampFraction, 1];
-                break;
-            case PhraseGroupEffectType.INC_DEC_SECOND_PHRASE:
-                xValues2 = [0, xFraction, 1];
-                yValues2 = [1, 1.0 + ampFraction, 1];
-                break;
-            case PhraseGroupEffectType.DEC_INC_FIRST_PHRASE:
-                xValues1 = [0, xFraction, 1];
-                yValues1 = [1, 1.0 - ampFraction, 1];
-                break;
-            case PhraseGroupEffectType.DEC_INC_SECOND_PHRASE:
-                xValues2 = [0, xFraction, 1];
-                yValues2 = [1, 1.0 - ampFraction, 1];
-                break;
-            default:
-                logit("Unknown effect " + type);
-                break;
+            break;
+        case PhraseGroupEffectType.DEC_SECOND_PHRASE:
+            yValues2 = [1.0 - ampFraction, 1.0];
+            break;
+        case PhraseGroupEffectType.INC_SECOND_PHRASE:
+            yValues2 = [1.0 + ampFraction, 1.0];
+            break;
+        case PhraseGroupEffectType.DEC_INC_GROUP:
+            yValues1 = [1.0, 1.0 - ampFraction];
+            yValues2 = [1.0 - ampFraction, 1.0];
+            break;
+        case PhraseGroupEffectType.INC_DEC_GROUP:
+            yValues1 = [1.0, 1.0 + ampFraction];
+            yValues2 = [1.0 + ampFraction, 1.0];
+            break;
+        case PhraseGroupEffectType.DEC_FIRST_PHRASE_STAY:
+            yValues1 = [1.0, 1.0 - ampFraction];
+            yValues2 = [1.0 - ampFraction, 1.0 - ampFraction];
+            break;
+        case PhraseGroupEffectType.INC_FIRST_PHRASE_STAY:
+            yValues1 = [1.0, 1.0 + ampFraction];
+            yValues2 = [1.0 + ampFraction, 1.0 + ampFraction];
+            break;
+        case PhraseGroupEffectType.DEC_FIRST_PHRASE_RETURN:
+            yValues1 = [1, 1.0 - ampFraction];
+            break;
+        case PhraseGroupEffectType.INC_FIRST_PHRASE_RETURN:
+            yValues1 = [1, 1.0 + ampFraction];
+            break;
+        case PhraseGroupEffectType.INC_GROUP:
+            yValues1 = [1, 1.0 + ampFraction * xFraction];
+            yValues2 = [1.0 + ampFraction * xFraction, 1.0 + ampFraction];
+            break;
+        case PhraseGroupEffectType.DEC_GROUP:
+            yValues1 = [1, 1.0 - ampFraction * xFraction];
+            yValues2 = [1.0 - ampFraction * xFraction, 1.0 - ampFraction];
+            break;
+        case PhraseGroupEffectType.INC_DEC_FIRST_PHRASE:
+            xValues1 = [0, xFraction, 1];
+            yValues1 = [1, 1.0 + ampFraction, 1];
+            break;
+        case PhraseGroupEffectType.INC_DEC_SECOND_PHRASE:
+            xValues2 = [0, xFraction, 1];
+            yValues2 = [1, 1.0 + ampFraction, 1];
+            break;
+        case PhraseGroupEffectType.DEC_INC_FIRST_PHRASE:
+            xValues1 = [0, xFraction, 1];
+            yValues1 = [1, 1.0 - ampFraction, 1];
+            break;
+        case PhraseGroupEffectType.DEC_INC_SECOND_PHRASE:
+            xValues2 = [0, xFraction, 1];
+            yValues2 = [1, 1.0 - ampFraction, 1];
+            break;
+        default:
+            logit('Unknown effect ' + type);
+            break;
         }
         var nextIndex = infos.length;
 
@@ -2770,13 +2770,13 @@ var PhraseGroupEffectType = {
                 getEffectInfo({ // Increase in first group
                     id: id1,
                     curveData: curveData1,
-                    activeExpression: "indexInfoVar.phraseGroupCount == 2",
+                    activeExpression: 'indexInfoVar.phraseGroupCount == 2',
                     phraseGroupIndex: 0
                 }, rnd),
                 getEffectInfo({ // Decrease in second group
                     id: id2,
                     curveData: curveData2,
-                    activeExpression: "indexInfoVar.phraseGroupCount == 2",
+                    activeExpression: 'indexInfoVar.phraseGroupCount == 2',
                     phraseGroupIndex: 1
                 }, rnd)]);
         indices.push(nextIndex);
@@ -2784,7 +2784,7 @@ var PhraseGroupEffectType = {
     },
 
     toString: function(type) {
-        return "toString() for PhraseGroupEffectType not implemented";
+        return 'toString() for PhraseGroupEffectType not implemented';
     }
 }
 addPossibleValuesFunction(PhraseGroupEffectType, PhraseGroupEffectType.INC_DEC_FIRST_PHRASE, PhraseGroupEffectType.DEC_INC_GROUP);
@@ -2793,7 +2793,7 @@ addPossibleValuesFunction(PhraseGroupEffectType, PhraseGroupEffectType.INC_DEC_F
 
 function createEffectChangeInfos(genData, genInfo, sectionInfos) {
 
-    var rnd = createOrGetRandom(genInfo, "effectChangeSeed");
+    var rnd = createOrGetRandom(genInfo, 'effectChangeSeed');
 
     var songStructureInfo = genInfo.songStructureInfo;
 
@@ -2804,10 +2804,10 @@ function createEffectChangeInfos(genData, genInfo, sectionInfos) {
 
 
     var datas = [
-        {prefix: "melody", instruments: genData.melodyChannelInstruments},
-        {prefix: "inner1", instruments: genData.inner1ChannelInstruments},
-        {prefix: "inner2", instruments: genData.inner2ChannelInstruments},
-        {prefix: "bass", instruments: genData.bassChannelInstruments}
+        {prefix: 'melody', instruments: genData.melodyChannelInstruments},
+        {prefix: 'inner1', instruments: genData.inner1ChannelInstruments},
+        {prefix: 'inner2', instruments: genData.inner2ChannelInstruments},
+        {prefix: 'bass', instruments: genData.bassChannelInstruments}
     ];
 
     var instrumentEffectCapabilitiesArr = [
@@ -2845,15 +2845,15 @@ function createEffectChangeInfos(genData, genInfo, sectionInfos) {
             var cap = caps[j];
             var prob = probs[j % probs.length];
             switch (cap) {
-                case InstrumentCapabilityProperty.FILTER_BW_CHANGE:
-                    prob *= genInfo.filterBWEffectsProbMultiplier;
-                    break;
-                case InstrumentCapabilityProperty.FILTER_FREQ_CHANGE:
-                    prob *= genInfo.filterFEffectsProbMultiplier;
-                    break;
-                case InstrumentCapabilityProperty.PAN_CHANGE:
-                    prob *= genInfo.panEffectsProbMultiplier;
-                    break;
+            case InstrumentCapabilityProperty.FILTER_BW_CHANGE:
+                prob *= genInfo.filterBWEffectsProbMultiplier;
+                break;
+            case InstrumentCapabilityProperty.FILTER_FREQ_CHANGE:
+                prob *= genInfo.filterFEffectsProbMultiplier;
+                break;
+            case InstrumentCapabilityProperty.PAN_CHANGE:
+                prob *= genInfo.panEffectsProbMultiplier;
+                break;
             }
             probs[j % probs.length] = prob;
         }
@@ -2872,13 +2872,13 @@ function createEffectChangeInfos(genData, genInfo, sectionInfos) {
 
 
     function addSequentialEffects(options, rnd) {
-        var instruments = getValueOrDefault(options, "instruments", []);
-        var prefix = getValueOrDefault(options, "prefix", "melody");
-        var effect = getValueOrDefault(options, "effect", "FilterF");
-        var infos = getValueOrDefault(options, "infos", []);
+        var instruments = getValueOrDefault(options, 'instruments', []);
+        var prefix = getValueOrDefault(options, 'prefix', 'melody');
+        var effect = getValueOrDefault(options, 'effect', 'FilterF');
+        var infos = getValueOrDefault(options, 'infos', []);
 
 
-        if (instruments.length == 0 && prefix == "percussion") {
+        if (instruments.length == 0 && prefix == 'percussion') {
             // Special case
         }
 
@@ -2893,90 +2893,90 @@ function createEffectChangeInfos(genData, genInfo, sectionInfos) {
         var harmonyLengthLikMult = 1.0;
 
         switch (effect) {
-            case "FilterF":
-                valueNotReturnLikMult = 0.5;
-                beatLengthLikMult = 0.1;
-                measureLengthLikMult = 0.2;
-                switch (prefix) {
-                    case "melody":
-                        maxValue = 100 / 127.0;
-                        minValue = 55 / 127.0;
-                        break;
-                    case "inner1":
-                        maxValue = 65 / 127.0;
-                        minValue = 30 / 127.0;
-                        break;
-                    case "inner2":
-                        maxValue = 65 / 127.0;
-                        minValue = 30 / 127.0;
-                        break;
-                    case "bass":
-                        maxValue = 45 / 127.0;
-                        minValue = 10 / 127.0;
-                        break;
-                    default:
-                        maxValue = 80 / 127.0;
-                        minValue = 20 / 127.0;
-                        break;
-                }
+        case 'FilterF':
+            valueNotReturnLikMult = 0.5;
+            beatLengthLikMult = 0.1;
+            measureLengthLikMult = 0.2;
+            switch (prefix) {
+            case 'melody':
+                maxValue = 100 / 127.0;
+                minValue = 55 / 127.0;
                 break;
-            case "FilterQ":
-                valueNotReturnLikMult = 0.1;
-                beatLengthLikMult = 0.1;
-                measureLengthLikMult = 0.2;
-                var minMinQ = 0.4;
-                var minAddQ = 0.15;
-                var minMaxQ = 0.65;
-                var maxAddQ = 0.15;
-                switch (prefix) {
-                    case "melody":
-                        minMinQ = 0.4;
-                        minMaxQ = 0.65;
-                        break;
-                }
-                maxValue = minMaxQ + rnd.random() * maxAddQ;
-                minValue = minMinQ + rnd.random() * minAddQ;
+            case 'inner1':
+                maxValue = 65 / 127.0;
+                minValue = 30 / 127.0;
                 break;
-            case "Pan":
-                var melodyPan = 20;
-                var bassPan = 110;
-                var inner1Pan = 80;
-                var inner2Pan = 60;
-                var percussionPan = 64;
-
-                valueNotReturnLikMult = 0.0000001;
-                beatLengthLikMult = 0.0000001;
-                measureLengthLikMult = 0.0001;
-
-                var symmetric = rnd.random() < 0.8;
-
-                var offset1 = rnd.random() * 0.3;
-                var offset2 = rnd.random() * 0.3;
-                if (symmetric) {
-                    offset2 = offset1;
-                }
-                minValue = 0.05 + offset1;
-                maxValue = 0.95 - offset2;
-
-                switch (prefix) {
-                    case "melody":
-                        noChangeValue = melodyPan / 127.0;
-                        break;
-                    case "inner1":
-                        noChangeValue = inner1Pan / 127.0;
-                        break;
-                    case "inner2":
-                        noChangeValue = inner2Pan / 127.0;
-                        break;
-                    case "bass":
-                        noChangeValue = bassPan / 127.0;
-                        break;
-                    case "percussion":
-                        noChangeValue = percussionPan / 127.0;
-                        break;
-                }
-
+            case 'inner2':
+                maxValue = 65 / 127.0;
+                minValue = 30 / 127.0;
                 break;
+            case 'bass':
+                maxValue = 45 / 127.0;
+                minValue = 10 / 127.0;
+                break;
+            default:
+                maxValue = 80 / 127.0;
+                minValue = 20 / 127.0;
+                break;
+            }
+            break;
+        case 'FilterQ':
+            valueNotReturnLikMult = 0.1;
+            beatLengthLikMult = 0.1;
+            measureLengthLikMult = 0.2;
+            var minMinQ = 0.4;
+            var minAddQ = 0.15;
+            var minMaxQ = 0.65;
+            var maxAddQ = 0.15;
+            switch (prefix) {
+            case 'melody':
+                minMinQ = 0.4;
+                minMaxQ = 0.65;
+                break;
+            }
+            maxValue = minMaxQ + rnd.random() * maxAddQ;
+            minValue = minMinQ + rnd.random() * minAddQ;
+            break;
+        case 'Pan':
+            var melodyPan = 20;
+            var bassPan = 110;
+            var inner1Pan = 80;
+            var inner2Pan = 60;
+            var percussionPan = 64;
+
+            valueNotReturnLikMult = 0.0000001;
+            beatLengthLikMult = 0.0000001;
+            measureLengthLikMult = 0.0001;
+
+            var symmetric = rnd.random() < 0.8;
+
+            var offset1 = rnd.random() * 0.3;
+            var offset2 = rnd.random() * 0.3;
+            if (symmetric) {
+                offset2 = offset1;
+            }
+            minValue = 0.05 + offset1;
+            maxValue = 0.95 - offset2;
+
+            switch (prefix) {
+            case 'melody':
+                noChangeValue = melodyPan / 127.0;
+                break;
+            case 'inner1':
+                noChangeValue = inner1Pan / 127.0;
+                break;
+            case 'inner2':
+                noChangeValue = inner2Pan / 127.0;
+                break;
+            case 'bass':
+                noChangeValue = bassPan / 127.0;
+                break;
+            case 'percussion':
+                noChangeValue = percussionPan / 127.0;
+                break;
+            }
+
+            break;
         }
 
         var xyValuesRndInfos = [
@@ -2996,7 +2996,7 @@ function createEffectChangeInfos(genData, genInfo, sectionInfos) {
             {data: {length: 2, lengthUnit: PositionUnit.BEATS}, likelihood: beatLengthLikMult * (numerator == 3 ? 0.1 : 1)},
             {data: {length: 3, lengthUnit: PositionUnit.BEATS}, likelihood: beatLengthLikMult * (numerator == 3 ? 1 : 0.1)},
             {data: {length: 1, lengthUnit: PositionUnit.MEASURES}, likelihood: measureLengthLikMult}
-//            {data: {length: 2, lengthUnit: PositionUnit.MEASURES}, likelihood: 1}
+            //            {data: {length: 2, lengthUnit: PositionUnit.MEASURES}, likelihood: 1}
         ];
 
 
@@ -3006,9 +3006,9 @@ function createEffectChangeInfos(genData, genInfo, sectionInfos) {
             var caps = instrumentEffectCapabilities[instr];
             var probs = instrumentEffectProbs[instr];
 
-//            if (caps) {
-//                logit(MidiProgram.toString(instr) + " caps " + caps + " probs " + probs);
-//            }
+            //            if (caps) {
+            //                logit(MidiProgram.toString(instr) + " caps " + caps + " probs " + probs);
+            //            }
 
             if (!caps) {
                 caps = [];
@@ -3018,101 +3018,101 @@ function createEffectChangeInfos(genData, genInfo, sectionInfos) {
             var arr = [];
             infos[i][effect] = arr;
 
-//            logit("Adding effects for " + prefix + " " + i + " " + effect);
-            arr.push(getNoChangeEffectDescription({prefixId: prefix + effect + "SequentialEffect" + i, value: noChangeValue}));
+            //            logit("Adding effects for " + prefix + " " + i + " " + effect);
+            arr.push(getNoChangeEffectDescription({prefixId: prefix + effect + 'SequentialEffect' + i, value: noChangeValue}));
 
             var infoCount = 3;
 
             switch (effect) {
-                case "Pan":
-                    var capIndex = caps.indexOf(InstrumentCapabilityProperty.PAN_CHANGE);
-                    if (capIndex >= 0) {
-                        var slidePan = rnd.random() < probs[capIndex];
-                        if (slidePan) {
-//                            logit("pan change " + prefix + " i: " + i);
-                            for (var j=0; j<infoCount; j++) {
-                                var xyValues = sampleData(xyValuesRndInfos, rnd);
-                                var lengthLengthUnit = sampleData(lengthLengthUnitRndInfos, rnd);
-                                arr.push(getEffectInfo(
-                                    {
-                                        id: prefix + effect + "SequentialEffectAdd" + i,
-                                        length: lengthLengthUnit.length,
-                                        lengthUnit: lengthLengthUnit.lengthUnit,
-                                        activeExpression: prefix + "RenderAmountVar > 0",
-                                        curveData: {ampRange: [1.0, 1.0], biasRange: [0.0, 0.0], xValues: xyValues.xValues, yValues: xyValues.yValues}
-                                    },
-                                    rnd));
-                            }
-                        }
-                    }
-
-                    break;
-                case "FilterF":
-                    var capIndex = caps.indexOf(InstrumentCapabilityProperty.FILTER_FREQ_CHANGE);
-                    if (capIndex >= 0) {
-                        var slideF = rnd.random() < probs[capIndex];
-                        if (slideF) {
-                            for (var j=0; j<infoCount; j++) {
-                                var xyValues = sampleData(xyValuesRndInfos, rnd);
-                                var lengthLengthUnit = sampleData(lengthLengthUnitRndInfos, rnd);
-                                arr.push(getEffectInfo(
-                                    {
-                                        id: prefix + effect + "SequentialEffectAdd" + i,
-                                        length: lengthLengthUnit.length,
-                                        lengthUnit: lengthLengthUnit.lengthUnit,
-                                        activeExpression: prefix + "RenderAmountVar > 0",
-                                        curveData: {ampRange: [1.0, 1.0], biasRange: [0.0, 0.0], xValues: xyValues.xValues, yValues: xyValues.yValues}
-                                    },
-                                    rnd));
-                            }
-                        }
-                    }
-                    break;
-                case "FilterQ":
-                    var capIndex = caps.indexOf(InstrumentCapabilityProperty.FILTER_BW_CHANGE);
-                    if (capIndex >= 0) {
-                        var slideQ = rnd.random() < probs[capIndex];
+            case 'Pan':
+                var capIndex = caps.indexOf(InstrumentCapabilityProperty.PAN_CHANGE);
+                if (capIndex >= 0) {
+                    var slidePan = rnd.random() < probs[capIndex];
+                    if (slidePan) {
+                        //                            logit("pan change " + prefix + " i: " + i);
                         for (var j=0; j<infoCount; j++) {
                             var xyValues = sampleData(xyValuesRndInfos, rnd);
                             var lengthLengthUnit = sampleData(lengthLengthUnitRndInfos, rnd);
-                            if (slideQ) {
-                                arr.push(getEffectInfo(
-                                    {
-                                        id: prefix + effect + "SequentialEffectAdd" + i,
-                                        length: lengthLengthUnit.length,
-                                        activeExpression: prefix + "RenderAmountVar > 0",
-                                        lengthUnit: lengthLengthUnit.lengthUnit,
-                                        curveData: {ampRange: [1.0, 1.0], biasRange: [0.0, 0.0], xValues: xyValues.xValues, yValues: xyValues.yValues}
-                                    },
-                                    rnd));
-                            } else {
-                                var qLevel = rnd.random() * (maxValue - minValue) + minValue;
-                                arr.push(getEffectInfo(
-                                    {
-                                        id: prefix + effect + "SequentialEffectAdd" + i,
-                                        length: 1,
-                                        activeExpression: prefix + "RenderAmountVar > 0",
-                                        lengthUnit: PositionUnit.MEASURES,
-                                        curveData: {ampRange: [1.0, 1.0], biasRange: [0.0, 0.0], xValues: [0, 1], yValues: [qLevel, qLevel]}
-                                    },
-                                    rnd));
-                            }
+                            arr.push(getEffectInfo(
+                                {
+                                    id: prefix + effect + 'SequentialEffectAdd' + i,
+                                    length: lengthLengthUnit.length,
+                                    lengthUnit: lengthLengthUnit.lengthUnit,
+                                    activeExpression: prefix + 'RenderAmountVar > 0',
+                                    curveData: {ampRange: [1.0, 1.0], biasRange: [0.0, 0.0], xValues: xyValues.xValues, yValues: xyValues.yValues}
+                                },
+                                rnd));
                         }
                     }
-                    break;
+                }
+
+                break;
+            case 'FilterF':
+                var capIndex = caps.indexOf(InstrumentCapabilityProperty.FILTER_FREQ_CHANGE);
+                if (capIndex >= 0) {
+                    var slideF = rnd.random() < probs[capIndex];
+                    if (slideF) {
+                        for (var j=0; j<infoCount; j++) {
+                            var xyValues = sampleData(xyValuesRndInfos, rnd);
+                            var lengthLengthUnit = sampleData(lengthLengthUnitRndInfos, rnd);
+                            arr.push(getEffectInfo(
+                                {
+                                    id: prefix + effect + 'SequentialEffectAdd' + i,
+                                    length: lengthLengthUnit.length,
+                                    lengthUnit: lengthLengthUnit.lengthUnit,
+                                    activeExpression: prefix + 'RenderAmountVar > 0',
+                                    curveData: {ampRange: [1.0, 1.0], biasRange: [0.0, 0.0], xValues: xyValues.xValues, yValues: xyValues.yValues}
+                                },
+                                rnd));
+                        }
+                    }
+                }
+                break;
+            case 'FilterQ':
+                var capIndex = caps.indexOf(InstrumentCapabilityProperty.FILTER_BW_CHANGE);
+                if (capIndex >= 0) {
+                    var slideQ = rnd.random() < probs[capIndex];
+                    for (var j=0; j<infoCount; j++) {
+                        var xyValues = sampleData(xyValuesRndInfos, rnd);
+                        var lengthLengthUnit = sampleData(lengthLengthUnitRndInfos, rnd);
+                        if (slideQ) {
+                            arr.push(getEffectInfo(
+                                {
+                                    id: prefix + effect + 'SequentialEffectAdd' + i,
+                                    length: lengthLengthUnit.length,
+                                    activeExpression: prefix + 'RenderAmountVar > 0',
+                                    lengthUnit: lengthLengthUnit.lengthUnit,
+                                    curveData: {ampRange: [1.0, 1.0], biasRange: [0.0, 0.0], xValues: xyValues.xValues, yValues: xyValues.yValues}
+                                },
+                                rnd));
+                        } else {
+                            var qLevel = rnd.random() * (maxValue - minValue) + minValue;
+                            arr.push(getEffectInfo(
+                                {
+                                    id: prefix + effect + 'SequentialEffectAdd' + i,
+                                    length: 1,
+                                    activeExpression: prefix + 'RenderAmountVar > 0',
+                                    lengthUnit: PositionUnit.MEASURES,
+                                    curveData: {ampRange: [1.0, 1.0], biasRange: [0.0, 0.0], xValues: [0, 1], yValues: [qLevel, qLevel]}
+                                },
+                                rnd));
+                        }
+                    }
+                }
+                break;
             }
         }
 
 
     }
 
-    var effects = ["FilterF", "FilterQ", "Pan"];
+    var effects = ['FilterF', 'FilterQ', 'Pan'];
 
     for (var i=0; i<datas.length; i++) {
         var prefix = datas[i].prefix;
         var capName = prefix.substr(0, 1).toUpperCase() + prefix.substr(1);
-        var propName = "sequential" + capName + "EffectChangeInfos";
-        var propName2 = "sequential" + capName + "EffectChangePatternInfos";
+        var propName = 'sequential' + capName + 'EffectChangeInfos';
+        var propName2 = 'sequential' + capName + 'EffectChangePatternInfos';
         genData[propName] = [];
         genData[propName2] = [];
         var data = datas[i];
@@ -3125,9 +3125,9 @@ function createEffectChangeInfos(genData, genInfo, sectionInfos) {
 
             addSequentialEffects(data, rnd);
         }
-//        if (prefix == "bass") {
-//            logit("Effect infos " + genData[propName].length + " " + prefix);
-//        }
+        //        if (prefix == "bass") {
+        //            logit("Effect infos " + genData[propName].length + " " + prefix);
+        //        }
         var patternInfos = genData[propName2];
         var patternCount = genInfo.effectChangeCount;
 
@@ -3156,7 +3156,7 @@ function createEffectChangeInfos(genData, genInfo, sectionInfos) {
                 if (addEndIndices) {
                     endIndices = [1 + Math.floor(3 * rnd.random())];
                 }
-//                var startIndices = [1 + Math.floor(2 * rnd.random())];
+                //                var startIndices = [1 + Math.floor(2 * rnd.random())];
                 patternInfo[effect] = {
                     indices: indices,
                     startIndices: [],
@@ -3177,7 +3177,7 @@ function createEffectChangeInfos(genData, genInfo, sectionInfos) {
 
 function createTempoChangeInfos(genData, genInfo, sectionInfos) {
 
-    var rnd = createOrGetRandom(genInfo, "tempoChangeSeed");
+    var rnd = createOrGetRandom(genInfo, 'tempoChangeSeed');
 
     var slowDownAtSongEnd = rnd.random() < genInfo.endSongTempoChangeProbability;
     var adaptToRenderAmount = true;
@@ -3189,7 +3189,7 @@ function createTempoChangeInfos(genData, genInfo, sectionInfos) {
         numerator = songStructureInfo.numerators[0];
     }
 
-    genData.sequentialTempoChangeInfos = [getNoChangeEffectDescription({prefixId: "sequentialTempo"})];
+    genData.sequentialTempoChangeInfos = [getNoChangeEffectDescription({prefixId: 'sequentialTempo'})];
 
     var sequentialInfoPatternCount = genInfo.tempoChangeCount;
     for (var i=0; i<sequentialInfoPatternCount; i++) {
@@ -3200,37 +3200,37 @@ function createTempoChangeInfos(genData, genInfo, sectionInfos) {
         genData.sequentialTempoChangePatternInfos.push(info);
     }
 
-//    var adaptVariable = new ExpressionEditorVariable();
+    //    var adaptVariable = new ExpressionEditorVariable();
 
     var adaptCurve = new ExpressionCurve();
-    adaptCurve.id = "tempoRenderAmountAdaptCurve";
-    adaptCurve.valueExpression = "1.0";
+    adaptCurve.id = 'tempoRenderAmountAdaptCurve';
+    adaptCurve.valueExpression = '1.0';
 
     genData.parallelTempoChangeInfos = [
         getEffectInfo({ // Group end
-            id: "tempoGroupEnd",
+            id: 'tempoGroupEnd',
             lengthUnit: PositionUnit.HARMONY,
             length: 0.5,
             offset: 0.5,
             curveData: {ampRange: [-0.3, -0.3], biasRange: [1.0, 1.0], xValues: [0, 1], yValues: [0, 1]},
-            activeExpression: "indexInfoVar.phraseGroupIndex == indexInfoVar.phraseGroupCount - 1 && !indexInfoVar.isConnectGroup && !indexInfoVar.isIntro && !indexInfoVar.isEnd"
+            activeExpression: 'indexInfoVar.phraseGroupIndex == indexInfoVar.phraseGroupCount - 1 && !indexInfoVar.isConnectGroup && !indexInfoVar.isIntro && !indexInfoVar.isEnd'
         }, rnd),
         getEffectInfo({ // Song end
-            id: "tempoSongEnd",
+            id: 'tempoSongEnd',
             useStartEndTime: true,
             startTimeUnit: PositionUnit.BEATS_PLUS_HARMONY,
             startTime: -numerator,
             endTimeUnit: PositionUnit.BEATS_PLUS_HARMONY,
             endTime: 0,
             curveData: {ampRange: [-0.4, -0.4], biasRange: [1.0, 1.0], xValues: [0, 1], yValues: [0, 1]},
-            activeExpression: "indexInfoVar.phraseGroupIndex == indexInfoVar.phraseGroupCount - 1 && indexInfoVar.songGroupIndex == indexInfoVar.songGroupCount - 1"
+            activeExpression: 'indexInfoVar.phraseGroupIndex == indexInfoVar.phraseGroupCount - 1 && indexInfoVar.songGroupIndex == indexInfoVar.songGroupCount - 1'
         }, rnd),
         getEffectInfo({ // Adapt to render amount
-            id: "tempoAdaptRenderAmount",
+            id: 'tempoAdaptRenderAmount',
             lengthUnit: PositionUnit.HARMONY,
             length: 1.0,
             curve: adaptCurve,
-            activeExpression: "true"
+            activeExpression: 'true'
         }, rnd)
     ];
 
@@ -3253,7 +3253,7 @@ function createTempoChangeInfos(genData, genInfo, sectionInfos) {
         var slowDownAtGroupEnd = rnd.random() < genInfo.endPhraseGroupTempoChangeProbabilities[i % genInfo.endPhraseGroupTempoChangeProbabilities.length];
 
         if (slowDownAtGroupEnd) {
-//            logit("slowing down at group end " + i);
+            //            logit("slowing down at group end " + i);
             info.indices.push(slowDownAtGroupEndIndex);
         }
         if (slowDownAtSongEnd) {
@@ -3262,41 +3262,41 @@ function createTempoChangeInfos(genData, genInfo, sectionInfos) {
         if (adaptToRenderAmount) {
             info.indices.push(renderAmountAdaptIndex);
         }
-//        var addTempoEffect = false; // rnd.random() < 0.1;
-//
-//        if (addTempoEffect) {
-//
-//            var effect = sampleData(tempoEffectTypeRndInfos, rnd);
-//
-////            logit("Adding tempo effect " + effect);
-//            var ampFraction = 0.05 + rnd.random() * 0.05;
-//            var xFraction = 0.2 + 0.6 * rnd.random();
-//            PhraseGroupEffectType.appendEffectInfos(effect, {
-//                id: "tempoEffect" + info.indices.length + "_",
-//                indices: info.indices,
-//                infos: genData.parallelTempoChangeInfos,
-//                ampFraction: ampFraction,
-//                xFraction: xFraction
-//            }, rnd);
-//        }
+        //        var addTempoEffect = false; // rnd.random() < 0.1;
+        //
+        //        if (addTempoEffect) {
+        //
+        //            var effect = sampleData(tempoEffectTypeRndInfos, rnd);
+        //
+        ////            logit("Adding tempo effect " + effect);
+        //            var ampFraction = 0.05 + rnd.random() * 0.05;
+        //            var xFraction = 0.2 + 0.6 * rnd.random();
+        //            PhraseGroupEffectType.appendEffectInfos(effect, {
+        //                id: "tempoEffect" + info.indices.length + "_",
+        //                indices: info.indices,
+        //                infos: genData.parallelTempoChangeInfos,
+        //                ampFraction: ampFraction,
+        //                xFraction: xFraction
+        //            }, rnd);
+        //        }
         genData.parallelTempoChangePatternInfos.push(info);
 
     }
 
-//    logit("parallel pattern infos: " + JSON.stringify(genData.parallelTempoChangePatternInfos));
-//    logit("parallel info: " + JSON.stringify(genData.parallelTempoChangeInfos));
+    //    logit("parallel pattern infos: " + JSON.stringify(genData.parallelTempoChangePatternInfos));
+    //    logit("parallel info: " + JSON.stringify(genData.parallelTempoChangeInfos));
 
-//    var indexInfo = {
-//        phraseGroupIndex: j,
-//        phraseGroupCount: count,
-//        songGroupIndex: i,
-//        songGroupCount: phraseGroupInfo.groupTypes.length,
-//        isConnectGroup: isConnectGroup,
-//        notConnectGroupIndex: notConnectGroupIndex,
-//        notConnectGroupCount: notConnectGroupCount,
-//        isIntro: isIntro,
-//        isEnd: isEnd
-//    };
+    //    var indexInfo = {
+    //        phraseGroupIndex: j,
+    //        phraseGroupCount: count,
+    //        songGroupIndex: i,
+    //        songGroupCount: phraseGroupInfo.groupTypes.length,
+    //        isConnectGroup: isConnectGroup,
+    //        notConnectGroupIndex: notConnectGroupIndex,
+    //        notConnectGroupCount: notConnectGroupCount,
+    //        isIntro: isIntro,
+    //        isEnd: isEnd
+    //    };
 
 
 }
@@ -3316,13 +3316,13 @@ function createPhraseInfos(genData, genInfo, sectionInfos) {
             genData.phraseInfos[i] = info;
         }
     } else {
-        logit("Must provide phrase types in song structure info");
+        logit('Must provide phrase types in song structure info');
     }
 }
 
 
 function createHarmonyExtraInfos(genData, genInfo, sectionInfos) {
-    var rnd = createOrGetRandom(genInfo, "harmonySeed");
+    var rnd = createOrGetRandom(genInfo, 'harmonySeed');
 
     var songStructure = genInfo.songStructureInfo;
 
@@ -3344,13 +3344,13 @@ function createHarmonyExtraInfos(genData, genInfo, sectionInfos) {
 
         // Add likelihoods for the harmony progression here....
         genData.harmonyExtraInfos[i] = info;
-//        logit(info.majorDeceptiveRoot + " " + info.minorDeceptiveRoot);
+        //        logit(info.majorDeceptiveRoot + " " + info.minorDeceptiveRoot);
     }
 }
 
 function createHarmonyInfos(genData, genInfo, sectionInfos) {
 
-    var rnd = createOrGetRandom(genInfo, "harmonySeed");
+    var rnd = createOrGetRandom(genInfo, 'harmonySeed');
 
     var songStructure = genInfo.songStructureInfo;
 
@@ -3362,10 +3362,10 @@ function createHarmonyInfos(genData, genInfo, sectionInfos) {
             info.numerator = songStructure.numerators[i];
             info.harmonyElementIndex = songStructure.harmonyElementIndices[i];
             genData.harmonyInfos[i] = info;
-//             logit(info);
+            //             logit(info);
         }
     } else {
-        logit("Must provide scaletypes in song structure");
+        logit('Must provide scaletypes in song structure');
     }
 }
 
@@ -3415,7 +3415,7 @@ function SimpleModuleGeneratorData() {
 
     this.tempoInfos = []; // Absolute tempos
 
-//    this.globalTempoChangeInfos = [];
+    //    this.globalTempoChangeInfos = [];
     this.sequentialTempoChangeInfos = []; // Is indexed by tempoChangePatternInfos
     this.sequentialTempoChangePatternInfos = []; // Is indexed by a property
     this.parallelTempoChangeInfos = []; // Is indexed by tempoChangePatternInfos
@@ -3480,78 +3480,78 @@ function SimpleModuleGeneratorData() {
 
 function SimpleModuleGeneratorSectionInfo(options) {
 
-    this.index = getValueOrDefault(options, "index", 0);
+    this.index = getValueOrDefault(options, 'index', 0);
 
     // Type of harmony rythm
-    this.harmonyRythmIndex = getValueOrDefault(options, "harmonyRythmIndex", 0);
+    this.harmonyRythmIndex = getValueOrDefault(options, 'harmonyRythmIndex', 0);
 
     // Type of harmony
-    this.harmonyIndex = getValueOrDefault(options, "harmonyIndex", 0);
+    this.harmonyIndex = getValueOrDefault(options, 'harmonyIndex', 0);
 
-    this.harmonyExtraIndex = getValueOrDefault(options, "harmonyExtraIndex", 0);
+    this.harmonyExtraIndex = getValueOrDefault(options, 'harmonyExtraIndex', 0);
 
     // Type of phrase
-    this.phraseIndex = getValueOrDefault(options, "phraseIndex", 0);
+    this.phraseIndex = getValueOrDefault(options, 'phraseIndex', 0);
 
     // Render amount
-    this.renderAmountIndex = getValueOrDefault(options, "renderAmountIndex", 0);
+    this.renderAmountIndex = getValueOrDefault(options, 'renderAmountIndex', 0);
 
     // Type of suspension
-    this.suspendIndex = getValueOrDefault(options, "suspendIndex", 0);
+    this.suspendIndex = getValueOrDefault(options, 'suspendIndex', 0);
 
     // Channel distributions
-    this.melodyChannelDistributionIndex = getValueOrDefault(options, "melodyChannelDistributionIndex", 0);
-    this.inner1ChannelDistributionIndex = getValueOrDefault(options, "inner1ChannelDistributionIndex", 0);
-    this.inner2ChannelDistributionIndex = getValueOrDefault(options, "inner2ChannelDistributionIndex", 0);
-    this.bassChannelDistributionIndex = getValueOrDefault(options, "bassChannelDistributionIndex", 0);
+    this.melodyChannelDistributionIndex = getValueOrDefault(options, 'melodyChannelDistributionIndex', 0);
+    this.inner1ChannelDistributionIndex = getValueOrDefault(options, 'inner1ChannelDistributionIndex', 0);
+    this.inner2ChannelDistributionIndex = getValueOrDefault(options, 'inner2ChannelDistributionIndex', 0);
+    this.bassChannelDistributionIndex = getValueOrDefault(options, 'bassChannelDistributionIndex', 0);
 
     // Type indices for melody
-    this.melodyShapeIndex = getValueOrDefault(options, "melodyShapeIndex", 0); // A curve or something that describes the melody voice line
-    this.melodyMotifDistributionIndex = getValueOrDefault(options, "melodyMotifDistributionIndex", 0); // How motifs are distributed
+    this.melodyShapeIndex = getValueOrDefault(options, 'melodyShapeIndex', 0); // A curve or something that describes the melody voice line
+    this.melodyMotifDistributionIndex = getValueOrDefault(options, 'melodyMotifDistributionIndex', 0); // How motifs are distributed
     this.melodyMotifsIndex = 0; // The actual set of motifs
-//    this.melodyOrnamentationTypeIndex = 0; // Ornamentation (grace notes etc.)
-//    this.melodyHarmonizationTypeIndex = 0; // Harmonization (adding fillers)
+    //    this.melodyOrnamentationTypeIndex = 0; // Ornamentation (grace notes etc.)
+    //    this.melodyHarmonizationTypeIndex = 0; // Harmonization (adding fillers)
 
     // Type indices for inner voice 1
-    this.inner1MotifDistributionIndex = getValueOrDefault(options, "inner1MotifDistributionIndex", 0); // How motifs are distributed
+    this.inner1MotifDistributionIndex = getValueOrDefault(options, 'inner1MotifDistributionIndex', 0); // How motifs are distributed
     this.inner1MotifsIndex = 0; // The actual set of motifs
 
     // Type indices for inner voice 2
-    this.inner2MotifDistributionIndex = getValueOrDefault(options, "inner2MotifDistributionIndex", 0); // How motifs are distributed
+    this.inner2MotifDistributionIndex = getValueOrDefault(options, 'inner2MotifDistributionIndex', 0); // How motifs are distributed
     this.inner2MotifsIndex = 0; // The actual set of motifs
 
     // Type indices for bass
-    this.bassShapeIndex = getValueOrDefault(options, "bassShapeIndex", 0);
-    this.bassMotifDistributionIndex = getValueOrDefault(options, "bassMotifDistributionIndex", 0); // How motifs are distributed
+    this.bassShapeIndex = getValueOrDefault(options, 'bassShapeIndex', 0);
+    this.bassMotifDistributionIndex = getValueOrDefault(options, 'bassMotifDistributionIndex', 0); // How motifs are distributed
     this.bassMotifsIndex = 0; // The actual set of motifs
 
     // Type indices for percussion
-    this.percussionMotifDistributionIndex = getValueOrDefault(options, "percussionMotifDistributionIndex", 0); // How motifs are distributed
-    this.percussionFillMotifDistributionIndex = getValueOrDefault(options, "percussionFillMotifDistributionIndex", 0); // How motifs are distributed
+    this.percussionMotifDistributionIndex = getValueOrDefault(options, 'percussionMotifDistributionIndex', 0); // How motifs are distributed
+    this.percussionFillMotifDistributionIndex = getValueOrDefault(options, 'percussionFillMotifDistributionIndex', 0); // How motifs are distributed
     this.percussionMotifsIndex = 0; // The actual set of motifs (including fills)
 
     // Tempo
-    this.tempoIndex = getValueOrDefault(options, "tempoIndex", 0); // How tempos are modified per section based on the base tempo
+    this.tempoIndex = getValueOrDefault(options, 'tempoIndex', 0); // How tempos are modified per section based on the base tempo
 
     // Effect change
-    this.sequentialMelodyEffectChangeIndex = getValueOrDefault(options, "sequentialMelodyEffectChangeIndex", 0);
-    this.sequentialInner1EffectChangeIndex = getValueOrDefault(options, "sequentialInner1EffectChangeIndex", 0);
-    this.sequentialInner2EffectChangeIndex = getValueOrDefault(options, "sequentialInner2EffectChangeIndex", 0);
-    this.sequentialBassEffectChangeIndex = getValueOrDefault(options, "sequentialBassEffectChangeIndex", 0);
-    this.sequentialPercussionEffectChangeIndex = getValueOrDefault(options, "sequentialPercussionEffectChangeIndex", 0);
+    this.sequentialMelodyEffectChangeIndex = getValueOrDefault(options, 'sequentialMelodyEffectChangeIndex', 0);
+    this.sequentialInner1EffectChangeIndex = getValueOrDefault(options, 'sequentialInner1EffectChangeIndex', 0);
+    this.sequentialInner2EffectChangeIndex = getValueOrDefault(options, 'sequentialInner2EffectChangeIndex', 0);
+    this.sequentialBassEffectChangeIndex = getValueOrDefault(options, 'sequentialBassEffectChangeIndex', 0);
+    this.sequentialPercussionEffectChangeIndex = getValueOrDefault(options, 'sequentialPercussionEffectChangeIndex', 0);
 
     // Tempo change
-    this.sequentialTempoChangeIndex = getValueOrDefault(options, "sequentialTempoChangeIndex", 0); // How tempos are modified on small scales
-    this.parallelTempoChangeIndex = getValueOrDefault(options, "parallelTempoChangeIndex", 0); // How tempos are modified on small scales
+    this.sequentialTempoChangeIndex = getValueOrDefault(options, 'sequentialTempoChangeIndex', 0); // How tempos are modified on small scales
+    this.parallelTempoChangeIndex = getValueOrDefault(options, 'parallelTempoChangeIndex', 0); // How tempos are modified on small scales
 
-    this.modifierFunctions = getValueOrDefault(options, "modifierFunctions", []); // Functions that can modify stuff in getSetVariableModifiers()
-    this.preModifierFunctions = getValueOrDefault(options, "preModifierFunctions", []); // Functions that can modify stuff in getSetVariableModifiers()
+    this.modifierFunctions = getValueOrDefault(options, 'modifierFunctions', []); // Functions that can modify stuff in getSetVariableModifiers()
+    this.preModifierFunctions = getValueOrDefault(options, 'preModifierFunctions', []); // Functions that can modify stuff in getSetVariableModifiers()
 }
 
 SimpleModuleGeneratorSectionInfo.prototype.getSetVariableModifiers = function(data) {
 
     var melodyShapeInfo = data.melodyShapeInfos[this.melodyShapeIndex % data.melodyShapeInfos.length];
-//    logit("Mel shape index " + this.melodyShapeIndex + " " + JSON.stringify(melodyShapeInfo));
+    //    logit("Mel shape index " + this.melodyShapeIndex + " " + JSON.stringify(melodyShapeInfo));
     var bassShapeInfo = data.bassShapeInfos[this.bassShapeIndex % data.bassShapeInfos.length];
     var phraseInfo = data.phraseInfos[this.phraseIndex % data.phraseInfos.length];
     var harmonyInfo = data.harmonyInfos[this.harmonyIndex % data.harmonyInfos.length];
@@ -3580,7 +3580,7 @@ SimpleModuleGeneratorSectionInfo.prototype.getSetVariableModifiers = function(da
 
     var indexInfo = data.indexInfos[this.index % data.indexInfos.length];
 
-//    logit(this.harmonyIndex);
+    //    logit(this.harmonyIndex);
 
     for (var i=0; i<this.preModifierFunctions.length; i++) {
         this.preModifierFunctions[i](
@@ -3616,120 +3616,120 @@ SimpleModuleGeneratorSectionInfo.prototype.getSetVariableModifiers = function(da
 
     var mods = [
         // Index info
-        ["indexInfoVar", indexInfo],
+        ['indexInfoVar', indexInfo],
 
         // Render amount
-        ["melodyRenderAmountVar", "" + JSON.stringify(renderAmountInfo.melodyRenderAmount)],
-        ["inner1RenderAmountVar", "" + JSON.stringify(renderAmountInfo.inner1RenderAmount)],
-        ["inner2RenderAmountVar", "" + JSON.stringify(renderAmountInfo.inner2RenderAmount)],
-        ["bassRenderAmountVar", "" + JSON.stringify(renderAmountInfo.bassRenderAmount)],
-        ["percussionRenderAmountVar", "" + JSON.stringify(renderAmountInfo.percussionRenderAmount)],
+        ['melodyRenderAmountVar', '' + JSON.stringify(renderAmountInfo.melodyRenderAmount)],
+        ['inner1RenderAmountVar', '' + JSON.stringify(renderAmountInfo.inner1RenderAmount)],
+        ['inner2RenderAmountVar', '' + JSON.stringify(renderAmountInfo.inner2RenderAmount)],
+        ['bassRenderAmountVar', '' + JSON.stringify(renderAmountInfo.bassRenderAmount)],
+        ['percussionRenderAmountVar', '' + JSON.stringify(renderAmountInfo.percussionRenderAmount)],
 
         // Melody voice line suspension
-        ["suspendSeedVar", "" + JSON.stringify(suspendInfo.seed)],
-        ["suspendProbabilityVar", "" + JSON.stringify(suspendInfo.probability)],
+        ['suspendSeedVar', '' + JSON.stringify(suspendInfo.seed)],
+        ['suspendProbabilityVar', '' + JSON.stringify(suspendInfo.probability)],
 
         // Melody motif and channel distribution
-        ["melodyIndexMotifPatternVar", "" + JSON.stringify(melodyMotifDistributionInfo.indices)],
-        ["endMelodyIndexMotifPatternVar", "" + JSON.stringify(melodyMotifDistributionInfo.endIndices)],
-        ["melodyChannelIndicesVar", "" + JSON.stringify(melodyChannelDistributionInfo.channels)],
-        ["endMelodyChannelIndicesVar", "" + JSON.stringify(melodyChannelDistributionInfo.endChannels)],
+        ['melodyIndexMotifPatternVar', '' + JSON.stringify(melodyMotifDistributionInfo.indices)],
+        ['endMelodyIndexMotifPatternVar', '' + JSON.stringify(melodyMotifDistributionInfo.endIndices)],
+        ['melodyChannelIndicesVar', '' + JSON.stringify(melodyChannelDistributionInfo.channels)],
+        ['endMelodyChannelIndicesVar', '' + JSON.stringify(melodyChannelDistributionInfo.endChannels)],
 
         // Bass motif distribution
-        ["bassIndexMotifPatternVar", "" + JSON.stringify(bassMotifDistributionInfo.indices)],
-        ["endBassIndexMotifPatternVar", "" + JSON.stringify(bassMotifDistributionInfo.endIndices)],
-        ["bassChannelIndicesVar", "" + JSON.stringify(bassChannelDistributionInfo.channels)],
-        ["endBassChannelIndicesVar", "" + JSON.stringify(bassChannelDistributionInfo.endChannels)],
+        ['bassIndexMotifPatternVar', '' + JSON.stringify(bassMotifDistributionInfo.indices)],
+        ['endBassIndexMotifPatternVar', '' + JSON.stringify(bassMotifDistributionInfo.endIndices)],
+        ['bassChannelIndicesVar', '' + JSON.stringify(bassChannelDistributionInfo.channels)],
+        ['endBassChannelIndicesVar', '' + JSON.stringify(bassChannelDistributionInfo.endChannels)],
 
         // Inner 1 motif distribution
-        ["inner1IndexMotifPatternVar", "" + JSON.stringify(inner1MotifDistributionInfo.indices)],
-        ["endInner1IndexMotifPatternVar", "" + JSON.stringify(inner1MotifDistributionInfo.endIndices)],
-        ["inner1ChannelIndicesVar", "" + JSON.stringify(inner1ChannelDistributionInfo.channels)],
-        ["endInner1ChannelIndicesVar", "" + JSON.stringify(inner1ChannelDistributionInfo.endChannels)],
+        ['inner1IndexMotifPatternVar', '' + JSON.stringify(inner1MotifDistributionInfo.indices)],
+        ['endInner1IndexMotifPatternVar', '' + JSON.stringify(inner1MotifDistributionInfo.endIndices)],
+        ['inner1ChannelIndicesVar', '' + JSON.stringify(inner1ChannelDistributionInfo.channels)],
+        ['endInner1ChannelIndicesVar', '' + JSON.stringify(inner1ChannelDistributionInfo.endChannels)],
 
         // Inner 2 motif distribution
-        ["inner2IndexMotifPatternVar", "" + JSON.stringify(inner2MotifDistributionInfo.indices)],
-        ["endInner2IndexMotifPatternVar", "" + JSON.stringify(inner2MotifDistributionInfo.endIndices)],
-        ["inner2ChannelIndicesVar", "" + JSON.stringify(inner2ChannelDistributionInfo.channels)],
-        ["endInner2ChannelIndicesVar", "" + JSON.stringify(inner2ChannelDistributionInfo.endChannels)],
+        ['inner2IndexMotifPatternVar', '' + JSON.stringify(inner2MotifDistributionInfo.indices)],
+        ['endInner2IndexMotifPatternVar', '' + JSON.stringify(inner2MotifDistributionInfo.endIndices)],
+        ['inner2ChannelIndicesVar', '' + JSON.stringify(inner2ChannelDistributionInfo.channels)],
+        ['endInner2ChannelIndicesVar', '' + JSON.stringify(inner2ChannelDistributionInfo.endChannels)],
 
 
         // Percussion motif distribution
-        ["percIndexMotifPatternVar", "" + JSON.stringify(percussionMotifDistributionInfo.indices)],
-        ["endPercIndexMotifPatternVar", "" + JSON.stringify(percussionFillMotifDistributionInfo.indices)],
+        ['percIndexMotifPatternVar', '' + JSON.stringify(percussionMotifDistributionInfo.indices)],
+        ['endPercIndexMotifPatternVar', '' + JSON.stringify(percussionFillMotifDistributionInfo.indices)],
 
         // Harmony rythm
-        ["harmonyNoteCountVar", "" + harmonyRythmInfo.count],
-        ["harmonyTotalLengthVar", "" + harmonyRythmInfo.totalLength],
-        ["harmonyRythmLengthTypeVar", "" + harmonyRythmInfo.lengthType],
-        ["harmonyRythmMeasureSplitStrategyVar", "" + harmonyRythmInfo.measureSplitStrategy],
-        ["hrDensityCurveSeedVar", "" + harmonyRythmInfo.seed],
-        ["hrDensityCurveAmpVar", "" + harmonyRythmInfo.densityAmplitude],
-        ["hrDensityCurveFreqVar", "" + harmonyRythmInfo.densityFrequency],
-        ["staticHarmonyLengthVar", "" + harmonyRythmInfo.staticLength],
-        ["dynamicHarmonyLengthVar", "" + harmonyRythmInfo.dynamicLength],
-        ["dominantCadenceHarmonyLengthVar", "" + harmonyRythmInfo.dominantCadenceLength],
-        ["tonicCadenceHarmonyLengthVar", "" + harmonyRythmInfo.tonicCadenceLength],
+        ['harmonyNoteCountVar', '' + harmonyRythmInfo.count],
+        ['harmonyTotalLengthVar', '' + harmonyRythmInfo.totalLength],
+        ['harmonyRythmLengthTypeVar', '' + harmonyRythmInfo.lengthType],
+        ['harmonyRythmMeasureSplitStrategyVar', '' + harmonyRythmInfo.measureSplitStrategy],
+        ['hrDensityCurveSeedVar', '' + harmonyRythmInfo.seed],
+        ['hrDensityCurveAmpVar', '' + harmonyRythmInfo.densityAmplitude],
+        ['hrDensityCurveFreqVar', '' + harmonyRythmInfo.densityFrequency],
+        ['staticHarmonyLengthVar', '' + harmonyRythmInfo.staticLength],
+        ['dynamicHarmonyLengthVar', '' + harmonyRythmInfo.dynamicLength],
+        ['dominantCadenceHarmonyLengthVar', '' + harmonyRythmInfo.dominantCadenceLength],
+        ['tonicCadenceHarmonyLengthVar', '' + harmonyRythmInfo.tonicCadenceLength],
 
         // Phrase structure
-        ["harmonyPhraseTypeVar", "" + phraseInfo.phraseType],
-        ["harmonyMajorModulationTargetVar", "" + phraseInfo.majorModulationTarget],
-        ["harmonyMinorModulationTargetVar", "" + phraseInfo.minorModulationTarget],
+        ['harmonyPhraseTypeVar', '' + phraseInfo.phraseType],
+        ['harmonyMajorModulationTargetVar', '' + phraseInfo.majorModulationTarget],
+        ['harmonyMinorModulationTargetVar', '' + phraseInfo.minorModulationTarget],
 
         // Tempo
-        ["sectionTempoVar", "" + tempoInfo.tempo],
-        ["nextSectionTempoVar", "" + tempoInfo.nextTempo],
-        ["prevSectionTempoVar", "" + tempoInfo.prevTempo],
-        ["parallelTempoChangeIndicesVar", JSON.stringify(parallelTempoChangeInfo.indices)],
-        ["sequentialTempoChangeIndicesVar", JSON.stringify(sequentialTempoChangeInfo.indices)],
-        ["sequentialTempoChangeStartIndicesVar", JSON.stringify(sequentialTempoChangeInfo.startIndices)],
-        ["sequentialTempoChangeEndIndicesVar", JSON.stringify(sequentialTempoChangeInfo.endIndices)],
+        ['sectionTempoVar', '' + tempoInfo.tempo],
+        ['nextSectionTempoVar', '' + tempoInfo.nextTempo],
+        ['prevSectionTempoVar', '' + tempoInfo.prevTempo],
+        ['parallelTempoChangeIndicesVar', JSON.stringify(parallelTempoChangeInfo.indices)],
+        ['sequentialTempoChangeIndicesVar', JSON.stringify(sequentialTempoChangeInfo.indices)],
+        ['sequentialTempoChangeStartIndicesVar', JSON.stringify(sequentialTempoChangeInfo.startIndices)],
+        ['sequentialTempoChangeEndIndicesVar', JSON.stringify(sequentialTempoChangeInfo.endIndices)],
 
         // Effects
-        ["sequentialMelodyEffectChangeInfoVar", sequentialMelodyEffectChangeInfo],
-        ["sequentialInner1EffectChangeInfoVar", sequentialInner1EffectChangeInfo],
-        ["sequentialInner2EffectChangeInfoVar", sequentialInner2EffectChangeInfo],
-        ["sequentialBassEffectChangeInfoVar", sequentialBassEffectChangeInfo],
-        ["sequentialPercussionEffectChangeInfoVar", sequentialPercussionEffectChangeInfo],
+        ['sequentialMelodyEffectChangeInfoVar', sequentialMelodyEffectChangeInfo],
+        ['sequentialInner1EffectChangeInfoVar', sequentialInner1EffectChangeInfo],
+        ['sequentialInner2EffectChangeInfoVar', sequentialInner2EffectChangeInfo],
+        ['sequentialBassEffectChangeInfoVar', sequentialBassEffectChangeInfo],
+        ['sequentialPercussionEffectChangeInfoVar', sequentialPercussionEffectChangeInfo],
 
         // Harmony
-        ["harmonyScaleBaseVar", "" + harmonyInfo.scaleBaseNote],
-        ["scaleTypeVar", "" + harmonyInfo.scaleType],
-        ["numeratorVar", "" + harmonyInfo.numerator],
-        ["harmonyElementIndexVar", "" + harmonyInfo.harmonyElementIndex],
+        ['harmonyScaleBaseVar', '' + harmonyInfo.scaleBaseNote],
+        ['scaleTypeVar', '' + harmonyInfo.scaleType],
+        ['numeratorVar', '' + harmonyInfo.numerator],
+        ['harmonyElementIndexVar', '' + harmonyInfo.harmonyElementIndex],
 
 
-        ["harmonySeedVar", "" + harmonyExtraInfo.harmonySeed],
-        ["harmonyRaiseLeadingToneVar", "" + harmonyExtraInfo.raiseLeadingTone],
-        ["harmonySimpleMixtureLikelihoodVar", "" + harmonyExtraInfo.simpleMixtureLikelihood],
-        ["harmonySus2ChordsLikelihoodVar", "" + harmonyExtraInfo.sus2ChordsLikelihood],
-        ["harmonySus4ChordsLikelihoodVar", "" + harmonyExtraInfo.sus4ChordsLikelihood],
-        ["harmonyNeighbourChordsLikelihoodVar", "" + harmonyExtraInfo.neighbourChordsLikelihood],
-        ["harmonyPassingChordsLikelihoodVar", "" + harmonyExtraInfo.passingChordsLikelihood],
-        ["harmonyMajorDeceptiveRootVar", "" + harmonyExtraInfo.majorDeceptiveRoot],
-        ["harmonyMinorDeceptiveRootVar", "" + harmonyExtraInfo.minorDeceptiveRoot],
+        ['harmonySeedVar', '' + harmonyExtraInfo.harmonySeed],
+        ['harmonyRaiseLeadingToneVar', '' + harmonyExtraInfo.raiseLeadingTone],
+        ['harmonySimpleMixtureLikelihoodVar', '' + harmonyExtraInfo.simpleMixtureLikelihood],
+        ['harmonySus2ChordsLikelihoodVar', '' + harmonyExtraInfo.sus2ChordsLikelihood],
+        ['harmonySus4ChordsLikelihoodVar', '' + harmonyExtraInfo.sus4ChordsLikelihood],
+        ['harmonyNeighbourChordsLikelihoodVar', '' + harmonyExtraInfo.neighbourChordsLikelihood],
+        ['harmonyPassingChordsLikelihoodVar', '' + harmonyExtraInfo.passingChordsLikelihood],
+        ['harmonyMajorDeceptiveRootVar', '' + harmonyExtraInfo.majorDeceptiveRoot],
+        ['harmonyMinorDeceptiveRootVar', '' + harmonyExtraInfo.minorDeceptiveRoot],
 
 
         // Melody shape
-        ["melodyCurveAmplitudeVar", "" + melodyShapeInfo.amplitude],
-        ["melodyCurveBiasVar", "" + melodyShapeInfo.bias],
-        ["melodyCurveTypeVar", "" + melodyShapeInfo.curveType],
-        ["melodyCurveIdVar", "" + "\"" + melodyShapeInfo.curveId + "\""],
-        ["melodyCurveMultiplyAmpVar", "true"],
+        ['melodyCurveAmplitudeVar', '' + melodyShapeInfo.amplitude],
+        ['melodyCurveBiasVar', '' + melodyShapeInfo.bias],
+        ['melodyCurveTypeVar', '' + melodyShapeInfo.curveType],
+        ['melodyCurveIdVar', '' + '"' + melodyShapeInfo.curveId + '"'],
+        ['melodyCurveMultiplyAmpVar', 'true'],
 
         // Bass shape
-        ["bassCurveAmplitudeVar", "" + bassShapeInfo.amplitude],
-        ["bassCurveBiasVar", "" + bassShapeInfo.bias],
-        ["bassCurveTypeVar", "" + bassShapeInfo.curveType],
-        ["bassCurveIdVar", "" + "\"" + bassShapeInfo.curveId + "\""],
-        ["bassCurveMultiplyAmpVar", "true"]
+        ['bassCurveAmplitudeVar', '' + bassShapeInfo.amplitude],
+        ['bassCurveBiasVar', '' + bassShapeInfo.bias],
+        ['bassCurveTypeVar', '' + bassShapeInfo.curveType],
+        ['bassCurveIdVar', '' + '"' + bassShapeInfo.curveId + '"'],
+        ['bassCurveMultiplyAmpVar', 'true']
 
     ];
 
     for (var i=0; i<this.modifierFunctions.length; i++) {
         this.modifierFunctions[i](mods);
     }
-//    logit(mods);
+    //    logit(mods);
 
     return mods;
 };
@@ -3749,14 +3749,14 @@ function setMod(varName, value, mods) {
         var m = mods[i];
         if (m[0] == varName) {
             m[1] = value;
-//                logit("Setting " + m[0] + " to " + m[1]);
+            //                logit("Setting " + m[0] + " to " + m[1]);
             break;
         }
     }
 }
 
 function getPhraseIndexInfo(mods) {
-    var indexInfo = findMod("indexInfoVar", mods);
+    var indexInfo = findMod('indexInfoVar', mods);
     return indexInfo;
 }
 
@@ -3783,55 +3783,55 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
 
     var propertyNameCounts = [
         // "phraseTypeIndices", // Determined by the phrase group sequence
-        ["melodyShapeIndices", melodyShapeCount], // 0
-        ["bassShapeIndices", bassShapeCount], // 1
-        ["harmonyIndices", harmonyCount], // 2
-        ["harmonyRythmIndices", harmonyRythmCount], // 3
-        ["suspendIndices", suspendTypeCount], // 4
-        ["melodyChannelDistributionIndices", channelDistributionCount], // 5
-        ["inner1ChannelDistributionIndices", channelDistributionCount], // 6
-        ["inner2ChannelDistributionIndices", channelDistributionCount], // 7
-        ["bassChannelDistributionIndices", channelDistributionCount], // 8
-        ["melodyMotifDistributionIndices", motifDistributionCount], // 9
-        ["inner1MotifDistributionIndices", motifDistributionCount], // 10
-        ["inner2MotifDistributionIndices", motifDistributionCount], // 11
-        ["bassMotifDistributionIndices", motifDistributionCount], // 12
-        ["harmonyExtraIndices", harmonyExtraCount], // 13
-        ["percussionMotifDistributionIndices", motifDistributionCount], // 14
-        ["renderAmountIndices", renderAmountCount], // 15
-        ["tempoIndices", tempoCount], // 16
-        ["percussionFillMotifDistributionIndices", motifDistributionCount], // 17
-        ["sequentialTempoChangeIndices", tempoChangeCount], // 18
-        ["parallelTempoChangeIndices", tempoChangeCount], // 19
-        ["sequentialMelodyEffectChangeIndices", effectChangeCount], // 20
-        ["sequentialInner1EffectChangeIndices", effectChangeCount], // 21
-        ["sequentialInner2EffectChangeIndices", effectChangeCount], // 22
-        ["sequentialBassEffectChangeIndices", effectChangeCount], // 23
-        ["sequentialPercussionEffectChangeIndices", effectChangeCount] // 24
+        ['melodyShapeIndices', melodyShapeCount], // 0
+        ['bassShapeIndices', bassShapeCount], // 1
+        ['harmonyIndices', harmonyCount], // 2
+        ['harmonyRythmIndices', harmonyRythmCount], // 3
+        ['suspendIndices', suspendTypeCount], // 4
+        ['melodyChannelDistributionIndices', channelDistributionCount], // 5
+        ['inner1ChannelDistributionIndices', channelDistributionCount], // 6
+        ['inner2ChannelDistributionIndices', channelDistributionCount], // 7
+        ['bassChannelDistributionIndices', channelDistributionCount], // 8
+        ['melodyMotifDistributionIndices', motifDistributionCount], // 9
+        ['inner1MotifDistributionIndices', motifDistributionCount], // 10
+        ['inner2MotifDistributionIndices', motifDistributionCount], // 11
+        ['bassMotifDistributionIndices', motifDistributionCount], // 12
+        ['harmonyExtraIndices', harmonyExtraCount], // 13
+        ['percussionMotifDistributionIndices', motifDistributionCount], // 14
+        ['renderAmountIndices', renderAmountCount], // 15
+        ['tempoIndices', tempoCount], // 16
+        ['percussionFillMotifDistributionIndices', motifDistributionCount], // 17
+        ['sequentialTempoChangeIndices', tempoChangeCount], // 18
+        ['parallelTempoChangeIndices', tempoChangeCount], // 19
+        ['sequentialMelodyEffectChangeIndices', effectChangeCount], // 20
+        ['sequentialInner1EffectChangeIndices', effectChangeCount], // 21
+        ['sequentialInner2EffectChangeIndices', effectChangeCount], // 22
+        ['sequentialBassEffectChangeIndices', effectChangeCount], // 23
+        ['sequentialPercussionEffectChangeIndices', effectChangeCount] // 24
     ];
     for (var i=0; i<propertyNameCounts.length; i++) {
         var arr = propertyNameCounts[i];
-        arr[2] = createOrGetRandom(genInfo, arr[0] + "Seed");
+        arr[2] = createOrGetRandom(genInfo, arr[0] + 'Seed');
     }
 
-    var tempoRnd = createOrGetRandom(genInfo, "tempoSeed");
+    var tempoRnd = createOrGetRandom(genInfo, 'tempoSeed');
     var tempo = tempoRnd.random() * (genInfo.tempoRange[1] - genInfo.tempoRange[0]) + genInfo.tempoRange[0];
 
-    var scaleRnd = createOrGetRandom(genInfo, "scaleSeed");
+    var scaleRnd = createOrGetRandom(genInfo, 'scaleSeed');
     var scaleBase = 55 + Math.round(scaleRnd.random() * 10);
 
     if (genInfo.setScaleBaseNote) {
         scaleBase = positiveMod(genInfo.scaleBaseNote, 12) + 60;
     }
-//    scaleBase = 60;
+    //    scaleBase = 60;
     var scaleTypeRndInfos = [
         {data: ScaleType.MAJOR, likelihood: genInfo.majorScaleLikelihood},
         {data: ScaleType.NATURAL_MINOR, likelihood: genInfo.minorScaleLikelihood}
     ];
     var scaleType = sampleData(scaleTypeRndInfos, scaleRnd); // scaleRnd.random() < 0.5 ? ScaleType.MAJOR : ScaleType.NATURAL_MINOR;
-//    var scaleType = ScaleType.MAJOR;
+    //    var scaleType = ScaleType.MAJOR;
 
-//    logit("Sampling scale " + JSON.stringify(scaleTypeRndInfos) + " " + ScaleType.toString(scaleType));
+    //    logit("Sampling scale " + JSON.stringify(scaleTypeRndInfos) + " " + ScaleType.toString(scaleType));
 
     var alwaysSameWithinGroup = [16];
 
@@ -3840,7 +3840,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
         for (var i=0; i<result.length; i++) {
             if (SimpleModuleGeneratorPhraseGroupType.tonicizeOrModulate(result[i].data)) {
                 result[i].likelihood *= tonicizeFraction;
-//                logit("Setting with " + tonicizeFraction);
+                //                logit("Setting with " + tonicizeFraction);
             }
         }
 
@@ -3862,12 +3862,12 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
         {data: 4, likelihood: genInfo.timeSignature4Likelihood}
     ];
 
-    var tsRnd = createOrGetRandom(genInfo, "tsSeed");
+    var tsRnd = createOrGetRandom(genInfo, 'tsSeed');
     var numerator = sampleData(numeratorRndInfos, tsRnd);
 
 
     var introGroupTypes = genInfo.introGroupTypes;
-    var introRnd = createOrGetRandom(genInfo, "introSeed");
+    var introRnd = createOrGetRandom(genInfo, 'introSeed');
     var hasIntro = introRnd.random() < genInfo.songIntroProbability;
     var introGroupType = sampleData(introGroupTypes, introRnd);
 
@@ -3886,7 +3886,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
     var introMelodyOn = false; // rnd.random() < 0.2;
 
 
-    var endRnd = createOrGetRandom(genInfo, "endSeed");
+    var endRnd = createOrGetRandom(genInfo, 'endSeed');
     var endGroupTypes = genInfo.endGroupTypes;
     var hasEnd = endRnd.random() < genInfo.songEndProbability;
     var endGroupType = sampleData(endGroupTypes, endRnd);
@@ -3947,8 +3947,8 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
     var groupIndices = [];
     var groupModifierFunctions = [];
 
-//    var midRenderAmount = 0.35 + 0.3 * rnd.random();
-    var renderAmountRnd = createOrGetRandom(genInfo, "renderAmountSeed");
+    //    var midRenderAmount = 0.35 + 0.3 * rnd.random();
+    var renderAmountRnd = createOrGetRandom(genInfo, 'renderAmountSeed');
 
     var midRenderAmount = 0.2 + 0.4 * renderAmountRnd.random();
     var lowRenderAmount = 0.05 + 0.15 * renderAmountRnd.random();
@@ -4060,148 +4060,148 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
     var songPartStructureRndInfos = [
         {data:
             [
-                ["verse1", {strength: "veryWeak", prefixProbsOverride: [0], postfixProbsOverride: [0], sameGroupIndexSames: [createFilledNumericIncArray(24, 0, 1)]}],
-                ["verse1", {strength: "medium", prefixProbsOverride: [0], postfixProbsOverride: [0]}],
-                ["verse1", {strength: "veryStrong", prefixProbsOverride: [0], postfixProbsOverride: [0]}],
-                ["chorus1", {strength: "veryWeak", prefixProbsOverride: [0.7]}],
-                ["verse1", {strength: "veryStrong", prefixProbsOverride: [0], postfixProbsOverride: [0]}],
-                ["chorus1", {strength: "veryStrong", prefixProbsOverride: [0], postfixProbsOverride: [0]}]
+                ['verse1', {strength: 'veryWeak', prefixProbsOverride: [0], postfixProbsOverride: [0], sameGroupIndexSames: [createFilledNumericIncArray(24, 0, 1)]}],
+                ['verse1', {strength: 'medium', prefixProbsOverride: [0], postfixProbsOverride: [0]}],
+                ['verse1', {strength: 'veryStrong', prefixProbsOverride: [0], postfixProbsOverride: [0]}],
+                ['chorus1', {strength: 'veryWeak', prefixProbsOverride: [0.7]}],
+                ['verse1', {strength: 'veryStrong', prefixProbsOverride: [0], postfixProbsOverride: [0]}],
+                ['chorus1', {strength: 'veryStrong', prefixProbsOverride: [0], postfixProbsOverride: [0]}]
             ],
-            likelihood: 1 * genInfo.strictBuildSongStructureLikelihoodMultiplier},
+        likelihood: 1 * genInfo.strictBuildSongStructureLikelihoodMultiplier},
         {data:
             [
-                ["verse1", {strength: "veryWeak", prefixProbsOverride: [0], postfixProbsOverride: [0], sameGroupIndexSames: [createFilledNumericIncArray(24, 0, 1)]}],
-                ["verse1", {strength: "medium", prefixProbsOverride: [0], postfixProbsOverride: [0]}],
-                ["verse1", {strength: "veryStrong", prefixProbsOverride: [0], postfixProbsOverride: [0]}],
-                ["chorus1", {strength: "veryWeak", prefixProbsOverride: [0.7]}],
-                ["verse1", {strength: "veryStrong", prefixProbsOverride: [0], postfixProbsOverride: [0]}],
-                ["bridgeNoMelody1", {strength: "strong", prefixProbsOverride: [0], postfixProbsOverride: [0]}],
-                ["chorus1", {strength: "veryStrong", prefixProbsOverride: [0], postfixProbsOverride: [0]}]
+                ['verse1', {strength: 'veryWeak', prefixProbsOverride: [0], postfixProbsOverride: [0], sameGroupIndexSames: [createFilledNumericIncArray(24, 0, 1)]}],
+                ['verse1', {strength: 'medium', prefixProbsOverride: [0], postfixProbsOverride: [0]}],
+                ['verse1', {strength: 'veryStrong', prefixProbsOverride: [0], postfixProbsOverride: [0]}],
+                ['chorus1', {strength: 'veryWeak', prefixProbsOverride: [0.7]}],
+                ['verse1', {strength: 'veryStrong', prefixProbsOverride: [0], postfixProbsOverride: [0]}],
+                ['bridgeNoMelody1', {strength: 'strong', prefixProbsOverride: [0], postfixProbsOverride: [0]}],
+                ['chorus1', {strength: 'veryStrong', prefixProbsOverride: [0], postfixProbsOverride: [0]}]
             ],
-            likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.strictBuildSongStructureLikelihoodMultiplier},
+        likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.strictBuildSongStructureLikelihoodMultiplier},
         {data:
-            [["verse1", "veryWeak", [0], [0], [createFilledNumericIncArray(24, 0, 1)]],
-                ["verse1", "medium", [0], [0]],
-                ["verse1", "veryStrong", [0], [0]],
-                ["chorus1", "veryWeak", [0.7], null],
-                ["chorus1", "veryStrong", [0], [0]],
-                ["verse1", "veryStrong", [0.7], [0]]
+            [['verse1', 'veryWeak', [0], [0], [createFilledNumericIncArray(24, 0, 1)]],
+                ['verse1', 'medium', [0], [0]],
+                ['verse1', 'veryStrong', [0], [0]],
+                ['chorus1', 'veryWeak', [0.7], null],
+                ['chorus1', 'veryStrong', [0], [0]],
+                ['verse1', 'veryStrong', [0.7], [0]]
             ],
-            likelihood: 1 * genInfo.strictBuildSongStructureLikelihoodMultiplier},
+        likelihood: 1 * genInfo.strictBuildSongStructureLikelihoodMultiplier},
         {data:
-            [["verse1", "veryWeak", [0], [0], [createFilledNumericIncArray(24, 0, 1)]],
-                ["verse1", "medium", [0], [0]],
-                ["chorus1", "veryWeak", [0.7], null],
-                ["chorus1", "veryStrong", [0], [0]],
-                ["verse1", "veryStrong", [0.7], [0]]
+            [['verse1', 'veryWeak', [0], [0], [createFilledNumericIncArray(24, 0, 1)]],
+                ['verse1', 'medium', [0], [0]],
+                ['chorus1', 'veryWeak', [0.7], null],
+                ['chorus1', 'veryStrong', [0], [0]],
+                ['verse1', 'veryStrong', [0.7], [0]]
             ],
-            likelihood: 1 * genInfo.strictBuildSongStructureLikelihoodMultiplier},
+        likelihood: 1 * genInfo.strictBuildSongStructureLikelihoodMultiplier},
         {data:
-            [["verse1", "veryWeak", [0], [0], [createFilledNumericIncArray(24, 0, 1)]],
-                ["verse1", "medium", [0], [0]],
-                ["chorus1", "veryWeak", [0.7], null],
-                ["chorus1", "veryStrong", [0], [0]],
-                ["bridgeNoMelody1", "strong", [0], [0]],
-                ["verse1", "veryStrong", [0.7], [0]]
+            [['verse1', 'veryWeak', [0], [0], [createFilledNumericIncArray(24, 0, 1)]],
+                ['verse1', 'medium', [0], [0]],
+                ['chorus1', 'veryWeak', [0.7], null],
+                ['chorus1', 'veryStrong', [0], [0]],
+                ['bridgeNoMelody1', 'strong', [0], [0]],
+                ['verse1', 'veryStrong', [0.7], [0]]
             ],
-            likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.strictBuildSongStructureLikelihoodMultiplier},
+        likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.strictBuildSongStructureLikelihoodMultiplier},
         {data:
-            [["verse1", "veryWeak", [0], [0], null],
-                ["verse1", "medium", [0], [0]],
-                ["verse1", "veryStrong", [0], [0]],
-                ["chorus1", "veryWeak", [0.7], null],
-                ["verse1", "veryStrong", [0], [0]],
-                ["chorus1", "veryStrong", [0], [0]]
+            [['verse1', 'veryWeak', [0], [0], null],
+                ['verse1', 'medium', [0], [0]],
+                ['verse1', 'veryStrong', [0], [0]],
+                ['chorus1', 'veryWeak', [0.7], null],
+                ['verse1', 'veryStrong', [0], [0]],
+                ['chorus1', 'veryStrong', [0], [0]]
             ],
-            likelihood: 1 * genInfo.buildSongStructureLikelihoodMultiplier},
+        likelihood: 1 * genInfo.buildSongStructureLikelihoodMultiplier},
         {data:
-            [["verse1", "veryWeak", [0], [0], null],
-                ["verse1", "medium", [0], [0]],
-                ["verse1", "veryStrong", [0], [0]],
-                ["bridgeNoMelody1", "strong", [0], [0]],
-                ["chorus1", "veryWeak", [0.7], null],
-                ["verse1", "veryStrong", [0], [0]],
-                ["chorus1", "veryStrong", [0], [0]]
+            [['verse1', 'veryWeak', [0], [0], null],
+                ['verse1', 'medium', [0], [0]],
+                ['verse1', 'veryStrong', [0], [0]],
+                ['bridgeNoMelody1', 'strong', [0], [0]],
+                ['chorus1', 'veryWeak', [0.7], null],
+                ['verse1', 'veryStrong', [0], [0]],
+                ['chorus1', 'veryStrong', [0], [0]]
             ],
-            likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.buildSongStructureLikelihoodMultiplier},
+        likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.buildSongStructureLikelihoodMultiplier},
         {data:
-            [["verse1", "veryWeak", [0], [0], null],
-                ["verse1", "medium", [0], [0]],
-                ["verse1", "veryStrong", [0], [0]],
-                ["chorus1", "veryWeak", [0.7], null],
-                ["verse1", "veryStrong", [0], [0]],
-                ["bridgeNoMelody1", "strong", [0], [0]],
-                ["chorus1", "veryStrong", [0], [0]]
+            [['verse1', 'veryWeak', [0], [0], null],
+                ['verse1', 'medium', [0], [0]],
+                ['verse1', 'veryStrong', [0], [0]],
+                ['chorus1', 'veryWeak', [0.7], null],
+                ['verse1', 'veryStrong', [0], [0]],
+                ['bridgeNoMelody1', 'strong', [0], [0]],
+                ['chorus1', 'veryStrong', [0], [0]]
             ],
-            likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.buildSongStructureLikelihoodMultiplier},
+        likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.buildSongStructureLikelihoodMultiplier},
         {data:
-            [["verse1", "veryWeak", [0], [0], null],
-                ["verse1", "medium", [0], [0]],
-                ["verse1", "veryStrong", [0], [0]],
-                ["chorus1", "veryWeak", [0.7], null],
-                ["chorus1", "veryStrong", [0], [0]],
-                ["verse1", "veryStrong", [0.7], [0]]
+            [['verse1', 'veryWeak', [0], [0], null],
+                ['verse1', 'medium', [0], [0]],
+                ['verse1', 'veryStrong', [0], [0]],
+                ['chorus1', 'veryWeak', [0.7], null],
+                ['chorus1', 'veryStrong', [0], [0]],
+                ['verse1', 'veryStrong', [0.7], [0]]
             ],
-            likelihood: 1 * genInfo.buildSongStructureLikelihoodMultiplier},
+        likelihood: 1 * genInfo.buildSongStructureLikelihoodMultiplier},
         {data:
-            [["verse1", "veryWeak", [0], [0], null],
-                ["verse1", "medium", [0], [0]],
-                ["verse1", "veryStrong", [0], [0]],
-                ["chorus1", "veryWeak", [0.7], null],
-                ["chorus1", "veryStrong", [0], [0]],
-                ["bridgeNoMelody1", "strong", [0], [0]],
-                ["verse1", "veryStrong", [0.7], [0]]
+            [['verse1', 'veryWeak', [0], [0], null],
+                ['verse1', 'medium', [0], [0]],
+                ['verse1', 'veryStrong', [0], [0]],
+                ['chorus1', 'veryWeak', [0.7], null],
+                ['chorus1', 'veryStrong', [0], [0]],
+                ['bridgeNoMelody1', 'strong', [0], [0]],
+                ['verse1', 'veryStrong', [0.7], [0]]
             ],
-            likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.buildSongStructureLikelihoodMultiplier},
+        likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.buildSongStructureLikelihoodMultiplier},
         {data:
-            [["verse1", "veryWeak", [0], [0], null],
-                ["verse1", "medium", [0], [0]],
-                ["chorus1", "veryWeak", [0.7], null],
-                ["chorus1", "veryStrong", [0], [0]],
-                ["verse1", "veryStrong", [0.7], [0]]
+            [['verse1', 'veryWeak', [0], [0], null],
+                ['verse1', 'medium', [0], [0]],
+                ['chorus1', 'veryWeak', [0.7], null],
+                ['chorus1', 'veryStrong', [0], [0]],
+                ['verse1', 'veryStrong', [0.7], [0]]
             ],
-            likelihood: 1 * genInfo.buildSongStructureLikelihoodMultiplier},
+        likelihood: 1 * genInfo.buildSongStructureLikelihoodMultiplier},
         {data:
-            [["verse1", "veryWeak", [0], [0], null],
-                ["verse1", "medium", [0], [0]],
-                ["chorus1", "veryWeak", [0.7], null],
-                ["chorus1", "veryStrong", [0], [0]],
-                ["bridgeNoMelody1", "strong", [0], [0]],
-                ["verse1", "veryStrong", [0.7], [0]]
+            [['verse1', 'veryWeak', [0], [0], null],
+                ['verse1', 'medium', [0], [0]],
+                ['chorus1', 'veryWeak', [0.7], null],
+                ['chorus1', 'veryStrong', [0], [0]],
+                ['bridgeNoMelody1', 'strong', [0], [0]],
+                ['verse1', 'veryStrong', [0.7], [0]]
             ],
-            likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.buildSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["verse2"], ["chorus1"]], likelihood: 1 * genInfo.verseChorusSongStructureLikelihoodMultiplier},
-        {data: [["verseNoMelody2"], ["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["verse2"], ["chorus1"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["verse1"], ["chorus2"]], likelihood: 1 * genInfo.verseChorusSongStructureLikelihoodMultiplier},
-        {data: [["chorusNoMelody1"], ["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["verse1"], ["chorus2"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["verse2"], ["chorus1"], ["chorus1"]], likelihood: 1 * genInfo.verseChorusSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["verse2"], ["chorus1"], ["chorus1"], ["verseNoMelody1"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["verse2"], ["chorus2"], ["chorus1"]], likelihood: 1 * genInfo.verseChorusSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["verse2"], ["chorus2"], ["chorus1"], ["chorusNoMelody2"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["verse1"], ["chorus2"], ["chorus1"]], likelihood: 1 * genInfo.verseChorusSongStructureLikelihoodMultiplier},
-        {data: [["chorusNoMelody1"], ["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["verse1"], ["chorus2"], ["chorus1"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["bridge1"], ["verse1"], ["chorus2"]], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["bridgeNoMelody1"], ["verse1"], ["chorus2"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["bridge1"], ["verse1"], ["chorus1"]], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["bridgeNoMelody1"], ["verse1"], ["chorus1"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse2"], ["chorus1"], ["bridge1"], ["verse1"], ["chorus1"]], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse2"], ["chorus1"], ["bridgeNoMelody1"], ["verse1"], ["chorus1"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse2"], ["chorus1"], ["bridge1"], ["verse2"], ["chorus1"]], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse2"], ["chorus1"], ["bridgeNoMelody1"], ["verse2"], ["chorus1"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["bridge1"], ["verse2"], ["chorus2"]], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["bridgeNoMelody1"], ["verse2"], ["chorus2"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["bridge1"], ["chorus1"], ["chorus1"]], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["bridgeNoMelody1"], ["chorus1"], ["chorus1"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["bridge1"], ["chorus2"], ["chorus2"]], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["bridgeNoMelody1"], ["chorus2"], ["chorus2"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["bridge1"], ["chorus1"], ["chorus2"]], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
-        {data: [["verse1"], ["chorus1"], ["verse1"], ["chorus1"], ["bridgeNoMelody1"], ["chorus1"], ["chorus2"]], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier}
+        likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.buildSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['verse2'], ['chorus1']], likelihood: 1 * genInfo.verseChorusSongStructureLikelihoodMultiplier},
+        {data: [['verseNoMelody2'], ['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['verse2'], ['chorus1']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['verse1'], ['chorus2']], likelihood: 1 * genInfo.verseChorusSongStructureLikelihoodMultiplier},
+        {data: [['chorusNoMelody1'], ['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['verse1'], ['chorus2']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['verse2'], ['chorus1'], ['chorus1']], likelihood: 1 * genInfo.verseChorusSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['verse2'], ['chorus1'], ['chorus1'], ['verseNoMelody1']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['verse2'], ['chorus2'], ['chorus1']], likelihood: 1 * genInfo.verseChorusSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['verse2'], ['chorus2'], ['chorus1'], ['chorusNoMelody2']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['verse1'], ['chorus2'], ['chorus1']], likelihood: 1 * genInfo.verseChorusSongStructureLikelihoodMultiplier},
+        {data: [['chorusNoMelody1'], ['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['verse1'], ['chorus2'], ['chorus1']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['bridge1'], ['verse1'], ['chorus2']], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['bridgeNoMelody1'], ['verse1'], ['chorus2']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['bridge1'], ['verse1'], ['chorus1']], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['bridgeNoMelody1'], ['verse1'], ['chorus1']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse2'], ['chorus1'], ['bridge1'], ['verse1'], ['chorus1']], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse2'], ['chorus1'], ['bridgeNoMelody1'], ['verse1'], ['chorus1']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse2'], ['chorus1'], ['bridge1'], ['verse2'], ['chorus1']], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse2'], ['chorus1'], ['bridgeNoMelody1'], ['verse2'], ['chorus1']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['bridge1'], ['verse2'], ['chorus2']], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['bridgeNoMelody1'], ['verse2'], ['chorus2']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['bridge1'], ['chorus1'], ['chorus1']], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['bridgeNoMelody1'], ['chorus1'], ['chorus1']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['bridge1'], ['chorus2'], ['chorus2']], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['bridgeNoMelody1'], ['chorus2'], ['chorus2']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['bridge1'], ['chorus1'], ['chorus2']], likelihood: 1 * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier},
+        {data: [['verse1'], ['chorus1'], ['verse1'], ['chorus1'], ['bridgeNoMelody1'], ['chorus1'], ['chorus2']], likelihood: 1 * genInfo.noMelodyPartSongStructureLikelihoodMultiplier * genInfo.verseChorusBridgeSongStructureLikelihoodMultiplier}
     ];
 
 
     function convertSongPartStructureInfos(data) {
         for (var j=0; j<data.length; j++) {
-            if (data[j]._constructorName == "SongPartStructureInfo") {
+            if (data[j]._constructorName == 'SongPartStructureInfo') {
                 data[j].strength = SongPartStrength.toIndicatorString(data[j].strength);
                 data[j] = [SongPartType.toIndicatorString(data[j].partType), data[j]];
             }
@@ -4225,7 +4225,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
     var majorHarmonicPlans = genInfo.majorHarmonicPlans;
 
 
-    var modulationRnd = createOrGetRandom(genInfo, "modulationSeed");
+    var modulationRnd = createOrGetRandom(genInfo, 'modulationSeed');
 
     var songPartStructureRndInfosCopy = copyValueDeep(songPartStructureRndInfos);
 
@@ -4263,7 +4263,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
         if (genInfo.overwriteGroupModulationIndices) {
             var overwriteOk = true;
             var newIndices = [];
-            var indicesPropName = "groupModulation" + plan.length + "Indices";
+            var indicesPropName = 'groupModulation' + plan.length + 'Indices';
 
             if (genInfo[indicesPropName].length == plan.length) {
                 for (var j=0; j<genInfo[indicesPropName].length; j++) {
@@ -4278,15 +4278,15 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
             }
             if (overwriteOk) {
                 indices = newIndices;
-//                logit("new indices: " + newIndices + " " + rnd.random());
+                //                logit("new indices: " + newIndices + " " + rnd.random());
                 doModulate = true;
             } else {
-                logit("overwrite group modulation indices failed " + genInfo[indicesPropName] + " " + plan.length);
+                logit('overwrite group modulation indices failed ' + genInfo[indicesPropName] + ' ' + plan.length);
             }
         }
 
         if (doModulate) {
-//            logit("Using plan " + plan);
+            //            logit("Using plan " + plan);
             for (var j=0; j<indices.length; j++) {
                 var oldData = dataCopy[indices[j]][1];
                 if (!oldData || isArray(oldData)) {
@@ -4297,27 +4297,27 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
                 }
             }
             infoCopy.likelihood *= genInfo.modulateLikelihoodMultiplier;
-//            logit(infoCopy);
+            //            logit(infoCopy);
 
             songPartStructureRndInfos.push(infoCopy);
         }
     }
 
-//            logit("structure rnd infos length: " + songPartStructureRndInfos.length);
+    //            logit("structure rnd infos length: " + songPartStructureRndInfos.length);
 
-//    logit(songPartStructureRndInfos);
+    //    logit(songPartStructureRndInfos);
 
-    var songStructureRnd = createOrGetRandom(genInfo, "songStructureSeed");
+    var songStructureRnd = createOrGetRandom(genInfo, 'songStructureSeed');
 
     var songPartStructure = sampleData(songPartStructureRndInfos, songStructureRnd);
 
     if (genInfo.overwriteSongPartStructure && genInfo.songPartStructure.length > 0) {
         songPartStructure = copyValueDeep(genInfo.songPartStructure);
         convertSongPartStructureInfos(songPartStructure);
-//            logit(songPartStructure);
+        //            logit(songPartStructure);
     }
 
-//    logit(songPartStructure);
+    //    logit(songPartStructure);
 
     var prevWasVerse = false;
     var prevWasChorus = false;
@@ -4328,7 +4328,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
     var currentScaleBase = scaleBase;
     var currentScaleType = scaleType;
 
-    var glueRnd = createOrGetRandom(genInfo, "glueSeed");
+    var glueRnd = createOrGetRandom(genInfo, 'glueSeed');
 
     var songFormStructureGroups = {};
     for (var i=0; i<songPartStructure.length; i++) {
@@ -4336,7 +4336,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
         var songPart = songPartStructure[i][0];
         var partInfo = songPartStructure[i][1];
 
-        var strengthStr = "";
+        var strengthStr = '';
         var prefixProbsOverride = null;
         var postfixProbsOverride = null;
         var sameGroupIndexSames = null;
@@ -4363,17 +4363,17 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
             sameGroupIndexSames = songPartStructure[i][4];
         }
 
-//        logit("Using " + DynamicHarmonyModulationTarget.toString(groupModulationTarget) + " " + i);
+        //        logit("Using " + DynamicHarmonyModulationTarget.toString(groupModulationTarget) + " " + i);
 
         var groups = songFormStructureGroups[songPart];
         var amounts = strengthStr ? renderAmountStrengthMap[strengthStr] : null;
 
-        var isVerse = songPart.indexOf("verse") >= 0;
-        var isChorus = songPart.indexOf("chorus") >= 0;
-        var isBridge = songPart.indexOf("bridge") >= 0;
-        var isMisc = songPart.indexOf("misc") >= 0;
+        var isVerse = songPart.indexOf('verse') >= 0;
+        var isChorus = songPart.indexOf('chorus') >= 0;
+        var isBridge = songPart.indexOf('bridge') >= 0;
+        var isMisc = songPart.indexOf('misc') >= 0;
 
-        var noMelody = songPart.indexOf("NoMelody") >= 0;
+        var noMelody = songPart.indexOf('NoMelody') >= 0;
 
         var songPartIndex = parseInt(songPart.charAt(songPart.length - 1)) - 1;
 
@@ -4383,13 +4383,13 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
                 groups = verseGroupRndInfos[songPartIndex % verseGroupRndInfos.length].data.groups;
             } else if (isChorus) {
                 groups = chorusGroupRndInfos[songPartIndex % chorusGroupRndInfos.length].data.groups;
-//                groups = sampleData(chorusGroupRndInfos, songStructureRnd).groups;
+                //                groups = sampleData(chorusGroupRndInfos, songStructureRnd).groups;
             } else if (isBridge) {
                 groups = bridgeGroupRndInfos[songPartIndex % bridgeGroupRndInfos.length].data.groups;
-//                groups = sampleData(bridgeGroupRndInfos, songStructureRnd).groups;
+                //                groups = sampleData(bridgeGroupRndInfos, songStructureRnd).groups;
             } else {
                 groups = miscGroupRndInfos[songPartIndex % miscGroupRndInfos.length].data.groups;
-//                logit("samping from misc " + songPartIndex + " " + JSON.stringify(groups) + " " + songPart);
+                //                logit("samping from misc " + songPartIndex + " " + JSON.stringify(groups) + " " + songPart);
             }
             songFormStructureGroups[songPart] = groups;
         }
@@ -4398,7 +4398,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
         for (var j=0; j<genInfo.songPartTypeOverrideInfos.length; j++) {
             var sptoTemp = genInfo.songPartTypeOverrideInfos[j];
 
-//            logit(" checking override " + sptoTemp.partType);
+            //            logit(" checking override " + sptoTemp.partType);
             if (sptoTemp.partType == groups[0]) {
                 sptoInfo = sptoTemp;
                 break;
@@ -4427,7 +4427,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
                 amounts = createFilledPatternArray(groups.length, sampleData(miscRenderAmountPatterns, renderAmountRnd));
             }
         }
-//        logit("amounts: " + amounts + " " + strengthStr);
+        //        logit("amounts: " + amounts + " " + strengthStr);
 
         var seeds = [];
         var prefixRenderAmountBiasMults = [];
@@ -4494,39 +4494,39 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
 
                     if (pInfo.melodyRenderAmountOverride && pInfo.melodyRenderAmountOverride.length > 0) {
                         modArr.push(function(mods) {
-                            setMod("melodyRenderAmountVar", "" + pInfo.melodyRenderAmountOverride[0], mods);
+                            setMod('melodyRenderAmountVar', '' + pInfo.melodyRenderAmountOverride[0], mods);
                         });
                     }
                     if (pInfo.inner1RenderAmountOverride && pInfo.inner1RenderAmountOverride.length > 0) {
-//                        logit("Overriding inner 1 render amount " + pInfo.inner1RenderAmountOverride[0]);
+                        //                        logit("Overriding inner 1 render amount " + pInfo.inner1RenderAmountOverride[0]);
                         modArr.push(function(mods) {
-                            setMod("inner1RenderAmountVar", "" + pInfo.inner1RenderAmountOverride[0], mods);
+                            setMod('inner1RenderAmountVar', '' + pInfo.inner1RenderAmountOverride[0], mods);
                         });
                     }
                     if (pInfo.inner2RenderAmountOverride && pInfo.inner2RenderAmountOverride.length > 0) {
                         modArr.push(function(mods) {
-                            setMod("inner2RenderAmountVar", "" + pInfo.inner2RenderAmountOverride[0], mods);
+                            setMod('inner2RenderAmountVar', '' + pInfo.inner2RenderAmountOverride[0], mods);
                         });
                     }
                     if (pInfo.bassRenderAmountOverride && pInfo.bassRenderAmountOverride.length > 0) {
                         modArr.push(function(mods) {
-                            setMod("bassRenderAmountVar", "" + pInfo.bassRenderAmountOverride[0], mods);
+                            setMod('bassRenderAmountVar', '' + pInfo.bassRenderAmountOverride[0], mods);
                         });
                     }
                     if (pInfo.percussionRenderAmountOverride && pInfo.percussionRenderAmountOverride.length > 0) {
                         modArr.push(function(mods) {
-                            setMod("percussionRenderAmountVar", "" + pInfo.percussionRenderAmountOverride[0], mods);
+                            setMod('percussionRenderAmountVar', '' + pInfo.percussionRenderAmountOverride[0], mods);
                         });
                     }
                     if (pInfo.harmonyRythmCountOverrides && pInfo.harmonyRythmCountOverrides.length > 0) {
                         modArr.push(function(mods) {
-                            setMod("harmonyNoteCountVar", "" + pInfo.harmonyRythmCountOverrides[getPhraseGroupIndex(mods) % pInfo.harmonyRythmCountOverrides.length], mods);
+                            setMod('harmonyNoteCountVar', '' + pInfo.harmonyRythmCountOverrides[getPhraseGroupIndex(mods) % pInfo.harmonyRythmCountOverrides.length], mods);
                         });
                     }
                     if (pInfo.harmonyTotalLengthOverrides && pInfo.harmonyTotalLengthOverrides.length > 0) {
 
                         modArr.push(function(mods) {
-                            setMod("harmonyTotalLengthVar", "" + pInfo.harmonyTotalLengthOverrides[getPhraseGroupIndex(mods) % pInfo.harmonyTotalLengthOverrides.length], mods);
+                            setMod('harmonyTotalLengthVar', '' + pInfo.harmonyTotalLengthOverrides[getPhraseGroupIndex(mods) % pInfo.harmonyTotalLengthOverrides.length], mods);
                         });
                     }
 
@@ -4543,12 +4543,12 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
                                     curveInfo = copyObjectDeep(curveInfo); // To get access to member functions
                                     var curve = copyObjectDeep(curveInfo.getCurve());
                                     if (curve) {
-//                                    logit(JSON.stringify(curve));
-                                        setMod("melodyCurveAmplitudeVar", "" + curveInfo.amplitude, mods);
-                                        setMod("melodyCurveBiasVar", "" + curveInfo.bias, mods);
-                                        setMod("melodyCurveTypeVar", "" + curveInfo.type, mods);
-                                        setMod("melodyCurveIdVar", "\"" + curve.id + "\"", mods);
-                                        setMod("melodyCurveMultiplyAmpVar", "false", mods);
+                                        //                                    logit(JSON.stringify(curve));
+                                        setMod('melodyCurveAmplitudeVar', '' + curveInfo.amplitude, mods);
+                                        setMod('melodyCurveBiasVar', '' + curveInfo.bias, mods);
+                                        setMod('melodyCurveTypeVar', '' + curveInfo.type, mods);
+                                        setMod('melodyCurveIdVar', '"' + curve.id + '"', mods);
+                                        setMod('melodyCurveMultiplyAmpVar', 'false', mods);
                                         module.addCurve(curve);
                                     }
                                 }
@@ -4568,12 +4568,12 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
                                     curveInfo = copyObjectDeep(curveInfo); // To get access to member functions
                                     var curve = copyObjectDeep(curveInfo.getCurve());
                                     if (curve) {
-//                                    logit(JSON.stringify(curve));
-                                        setMod("bassCurveAmplitudeVar", "" + curveInfo.amplitude, mods);
-                                        setMod("bassCurveBiasVar", "" + curveInfo.bias, mods);
-                                        setMod("bassCurveTypeVar", "" + curveInfo.type, mods);
-                                        setMod("bassCurveIdVar", "\"" + curve.id + "\"", mods);
-                                        setMod("bassCurveMultiplyAmpVar", "false", mods);
+                                        //                                    logit(JSON.stringify(curve));
+                                        setMod('bassCurveAmplitudeVar', '' + curveInfo.amplitude, mods);
+                                        setMod('bassCurveBiasVar', '' + curveInfo.bias, mods);
+                                        setMod('bassCurveTypeVar', '' + curveInfo.type, mods);
+                                        setMod('bassCurveIdVar', '"' + curve.id + '"', mods);
+                                        setMod('bassCurveMultiplyAmpVar', 'false', mods);
                                         module.addCurve(curve);
                                     }
                                 }
@@ -4581,64 +4581,64 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
                         });
                     }
 
-//                    if (pInfo.overridePhraseGroupType) {
-//                        modArr.push(function(mods) {
-//                            var indexInfo = findMod("indexInfoVar", mods);
-//                            var index = indexInfo.phraseGroupIndex;
-//
-//                            var phraseTypes = [];
-//                            getPhraseTypesFromGroupType(pInfo.phraseGroupType, phraseTypes);
-//                            if (phraseTypes.length > 0) {
-//                                setMod("harmonyPhraseTypeVar", "" + phraseTypes[index % phraseTypes.length], mods);
-//                            }
-//                        });
-//                    }
+                    //                    if (pInfo.overridePhraseGroupType) {
+                    //                        modArr.push(function(mods) {
+                    //                            var indexInfo = findMod("indexInfoVar", mods);
+                    //                            var index = indexInfo.phraseGroupIndex;
+                    //
+                    //                            var phraseTypes = [];
+                    //                            getPhraseTypesFromGroupType(pInfo.phraseGroupType, phraseTypes);
+                    //                            if (phraseTypes.length > 0) {
+                    //                                setMod("harmonyPhraseTypeVar", "" + phraseTypes[index % phraseTypes.length], mods);
+                    //                            }
+                    //                        });
+                    //                    }
 
                     if (pInfo.overrideScaleBaseNote) {
                         modArr.push(function(mods) {
-                            setMod("harmonyScaleBaseVar", "" + pInfo.scaleBaseNote, mods);
+                            setMod('harmonyScaleBaseVar', '' + pInfo.scaleBaseNote, mods);
                         });
                     }
                     if (pInfo.overrideScaleType) {
                         modArr.push(function(mods) {
-                            setMod("scaleTypeVar", "" + pInfo.scaleType, mods);
+                            setMod('scaleTypeVar', '' + pInfo.scaleType, mods);
                         });
                     }
 
                     if (pInfo.extraMelodyRenderElementIndices) {
                         modArr.push(function(mods) {
-                            setMod("extraMelodyRenderElementIndicesVar", JSON.stringify(pInfo.extraMelodyRenderElementIndices), mods);
+                            setMod('extraMelodyRenderElementIndicesVar', JSON.stringify(pInfo.extraMelodyRenderElementIndices), mods);
                         });
                     }
                     if (pInfo.extraInner1RenderElementIndices) {
                         modArr.push(function(mods) {
-                            setMod("extraInner1RenderElementIndicesVar", JSON.stringify(pInfo.extraInner1RenderElementIndices), mods);
+                            setMod('extraInner1RenderElementIndicesVar', JSON.stringify(pInfo.extraInner1RenderElementIndices), mods);
                         });
                     }
                     if (pInfo.extraInner2RenderElementIndices) {
                         modArr.push(function(mods) {
-                            setMod("extraInner2RenderElementIndicesVar", JSON.stringify(pInfo.extraInner2RenderElementIndices), mods);
+                            setMod('extraInner2RenderElementIndicesVar', JSON.stringify(pInfo.extraInner2RenderElementIndices), mods);
                         });
                     }
                     if (pInfo.extraBassRenderElementIndices) {
                         modArr.push(function(mods) {
-                            setMod("extraBassRenderElementIndicesVar", JSON.stringify(pInfo.extraBassRenderElementIndices), mods);
+                            setMod('extraBassRenderElementIndicesVar', JSON.stringify(pInfo.extraBassRenderElementIndices), mods);
                         });
                     }
                     if (pInfo.extraPercussionRenderElementIndices) {
                         modArr.push(function(mods) {
-                            setMod("extraPercussionRenderElementIndicesVar", JSON.stringify(pInfo.extraPercussionRenderElementIndices), mods);
+                            setMod('extraPercussionRenderElementIndicesVar', JSON.stringify(pInfo.extraPercussionRenderElementIndices), mods);
                         });
                     }
 
-//                        ["harmonyMajorModulationTargetVar", "" + phraseInfo.majorModulationTarget],
-//                        ["harmonyMinorModulationTargetVar", "" + phraseInfo.minorModulationTarget],
+                    //                        ["harmonyMajorModulationTargetVar", "" + phraseInfo.majorModulationTarget],
+                    //                        ["harmonyMinorModulationTargetVar", "" + phraseInfo.minorModulationTarget],
 
 
-//                    result.addPropertyInfo(this.createDefaultBooleanPropertyInfo("overrideMajorModulationTarget", "Override major modulation/tonicization target", false));
-//                    result.addPropertyInfo(this.createEnumPropertyInfo("majorModulationTarget", "Major modulation/tonicization target", DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget));
-//                    result.addPropertyInfo(this.createDefaultBooleanPropertyInfo("overrideMinorModulationTarget", "Override minor modulation/tonicization target", false));
-//                    result.addPropertyInfo(this.createEnumPropertyInfo("minorModulationTarget", "Minor modulation/tonicization target", DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget));
+                    //                    result.addPropertyInfo(this.createDefaultBooleanPropertyInfo("overrideMajorModulationTarget", "Override major modulation/tonicization target", false));
+                    //                    result.addPropertyInfo(this.createEnumPropertyInfo("majorModulationTarget", "Major modulation/tonicization target", DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget));
+                    //                    result.addPropertyInfo(this.createDefaultBooleanPropertyInfo("overrideMinorModulationTarget", "Override minor modulation/tonicization target", false));
+                    //                    result.addPropertyInfo(this.createEnumPropertyInfo("minorModulationTarget", "Minor modulation/tonicization target", DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget));
 
 
                     modifiers[j] = modArr;
@@ -4646,9 +4646,9 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
             })(partInfo);
 
             if (noMelody) {
-//                logit("Adding no melody part");
+                //                logit("Adding no melody part");
                 modifiers[j].push(function(mods) {
-                    setMod("melodyRenderAmountVar", "0", mods);
+                    setMod('melodyRenderAmountVar', '0', mods);
                 });
             }
         }
@@ -4662,7 +4662,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
 
 
 
-//        logit("Creating " + songPart + " " + groups.join(", "));
+        //        logit("Creating " + songPart + " " + groups.join(", "));
 
         addAll(groupModulates, createFilledArray(groups.length, groupModulationTarget >= 0));
         addAll(groupModulationTargets, createFilledArray(groups.length, groupModulationTarget));
@@ -4693,16 +4693,16 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
     var finalScaleBase = currentScaleBase;
     var finalScaleType = currentScaleType;
 
-//    logit("Group harmony elements " + JSON.stringify(groupHarmonyElementIndices));
-//    logit("Group scale types " + groupScaleTypes.join(", "));
-//    logit("Group mod targets " + groupModulationTargets.join(", "));
-//    logit("Group pattern " + groupPattern.join(", "));
-//    logit("Group render amounts " + groupRenderAmounts.join(", "));
-//    logit("Group render amount seeds " + groupRenderAmountSeeds.join(", "));
-//    logit("Group prefix bias mults " + prefixGroupRenderAmountBiasMults.join(", "));
-//    logit("Group postfix bias mults " + postfixGroupRenderAmountBiasMults.join(", "));
-//    logit("Group prefix probs " + prefixGroupProbs.join(", "));
-//    logit("Group postfix probs " + postfixGroupProbs.join(", "));
+    //    logit("Group harmony elements " + JSON.stringify(groupHarmonyElementIndices));
+    //    logit("Group scale types " + groupScaleTypes.join(", "));
+    //    logit("Group mod targets " + groupModulationTargets.join(", "));
+    //    logit("Group pattern " + groupPattern.join(", "));
+    //    logit("Group render amounts " + groupRenderAmounts.join(", "));
+    //    logit("Group render amount seeds " + groupRenderAmountSeeds.join(", "));
+    //    logit("Group prefix bias mults " + prefixGroupRenderAmountBiasMults.join(", "));
+    //    logit("Group postfix bias mults " + postfixGroupRenderAmountBiasMults.join(", "));
+    //    logit("Group prefix probs " + prefixGroupProbs.join(", "));
+    //    logit("Group postfix probs " + postfixGroupProbs.join(", "));
 
     var harmonyElementIndices = [];
 
@@ -4736,9 +4736,9 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
     if (!genInfo.adaptTempoToRenderAmount) {
         tempoAdapt = 0;
     }
-    var phraseGroupRnd = createOrGetRandom(genInfo, "phraseGroupSeed");
-    var tonicizationRnd = createOrGetRandom(genInfo, "tonicizationSeed");
-    var phraseGroupSimilarityRnd = createOrGetRandom(genInfo, "phraseGroupSimilaritySeed");
+    var phraseGroupRnd = createOrGetRandom(genInfo, 'phraseGroupSeed');
+    var tonicizationRnd = createOrGetRandom(genInfo, 'tonicizationSeed');
+    var phraseGroupSimilarityRnd = createOrGetRandom(genInfo, 'phraseGroupSimilaritySeed');
 
     for (var i=0; i<groupPattern.length; i++) {
         var index = groupPattern[i];
@@ -4761,12 +4761,12 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
         if (sptoInfo && sptoInfo.customPhraseTypes && sptoInfo.customPhraseTypes.length > 0) {
             customPhraseTypes = copyValueDeep(sptoInfo.customPhraseTypes);
             if (!customPhraseTypes) {
-                logit("Failed to clone custom phrase types " + sptoInfo.customPhraseTypes.join(", "));
+                logit('Failed to clone custom phrase types ' + sptoInfo.customPhraseTypes.join(', '));
             }
-//            logit("Using custom phrase types " + JSON.stringify(sptoInfo.customPhraseTypes) + " at " + i);
+            //            logit("Using custom phrase types " + JSON.stringify(sptoInfo.customPhraseTypes) + " at " + i);
         }
 
-//        var groupModulate = groupModulates[i];
+        //        var groupModulate = groupModulates[i];
         var groupModulationTarget = groupModulationTargets[i];
         var groupScaleType = groupScaleTypes[i];
         var groupScaleBase = groupScaleBases[i];
@@ -4787,7 +4787,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
             }
         }
 
-//        var scaleType = groupScaleTypeMap[index];
+        //        var scaleType = groupScaleTypeMap[index];
         var withinGroupSames = withinGroupSameInfosMap[index];
 
         var indicesForGroupType = groupIndices[index];
@@ -4818,7 +4818,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
 
                 if (sptoInfo && sptoInfo.overridePhraseGroupType) {
                     groupType = sptoInfo.phraseGroupType;
-//                    logit("Overriding group type for " + index)
+                    //                    logit("Overriding group type for " + index)
                 }
 
                 majorModulationTarget = -1;
@@ -4842,13 +4842,13 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
 
 
         function addActualGroup(renderAmount, renderAmountSeed, scaleType, groupType, scaleBase, majorModTarget, minorModTarget, withinGroupSames, modifiers,
-                                isConnect, isIntro, isEnd, numerator, modulationInvertScaleType, harmonyIndices, isPrefix, isPostfix) {
+            isConnect, isIntro, isEnd, numerator, modulationInvertScaleType, harmonyIndices, isPrefix, isPostfix) {
             if (!numerator) {
                 numerator = 4;
             }
 
             if (typeof(groupType) === 'undefined') {
-                logit("Adding undef actual group " + scaleType + " " + scaleBase + " " + majorModTarget + "/" + minorModTarget + " groupType: " + groupType + " connect: " + isConnect + " isIntro: " + isIntro + " isEnd: " + isEnd + " groupmodtarget: " + groupModulationTarget);
+                logit('Adding undef actual group ' + scaleType + ' ' + scaleBase + ' ' + majorModTarget + '/' + minorModTarget + ' groupType: ' + groupType + ' connect: ' + isConnect + ' isIntro: ' + isIntro + ' isEnd: ' + isEnd + ' groupmodtarget: ' + groupModulationTarget);
             }
 
             var groupTempo = tempo + tempoAdapt * renderAmount;
@@ -4914,27 +4914,27 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
 
             if (glueGroupType == SimpleModuleGeneratorPhraseGroupType.SINGLE_SILENT) {
                 switch (numerator) {
-                    case 2:
-                        glueLength = sampleData([
-                            {data: 0.5, likelihood: tempo < 90 ? 0.5 : 1},
-                            {data: 1, likelihood: tempo < 90 ? 0.25 : 0.5}], glueRnd);
-                        break;
-                    case 3:
-                        glueLength = sampleData([
-                            {data: 1.0/3.0, likelihood: tempo < 90 ? 1 : 0.25},
-                            {data: 2.0/3.0, likelihood: tempo < 90 ? 0.5 : 1},
-                            {data: 1, likelihood: tempo < 90 ? 0.25 : 0.5}], glueRnd);
-                        break;
-                    case 4:
-                        glueLength = sampleData([
-                            {data: 0.25, likelihood: tempo < 90 ? 1 : 0.25},
-                            {data: 0.5, likelihood: tempo < 90 ? 0.5 : 1},
-                            {data: 1, likelihood: tempo < 90 ? 0.25 : 0.5}], glueRnd);
-                        break;
-                    default:
-                        glueLength = 0.5;
+                case 2:
+                    glueLength = sampleData([
+                        {data: 0.5, likelihood: tempo < 90 ? 0.5 : 1},
+                        {data: 1, likelihood: tempo < 90 ? 0.25 : 0.5}], glueRnd);
+                    break;
+                case 3:
+                    glueLength = sampleData([
+                        {data: 1.0/3.0, likelihood: tempo < 90 ? 1 : 0.25},
+                        {data: 2.0/3.0, likelihood: tempo < 90 ? 0.5 : 1},
+                        {data: 1, likelihood: tempo < 90 ? 0.25 : 0.5}], glueRnd);
+                    break;
+                case 4:
+                    glueLength = sampleData([
+                        {data: 0.25, likelihood: tempo < 90 ? 1 : 0.25},
+                        {data: 0.5, likelihood: tempo < 90 ? 0.5 : 1},
+                        {data: 1, likelihood: tempo < 90 ? 0.25 : 0.5}], glueRnd);
+                    break;
+                default:
+                    glueLength = 0.5;
                 }
-//                glueLength = 1;
+                //                glueLength = 1;
                 glueHarmonyCount = 1;
             }
 
@@ -4943,21 +4943,21 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
             var glueMelodyOn = false; // rnd.random() < 0.2;
             addActualGroup(glueRenderAmount, glueRnd.genrand_int31(), scaleType, glueGroupType, scaleBase, majorModTarget, minorModTarget, withinGroupSames,
                 [function(mods) {
-                    setMod("harmonyNoteCountVar", "" + glueHarmonyCount, mods);
-                    setMod("harmonyTotalLengthVar", "" + glueLength, mods);
-                    setMod("harmonyRythmLengthTypeVar", "" + (numerator == 3 ? NoteRythmElementLengthType.DOT : NoteRythmElementLengthType.NORMAL), mods);
-                    setMod("melodyRenderAmountVar", "" + 0, mods);
+                    setMod('harmonyNoteCountVar', '' + glueHarmonyCount, mods);
+                    setMod('harmonyTotalLengthVar', '' + glueLength, mods);
+                    setMod('harmonyRythmLengthTypeVar', '' + (numerator == 3 ? NoteRythmElementLengthType.DOT : NoteRythmElementLengthType.NORMAL), mods);
+                    setMod('melodyRenderAmountVar', '' + 0, mods);
                 }], true, false, false, numerator, false, harmonyIndices, isPrefix, isPostfix);
         }
 
         if (i == 0 && hasIntro) {
-//            logit("Adding intro");
+            //            logit("Adding intro");
             addActualGroup(introRenderAmount, introRnd.genrand_int31(), groupScaleType, introGroupType, groupScaleBase, -1, -1, withinGroupSames,
                 [function(mods) {
-                    setMod("harmonyNoteCountVar", "" + introHarmonyCount, mods);
-                    setMod("harmonyTotalLengthVar", "" + introLength, mods);
-                    setMod("harmonyRythmLengthTypeVar", "" + (numerator == 3 ? NoteRythmElementLengthType.DOT : NoteRythmElementLengthType.NORMAL), mods);
-                    setMod("melodyRenderAmountVar", "" + (introMelodyOn ? 1.0 : 0.0), mods);
+                    setMod('harmonyNoteCountVar', '' + introHarmonyCount, mods);
+                    setMod('harmonyTotalLengthVar', '' + introLength, mods);
+                    setMod('harmonyRythmLengthTypeVar', '' + (numerator == 3 ? NoteRythmElementLengthType.DOT : NoteRythmElementLengthType.NORMAL), mods);
+                    setMod('melodyRenderAmountVar', '' + (introMelodyOn ? 1.0 : 0.0), mods);
                 }], false, true, false, numerator, false, [0]);
         }
 
@@ -4968,34 +4968,34 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
             addGlueGroup(groupScaleType, groupScaleBase, -1, -1, withinGroupSames, biasMult[0], biasMult[1], true, false);
         }
 
-//        var modifiers = [];
+        //        var modifiers = [];
 
-//        logit("Adding acutal group with modifers ");
-//        logit(modifiers);
+        //        logit("Adding acutal group with modifers ");
+        //        logit(modifiers);
 
         if (groupType == SimpleModuleGeneratorPhraseGroupType.CUSTOM) {
             if (customPhraseTypes) {
                 for (var k=0; k<customPhraseTypes.length; k++) {
                     switch (customPhraseTypes[k]) {
-                        case PhraseHarmonyElementType.COMPLETE_MODULATE:
-                        case PhraseHarmonyElementType.COMPLETE_MODULATE_IMPERFECT:
-                        case PhraseHarmonyElementType.COMPLETE_TONICIZE:
-                        case PhraseHarmonyElementType.COMPLETE_TONICIZE_IMPERFECT:
-                        case PhraseHarmonyElementType.CHROMATIC_TRANSITION_MODULATE:
-                        case PhraseHarmonyElementType.CHROMATIC_TRANSITION_TONICIZE:
-                            majorModulationTarget = sampleData(majorModulationTargetInfos, tonicizationRnd);
-                            minorModulationTarget = sampleData(minorModulationTargetInfos, tonicizationRnd);
-                            if (sptoInfo && sptoInfo.overrideMajorModulationTarget) {
-                                majorModulationTarget = sptoInfo.majorModulationTarget;
-                            }
-                            if (sptoInfo && sptoInfo.overrideMinorModulationTarget) {
-                                minorModulationTarget = sptoInfo.minorModulationTarget;
-                            }
-                            break;
+                    case PhraseHarmonyElementType.COMPLETE_MODULATE:
+                    case PhraseHarmonyElementType.COMPLETE_MODULATE_IMPERFECT:
+                    case PhraseHarmonyElementType.COMPLETE_TONICIZE:
+                    case PhraseHarmonyElementType.COMPLETE_TONICIZE_IMPERFECT:
+                    case PhraseHarmonyElementType.CHROMATIC_TRANSITION_MODULATE:
+                    case PhraseHarmonyElementType.CHROMATIC_TRANSITION_TONICIZE:
+                        majorModulationTarget = sampleData(majorModulationTargetInfos, tonicizationRnd);
+                        minorModulationTarget = sampleData(minorModulationTargetInfos, tonicizationRnd);
+                        if (sptoInfo && sptoInfo.overrideMajorModulationTarget) {
+                            majorModulationTarget = sptoInfo.majorModulationTarget;
+                        }
+                        if (sptoInfo && sptoInfo.overrideMinorModulationTarget) {
+                            minorModulationTarget = sptoInfo.minorModulationTarget;
+                        }
+                        break;
                     }
                 }
             } else {
-                logit("Could not find any custom phrase types");
+                logit('Could not find any custom phrase types');
             }
         }
 
@@ -5016,31 +5016,31 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
         }
 
         if (i == groupPattern.length - 1 && hasEnd) {
-//            logit("Adding end");
+            //            logit("Adding end");
             addActualGroup(endRenderAmount, endRnd.genrand_int31(), finalScaleType, endGroupType, finalScaleBase, -1, -1, withinGroupSames,
                 [function(mods) {
-                    setMod("harmonyNoteCountVar", "" + endHarmonyCount, mods);
-                    setMod("harmonyTotalLengthVar", "" + endLength, mods);
-                    setMod("harmonyRythmLengthTypeVar", "" + (numerator == 3 ? NoteRythmElementLengthType.NORMAL : NoteRythmElementLengthType.NORMAL), mods);
-                    setMod("melodyRenderAmountVar", "" + (endMelodyOn ? 1.0 : 0.0), mods);
+                    setMod('harmonyNoteCountVar', '' + endHarmonyCount, mods);
+                    setMod('harmonyTotalLengthVar', '' + endLength, mods);
+                    setMod('harmonyRythmLengthTypeVar', '' + (numerator == 3 ? NoteRythmElementLengthType.NORMAL : NoteRythmElementLengthType.NORMAL), mods);
+                    setMod('melodyRenderAmountVar', '' + (endMelodyOn ? 1.0 : 0.0), mods);
                 }], false, false, true, numerator, false);
         }
     }
 
-//    logit("harmony element indices: " + JSON.stringify(harmonyElementIndices));
+    //    logit("harmony element indices: " + JSON.stringify(harmonyElementIndices));
 
     // Create differences and sames between groups
     // Groups with the same group type index are supposed to be very similar while groups with different group type indices should
     // be different instead.
 
-//    logit("groupIndices: " + JSON.stringify(groupIndices));
+    //    logit("groupIndices: " + JSON.stringify(groupIndices));
 
 
 
     // Sample what should be the same for groups with the same group type index
 
-    var groupSimilarityRnd = createOrGetRandom(genInfo, "groupSimilaritySeed");
-    var groupDifferenceRnd = createOrGetRandom(genInfo, "groupDifferenceSeed");
+    var groupSimilarityRnd = createOrGetRandom(genInfo, 'groupSimilaritySeed');
+    var groupDifferenceRnd = createOrGetRandom(genInfo, 'groupDifferenceSeed');
 
 
     var groupSameInfos = [];
@@ -5073,7 +5073,7 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
 
 
 
-//    logit("groupSameInfos: " + JSON.stringify(groupSameInfos));
+    //    logit("groupSameInfos: " + JSON.stringify(groupSameInfos));
 
 
     // Sample what should be different between groups with different group type indices
@@ -5139,8 +5139,8 @@ function createPhraseGroupInfo(rnd, genInfo, module) {
         isEnds: isEnds
     };
 
-//    logit(JSON.stringify(phraseGroupInfo));
-//    logit(phraseGroupInfo);
+    //    logit(JSON.stringify(phraseGroupInfo));
+    //    logit(phraseGroupInfo);
 
     return phraseGroupInfo;
 }
@@ -5156,12 +5156,12 @@ function intersectDomains(dom1, dom2) {
 }
 
 function checkConstraints(propIndex, ssInfo, pgInfo, domains, depth, groupSameArrs, groupDifferentArrs,
-                          withinSameGroupIndices, withinDifferentGroupIndices) {
+    withinSameGroupIndices, withinDifferentGroupIndices) {
     var wrongCount = 0;
 
-//    var thisValue = domains[depth][0];
+    //    var thisValue = domains[depth][0];
 
-//    logit("Current domain: " + JSON.stringify(domains[depth]) + " depth: " + depth + " groupIndex: " + ssInfo.groupIndices[depth]);
+    //    logit("Current domain: " + JSON.stringify(domains[depth]) + " depth: " + depth + " groupIndex: " + ssInfo.groupIndices[depth]);
 
     var currentGroupIndex = ssInfo.groupIndices[depth];
     var currentIndicesForGroup = ssInfo.indicesForGroups[currentGroupIndex];
@@ -5186,8 +5186,8 @@ function checkConstraints(propIndex, ssInfo, pgInfo, domains, depth, groupSameAr
                             var currentIndex = currentIndicesForGroup[j];
                             var otherIndex = otherIndicesForGroup[j];
                             if (domains[currentIndex][0] != domains[otherIndex][0]) {
-//                                logit("Need to backtrack because the domains for indices " + currentIndicesForGroup.join(",") + " must be same as for " + otherIndicesForGroup.join(",") );
-//                            logit("Need to backtrack because domains[" + currentIndex + "][0] was different from domains[" + otherIndex + "][0]");
+                                //                                logit("Need to backtrack because the domains for indices " + currentIndicesForGroup.join(",") + " must be same as for " + otherIndicesForGroup.join(",") );
+                                //                            logit("Need to backtrack because domains[" + currentIndex + "][0] was different from domains[" + otherIndex + "][0]");
                                 wrongCount++; // We need to backtrack
                             }
                         }
@@ -5219,7 +5219,7 @@ function checkConstraints(propIndex, ssInfo, pgInfo, domains, depth, groupSameAr
                             }
                         }
                         if (allSame) {
-//                            logit("Need to backtrack because the domains for indices " + currentIndicesForGroup.join(",") + " must be different for " + otherIndicesForGroup.join(",") );
+                            //                            logit("Need to backtrack because the domains for indices " + currentIndicesForGroup.join(",") + " must be different for " + otherIndicesForGroup.join(",") );
                             wrongCount++;
                         }
                     }
@@ -5235,7 +5235,7 @@ function checkConstraints(propIndex, ssInfo, pgInfo, domains, depth, groupSameAr
             var value = domains[startIndex][0];
             for (var i=1; i<currentIndicesForGroup.length; i++) {
                 if (domains[currentIndicesForGroup[i]][0] != value) {
-//                    logit("Need to backtrack because not same within group " + currentIndicesForGroup.join(", "));
+                    //                    logit("Need to backtrack because not same within group " + currentIndicesForGroup.join(", "));
                     wrongCount++; // Not all same within group
                 }
             }
@@ -5252,7 +5252,7 @@ function checkConstraints(propIndex, ssInfo, pgInfo, domains, depth, groupSameAr
                 }
             }
             if (allSame) {
-//                logit("Need to backtrack because not same within group " + currentIndicesForGroup.join(", "));
+                //                logit("Need to backtrack because not same within group " + currentIndicesForGroup.join(", "));
             }
         }
     }
@@ -5262,7 +5262,7 @@ function checkConstraints(propIndex, ssInfo, pgInfo, domains, depth, groupSameAr
 
 
 function assignPropertyIndexArrayRec(propIndex, ssInfo, pgInfo, domains, depth, groupSames, groupDifferents,
-                                     withinSameGroupIndices, withinDifferentGroupIndices, searchInfo) {
+    withinSameGroupIndices, withinDifferentGroupIndices, searchInfo) {
     if (depth >= ssInfo.phraseTypes.length) {
         if (searchInfo.currentSolutionCost < searchInfo.bestSolutionCost) {
             searchInfo.bestSolutionCost = searchInfo.currentSolutionCost;
@@ -5280,9 +5280,9 @@ function assignPropertyIndexArrayRec(propIndex, ssInfo, pgInfo, domains, depth, 
         searchInfo.expansions++;
 
         // logit("Testing " + domain[i] + " on depth " + depth);
-//        logit(searchInfo.expansions + " depth: " + depth);
+        //        logit(searchInfo.expansions + " depth: " + depth);
         if (searchInfo.expansions > searchInfo.maxExpansions) {
-//            logit("Reached max number of search node expansions in assignPropertyIndexArrayRec()");
+            //            logit("Reached max number of search node expansions in assignPropertyIndexArrayRec()");
             break;
         }
         var domainsCopy = copyValueDeep(domains);
@@ -5362,13 +5362,13 @@ function assignPropertyIndexArray(propIndex, ssInfo, pgInfo, rnd) {
             }
         }
 
-//    logit("Group sames: " + JSON.stringify(groupSames));
-//    logit("Group diff: " + JSON.stringify(groupDifferents));
+        //    logit("Group sames: " + JSON.stringify(groupSames));
+        //    logit("Group diff: " + JSON.stringify(groupDifferents));
 
         var resultDomains = assignPropertyIndexArrayRec(propIndex, ssInfo, pgInfo, domains, 0, groupSames, groupDifferents,
             withinSameGroupIndices, withinDifferentGroupIndices, searchInfo);
         if (searchInfo.bestSolution) {
-//            logit("Found solution for " + propName + " " + searchInfo.bestSolutionCost + " expansions: " + searchInfo.expansions);
+            //            logit("Found solution for " + propName + " " + searchInfo.bestSolutionCost + " expansions: " + searchInfo.expansions);
             for (var i=0; i<resultDomains.length; i++) {
                 var value = resultDomains[i][0];
                 ssInfo[propName][i] = value;
@@ -5377,11 +5377,11 @@ function assignPropertyIndexArray(propIndex, ssInfo, pgInfo, rnd) {
         } else {
             maxExpansions *= 2;
             found = false;
-//            logit("Failed, testing with " + maxExpansions);
+            //            logit("Failed, testing with " + maxExpansions);
         }
     }
     if (!found) {
-        logit("Unable to find solution for " + propName);
+        logit('Unable to find solution for ' + propName);
         for (var i=0; i<ssInfo.phraseTypes.length; i++) {
             var groupIndex = ssInfo.songPartTypes[i % ssInfo.songPartTypes.length];
             ssInfo[propName][i] = groupIndex % ssInfo.phraseTypes.length;
@@ -5423,15 +5423,15 @@ function assignPropertyIndexArrays(ssInfo, pgInfo, rnd, genInfo) {
     }
 
 
-//    logit(JSON.stringify(ssInfo.songPartTypes) + " and " + JSON.stringify(ssInfo.phraseTypes));
+    //    logit(JSON.stringify(ssInfo.songPartTypes) + " and " + JSON.stringify(ssInfo.phraseTypes));
 
     // Overriding indices
     for (var i=0; i<pgInfo.propertyNameCounts.length; i++) {
         var propCount = pgInfo.propertyNameCounts[i];
         var propName = propCount[0];
-        var indexOverridePropName = propName.substring(0, propName.indexOf("Indices")) + "IndexOverride";
+        var indexOverridePropName = propName.substring(0, propName.indexOf('Indices')) + 'IndexOverride';
 
-//        logit("p: " + indexOverridePropName);
+        //        logit("p: " + indexOverridePropName);
 
         var prevPartType = -1;
         var partTypeCounter = 0;
@@ -5449,12 +5449,12 @@ function assignPropertyIndexArrays(ssInfo, pgInfo, rnd, genInfo) {
                     var propValue = info[indexOverridePropName];
                     if (propValue && propValue.length > 0) {
                         var newIndex = propValue[partTypeCounter % propValue.length];
-//                        logit("Overwriting indices " + propName + " " + indexOverridePropName + " " + partType + " " + newIndex);
+                        //                        logit("Overwriting indices " + propName + " " + indexOverridePropName + " " + partType + " " + newIndex);
                         ssInfo[propName][k] = newIndex;
                     } else if (typeof(propValue) === 'undefined') {
-                        logit("Could not find index override prop " + indexOverridePropName);
+                        logit('Could not find index override prop ' + indexOverridePropName);
                     }
-//                logit("maybe Using override in index set stuff " + info.partType);
+                    //                logit("maybe Using override in index set stuff " + info.partType);
                 }
             }
         }
@@ -5478,205 +5478,205 @@ function getPhraseTypesFromGroupType(groupType, phraseTypes, custom) {
     }
 
     switch (groupType) {
-        case SimpleModuleGeneratorPhraseGroupType.SINGLE_CUSTOM_HARMONY:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.DOUBLE_CUSTOM_HARMONY:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.CUSTOM:
-            addAll(phraseTypes, custom);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.SINGLE_SILENT:
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLAGIAL_PLUS_COMPLETE:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_PLAGIAL);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_PLAGIAL:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_PLAGIAL);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_PLAGIAL);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_TONIC_CADENCE_PROLONG:
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_DOMINANT);
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC_COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_COMPLETE:
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_DOMINANT);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DOMINANT_PROLONG:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_DOMINANT);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DOMINANT_PROLONG_CADENCE:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_DOMINANT_CADENCE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_CADENCE:
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_DOMINANT_CADENCE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG:
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_DOMINANT);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_COMPLETE:
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG:
-            phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_TONICIZE:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE_IMPERFECT);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_MODULATE_BACK:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
-            // logit(scaleTypes + " " + majorModulationTargets + " " + minorModulationTargets + " " + scaleBaseNotes);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_DIFFERENT_SCALE_TYPE:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT_SHORTEN:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.CONSEQUENT);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_IMPERFECT:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE_INITIAL);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE_INITIAL);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE_INITIAL);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE:
-            phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DECEPTIVE:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_DECEPTIVE:
-            phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
-            phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_DECEPTIVE:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
-            phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_DECEPTIVE:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
-            phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-            phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-            phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-            phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_TONICIZE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_TONICIZE);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC);
-            break;
-        case SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE:
-            phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
-            break;
-        default:
-            logit("Unknown group type " + groupType);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
-            phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
-            break;
+    case SimpleModuleGeneratorPhraseGroupType.SINGLE_CUSTOM_HARMONY:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.DOUBLE_CUSTOM_HARMONY:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.CUSTOM:
+        addAll(phraseTypes, custom);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.SINGLE_SILENT:
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLAGIAL_PLUS_COMPLETE:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_PLAGIAL);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_PLAGIAL:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_PLAGIAL);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_PLAGIAL);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_TONIC_CADENCE_PROLONG:
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_DOMINANT);
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC_COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_COMPLETE:
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_DOMINANT);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DOMINANT_PROLONG:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_DOMINANT);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DOMINANT_PROLONG_CADENCE:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_DOMINANT_CADENCE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_CADENCE:
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_DOMINANT_CADENCE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG:
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_DOMINANT);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_COMPLETE:
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG:
+        phraseTypes.push(PhraseHarmonyElementType.PROLONGED_TONIC);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_TONICIZE:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE_IMPERFECT);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_MODULATE_BACK:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
+        // logit(scaleTypes + " " + majorModulationTargets + " " + minorModulationTargets + " " + scaleBaseNotes);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_DIFFERENT_SCALE_TYPE:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT_SHORTEN:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.CONSEQUENT);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_IMPERFECT:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE_INITIAL);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE_INITIAL);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE_INITIAL);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE:
+        phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DECEPTIVE:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_DECEPTIVE:
+        phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
+        phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_DECEPTIVE:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
+        phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_DECEPTIVE:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
+        phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+        phraseTypes.push(PhraseHarmonyElementType.INCOMPLETE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+        phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+        phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_MODULATE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_TONICIZE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_TONICIZE);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC);
+        break;
+    case SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE:
+        phraseTypes.push(PhraseHarmonyElementType.DECEPTIVE);
+        break;
+    default:
+        logit('Unknown group type ' + groupType);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE_IMPERFECT);
+        phraseTypes.push(PhraseHarmonyElementType.COMPLETE);
+        break;
     }
 
 
@@ -5711,7 +5711,7 @@ function createSongStructureInfo(rnd, genInfo, module) {
         modifierFunctions: []
     };
 
-//    logit("Group types: " + JSON.stringify(phraseGroupInfo.groupTypes) + " song part types: " + JSON.stringify(phraseGroupInfo.songPartTypes));
+    //    logit("Group types: " + JSON.stringify(phraseGroupInfo.groupTypes) + " song part types: " + JSON.stringify(phraseGroupInfo.songPartTypes));
 
 
     for (var i=0; i<phraseGroupInfo.groupTypes.length; i++) {
@@ -5750,7 +5750,7 @@ function createSongStructureInfo(rnd, genInfo, module) {
         var renderAmounts = createFilledArray(4, renderAmount);
         var renderAmountSeeds = createFilledArray(4, renderAmountSeed);
         var numerators = createFilledArray(4, numerator);
-//        var songPartTypes = createFilledArray(4, phraseGroupInfo.songPartTypes);
+        //        var songPartTypes = createFilledArray(4, phraseGroupInfo.songPartTypes);
 
 
         function updateScaleForModulation(modIndex, keepScale, invertModulation, phraseModulate) {
@@ -5761,12 +5761,12 @@ function createSongStructureInfo(rnd, genInfo, module) {
                     // Set the second scale to the modulation target's scale
                     var modTarget = majorModulationTarget;
                     switch (scaleTypes[0]) {
-                        case ScaleType.MAJOR:
-                            modTarget = majorModulationTarget;
-                            break;
-                        case ScaleType.NATURAL_MINOR:
-                            modTarget = minorModulationTarget;
-                            break;
+                    case ScaleType.MAJOR:
+                        modTarget = majorModulationTarget;
+                        break;
+                    case ScaleType.NATURAL_MINOR:
+                        modTarget = minorModulationTarget;
+                        break;
                     }
                     var newScaleType = DynamicHarmonyModulationTarget.getScaleType(scaleTypes[0], modTarget, false);
                     scaleTypes[1] = newScaleType;
@@ -5796,74 +5796,74 @@ function createSongStructureInfo(rnd, genInfo, module) {
         getPhraseTypesFromGroupType(groupType, ssInfo.phraseTypes, customPhraseTypes);
 
         switch (groupType) {
-            case SimpleModuleGeneratorPhraseGroupType.SINGLE_CUSTOM_HARMONY:
-                break;
-            case SimpleModuleGeneratorPhraseGroupType.CUSTOM:
-                if (customPhraseTypes) {
-                    for (var j=0; j<customPhraseTypes.length; j++) {
-                        switch (customPhraseTypes[j]) {
-                            case PhraseHarmonyElementType.COMPLETE_MODULATE:
-                            case PhraseHarmonyElementType.COMPLETE_MODULATE_IMPERFECT:
-                            case PhraseHarmonyElementType.CHROMATIC_TRANSITION_MODULATE:
-                                updateScaleForModulation(j, false);
-                                break;
-                            case PhraseHarmonyElementType.COMPLETE_TONICIZE:
-                            case PhraseHarmonyElementType.COMPLETE_TONICIZE_IMPERFECT:
-                            case PhraseHarmonyElementType.CHROMATIC_TRANSITION_TONICIZE:
-                                updateScaleForModulation(j, true);
-                                break;
-                        }
+        case SimpleModuleGeneratorPhraseGroupType.SINGLE_CUSTOM_HARMONY:
+            break;
+        case SimpleModuleGeneratorPhraseGroupType.CUSTOM:
+            if (customPhraseTypes) {
+                for (var j=0; j<customPhraseTypes.length; j++) {
+                    switch (customPhraseTypes[j]) {
+                    case PhraseHarmonyElementType.COMPLETE_MODULATE:
+                    case PhraseHarmonyElementType.COMPLETE_MODULATE_IMPERFECT:
+                    case PhraseHarmonyElementType.CHROMATIC_TRANSITION_MODULATE:
+                        updateScaleForModulation(j, false);
+                        break;
+                    case PhraseHarmonyElementType.COMPLETE_TONICIZE:
+                    case PhraseHarmonyElementType.COMPLETE_TONICIZE_IMPERFECT:
+                    case PhraseHarmonyElementType.CHROMATIC_TRANSITION_TONICIZE:
+                        updateScaleForModulation(j, true);
+                        break;
                     }
-                } else {
-                    logit("Could not find any custom phrase types for group " + i);
                 }
-                break;
-            case SimpleModuleGeneratorPhraseGroupType.SINGLE_SILENT:
-                modifierFunctions[0].push(function(mods) {
-                    setMod("melodyRenderAmountVar", "" + 0, mods);
-                    setMod("inner1RenderAmountVar", "" + 0, mods);
-                    setMod("inner2RenderAmountVar", "" + 0, mods);
-                    setMod("bassRenderAmountVar", "" + 0, mods);
-                    setMod("percussionRenderAmountVar", "" + 0, mods);
-                });
-                break;
-            case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE:
-            case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-            case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-                updateScaleForModulation(0, false);
-                break;
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE:
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-                updateScaleForModulation(0, true);
-                break;
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_DECEPTIVE:
-                updateScaleForModulation(0, true);
-                break;
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_TONICIZE:
-                updateScaleForModulation(0, true);
-                updateScaleForModulation(1, true);
-                break;
-            case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_MODULATE_BACK:
-                updateScaleForModulation(0, false);
-                updateScaleForModulation(1, true, true);
-                // logit(scaleTypes + " " + majorModulationTargets + " " + minorModulationTargets + " " + scaleBaseNotes);
-                break;
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE:
-                updateScaleForModulation(1, true);
-                break;
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE:
-                updateScaleForModulation(0, false, false, true);
-                break;
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE:
-                updateScaleForModulation(1, true);
-                break;
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_DIFFERENT_SCALE_TYPE:
-                scaleTypes[1] = scaleType == ScaleType.MAJOR ? ScaleType.NATURAL_MINOR : ScaleType.MAJOR;
-                break;
+            } else {
+                logit('Could not find any custom phrase types for group ' + i);
+            }
+            break;
+        case SimpleModuleGeneratorPhraseGroupType.SINGLE_SILENT:
+            modifierFunctions[0].push(function(mods) {
+                setMod('melodyRenderAmountVar', '' + 0, mods);
+                setMod('inner1RenderAmountVar', '' + 0, mods);
+                setMod('inner2RenderAmountVar', '' + 0, mods);
+                setMod('bassRenderAmountVar', '' + 0, mods);
+                setMod('percussionRenderAmountVar', '' + 0, mods);
+            });
+            break;
+        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE:
+        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+            updateScaleForModulation(0, false);
+            break;
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE:
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+            updateScaleForModulation(0, true);
+            break;
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_DECEPTIVE:
+            updateScaleForModulation(0, true);
+            break;
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_TONICIZE:
+            updateScaleForModulation(0, true);
+            updateScaleForModulation(1, true);
+            break;
+        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_MODULATE_BACK:
+            updateScaleForModulation(0, false);
+            updateScaleForModulation(1, true, true);
+            // logit(scaleTypes + " " + majorModulationTargets + " " + minorModulationTargets + " " + scaleBaseNotes);
+            break;
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE:
+            updateScaleForModulation(1, true);
+            break;
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE:
+            updateScaleForModulation(0, false, false, true);
+            break;
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE:
+            updateScaleForModulation(1, true);
+            break;
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_DIFFERENT_SCALE_TYPE:
+            scaleTypes[1] = scaleType == ScaleType.MAJOR ? ScaleType.NATURAL_MINOR : ScaleType.MAJOR;
+            break;
         }
 
-//        logit(modifierFunctions);
+        //        logit(modifierFunctions);
 
         var count = ssInfo.phraseTypes.length - sizeBefore;
         ssInfo.indicesForGroups[i] = [];
@@ -5883,7 +5883,7 @@ function createSongStructureInfo(rnd, genInfo, module) {
             ssInfo.songPartTypes.push(songPartType);
 
             ssInfo.harmonyElementIndices[sizeBefore + j] = (harmonyElementIndices && harmonyElementIndices.length > 0) ? harmonyElementIndices[j % harmonyElementIndices.length] : 0;
-//            logit("Pushing spt " + songPartType);
+            //            logit("Pushing spt " + songPartType);
 
             var indexInfo = {
                 phraseGroupIndex: j,
@@ -5916,7 +5916,7 @@ function createSongStructureInfo(rnd, genInfo, module) {
     assignPropertyIndexArrays(ssInfo, phraseGroupInfo, rnd, genInfo);
 
 
-//    logit(ssInfo.harmonyElementIndices);
+    //    logit(ssInfo.harmonyElementIndices);
 
     return ssInfo;
 }
@@ -5959,13 +5959,13 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
 
 
-    var bassDrum = new MidiDrumNamedNote().setNote(MidiDrum.BASS_DRUM_1).setId("Bass drum");
-    var snareDrum = new MidiDrumNamedNote().setNote(MidiDrum.SNARE_DRUM_1).setId("Snare drum");
-    var hihat = new MidiDrumNamedNote().setNote(MidiDrum.CLOSED_HIHAT).setId("Hihat");
+    var bassDrum = new MidiDrumNamedNote().setNote(MidiDrum.BASS_DRUM_1).setId('Bass drum');
+    var snareDrum = new MidiDrumNamedNote().setNote(MidiDrum.SNARE_DRUM_1).setId('Snare drum');
+    var hihat = new MidiDrumNamedNote().setNote(MidiDrum.CLOSED_HIHAT).setId('Hihat');
     module.namedNotes = [bassDrum, snareDrum, hihat];
 
     var percussionRenderChannel1 = new RenderChannel();
-    percussionRenderChannel1.id = "percussionRenderChannel1";
+    percussionRenderChannel1.id = 'percussionRenderChannel1';
     module.renderChannels.push(percussionRenderChannel1);
 
 
@@ -5973,26 +5973,26 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     tempoChannel.defaultValue = 1.0;
     tempoChannel.mixMode = NumericControlChannelMixMode.MULT;
     tempoChannel.mixWithDefault = true;
-    tempoChannel.id = "tempoChannel";
+    tempoChannel.id = 'tempoChannel';
     module.controlChannels.push(tempoChannel);
 
 
     var voicePlanner = new ClassicalVoiceLinePlanner();
-    voicePlanner.id = "voicePlanner";
+    voicePlanner.id = 'voicePlanner';
 
 
     var hrDensityCurveSeedVar = new SimpleIntegerEditorVariable();
-    hrDensityCurveSeedVar.id = "hrDensityCurveSeedVar";
+    hrDensityCurveSeedVar.id = 'hrDensityCurveSeedVar';
     hrDensityCurveSeedVar.value = 341234;
     module.addVariable(hrDensityCurveSeedVar);
 
     var hrDensityCurveAmpVar = new SimpleIntegerEditorVariable();
-    hrDensityCurveAmpVar.id = "hrDensityCurveAmpVar";
+    hrDensityCurveAmpVar.id = 'hrDensityCurveAmpVar';
     hrDensityCurveAmpVar.value = 1;
     module.addVariable(hrDensityCurveAmpVar);
 
     var hrDensityCurveFreqVar = new SimpleIntegerEditorVariable();
-    hrDensityCurveFreqVar.id = "hrDensityCurveFreqVar";
+    hrDensityCurveFreqVar.id = 'hrDensityCurveFreqVar';
     hrDensityCurveFreqVar.value = 1;
     module.addVariable(hrDensityCurveFreqVar);
 
@@ -6006,24 +6006,24 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     hrDensityCurve.frequencyUseExpression = true;
     hrDensityCurve.frequencyExpression = hrDensityCurveFreqVar.id;
 
-    hrDensityCurve.id = "HR density curve";
+    hrDensityCurve.id = 'HR density curve';
 
     module.addCurve(hrDensityCurve);
 
 
     function createSplitRythm(rythmInfo) {
-        var id = getValueOrDefault(rythmInfo, "id", "unnamedRythm1");
-        var length = getValueOrDefault(rythmInfo, "length", 1);
-        var lengthUnit = getValueOrDefault(rythmInfo, "lengthUnit", PositionUnit.HARMONY_ELEMENTS);
-        var noteCount = getValueOrDefault(rythmInfo, "noteCount", 1);
-        var noteCountUnit = getValueOrDefault(rythmInfo, "noteCountUnit", CountUnit.HARMONY_ELEMENT_BEATS);
-        var extraNoteCount = getValueOrDefault(rythmInfo, "extraNotes", 0);
-        var extraNoteCountUnit = getValueOrDefault(rythmInfo, "extraNoteCountUnit", CountUnit.PLAIN);
-        var addZone1 = getValueOrDefault(rythmInfo, "addZone1", false);
-        var zone1PositionInterval = getValueOrDefault(rythmInfo, "zone1PositionInterval", [0.5, 1]);
-        var zone1MaxApplications = getValueOrDefault(rythmInfo, "zone1MaxApplications", 128);
-        var zone1SplitStrategy = getValueOrDefault(rythmInfo, "zone1SplitStrategy", SplitStrategy.DOT_FIRST);
-        var densityCurveId = getValueOrDefault(rythmInfo, "densityCurveId", "");
+        var id = getValueOrDefault(rythmInfo, 'id', 'unnamedRythm1');
+        var length = getValueOrDefault(rythmInfo, 'length', 1);
+        var lengthUnit = getValueOrDefault(rythmInfo, 'lengthUnit', PositionUnit.HARMONY_ELEMENTS);
+        var noteCount = getValueOrDefault(rythmInfo, 'noteCount', 1);
+        var noteCountUnit = getValueOrDefault(rythmInfo, 'noteCountUnit', CountUnit.HARMONY_ELEMENT_BEATS);
+        var extraNoteCount = getValueOrDefault(rythmInfo, 'extraNotes', 0);
+        var extraNoteCountUnit = getValueOrDefault(rythmInfo, 'extraNoteCountUnit', CountUnit.PLAIN);
+        var addZone1 = getValueOrDefault(rythmInfo, 'addZone1', false);
+        var zone1PositionInterval = getValueOrDefault(rythmInfo, 'zone1PositionInterval', [0.5, 1]);
+        var zone1MaxApplications = getValueOrDefault(rythmInfo, 'zone1MaxApplications', 128);
+        var zone1SplitStrategy = getValueOrDefault(rythmInfo, 'zone1SplitStrategy', SplitStrategy.DOT_FIRST);
+        var densityCurveId = getValueOrDefault(rythmInfo, 'densityCurveId', '');
         var rythm = new Rythm();
         rythm.id = id;
         var rythmElement = new SplitRythmElement();
@@ -6049,70 +6049,70 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
 
     var hrRythm = new Rythm();
-    hrRythm.id = "hrRythm";
+    hrRythm.id = 'hrRythm';
 
     var harmonyRaiseLeadingToneVar = new SimpleBooleanEditorVariable();
-    harmonyRaiseLeadingToneVar.id = "harmonyRaiseLeadingToneVar";
+    harmonyRaiseLeadingToneVar.id = 'harmonyRaiseLeadingToneVar';
     harmonyRaiseLeadingToneVar.value = true;
     module.addVariable(harmonyRaiseLeadingToneVar);
 
     var harmonySimpleMixtureLikelihoodVar = new SimpleDoubleEditorVariable();
-    harmonySimpleMixtureLikelihoodVar.id = "harmonySimpleMixtureLikelihoodVar";
+    harmonySimpleMixtureLikelihoodVar.id = 'harmonySimpleMixtureLikelihoodVar';
     harmonySimpleMixtureLikelihoodVar.value = 1;
     module.addVariable(harmonySimpleMixtureLikelihoodVar);
 
     var harmonySus2ChordsLikelihoodVar = new SimpleDoubleEditorVariable();
-    harmonySus2ChordsLikelihoodVar.id = "harmonySus2ChordsLikelihoodVar";
+    harmonySus2ChordsLikelihoodVar.id = 'harmonySus2ChordsLikelihoodVar';
     harmonySus2ChordsLikelihoodVar.value = 1;
     module.addVariable(harmonySus2ChordsLikelihoodVar);
 
     var harmonySus4ChordsLikelihoodVar = new SimpleDoubleEditorVariable();
-    harmonySus4ChordsLikelihoodVar.id = "harmonySus4ChordsLikelihoodVar";
+    harmonySus4ChordsLikelihoodVar.id = 'harmonySus4ChordsLikelihoodVar';
     harmonySus4ChordsLikelihoodVar.value = 1;
     module.addVariable(harmonySus4ChordsLikelihoodVar);
 
     var harmonyNeighbourChordsLikelihoodVar = new SimpleDoubleEditorVariable();
-    harmonyNeighbourChordsLikelihoodVar.id = "harmonyNeighbourChordsLikelihoodVar";
+    harmonyNeighbourChordsLikelihoodVar.id = 'harmonyNeighbourChordsLikelihoodVar';
     harmonyNeighbourChordsLikelihoodVar.value = 1;
     module.addVariable(harmonyNeighbourChordsLikelihoodVar);
 
     var harmonyPassingChordsLikelihoodVar = new SimpleDoubleEditorVariable();
-    harmonyPassingChordsLikelihoodVar.id = "harmonyPassingChordsLikelihoodVar";
+    harmonyPassingChordsLikelihoodVar.id = 'harmonyPassingChordsLikelihoodVar';
     harmonyPassingChordsLikelihoodVar.value = 1;
     module.addVariable(harmonyPassingChordsLikelihoodVar);
 
     var harmonyMajorDeceptiveRootVar = new SimpleIntegerEditorVariable();
-    harmonyMajorDeceptiveRootVar.id = "harmonyMajorDeceptiveRootVar";
+    harmonyMajorDeceptiveRootVar.id = 'harmonyMajorDeceptiveRootVar';
     harmonyMajorDeceptiveRootVar.value = 5;
     module.addVariable(harmonyMajorDeceptiveRootVar);
 
     var harmonyMinorDeceptiveRootVar = new SimpleIntegerEditorVariable();
-    harmonyMinorDeceptiveRootVar.id = "harmonyMinorDeceptiveRootVar";
+    harmonyMinorDeceptiveRootVar.id = 'harmonyMinorDeceptiveRootVar';
     harmonyMinorDeceptiveRootVar.value = 5;
     module.addVariable(harmonyMinorDeceptiveRootVar);
 
     var harmonyPhraseTypeVar = new SimpleIntegerEditorVariable();
-    harmonyPhraseTypeVar.id = "harmonyPhraseTypeVar";
+    harmonyPhraseTypeVar.id = 'harmonyPhraseTypeVar';
     harmonyPhraseTypeVar.value = 2;
     module.addVariable(harmonyPhraseTypeVar);
 
     var harmonyNoteCountVar = new SimpleIntegerEditorVariable();
-    harmonyNoteCountVar.id = "harmonyNoteCountVar";
+    harmonyNoteCountVar.id = 'harmonyNoteCountVar';
     harmonyNoteCountVar.value = 5;
     module.addVariable(harmonyNoteCountVar);
 
     var harmonyTotalLengthVar = new SimpleDoubleEditorVariable();
-    harmonyTotalLengthVar.id = "harmonyTotalLengthVar";
+    harmonyTotalLengthVar.id = 'harmonyTotalLengthVar';
     harmonyTotalLengthVar.value = 4;
     module.addVariable(harmonyTotalLengthVar);
 
     var harmonyRythmLengthTypeVar = new SimpleIntegerEditorVariable();
-    harmonyRythmLengthTypeVar.id = "harmonyRythmLengthTypeVar";
+    harmonyRythmLengthTypeVar.id = 'harmonyRythmLengthTypeVar';
     harmonyRythmLengthTypeVar.value = NoteRythmElementLengthType.NORMAL;
     module.addVariable(harmonyRythmLengthTypeVar);
 
     var harmonyRythmMeasureSplitStrategyVar = new SimpleIntegerEditorVariable();
-    harmonyRythmMeasureSplitStrategyVar.id = "harmonyRythmMeasureSplitStrategyVar";
+    harmonyRythmMeasureSplitStrategyVar.id = 'harmonyRythmMeasureSplitStrategyVar';
     harmonyRythmMeasureSplitStrategyVar.value = NoteRythmElementLengthType.NORMAL;
     module.addVariable(harmonyRythmMeasureSplitStrategyVar);
 
@@ -6129,7 +6129,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     var harmonySzc = new SplitZoneCollection();
 
     var harmonySz = new SplitZone();
-//    harmonySz.verbose = true;
+    //    harmonySz.verbose = true;
     harmonySz.splitStrategy = SplitStrategy.HALVE;
     harmonySz.splitStrategyUseExpression = true;
     harmonySz.splitStrategyExpression = harmonyRythmMeasureSplitStrategyVar.id;
@@ -6160,75 +6160,75 @@ function createTestModule(seed, inputGenInfo, resultObj) {
             percussionMotif.mode = PercussionMotifMode.RYTHM_AND_ZONES;
 
             var percDensCurve = new PredefinedCurve();
-            percDensCurve.type = getValueOrDefault(info, "densityCurveType", PredefinedCurveType.CONSTANT_NOISE);
-            percDensCurve.amplitude = getValueOrDefault(info, "densityAmplitude", 1);
-            percDensCurve.frequency = getValueOrDefault(info, "densityFrequency", 3);
-            percDensCurve.seed = getValueOrDefault(info, "densitySeed", 334324);
-            percDensCurve.id = "percussionRythmCurve" + (i + 1);
+            percDensCurve.type = getValueOrDefault(info, 'densityCurveType', PredefinedCurveType.CONSTANT_NOISE);
+            percDensCurve.amplitude = getValueOrDefault(info, 'densityAmplitude', 1);
+            percDensCurve.frequency = getValueOrDefault(info, 'densityFrequency', 3);
+            percDensCurve.seed = getValueOrDefault(info, 'densitySeed', 334324);
+            percDensCurve.id = 'percussionRythmCurve' + (i + 1);
             module.addCurve(percDensCurve);
 
             var percRythmElement = new SplitRythmElement();
             percRythmElement.verbose = true;
             percRythmElement.densityCurve = percDensCurve.id;
-            percRythmElement.noteCount = getValueOrDefault(info, "rythmNoteCount", 4);
-            percRythmElement.length = getValueOrDefault(info, "rythmLength", 1);
-            percRythmElement.lengthUnit = getValueOrDefault(info, "rythmLengthUnit", PositionUnit.MEASURES);
-            percRythmElement.minLength = getValueOrDefault(info, "rythmMinLength", 0.125);
-            percRythmElement.minLengthUnit = getValueOrDefault(info, "rythmMinLengthUnit", PositionUnit.BEATS);
+            percRythmElement.noteCount = getValueOrDefault(info, 'rythmNoteCount', 4);
+            percRythmElement.length = getValueOrDefault(info, 'rythmLength', 1);
+            percRythmElement.lengthUnit = getValueOrDefault(info, 'rythmLengthUnit', PositionUnit.MEASURES);
+            percRythmElement.minLength = getValueOrDefault(info, 'rythmMinLength', 0.125);
+            percRythmElement.minLengthUnit = getValueOrDefault(info, 'rythmMinLengthUnit', PositionUnit.BEATS);
 
             var percRythm = new Rythm();
-            percRythm.id = "percussionRythm" + (i + 1);
+            percRythm.id = 'percussionRythm' + (i + 1);
             percRythm.addRythmElement(percRythmElement);
             module.addRythm(percRythm);
 
             percussionMotif.rythm = percRythm.id;
 
-            var zoneInfos = getValueOrDefault(info, "motifZoneInfos", []);
+            var zoneInfos = getValueOrDefault(info, 'motifZoneInfos', []);
             for (var j=0; j<zoneInfos.length; j++) {
                 var zoneInfo = zoneInfos[j];
 
                 var zone = new VersatilePercussionMotifZone();
-                zone.activatedExpression = getValueOrDefault(zoneInfo, "activatedExpression", "");
+                zone.activatedExpression = getValueOrDefault(zoneInfo, 'activatedExpression', '');
                 if (zone.activatedExpression) {
                     zone.activatedUseExpression = true;
                 }
                 zone.useNamedNotes = false;
-                zone.notes = getValueOrDefault(zoneInfo, "notes", [MidiDrum.CHINESE_CYMBAL]);
-                zone.noteIndexPattern = getValueOrDefault(zoneInfo, "noteIndexPattern", [[0]]);
-                zone.startNoteIndexPattern = getValueOrDefault(zoneInfo, "startNoteIndexPattern", []);
-                zone.endNoteIndexPattern = getValueOrDefault(zoneInfo, "endNoteIndexPattern", []);
-                zone.start = getValueOrDefault(zoneInfo, "start", 0);
-                zone.end = getValueOrDefault(zoneInfo, "end", 1);
-                zone.beatConditionMultiplier = getValueOrDefault(zoneInfo, "multiplier", 1);
-                zone.beatConditionBias = getValueOrDefault(zoneInfo, "bias", 0);
-                zone.beatConditionRemainders = getValueOrDefault(zoneInfo, "remainders", []);
-                zone.beatConditionRemainderStrengths = getValueOrDefault(zoneInfo, "remainderStrengths", [1]);
-                zone.beatConditionQuotients = getValueOrDefault(zoneInfo, "quotients", []);
-                zone.beatConditionDivisorCheck = getValueOrDefault(zoneInfo, "divisorCheck", 1);
-                zone.beatConditionDivisorCheckUnit = getValueOrDefault(zoneInfo, "divisorCheckUnit", PositionUnit.MEASURES);
+                zone.notes = getValueOrDefault(zoneInfo, 'notes', [MidiDrum.CHINESE_CYMBAL]);
+                zone.noteIndexPattern = getValueOrDefault(zoneInfo, 'noteIndexPattern', [[0]]);
+                zone.startNoteIndexPattern = getValueOrDefault(zoneInfo, 'startNoteIndexPattern', []);
+                zone.endNoteIndexPattern = getValueOrDefault(zoneInfo, 'endNoteIndexPattern', []);
+                zone.start = getValueOrDefault(zoneInfo, 'start', 0);
+                zone.end = getValueOrDefault(zoneInfo, 'end', 1);
+                zone.beatConditionMultiplier = getValueOrDefault(zoneInfo, 'multiplier', 1);
+                zone.beatConditionBias = getValueOrDefault(zoneInfo, 'bias', 0);
+                zone.beatConditionRemainders = getValueOrDefault(zoneInfo, 'remainders', []);
+                zone.beatConditionRemainderStrengths = getValueOrDefault(zoneInfo, 'remainderStrengths', [1]);
+                zone.beatConditionQuotients = getValueOrDefault(zoneInfo, 'quotients', []);
+                zone.beatConditionDivisorCheck = getValueOrDefault(zoneInfo, 'divisorCheck', 1);
+                zone.beatConditionDivisorCheckUnit = getValueOrDefault(zoneInfo, 'divisorCheckUnit', PositionUnit.MEASURES);
 
                 percussionMotif.zones.push(zone);
 
-//                logit(zone);
+                //                logit(zone);
             }
 
             if (percussionMotif.zones.length == 0) {
-                logit("no zones in " + percussionMotif.id);
+                logit('no zones in ' + percussionMotif.id);
             }
-//            logit(percussionMotif.zones);
+            //            logit(percussionMotif.zones);
 
         }
-        percussionMotif.id = "percussionMotif" + (i+1);
+        percussionMotif.id = 'percussionMotif' + (i+1);
 
         module.percussionMotifs.push(percussionMotif);
         allPercMotifs.push(percussionMotif.id);
 
-//        logit("hello " + i);
+        //        logit("hello " + i);
 
     }
 
     var indexInfoVar = new SimpleObjectEditorVariable();
-    indexInfoVar.id = "indexInfoVar";
+    indexInfoVar.id = 'indexInfoVar';
     indexInfoVar.value = {};
     module.addVariable(indexInfoVar);
 
@@ -6248,58 +6248,58 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
     var harmony1 = new ConstantHarmonicRythm([dhe1, che1, che2]);
     //    var harmony1 = new ConstantHarmonicRythm([staticHarmonyElement, new DynamicSequenceHarmonyElement().setCount(4)]);
-    harmony1.id = "harmony1";
+    harmony1.id = 'harmony1';
 
 
 
     var harmonySeedVar = new SimpleIntegerEditorVariable();
-    harmonySeedVar.id = "harmonySeedVar";
+    harmonySeedVar.id = 'harmonySeedVar';
     harmonySeedVar.value = 123456789;
     module.addVariable(harmonySeedVar);
 
     var harmonyScaleBaseVar = new SimpleIntegerEditorVariable();
-    harmonyScaleBaseVar.id = "harmonyScaleBaseVar";
+    harmonyScaleBaseVar.id = 'harmonyScaleBaseVar';
     harmonyScaleBaseVar.value = 60;
     module.addVariable(harmonyScaleBaseVar);
 
     var numeratorVar = new SimpleIntegerEditorVariable();
-    numeratorVar.id = "numeratorVar";
+    numeratorVar.id = 'numeratorVar';
     numeratorVar.value = 4;
     module.addVariable(numeratorVar);
 
     var harmonyMajorModulationTargetVar = new SimpleIntegerEditorVariable();
-    harmonyMajorModulationTargetVar.id = "harmonyMajorModulationTargetVar";
+    harmonyMajorModulationTargetVar.id = 'harmonyMajorModulationTargetVar';
     harmonyMajorModulationTargetVar.value = -1;
     module.addVariable(harmonyMajorModulationTargetVar);
 
     var harmonyMinorModulationTargetVar = new SimpleIntegerEditorVariable();
-    harmonyMinorModulationTargetVar.id = "harmonyMinorModulationTargetVar";
+    harmonyMinorModulationTargetVar.id = 'harmonyMinorModulationTargetVar';
     harmonyMinorModulationTargetVar.value = -1;
     module.addVariable(harmonyMinorModulationTargetVar);
 
     var scaleTypeVar = new SimpleIntegerEditorVariable();
-    scaleTypeVar.id = "scaleTypeVar";
+    scaleTypeVar.id = 'scaleTypeVar';
     scaleTypeVar.value = ScaleType.MAJOR;
     module.addVariable(scaleTypeVar);
 
 
     var staticHarmonyLengthVar = new SimpleIntegerEditorVariable();
-    staticHarmonyLengthVar.id = "staticHarmonyLengthVar";
+    staticHarmonyLengthVar.id = 'staticHarmonyLengthVar';
     staticHarmonyLengthVar.value = 10;
     module.addVariable(staticHarmonyLengthVar);
 
     var dynamicHarmonyLengthVar = new SimpleIntegerEditorVariable();
-    dynamicHarmonyLengthVar.id = "dynamicHarmonyLengthVar";
+    dynamicHarmonyLengthVar.id = 'dynamicHarmonyLengthVar';
     dynamicHarmonyLengthVar.value = 10;
     module.addVariable(dynamicHarmonyLengthVar);
 
     var dominantCadenceHarmonyLengthVar = new SimpleIntegerEditorVariable();
-    dominantCadenceHarmonyLengthVar.id = "dominantCadenceHarmonyLengthVar";
+    dominantCadenceHarmonyLengthVar.id = 'dominantCadenceHarmonyLengthVar';
     dominantCadenceHarmonyLengthVar.value = 10;
     module.addVariable(dominantCadenceHarmonyLengthVar);
 
     var tonicCadenceHarmonyLengthVar = new SimpleIntegerEditorVariable();
-    tonicCadenceHarmonyLengthVar.id = "tonicCadenceHarmonyLengthVar";
+    tonicCadenceHarmonyLengthVar.id = 'tonicCadenceHarmonyLengthVar';
     tonicCadenceHarmonyLengthVar.value = 10;
     module.addVariable(tonicCadenceHarmonyLengthVar);
 
@@ -6370,13 +6370,13 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     phe.maxElementLength = 2;
     phe.maxElementLengthUnit = PositionUnit.MEASURES;
     phe.maxElementLengthUseExpression = true;
-    phe.maxElementLengthExpression = "Math.floor(3 / " + numeratorVar.id + " + 1)";
+    phe.maxElementLengthExpression = 'Math.floor(3 / ' + numeratorVar.id + ' + 1)';
 
     phe.seedUseExpression = true;
     phe.seedExpression = harmonySeedVar.id;
     phe.tsNumerators = [4];
     phe.tsNumeratorsUseExpression = true;
-    phe.tsNumeratorsExpression = "[" + numeratorVar.id + "]";
+    phe.tsNumeratorsExpression = '[' + numeratorVar.id + ']';
     phe.rythmTsNumeratorUseExpression = true;
     phe.rythmTsNumeratorExpression = numeratorVar.id;
 
@@ -6393,7 +6393,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
     phe.modulate = false;
     phe.modulateUseExpression = true;
-    phe.modulateExpression = harmonyMajorModulationTargetVar.id + " != -1 || " + harmonyMinorModulationTargetVar.id + " != -1";
+    phe.modulateExpression = harmonyMajorModulationTargetVar.id + ' != -1 || ' + harmonyMinorModulationTargetVar.id + ' != -1';
 
     phe.majorModulationTarget = DynamicHarmonyModulationTarget.DOMINANT;
     phe.majorModulationTargetUseExpression = true;
@@ -6418,10 +6418,10 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     phe.lengthRepeats = 0;
     phe.phraseType = PhraseHarmonyElementType.ANTECEDENT_CONSEQUENT;
     phe.phraseTypeUseExpression = true;
-    phe.phraseTypeExpression = "harmonyPhraseTypeVar";
+    phe.phraseTypeExpression = 'harmonyPhraseTypeVar';
     phe.phraseStructureCounts = [harmonyNoteCountVar.value, harmonyNoteCountVar.value];
     phe.phraseStructureCountsUseExpression = true;
-    phe.phraseStructureCountsExpression = "[harmonyNoteCountVar, harmonyNoteCountVar]";
+    phe.phraseStructureCountsExpression = '[harmonyNoteCountVar, harmonyNoteCountVar]';
 
 
     var harmonies = [phe];
@@ -6436,7 +6436,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
             }
             if (he.setTsNumeratorExternally) {
                 he.tsNumeratorsUseExpression = true;
-                he.tsNumeratorsExpression = "[" + numeratorVar.id + "]";
+                he.tsNumeratorsExpression = '[' + numeratorVar.id + ']';
                 he.rythmTsNumeratorUseExpression = true;
                 he.rythmTsNumeratorExpression = numeratorVar.id;
             }
@@ -6445,17 +6445,17 @@ function createTestModule(seed, inputGenInfo, resultObj) {
             he.maxElementLength = genInfo.maxCustomHarmonyElementLength;
             he.maxElementLengthUnit = genInfo.maxCustomHarmonyElementLengthUnit;
             he.maxElementLengthUseExpression = genInfo.maxCustomHarmonyElementLengthUseExpression;
-            he.maxElementLengthExpression = "Math.floor(3 / " + numeratorVar.id + " + 1)";
+            he.maxElementLengthExpression = 'Math.floor(3 / ' + numeratorVar.id + ' + 1)';
 
         } else {
-            console.log("Constant harmony of unknown type " + he._constructorName);
+            console.log('Constant harmony of unknown type ' + he._constructorName);
         }
 
         harmonies.push(he);
     }
 
     var harmonyElementIndexVar = new SimpleIntegerEditorVariable();
-    harmonyElementIndexVar.id = "harmonyElementIndexVar";
+    harmonyElementIndexVar.id = 'harmonyElementIndexVar';
     harmonyElementIndexVar.value = 0;
     module.addVariable(harmonyElementIndexVar);
 
@@ -6467,16 +6467,16 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
     var harmony2 = new ConstantHarmonicRythm([she]);
 
-    harmony2.id = "harmony2";
+    harmony2.id = 'harmony2';
 
 
     var suspendSeedVar = new SimpleIntegerEditorVariable();
-    suspendSeedVar.id = "suspendSeedVar";
+    suspendSeedVar.id = 'suspendSeedVar';
     suspendSeedVar.value = true;
     module.addVariable(suspendSeedVar);
 
     var suspendProbabilityVar = new SimpleDoubleEditorVariable();
-    suspendProbabilityVar.id = "suspendProbabilityVar";
+    suspendProbabilityVar.id = 'suspendProbabilityVar';
     suspendProbabilityVar.value = true;
     module.addVariable(suspendProbabilityVar);
 
@@ -6485,45 +6485,45 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     suspendModifier.seedUseExpression = true;
     suspendModifier.seedExpression = suspendSeedVar.id;
     suspendModifier.suspendProbabilitiesUseExpression = true;
-    suspendModifier.suspendProbabilitiesExpression = "[" + suspendProbabilityVar.id + "]";
+    suspendModifier.suspendProbabilitiesExpression = '[' + suspendProbabilityVar.id + ']';
 
 
     harmony2.modifiers = [suspendModifier];
 
     var sectionTempoVar = new SimpleDoubleEditorVariable();
-    sectionTempoVar.id = "sectionTempoVar";
+    sectionTempoVar.id = 'sectionTempoVar';
     sectionTempoVar.value = 120.0;
     module.addVariable(sectionTempoVar);
     var nextSectionTempoVar = new SimpleDoubleEditorVariable();
-    nextSectionTempoVar.id = "nextSectionTempoVar";
+    nextSectionTempoVar.id = 'nextSectionTempoVar';
     nextSectionTempoVar.value = 120.0;
     module.addVariable(nextSectionTempoVar);
     var prevSectionTempoVar = new SimpleDoubleEditorVariable();
-    prevSectionTempoVar.id = "prevSectionTempoVar";
+    prevSectionTempoVar.id = 'prevSectionTempoVar';
     prevSectionTempoVar.value = 120.0;
     module.addVariable(prevSectionTempoVar);
 
     var section = new Section();
-    section.id = "section";
+    section.id = 'section';
     section.harmonicRythm = harmony2.id;
     section.tempo = songStructureInfo.baseTempo;
     if (!genInfo.useNaturalTempoChanges) {
         // Abruptly change tempos instead
         section.tempoUseExpression = true;
-        section.tempoExpression = "" + sectionTempoVar.id;
+        section.tempoExpression = '' + sectionTempoVar.id;
     }
     module.addSection(section);
 
 
 
     if (genInfo.exportChordsToNewChannel) {
-//        logit("Exporting to new channel");
+        //        logit("Exporting to new channel");
         var chordsRenderChannel = new RenderChannel();
-        chordsRenderChannel.id = "chordsRenderChannel";
+        chordsRenderChannel.id = 'chordsRenderChannel';
         module.renderChannels.push(chordsRenderChannel);
 
         var chordMotif = new Motif();
-        chordMotif.id = "chordMotif";
+        chordMotif.id = 'chordMotif';
         var cme = new VerticalRelativeMotifElement();
         cme.relativeType = VerticalRelativeType.CHORD_BASS;
         cme.length = 1;
@@ -6546,7 +6546,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
         var chordRenderLine = new PrimitiveRenderLine();
         chordRenderLine.channel = chordsRenderChannel.id;
-        chordRenderLine.id = "chordsRenderLine";
+        chordRenderLine.id = 'chordsRenderLine';
         chordRenderLine.addRenderElement(chordMotifRenderElement);
 
         section.addRenderLine(chordRenderLine);
@@ -6560,7 +6560,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
             if (shapeInfo.curveId) {
                 var shapeCurve = copyObjectDeep(shapeInfo.curve);
                 module.addCurve(shapeCurve);
-//                logit("Adding curve " + shapeCurve.id);
+                //                logit("Adding curve " + shapeCurve.id);
             }
         }
     }
@@ -6571,13 +6571,13 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
     // Creates the default type of control line used for velocities, effects and tempo
     function createControlLineAndChannel(options) {
-        var controlLineId = getValueOrDefault(options, "controlLineId", "");
-        var controlLineVerbose = getValueOrDefault(options, "controlLineVerbose", false);
-        var channelId = getValueOrDefault(options, "channelId", "");
-        var channelMixMode = getValueOrDefault(options, "channelMixMode", NumericControlChannelMixMode.MULT);
-        var channelMixWithDefault = getValueOrDefault(options, "channelMixWithDefault", true);
-        var channelDefaultValue = getValueOrDefault(options, "channelDefaultValue", 1.0);
-        var controlWriteMode = getValueOrDefault(options, "controlWriteMode", ControlChannelControlWriteMode.NONE);
+        var controlLineId = getValueOrDefault(options, 'controlLineId', '');
+        var controlLineVerbose = getValueOrDefault(options, 'controlLineVerbose', false);
+        var channelId = getValueOrDefault(options, 'channelId', '');
+        var channelMixMode = getValueOrDefault(options, 'channelMixMode', NumericControlChannelMixMode.MULT);
+        var channelMixWithDefault = getValueOrDefault(options, 'channelMixWithDefault', true);
+        var channelDefaultValue = getValueOrDefault(options, 'channelDefaultValue', 1.0);
+        var controlWriteMode = getValueOrDefault(options, 'controlWriteMode', ControlChannelControlWriteMode.NONE);
 
         var controlLine = new PrimitiveControlLine();
         controlLine.id = controlLineId;
@@ -6600,19 +6600,19 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
 
     function createControlLineFromDescription(desc, options) {
-        var type = getValueOrDefault(desc, "type", "sequential");
-        var activeExpression = getValueOrDefault(desc, "activeExpression", "");
+        var type = getValueOrDefault(desc, 'type', 'sequential');
+        var activeExpression = getValueOrDefault(desc, 'activeExpression', '');
 
-        var verbose = getValueOrDefault(options, "verbose", false);
-        var elementsVerbose = getValueOrDefault(options, "elementsVerbose", false);
-        var multiStepVerbose = getValueOrDefault(options, "multiStepVerbose", false);
+        var verbose = getValueOrDefault(options, 'verbose', false);
+        var elementsVerbose = getValueOrDefault(options, 'elementsVerbose', false);
+        var multiStepVerbose = getValueOrDefault(options, 'multiStepVerbose', false);
 
         var controlLine = createControlLineAndChannel(options);
 
-        var elements = getValueOrDefault(desc, "elements", []);
-        var curves = getValueOrDefault(desc, "curves", []);
-        var indices = getValueOrDefault(desc, "indices", []);
-        var indicesExpression = getValueOrDefault(desc, "indicesExpression", "");
+        var elements = getValueOrDefault(desc, 'elements', []);
+        var curves = getValueOrDefault(desc, 'curves', []);
+        var indices = getValueOrDefault(desc, 'indices', []);
+        var indicesExpression = getValueOrDefault(desc, 'indicesExpression', '');
 
         for (var i=0; i<curves.length; i++) {
             module.addCurve(curves[i]);
@@ -6627,84 +6627,84 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
         // Create the elements
         switch (type) {
-            case "sequential":
+        case 'sequential':
 
-                var startIndicesExpression = getValueOrDefault(desc, "startIndicesExpression", "");
-                var startIndices = getValueOrDefault(desc, "startIndices", []);
-                var endIndicesExpression = getValueOrDefault(desc, "endIndicesExpression", "");
-                var endIndices = getValueOrDefault(desc, "endIndices", []);
+            var startIndicesExpression = getValueOrDefault(desc, 'startIndicesExpression', '');
+            var startIndices = getValueOrDefault(desc, 'startIndices', []);
+            var endIndicesExpression = getValueOrDefault(desc, 'endIndicesExpression', '');
+            var endIndices = getValueOrDefault(desc, 'endIndices', []);
 
-                var msce = new MultiStepControlElement();
-                if (multiStepVerbose) {
-                    msce.verbose = true;
-                }
-                if (activeExpression) {
-                    msce.activeUseExpression = true;
-                    msce.activeExpression = activeExpression;
-                }
+            var msce = new MultiStepControlElement();
+            if (multiStepVerbose) {
+                msce.verbose = true;
+            }
+            if (activeExpression) {
+                msce.activeUseExpression = true;
+                msce.activeExpression = activeExpression;
+            }
 
-                msce.startIndices = startIndices;
-                if (startIndicesExpression) {
-                    msce.startIndicesUseExpression = true;
-                    msce.startIndicesExpression = startIndicesExpression;
-                }
-                msce.indices = indices;
-                if (indicesExpression) {
-                    msce.indicesUseExpression = true;
-                    msce.indicesExpression = indicesExpression;
-                }
-                msce.endIndices = endIndices;
-                if (endIndicesExpression) {
-                    msce.endIndicesUseExpression = true;
-                    msce.endIndicesExpression = endIndicesExpression;
-                }
+            msce.startIndices = startIndices;
+            if (startIndicesExpression) {
+                msce.startIndicesUseExpression = true;
+                msce.startIndicesExpression = startIndicesExpression;
+            }
+            msce.indices = indices;
+            if (indicesExpression) {
+                msce.indicesUseExpression = true;
+                msce.indicesExpression = indicesExpression;
+            }
+            msce.endIndices = endIndices;
+            if (endIndicesExpression) {
+                msce.endIndicesUseExpression = true;
+                msce.endIndicesExpression = endIndicesExpression;
+            }
 
-                msce.elements = elementsCopy;
-                controlLine.addControlElement(msce);
-                if (verbose) {
-                    logit("Adding element " + JSON.stringify(msce))
-                }
-                break;
-            case "parallel":
+            msce.elements = elementsCopy;
+            controlLine.addControlElement(msce);
+            if (verbose) {
+                logit('Adding element ' + JSON.stringify(msce))
+            }
+            break;
+        case 'parallel':
 
-                var msce = new MultiParallelControlElement();
-                if (multiStepVerbose) {
-                    msce.verbose = true;
-                }
-                if (activeExpression) {
-                    msce.activeUseExpression = true;
-                    msce.activeExpression = activeExpression;
-                }
+            var msce = new MultiParallelControlElement();
+            if (multiStepVerbose) {
+                msce.verbose = true;
+            }
+            if (activeExpression) {
+                msce.activeUseExpression = true;
+                msce.activeExpression = activeExpression;
+            }
 
-                msce.indices = indices;
-                if (indicesExpression) {
-                    msce.indicesUseExpression = true;
-                    msce.indicesExpression = indicesExpression;
-                }
-                msce.elements = elementsCopy;
-                controlLine.addControlElement(msce);
-                if (verbose) {
-                    logit("Adding element " + JSON.stringify(msce))
-                }
-                break;
-            default:
-                logit("Missing type in effect description");
-                break;
+            msce.indices = indices;
+            if (indicesExpression) {
+                msce.indicesUseExpression = true;
+                msce.indicesExpression = indicesExpression;
+            }
+            msce.elements = elementsCopy;
+            controlLine.addControlElement(msce);
+            if (verbose) {
+                logit('Adding element ' + JSON.stringify(msce))
+            }
+            break;
+        default:
+            logit('Missing type in effect description');
+            break;
         }
         return controlLine;
     }
 
     function createVoiceLineAndRenderLine(options) {
-        var name = getValueOrDefault(options, "name", "dummy");
-        var addHintCurve = getValueOrDefault(options, "addHintCurve", false);
-        var chordRootPitchClassConstraints = getValueOrDefault(options, "chordRootPitchClassConstraints", []);
-        var chordBassPitchClassConstraints = getValueOrDefault(options, "chordBassPitchClassConstraints", []);
-        var chordBassPitchClassConstraintsExpression = getValueOrDefault(options, "chordBassPitchClassConstraintsExpression", "");
-        var penaltyRanges = getValueOrDefault(options, "penaltyRanges", [[50, 100]]);
-        var ranges = getValueOrDefault(options, "ranges", [[40, 110]]);
-        var maxSpacings = getValueOrDefault(options, "maxSpacings", [24]);
-        var penaltyMaxSpacings = getValueOrDefault(options, "penaltyMaxSpacings", [12]);
-        var pan = getValueOrDefault(options, "pan", 64);
+        var name = getValueOrDefault(options, 'name', 'dummy');
+        var addHintCurve = getValueOrDefault(options, 'addHintCurve', false);
+        var chordRootPitchClassConstraints = getValueOrDefault(options, 'chordRootPitchClassConstraints', []);
+        var chordBassPitchClassConstraints = getValueOrDefault(options, 'chordBassPitchClassConstraints', []);
+        var chordBassPitchClassConstraintsExpression = getValueOrDefault(options, 'chordBassPitchClassConstraintsExpression', '');
+        var penaltyRanges = getValueOrDefault(options, 'penaltyRanges', [[50, 100]]);
+        var ranges = getValueOrDefault(options, 'ranges', [[40, 110]]);
+        var maxSpacings = getValueOrDefault(options, 'maxSpacings', [24]);
+        var penaltyMaxSpacings = getValueOrDefault(options, 'penaltyMaxSpacings', [12]);
+        var pan = getValueOrDefault(options, 'pan', 64);
 
         var capName = name.substr(0, 1).toUpperCase() + name.substr(1);
 
@@ -6723,27 +6723,27 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
 
         var sequentialEffectChangeInfoVar = new SimpleObjectEditorVariable();
-        sequentialEffectChangeInfoVar.id = "sequential" + capName + "EffectChangeInfoVar";
+        sequentialEffectChangeInfoVar.id = 'sequential' + capName + 'EffectChangeInfoVar';
         module.addVariable(sequentialEffectChangeInfoVar);
 
         for (var i=0; i<3; i++) {
 
             var noteVelocitiesChannel = new DoubleControlChannel();
-            noteVelocitiesChannel.id = name + "NoteVelocitiesChannel" + (i+1);
+            noteVelocitiesChannel.id = name + 'NoteVelocitiesChannel' + (i+1);
             noteVelocitiesChannel.defaultValue = 1.0;
             noteVelocitiesChannel.controlWriteMode = ControlChannelControlWriteMode.NONE; // Used to modify note velocities
             module.controlChannels.push(noteVelocitiesChannel);
 
             var noteVelocitiesControlLine = new PrimitiveControlLine();
-            noteVelocitiesControlLine.id = name + "NoteVelocitiesControlLine" + (i+1);
+            noteVelocitiesControlLine.id = name + 'NoteVelocitiesControlLine' + (i+1);
             noteVelocitiesControlLine.channel = noteVelocitiesChannel.id;
             section.addControlLine(noteVelocitiesControlLine);
 
 
             var effects = [
-                ["FilterF", NumericControlChannelMixMode.MULT, 1.0],
-                ["FilterQ", NumericControlChannelMixMode.MULT, 1.0],
-                ["Pan", NumericControlChannelMixMode.OVERWRITE_LAST, pan / 127.0]
+                ['FilterF', NumericControlChannelMixMode.MULT, 1.0],
+                ['FilterQ', NumericControlChannelMixMode.MULT, 1.0],
+                ['Pan', NumericControlChannelMixMode.OVERWRITE_LAST, pan / 127.0]
             ];
 
             for (var j=0; j<effects.length; j++) {
@@ -6752,52 +6752,52 @@ function createTestModule(seed, inputGenInfo, resultObj) {
                 var defaultValue = effects[j][2];
                 var elements = [];
                 var curves = [];
-                var infosForVoice = genData["sequential" + capName + "EffectChangeInfos"];
+                var infosForVoice = genData['sequential' + capName + 'EffectChangeInfos'];
                 if (!infosForVoice) {
-                    logit("Could not find any infos for voice " + ("sequential" + capName + "EffectChangeInfos"));
+                    logit('Could not find any infos for voice ' + ('sequential' + capName + 'EffectChangeInfos'));
                 }
                 var infosForInstrument = infosForVoice[i];
                 if (!infosForInstrument) {
-                    logit("Could not find any infos for instrument " + i);
+                    logit('Could not find any infos for instrument ' + i);
                 }
                 var effectInfos = infosForInstrument[effectName];
                 if (!effectInfos) {
-                    logit("Could not find any effect infos for " + ("sequential" + capName + "EffectChangeInfos") + " " + i + " " + effectName);
-                    logit(" infos for instrument " + JSON.stringify(infosForInstrument));
+                    logit('Could not find any effect infos for ' + ('sequential' + capName + 'EffectChangeInfos') + ' ' + i + ' ' + effectName);
+                    logit(' infos for instrument ' + JSON.stringify(infosForInstrument));
                 }
                 for (var k=0; k<effectInfos.length; k++) {
                     var effectInfo = effectInfos[k];
                     elements.push(effectInfo.element);
                     curves.push(effectInfo.curve);
                 }
-                var indicesVarName = name + "ChannelIndicesVar";
+                var indicesVarName = name + 'ChannelIndicesVar';
 
-                var controlLineActiveExpression = indicesVarName + "[0].indexOf(" + i + ") >= 0";
+                var controlLineActiveExpression = indicesVarName + '[0].indexOf(' + i + ') >= 0';
 
                 createControlLineFromDescription(
                     {
-                        type: "sequential",
+                        type: 'sequential',
                         elements: elements,
                         curves: curves,
                         activeExpression: controlLineActiveExpression,
-                        indicesExpression: sequentialEffectChangeInfoVar.id + "." + effectName + ".indices",
-                        startIndicesExpression: sequentialEffectChangeInfoVar.id + "." + effectName + ".startIndices",
-                        endIndicesExpression: sequentialEffectChangeInfoVar.id + "." + effectName + ".endIndices"
+                        indicesExpression: sequentialEffectChangeInfoVar.id + '.' + effectName + '.indices',
+                        startIndicesExpression: sequentialEffectChangeInfoVar.id + '.' + effectName + '.startIndices',
+                        endIndicesExpression: sequentialEffectChangeInfoVar.id + '.' + effectName + '.endIndices'
                     },
                     {
-                        channelId: name + "ControlChannel" + effectName + (i+1),
+                        channelId: name + 'ControlChannel' + effectName + (i+1),
                         channelMixMode: mixMode,
                         channelDefaultValue: defaultValue,
-                        controlLineId: name + effectName + "ControlLine" + (i+1),
+                        controlLineId: name + effectName + 'ControlLine' + (i+1),
                         controlWriteMode: ControlChannelControlWriteMode.SET_CONTROL
                     });
-//                logit("Created control channel " + name + "ControlChannel" + effectName + (i+1));
+                //                logit("Created control channel " + name + "ControlChannel" + effectName + (i+1));
             }
         }
 
         if (addHintCurve) {
             var curveMultAmpVar = new SimpleBooleanEditorVariable();
-            curveMultAmpVar.id = name + "CurveMultiplyAmpVar";
+            curveMultAmpVar.id = name + 'CurveMultiplyAmpVar';
             curveMultAmpVar.value = true;
             module.addVariable(curveMultAmpVar);
 
@@ -6811,22 +6811,22 @@ function createTestModule(seed, inputGenInfo, resultObj) {
             voiceLine.hintIndexType = IndexType.MIDI_NOTE;
 
             var curveTypeVar = new SimpleIntegerEditorVariable();
-            curveTypeVar.id = name + "CurveTypeVar";
+            curveTypeVar.id = name + 'CurveTypeVar';
             curveTypeVar.value = PredefinedCurveType.LINEAR;
             module.addVariable(curveTypeVar);
 
             var curveIdVar = new SimpleStringEditorVariable();
-            curveIdVar.id = name + "CurveIdVar";
-            curveIdVar.value = "";
+            curveIdVar.id = name + 'CurveIdVar';
+            curveIdVar.value = '';
             module.addVariable(curveIdVar);
 
             var curveAmplitudeVar = new SimpleDoubleEditorVariable();
-            curveAmplitudeVar.id = name + "CurveAmplitudeVar";
+            curveAmplitudeVar.id = name + 'CurveAmplitudeVar';
             curveAmplitudeVar.value = 10;
             module.addVariable(curveAmplitudeVar);
 
             var curveBiasVar = new SimpleDoubleEditorVariable();
-            curveBiasVar.id = name + "CurveBiasVar";
+            curveBiasVar.id = name + 'CurveBiasVar';
             curveBiasVar.value = 60;
             module.addVariable(curveBiasVar);
 
@@ -6834,13 +6834,13 @@ function createTestModule(seed, inputGenInfo, resultObj) {
             hintCurve.type = PredefinedCurveType.LINEAR;
             hintCurve.typeUseExpression = true;
             hintCurve.typeExpression = curveTypeVar.id;
-            hintCurve.id = name + "HintCurve";
+            hintCurve.id = name + 'HintCurve';
             module.addCurve(hintCurve);
 
             voiceLine.useHintCurve = true;
             voiceLine.hintCurve = hintCurve.id;
             voiceLine.hintCurveUseExpression = true;
-            voiceLine.hintCurveExpression = curveIdVar.id + " ? " + curveIdVar.id + " : \"" + hintCurve.id + "\"";
+            voiceLine.hintCurveExpression = curveIdVar.id + ' ? ' + curveIdVar.id + ' : "' + hintCurve.id + '"';
             voiceLine.hintCurveMultiplier = curveAmplitudeVar.value;
             voiceLine.hintCurveMultiplierUseExpression = true;
             voiceLine.hintCurveMultiplierExpression = curveAmplitudeVar.id;
@@ -6848,55 +6848,55 @@ function createTestModule(seed, inputGenInfo, resultObj) {
             voiceLine.hintCurveBiasUseExpression = true;
             voiceLine.hintCurveBiasExpression = curveBiasVar.id;
         }
-//        voiceLine.phraseSuspendPatternUseExpression = true;
-//        voiceLine.phraseSuspendPatternExpression = "[" + suspendPatternVar.id + "]"; // ", " + suspendPatternPhrase2Var.id + "]";
-//        voiceLine.startPhraseSuspendPatternUseExpression = true;
-//        voiceLine.startPhraseSuspendPatternExpression = "[" + startSuspendPatternVar.id + "]"; //", " + startSuspendPatternPhrase2Var.id + "]";
-//        voiceLine.endPhraseSuspendPatternUseExpression = true;
-//        voiceLine.endPhraseSuspendPatternExpression = "[" + startSuspendPatternVar.id + "]"; // ", " + startSuspendPatternPhrase2Var.id + "]";
-        voiceLine.id = name + "VoiceLine";
+        //        voiceLine.phraseSuspendPatternUseExpression = true;
+        //        voiceLine.phraseSuspendPatternExpression = "[" + suspendPatternVar.id + "]"; // ", " + suspendPatternPhrase2Var.id + "]";
+        //        voiceLine.startPhraseSuspendPatternUseExpression = true;
+        //        voiceLine.startPhraseSuspendPatternExpression = "[" + startSuspendPatternVar.id + "]"; //", " + startSuspendPatternPhrase2Var.id + "]";
+        //        voiceLine.endPhraseSuspendPatternUseExpression = true;
+        //        voiceLine.endPhraseSuspendPatternExpression = "[" + startSuspendPatternVar.id + "]"; // ", " + startSuspendPatternPhrase2Var.id + "]";
+        voiceLine.id = name + 'VoiceLine';
         section.voiceLines.push(voiceLine);
 
         var indexMotifPatternVar = new SimpleIntegerArray2DEditorVariable();
-        indexMotifPatternVar.id = name + "IndexMotifPatternVar";
+        indexMotifPatternVar.id = name + 'IndexMotifPatternVar';
         indexMotifPatternVar.value = [[1], [2], [0], [2]];
         module.addVariable(indexMotifPatternVar);
         var endIndexMotifPatternVar = new SimpleIntegerArray2DEditorVariable();
-        endIndexMotifPatternVar.id = "end" + capName + "IndexMotifPatternVar";
+        endIndexMotifPatternVar.id = 'end' + capName + 'IndexMotifPatternVar';
         endIndexMotifPatternVar.value = [[2], [0]];
         module.addVariable(endIndexMotifPatternVar);
 
 
         var renderChannel1 = new RenderChannel();
-        renderChannel1.id = name + "RenderChannel1";
+        renderChannel1.id = name + 'RenderChannel1';
         module.addRenderChannel(renderChannel1);
         var renderChannel2 = new RenderChannel();
-        renderChannel2.id = name + "RenderChannel2";
+        renderChannel2.id = name + 'RenderChannel2';
         module.addRenderChannel(renderChannel2);
         var renderChannel3 = new RenderChannel();
-        renderChannel3.id = name + "RenderChannel3";
+        renderChannel3.id = name + 'RenderChannel3';
         module.addRenderChannel(renderChannel3);
 
         var renderChannels = [renderChannel1.id, renderChannel2.id, renderChannel3.id];
         var channelIndicesVar = new SimpleIntegerArray2DEditorVariable();
-        channelIndicesVar.id = name + "ChannelIndicesVar";
+        channelIndicesVar.id = name + 'ChannelIndicesVar';
         channelIndicesVar.value = [[0]];
         module.addVariable(channelIndicesVar);
         var endChannelIndicesVar = new SimpleIntegerArray2DEditorVariable();
-        endChannelIndicesVar.id = "end" + capName + "ChannelIndicesVar";
+        endChannelIndicesVar.id = 'end' + capName + 'ChannelIndicesVar';
         endChannelIndicesVar.value = [[0]];
         module.addVariable(endChannelIndicesVar);
 
 
         var renderAmountVar = new SimpleDoubleEditorVariable();
-        renderAmountVar.id = name + "RenderAmountVar";
+        renderAmountVar.id = name + 'RenderAmountVar';
         renderAmountVar.value = 1.0;
         module.addVariable(renderAmountVar);
 
 
         var hipre1 = new HarmonyIndexIndexPatternMotifRenderElement(); // Default phrase
-//        hipre1.activatedUseExpression = true;
-//        hipre1.activatedExpression = renderAmountVar.id;
+        //        hipre1.activatedUseExpression = true;
+        //        hipre1.activatedExpression = renderAmountVar.id;
         hipre1.voiceLine = voiceLine.id;
         hipre1.count = 1;
         hipre1.countUnit = CountUnit.PHRASE_ELEMENT_COUNT;
@@ -6906,36 +6906,36 @@ function createTestModule(seed, inputGenInfo, resultObj) {
         hipre1.endChannelIndicesUseExpression = true;
         hipre1.endChannelIndicesExpression = endChannelIndicesVar.id;
         hipre1.indicesUseExpression = true;
-        hipre1.indicesExpression = renderAmountVar.id + " > 0 ? " + indexMotifPatternVar.id + " : []";
+        hipre1.indicesExpression = renderAmountVar.id + ' > 0 ? ' + indexMotifPatternVar.id + ' : []';
         hipre1.endIndicesUseExpression = true;
-        hipre1.endIndicesExpression = renderAmountVar.id + " > 0 ? " + endIndexMotifPatternVar.id + " : []";
+        hipre1.endIndicesExpression = renderAmountVar.id + ' > 0 ? ' + endIndexMotifPatternVar.id + ' : []';
         hipre1.motifs = arrayCopy(allMotifIds);
 
         var psre = new PhraseStructureRenderElement();
         psre.renderElements = [hipre1];
-//        psre.endRenderElements = [hipre2];
+        //        psre.endRenderElements = [hipre2];
 
         var renderLine = new PrimitiveRenderLine();
         renderLine.voiceLine = voiceLine.id;
         renderLine.channel = renderChannel1.id;
-        renderLine.id = name + "RenderLine";
+        renderLine.id = name + 'RenderLine';
         renderLine.addRenderElement(psre);
 
         // Extra render elements
         var extraRenderElementIndicesVar = new SimpleObjectEditorVariable();
-        extraRenderElementIndicesVar.id = "extra" + capName + "RenderElementIndicesVar";
+        extraRenderElementIndicesVar.id = 'extra' + capName + 'RenderElementIndicesVar';
         extraRenderElementIndicesVar.defaultValue = [];
         module.addVariable(extraRenderElementIndicesVar);
 
         // Add activation formulas for all extra render elements
-        var extraRenderElements = genInfo["extra" + capName + "RenderElements"];
+        var extraRenderElements = genInfo['extra' + capName + 'RenderElements'];
         if (extraRenderElements && extraRenderElements.length > 0) {
             for (var i=0; i<extraRenderElements.length; i++) {
                 var extra = extraRenderElements[i];
                 extra.activatedUseExpression = true;
                 var varId = extraRenderElementIndicesVar.id;
-                var varIndexed = varId + "[indexInfoVar.phraseGroupIndex]";
-                extra.activatedExpression = varId + " && " + varIndexed + " && (" + varIndexed + ".indexOf(" + i + ") != -1)";
+                var varIndexed = varId + '[indexInfoVar.phraseGroupIndex]';
+                extra.activatedExpression = varId + ' && ' + varIndexed + ' && (' + varIndexed + '.indexOf(' + i + ') != -1)';
             }
         }
 
@@ -6944,14 +6944,14 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
 
     var percussionRenderAmountVar = new SimpleDoubleEditorVariable();
-    percussionRenderAmountVar.id = "percussionRenderAmountVar";
+    percussionRenderAmountVar.id = 'percussionRenderAmountVar';
     percussionRenderAmountVar.value = 1.0;
     module.addVariable(percussionRenderAmountVar);
 
 
     var ivl1SuspStrategy = new SimpleSuspAntStrategy();
     ivl1SuspStrategy.possibleLengthIncrements = [2, 1];
-    ivl1SuspStrategy.voiceLines = ["melodyVoiceLine", "inner1VoiceLine", "inner2VoiceLine", "bassVoiceLine"];
+    ivl1SuspStrategy.voiceLines = ['melodyVoiceLine', 'inner1VoiceLine', 'inner2VoiceLine', 'bassVoiceLine'];
     section.suspAntStrategies = [ivl1SuspStrategy];
 
 
@@ -6966,35 +6966,35 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
 
     function createHarmonyIndexMotif(options) {
-        var rythmId = getValueOrDefault(options, "rythmId", "rythm1");
-        var id = getValueOrDefault(options, "id", "bassMotif1");
-        var embellishStart = getValueOrDefault(options, "embellishStart", 0.0);
-        var embellishEnd = getValueOrDefault(options, "embellishEnd", 0.75);
-        var connectStart = getValueOrDefault(options, "connectStart", 0.75);
-        var connectEnd = getValueOrDefault(options, "connectEnd", 1.0);
-        var verticalOffsetType = getValueOrDefault(options, "verticalOffsetType", OffsetType.SCALE);
-        var horizontalOffsetType = getValueOrDefault(options, "horizontalOffsetType", OffsetType.SCALE);
-        var verticalIndices = getValueOrDefault(options, "verticalIndices", [0]);
-        var verticalIndicesExpression = getValueOrDefault(options, "verticalIndicesExpression", "");
-        var startVerticalIndices = getValueOrDefault(options, "startVerticalIndices", [0]);
-        var startVerticalIndicesExpression = getValueOrDefault(options, "startVerticalIndicesExpression", "");
-        var verticalOffsetDomains = getValueOrDefault(options, "verticalOffsetDomains", [[-3, -2, -1, 0, 1, 2, 3]]);
-        var verticalOffsetLikelihoods = getValueOrDefault(options, "verticalOffsetLikelihoods", [[0.2, 0.3, 0.5, 1, 0.5, 0.3, 0.2]]);
-        var addConnect = getValueOrDefault(options, "addConnect", true);
-        var addEmbellish = getValueOrDefault(options, "addEmbellish", true);
-        var fillerRelativeStrengths = getValueOrDefault(options, "fillerRelativeStrengths", [[0.75]]);
-        var fillerRelativeLengths = getValueOrDefault(options, "fillerRelativeLengths", [[0.0]]);
-        var fillerLengthModes = getValueOrDefault(options, "fillerLengthModes", [MotifZoneFillerLengthMode.RELATIVE_ADD]);
-        var fillerPositionOffsets = getValueOrDefault(options, "fillerPositionOffsets", [[0.0]]);
-        var fillerPositionOffsetUnits = getValueOrDefault(options, "fillerPositionOffsetUnits", [PositionUnit.BEATS]);
-        var fillerOffsets = getValueOrDefault(options, "fillerOffsets", []);
-        var fillerOffsetsExpression = getValueOrDefault(options, "fillerOffsetsExpression", "");
-        var fillerOffsetTypes = getValueOrDefault(options, "fillerOffsetTypes", []);
-        var verticalRelativeType = getValueOrDefault(options, "verticalRelativeType", VerticalRelativeType.VOICE_LINE);
-        var constantVerticalOffset = getValueOrDefault(options, "constantVerticalOffset", 0);
-        var constantVerticalOffsetType = getValueOrDefault(options, "constantVerticalOffsetType", OffsetType.HALF_STEP);
+        var rythmId = getValueOrDefault(options, 'rythmId', 'rythm1');
+        var id = getValueOrDefault(options, 'id', 'bassMotif1');
+        var embellishStart = getValueOrDefault(options, 'embellishStart', 0.0);
+        var embellishEnd = getValueOrDefault(options, 'embellishEnd', 0.75);
+        var connectStart = getValueOrDefault(options, 'connectStart', 0.75);
+        var connectEnd = getValueOrDefault(options, 'connectEnd', 1.0);
+        var verticalOffsetType = getValueOrDefault(options, 'verticalOffsetType', OffsetType.SCALE);
+        var horizontalOffsetType = getValueOrDefault(options, 'horizontalOffsetType', OffsetType.SCALE);
+        var verticalIndices = getValueOrDefault(options, 'verticalIndices', [0]);
+        var verticalIndicesExpression = getValueOrDefault(options, 'verticalIndicesExpression', '');
+        var startVerticalIndices = getValueOrDefault(options, 'startVerticalIndices', [0]);
+        var startVerticalIndicesExpression = getValueOrDefault(options, 'startVerticalIndicesExpression', '');
+        var verticalOffsetDomains = getValueOrDefault(options, 'verticalOffsetDomains', [[-3, -2, -1, 0, 1, 2, 3]]);
+        var verticalOffsetLikelihoods = getValueOrDefault(options, 'verticalOffsetLikelihoods', [[0.2, 0.3, 0.5, 1, 0.5, 0.3, 0.2]]);
+        var addConnect = getValueOrDefault(options, 'addConnect', true);
+        var addEmbellish = getValueOrDefault(options, 'addEmbellish', true);
+        var fillerRelativeStrengths = getValueOrDefault(options, 'fillerRelativeStrengths', [[0.75]]);
+        var fillerRelativeLengths = getValueOrDefault(options, 'fillerRelativeLengths', [[0.0]]);
+        var fillerLengthModes = getValueOrDefault(options, 'fillerLengthModes', [MotifZoneFillerLengthMode.RELATIVE_ADD]);
+        var fillerPositionOffsets = getValueOrDefault(options, 'fillerPositionOffsets', [[0.0]]);
+        var fillerPositionOffsetUnits = getValueOrDefault(options, 'fillerPositionOffsetUnits', [PositionUnit.BEATS]);
+        var fillerOffsets = getValueOrDefault(options, 'fillerOffsets', []);
+        var fillerOffsetsExpression = getValueOrDefault(options, 'fillerOffsetsExpression', '');
+        var fillerOffsetTypes = getValueOrDefault(options, 'fillerOffsetTypes', []);
+        var verticalRelativeType = getValueOrDefault(options, 'verticalRelativeType', VerticalRelativeType.VOICE_LINE);
+        var constantVerticalOffset = getValueOrDefault(options, 'constantVerticalOffset', 0);
+        var constantVerticalOffsetType = getValueOrDefault(options, 'constantVerticalOffsetType', OffsetType.HALF_STEP);
 
-//        logit("motif " + id + " vod: " + verticalOffsetDomains.join(", "));
+        //        logit("motif " + id + " vod: " + verticalOffsetDomains.join(", "));
 
         var motif = new Motif();
         motif.id = id;
@@ -7064,19 +7064,19 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     function createMotifFromMotifInfo(motifInfo, idPrefix, idPostfix) {
 
         // Split rythm properties
-        var densityCurveType = getValueOrDefault(motifInfo, "densityCurveType", PredefinedCurveType.CONSTANT_NOISE);
-        var densityAmplitude = getValueOrDefault(motifInfo, "densityAmplitude", 1);
-        var densitySeed = getValueOrDefault(motifInfo, "densitySeed", 123);
-        var densityFrequency = getValueOrDefault(motifInfo, "densityFrequency", 4);
+        var densityCurveType = getValueOrDefault(motifInfo, 'densityCurveType', PredefinedCurveType.CONSTANT_NOISE);
+        var densityAmplitude = getValueOrDefault(motifInfo, 'densityAmplitude', 1);
+        var densitySeed = getValueOrDefault(motifInfo, 'densitySeed', 123);
+        var densityFrequency = getValueOrDefault(motifInfo, 'densityFrequency', 4);
 
         // Create rythm density curve
         var densityCurve = new PredefinedCurve().setType(densityCurveType).setAmplitude(densityAmplitude).setSeed(densitySeed).setFrequency(densityFrequency);
-        densityCurve.id = idPrefix + "RythmDensityCurve" + idPostfix;
+        densityCurve.id = idPrefix + 'RythmDensityCurve' + idPostfix;
         module.addCurve(densityCurve);
 
         // Create rythm
         var rythmOptions = copyValueDeep(motifInfo);
-        rythmOptions.id = idPrefix + "Rythm" + idPostfix;
+        rythmOptions.id = idPrefix + 'Rythm' + idPostfix;
         rythmOptions.densityCurveId = densityCurve.id;
         var rythm = createSplitRythm(rythmOptions);
         module.addRythm(rythm);
@@ -7084,7 +7084,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
         // Create motif
         var motifOptions = copyValueDeep(motifInfo);
         motifOptions.rythmId = rythm.id;
-        motifOptions.id = idPrefix + "Motif" + idPostfix;
+        motifOptions.id = idPrefix + 'Motif' + idPostfix;
         var motif = createHarmonyIndexMotif(motifOptions);
 
         return motif;
@@ -7094,9 +7094,9 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     var allMotifIds = [];
 
     for (var i=0; i<genData.motifInfos.length; i++) {
-        var prefix = "melody";
+        var prefix = 'melody';
         var motifInfo = genData.motifInfos[i];
-        var motif = createMotifFromMotifInfo(motifInfo, prefix, "" + (i + 1));
+        var motif = createMotifFromMotifInfo(motifInfo, prefix, '' + (i + 1));
         module.addMotif(motif);
         allMotifIds.push(motif.id);
     }
@@ -7109,19 +7109,19 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     var inner1Pan = 80;
     var inner2Pan = 60;
 
-    var melodyRenderLine = createVoiceLineAndRenderLine({name: "melody", addHintCurve: true, // chordRootPitchClassConstraints: [[0, 1, 2, 3]],
+    var melodyRenderLine = createVoiceLineAndRenderLine({name: 'melody', addHintCurve: true, // chordRootPitchClassConstraints: [[0, 1, 2, 3]],
         ranges: [[40, 110]], penaltyRanges: [[50, 100]], pan: melodyPan,
-        chordBassPitchClassConstraintsExpression: "melodyRenderAmountVar == 0 ? [[0]] : []"}); // To force other voices to complete chords etc.
+        chordBassPitchClassConstraintsExpression: 'melodyRenderAmountVar == 0 ? [[0]] : []'}); // To force other voices to complete chords etc.
     section.addRenderLine(melodyRenderLine);
-    var inner1RenderLine = createVoiceLineAndRenderLine({name: "inner1", addHintCurve: false,
+    var inner1RenderLine = createVoiceLineAndRenderLine({name: 'inner1', addHintCurve: false,
         penaltyRanges: [[50, 80]], pan: inner1Pan,
-        chordBassPitchClassConstraintsExpression: "inner1RenderAmountVar == 0 || (bassRenderAmountVar == 0 && inner2RenderAmountVar == 0) ? [[0]] : []"});
+        chordBassPitchClassConstraintsExpression: 'inner1RenderAmountVar == 0 || (bassRenderAmountVar == 0 && inner2RenderAmountVar == 0) ? [[0]] : []'});
     section.addRenderLine(inner1RenderLine);
-    var inner2RenderLine = createVoiceLineAndRenderLine({name: "inner2", addHintCurve: false,
+    var inner2RenderLine = createVoiceLineAndRenderLine({name: 'inner2', addHintCurve: false,
         penaltyRanges: [[50, 80]], pan: inner2Pan,
-        chordBassPitchClassConstraintsExpression: "inner2RenderAmountVar == 0 || bassRenderAmountVar == 0 ? [[0]] : []"});
+        chordBassPitchClassConstraintsExpression: 'inner2RenderAmountVar == 0 || bassRenderAmountVar == 0 ? [[0]] : []'});
     section.addRenderLine(inner2RenderLine);
-    var bassRenderLine = createVoiceLineAndRenderLine({name: "bass", addHintCurve: true, chordBassPitchClassConstraints: [[0]], pan: bassPan,
+    var bassRenderLine = createVoiceLineAndRenderLine({name: 'bass', addHintCurve: true, chordBassPitchClassConstraints: [[0]], pan: bassPan,
         maxSpacings: [36], penaltyMaxSpacings: [36], ranges: [[25, 80]], penaltyRanges: [[30, 70]]});
     section.addRenderLine(bassRenderLine);
 
@@ -7129,11 +7129,11 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
 
     var percIndexMotifPatternVar = new SimpleIntegerArrayEditorVariable();
-    percIndexMotifPatternVar.id = "percIndexMotifPatternVar";
+    percIndexMotifPatternVar.id = 'percIndexMotifPatternVar';
     percIndexMotifPatternVar.value = [0];
     module.addVariable(percIndexMotifPatternVar);
     var endPercIndexMotifPatternVar = new SimpleIntegerArrayEditorVariable();
-    endPercIndexMotifPatternVar.id = "endPercIndexMotifPatternVar";
+    endPercIndexMotifPatternVar.id = 'endPercIndexMotifPatternVar';
     endPercIndexMotifPatternVar.value = [0];
     module.addVariable(endPercIndexMotifPatternVar);
 
@@ -7142,7 +7142,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     var percMRE = new FlexiblePercussionMotifRenderElement();
     percMRE.verbose = true;
     percMRE.activatedUseExpression = true;
-    percMRE.activatedExpression = percussionRenderAmountVar.id + " > 0";
+    percMRE.activatedExpression = percussionRenderAmountVar.id + ' > 0';
     percMRE.useIndexedMotifs = true;
     percMRE.motifIndicesUseExpression = true;
     percMRE.motifIndicesExpression = percIndexMotifPatternVar.id;
@@ -7158,7 +7158,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
     var percussionLine1 = new PrimitiveRenderLine();
     percussionLine1.addRenderElement(percussionPsre);
-    percussionLine1.id = "percussionLine1";
+    percussionLine1.id = 'percussionLine1';
     percussionLine1.channel = percussionRenderChannel1.id;
     section.addRenderLine(percussionLine1);
 
@@ -7169,23 +7169,23 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
     var parallelTempoChangeIndicesVar = new SimpleIntegerArrayEditorVariable();
     parallelTempoChangeIndicesVar.value = [];
-    parallelTempoChangeIndicesVar.id = "parallelTempoChangeIndicesVar";
+    parallelTempoChangeIndicesVar.id = 'parallelTempoChangeIndicesVar';
     module.addVariable(parallelTempoChangeIndicesVar);
 
 
     var sequentialTempoChangeStartIndicesVar = new SimpleIntegerArrayEditorVariable();
     sequentialTempoChangeStartIndicesVar.value = [];
-    sequentialTempoChangeStartIndicesVar.id = "sequentialTempoChangeStartIndicesVar";
+    sequentialTempoChangeStartIndicesVar.id = 'sequentialTempoChangeStartIndicesVar';
     module.addVariable(sequentialTempoChangeStartIndicesVar);
 
     var sequentialTempoChangeIndicesVar = new SimpleIntegerArrayEditorVariable();
     sequentialTempoChangeIndicesVar.value = [0];
-    sequentialTempoChangeIndicesVar.id = "sequentialTempoChangeIndicesVar";
+    sequentialTempoChangeIndicesVar.id = 'sequentialTempoChangeIndicesVar';
     module.addVariable(sequentialTempoChangeIndicesVar);
 
     var sequentialTempoChangeEndIndicesVar = new SimpleIntegerArrayEditorVariable();
     sequentialTempoChangeEndIndicesVar.value = [];
-    sequentialTempoChangeEndIndicesVar.id = "sequentialTempoChangeEndIndicesVar";
+    sequentialTempoChangeEndIndicesVar.id = 'sequentialTempoChangeEndIndicesVar';
     module.addVariable(sequentialTempoChangeEndIndicesVar);
 
 
@@ -7201,17 +7201,17 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     var sequentialTempoDesc = {
         elements: sequentialTempoElements,
         curves: sequentialTempoCurves,
-        type: "sequential",
+        type: 'sequential',
         indicesExpression: sequentialTempoChangeIndicesVar.id,
         startIndicesExpression: sequentialTempoChangeStartIndicesVar.id,
         endIndicesExpression: sequentialTempoChangeEndIndicesVar.id
     };
-//    logit("phrase tempo desc: " + JSON.stringify(phraseTempoDesc));
+    //    logit("phrase tempo desc: " + JSON.stringify(phraseTempoDesc));
     createControlLineFromDescription(sequentialTempoDesc,
         {
-//            verbose: true,
-//            multiStepVerbose: true,
-//            elementsVerbose: true,
+            //            verbose: true,
+            //            multiStepVerbose: true,
+            //            elementsVerbose: true,
             channelId: tempoChannel.id,
             controlWriteMode: ControlChannelControlWriteMode.NONE
         });
@@ -7232,15 +7232,15 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     var parallelTempoDesc = {
         elements: parallelTempoElements,
         curves: parallelTempoCurves,
-        type: "parallel",
+        type: 'parallel',
         indicesExpression: parallelTempoChangeIndicesVar.id
     };
-//    logit("phrase tempo desc: " + JSON.stringify(phraseTempoDesc));
+    //    logit("phrase tempo desc: " + JSON.stringify(phraseTempoDesc));
     var tempoControlLine = createControlLineFromDescription(parallelTempoDesc,
         {
-//            verbose: true,
-//            multiStepVerbose: true,
-//            elementsVerbose: true,
+            //            verbose: true,
+            //            multiStepVerbose: true,
+            //            elementsVerbose: true,
             channelId: tempoChannel.id,
             controlWriteMode: ControlChannelControlWriteMode.NONE
         });
@@ -7258,23 +7258,23 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     }
 
     var structure = new Structure();
-    structure.id = "structure";
+    structure.id = 'structure';
 
     var measureVelocityCurve = new LinearInterpolationCurve();
-    measureVelocityCurve.id = "measureVelocityCurve";
+    measureVelocityCurve.id = 'measureVelocityCurve';
     module.addCurve(measureVelocityCurve);
     measureVelocityCurve.xValuesUseExpression = true;
     measureVelocityCurve.yValuesUseExpression = true;
-    measureVelocityCurve.xValuesExpression = "[0, 1, 2, 3, 3.99]";
-    measureVelocityCurve.yValuesExpression = "[1.0, 0.9, 0.95, 0.85, 0.85]";
+    measureVelocityCurve.xValuesExpression = '[0, 1, 2, 3, 3.99]';
+    measureVelocityCurve.yValuesExpression = '[1.0, 0.9, 0.95, 0.85, 0.85]';
 
 
 
     var sectionVelocityCurve = new ComputationCurve();
-    sectionVelocityCurve.id = "sectionVelocityCurve";
+    sectionVelocityCurve.id = 'sectionVelocityCurve';
     module.addCurve(sectionVelocityCurve);
     var modCompute = new PeriodicCurveComputation();
-//    modCompute.verbose = true;
+    //    modCompute.verbose = true;
     modCompute.inputCurve = measureVelocityCurve.id;
     modCompute.periodUseExpression = true;
     modCompute.periodExpression = numeratorVar.id;
@@ -7289,9 +7289,9 @@ function createTestModule(seed, inputGenInfo, resultObj) {
             var sm = new SetVariableValueSectionModifier().setVariable(modInfo[0]);
             var valueExpression = modInfo[1];
 
-            if (typeof(valueExpression) == "string") {
+            if (typeof(valueExpression) == 'string') {
                 if (!valueExpression.match(/[a-z]/i)) {
-//                    logit("Value expression is simple? " + valueExpression);
+                    //                    logit("Value expression is simple? " + valueExpression);
                     sm.value = eval(valueExpression);
                 } else {
                     sm.valueExpression = valueExpression;
@@ -7300,11 +7300,11 @@ function createTestModule(seed, inputGenInfo, resultObj) {
                 sm.valueExpression = valueExpression;
             }
 
-            sm.id = "Set " + modInfo[0] + " section " + index;
+            sm.id = 'Set ' + modInfo[0] + ' section ' + index;
             arr.push(sm);
         }
 
-        var prefixes = ["melody", "inner1", "inner2", "bass", "percussion"];
+        var prefixes = ['melody', 'inner1', 'inner2', 'bass', 'percussion'];
         var counts = [3, 3, 3, 1];
         for (var i=0; i<prefixes.length; i++) {
             for (var j=0; j<counts[i]; j++) {
@@ -7313,9 +7313,9 @@ function createTestModule(seed, inputGenInfo, resultObj) {
                 nvsm.curve = sectionVelocityCurve.id;
 
                 nvsm.curveMultiplierUseExpression = true;
-                nvsm.curveMultiplierExpression = prefixes[i] + "RenderAmountVar * 0.4 + 0.6";
-                nvsm.channel = prefixes[i] + "RenderChannel" + (j+1);
-//                logit(i + " " + j);
+                nvsm.curveMultiplierExpression = prefixes[i] + 'RenderAmountVar * 0.4 + 0.6';
+                nvsm.channel = prefixes[i] + 'RenderChannel' + (j+1);
+                //                logit(i + " " + j);
                 arr.push(nvsm);
             }
         }
@@ -7332,21 +7332,21 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
     module.addStructure(structure);
 
-//    for (var i=0; i<module.controlChannels.length; i++) {
-//        var cch = module.controlChannels[i];
-//        logit("cch.id: " + cch.id);
-//    }
+    //    for (var i=0; i<module.controlChannels.length; i++) {
+    //        var cch = module.controlChannels[i];
+    //        logit("cch.id: " + cch.id);
+    //    }
 
 
-    if (!(typeof(WebAudioRenderer) === "undefined")) {
+    if (!(typeof(WebAudioRenderer) === 'undefined')) {
         var waRenderer = new WebAudioRenderer();
-        waRenderer.id = "webAudioRenderer";
+        waRenderer.id = 'webAudioRenderer';
         waRenderer.structure = module.getStructures()[0].id;
 
         var waEnv1 = new WebAudioADSREnvelope();
-        waEnv1.id = "env1";
+        waEnv1.id = 'env1';
         var waEnv2 = new WebAudioADSREnvelope();
-        waEnv2.id = "env2";
+        waEnv2.id = 'env2';
         waEnv2.attack = 0.01;
         waEnv2.release = 0.2;
         waEnv2.sustain = 0.0;
@@ -7354,32 +7354,32 @@ function createTestModule(seed, inputGenInfo, resultObj) {
         waRenderer.envelopes = [waEnv1, waEnv2];
 
         var bufferCurve1 = new PredefinedCurve();
-        bufferCurve1.id = "bufferCurve1";
+        bufferCurve1.id = 'bufferCurve1';
         bufferCurve1.type = PredefinedCurveType.SQUARE;
         module.curves.push(bufferCurve1);
 
         var quadNoiseCurve1 = new PredefinedCurve();
-        quadNoiseCurve1.id = "bufferCurve2";
+        quadNoiseCurve1.id = 'bufferCurve2';
         quadNoiseCurve1.type = PredefinedCurveType.QUADRATIC_NOISE;
         quadNoiseCurve1.frequency = 40;
         module.curves.push(quadNoiseCurve1);
         var quadNoiseCurve2 = new PredefinedCurve();
-        quadNoiseCurve2.id = "bufferCurve3";
+        quadNoiseCurve2.id = 'bufferCurve3';
         quadNoiseCurve2.type = PredefinedCurveType.QUADRATIC_NOISE;
         quadNoiseCurve2.frequency = 220;
         module.curves.push(quadNoiseCurve2);
 
         var waBuffer1 = new WebAudioCurveBufferSource();
-        waBuffer1.id = "buffer1";
+        waBuffer1.id = 'buffer1';
         waBuffer1.curve = bufferCurve1.id;
 
         var waBuffer2 = new WebAudioCurveBufferSource();
-        waBuffer2.id = "buffer2";
+        waBuffer2.id = 'buffer2';
         waBuffer2.curve = quadNoiseCurve1.id;
         waBuffer2.adaptToFrequency = false;
 
         var waBuffer3 = new WebAudioCurveBufferSource();
-        waBuffer3.id = "buffer3";
+        waBuffer3.id = 'buffer3';
         waBuffer3.curve = quadNoiseCurve2.id;
         waBuffer3.adaptToFrequency = false;
 
@@ -7389,8 +7389,8 @@ function createTestModule(seed, inputGenInfo, resultObj) {
         function createWebAudioZone(bufferId, noteInterval, ampEnvId) {
             var result = new WebAudioSourceZone();
             result.noteInterval = noteInterval ? noteInterval : [0, 127];
-            result.id = "waSourceZone" + zoneCounter;
-            result.amplitudeEnvelope = ampEnvId ? ampEnvId : "";
+            result.id = 'waSourceZone' + zoneCounter;
+            result.amplitudeEnvelope = ampEnvId ? ampEnvId : '';
             zoneCounter++;
             result.source = bufferId;
             return result;
@@ -7403,38 +7403,38 @@ function createTestModule(seed, inputGenInfo, resultObj) {
         var waSourceZone6 = createWebAudioZone(waBuffer3.id, [42, 42], waEnv2.id);
 
         var waInstr1 = new WebAudioInstrument();
-        waInstr1.id = "waInstrument1";
+        waInstr1.id = 'waInstrument1';
         waInstr1.zones = [waSourceZone1];
 
         var waInstr2 = new WebAudioInstrument();
-        waInstr2.id = "waInstrument2";
+        waInstr2.id = 'waInstrument2';
         waInstr2.zones = [waSourceZone2];
 
         var waInstr3 = new WebAudioInstrument();
-        waInstr3.id = "waInstrument3";
+        waInstr3.id = 'waInstrument3';
         waInstr3.zones = [waSourceZone3];
 
         var waInstr4 = new WebAudioInstrument();
-        waInstr4.id = "percussionInstrument";
+        waInstr4.id = 'percussionInstrument';
         waInstr4.zones = [waSourceZone4, waSourceZone5, waSourceZone6];
 
         waRenderer.instruments = [waInstr1, waInstr2, waInstr3, waInstr4];
 
         var waChannelInfo1 = new WebAudioRenderChannelInfo();
         waChannelInfo1.instrument = waInstr1.id;
-        waChannelInfo1.renderChannel = "melodyRenderChannel1";
+        waChannelInfo1.renderChannel = 'melodyRenderChannel1';
 
         var waChannelInfo2 = new WebAudioRenderChannelInfo();
         waChannelInfo2.instrument = waInstr2.id;
-        waChannelInfo2.renderChannel = "inner1RenderChannel1";
+        waChannelInfo2.renderChannel = 'inner1RenderChannel1';
 
         var waChannelInfo5 = new WebAudioRenderChannelInfo();
         waChannelInfo5.instrument = waInstr2.id;
-        waChannelInfo5.renderChannel = "inner2RenderChannel1";
+        waChannelInfo5.renderChannel = 'inner2RenderChannel1';
 
         var waChannelInfo3 = new WebAudioRenderChannelInfo();
         waChannelInfo3.instrument = waInstr3.id;
-        waChannelInfo3.renderChannel = "bassRenderChannel1";
+        waChannelInfo3.renderChannel = 'bassRenderChannel1';
 
         var waChannelInfo4 = new WebAudioRenderChannelInfo();
         waChannelInfo4.instrument = waInstr4.id;
@@ -7444,21 +7444,21 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
         module.addRenderer(waRenderer);
     }
-//    if (!(typeof(PianoRollRenderer) === "undefined")) {
-//        var prRenderer = new PianoRollRenderer();
-//        prRenderer.id = "pianoRollRenderer";
-//        prRenderer.structure = module.getStructures()[0].id;
-//        module.addRenderer(prRenderer);
-//    }
-    if (!(typeof(JsonAudioRenderer) === "undefined")) {
+    //    if (!(typeof(PianoRollRenderer) === "undefined")) {
+    //        var prRenderer = new PianoRollRenderer();
+    //        prRenderer.id = "pianoRollRenderer";
+    //        prRenderer.structure = module.getStructures()[0].id;
+    //        module.addRenderer(prRenderer);
+    //    }
+    if (!(typeof(JsonAudioRenderer) === 'undefined')) {
         var jsonRenderer = new JsonRenderer();
-        jsonRenderer.id = "jsonRenderer";
+        jsonRenderer.id = 'jsonRenderer';
         jsonRenderer.structure = module.getStructures()[0].id;
         module.addRenderer(jsonRenderer);
     }
-    if (!(typeof(MidiRenderer) === "undefined")) {
+    if (!(typeof(MidiRenderer) === 'undefined')) {
         var midiRenderer = new MidiRenderer();
-        midiRenderer.id = "midiRenderer";
+        midiRenderer.id = 'midiRenderer';
         midiRenderer.structure = module.getStructures()[0].id;
 
         function getIdsWithIdContains(str, arr) {
@@ -7479,23 +7479,23 @@ function createTestModule(seed, inputGenInfo, resultObj) {
         var chorusSendType = MidiControllerType.EFFECTS_DEPTH_3;
 
 
-        var melodyRenderChannels = getIdsWithIdContains("melodyRenderChannel");
-        var inner1RenderChannels = getIdsWithIdContains("inner1RenderChannel");
-        var inner2RenderChannels = getIdsWithIdContains("inner2RenderChannel");
-        var bassRenderChannels = getIdsWithIdContains("bassRenderChannel");
+        var melodyRenderChannels = getIdsWithIdContains('melodyRenderChannel');
+        var inner1RenderChannels = getIdsWithIdContains('inner1RenderChannel');
+        var inner2RenderChannels = getIdsWithIdContains('inner2RenderChannel');
+        var bassRenderChannels = getIdsWithIdContains('bassRenderChannel');
 
-        var controlChannels = getIdsWithIdContains("ControlChannel", module.controlChannels);
+        var controlChannels = getIdsWithIdContains('ControlChannel', module.controlChannels);
 
         var controllerTypeMap = {
-            "FilterF": MidiControllerType.SOUND_CONTROLLER_2,
-            "FilterQ": MidiControllerType.SOUND_CONTROLLER_5,
-            "Pan": MidiControllerType.PAN
+            'FilterF': MidiControllerType.SOUND_CONTROLLER_2,
+            'FilterQ': MidiControllerType.SOUND_CONTROLLER_5,
+            'Pan': MidiControllerType.PAN
         }
 
         if (genInfo.exportChordsToNewChannel) {
             var chId = chordsRenderChannel.id;
             var midiMap = new MidiChannelMap();
-            midiMap.id = "Map for " + chId;
+            midiMap.id = 'Map for ' + chId;
             midiMap.channel = 15;
             midiMap.renderChannel = chId;
             midiMap.program = 1;
@@ -7506,7 +7506,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
             var mergeIndex = genInfo.mergeChannels ? 0 : i;
             var chId = melodyRenderChannels[i];
             var midiMap = new MidiChannelMap();
-            midiMap.id = "Map for " + chId;
+            midiMap.id = 'Map for ' + chId;
             midiMap.channel = mergeIndex;
             midiMap.renderChannel = chId;
             var program = genData.melodyChannelInstruments[mergeIndex % genData.melodyChannelInstruments.length];
@@ -7530,32 +7530,32 @@ function createTestModule(seed, inputGenInfo, resultObj) {
                 var chId = controlChannels[i];
                 var controlMap = new MidiControlChannelMap();
                 controlMap.amplitude = 127.0;
-                controlMap.id = "Map for " + chId;
+                controlMap.id = 'Map for ' + chId;
                 controlMap.controlChannel = chId;
-                var offset = chId.indexOf("ControlChannel") + "ControlChannel".length;
+                var offset = chId.indexOf('ControlChannel') + 'ControlChannel'.length;
                 var controllerStr = chId.substring(offset, chId.length - 1);
 
-                var voiceStr = chId.substring(0, chId.indexOf("ControlChannel"));
+                var voiceStr = chId.substring(0, chId.indexOf('ControlChannel'));
                 //            logit("Voice str: '" + voiceStr + "'");
 
                 var voiceIndex = parseInt(chId.substring(chId.length - 1, chId.length));
                 //            logit("Voice index: '" + voiceIndex + "'");
 
                 var channelOffset = 0;
-                if (voiceStr == "inner1") {
+                if (voiceStr == 'inner1') {
                     channelOffset = 3;
-                } else if (voiceStr == "inner2") {
+                } else if (voiceStr == 'inner2') {
                     channelOffset = 6;
-                } else if (voiceStr == "percussion") {
+                } else if (voiceStr == 'percussion') {
                     channelOffset = 9;
-                } else if (voiceStr == "bass") {
+                } else if (voiceStr == 'bass') {
                     channelOffset = 11;
                 }
                 controlMap.channel = voiceIndex + channelOffset - 1;
 
                 var controllerType = controllerTypeMap[controllerStr];
                 if (typeof(controllerType) === 'undefined') {
-                    logit("Could not find controller type for " + controllerStr);
+                    logit('Could not find controller type for ' + controllerStr);
                 } else {
                     controlMap.controllerType = controllerType;
                     midiRenderer.controlChannelMaps.push(controlMap);
@@ -7574,7 +7574,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
             var mergeIndex = genInfo.mergeChannels ? 3 : i + 3;
             var chId = inner1RenderChannels[i];
             var midiMap = new MidiChannelMap();
-            midiMap.id = "Map for " + chId;
+            midiMap.id = 'Map for ' + chId;
             midiMap.channel = mergeIndex;
             midiMap.renderChannel = chId;
             var program = genData.inner1ChannelInstruments[mergeIndex % genData.inner1ChannelInstruments.length];
@@ -7597,7 +7597,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
                     new InitialMidiControllerMessage().setType(chorusSendType).setValue(inner1ChorusSend)
                 ];
             }
-//            midiMap.initialControllerMessages = [new InitialMidiControllerMessage().setType(MidiControllerType.VOLUME).setValue(64)];
+            //            midiMap.initialControllerMessages = [new InitialMidiControllerMessage().setType(MidiControllerType.VOLUME).setValue(64)];
             midiRenderer.channelMaps.push(midiMap);
         }
 
@@ -7606,7 +7606,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
             var chId = inner2RenderChannels[i];
             var midiMap = new MidiChannelMap();
-            midiMap.id = "Map for " + chId;
+            midiMap.id = 'Map for ' + chId;
             midiMap.channel = mergeIndex;
             midiMap.renderChannel = chId;
             var program = genData.inner2ChannelInstruments[mergeIndex % genData.inner2ChannelInstruments.length];
@@ -7630,7 +7630,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
                     new InitialMidiControllerMessage().setType(chorusSendType).setValue(inner2ChorusSend)
                 ];
             }
-//            midiMap.initialControllerMessages = [new InitialMidiControllerMessage().setType(MidiControllerType.VOLUME).setValue(64)];
+            //            midiMap.initialControllerMessages = [new InitialMidiControllerMessage().setType(MidiControllerType.VOLUME).setValue(64)];
             midiRenderer.channelMaps.push(midiMap);
         }
 
@@ -7639,7 +7639,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
 
             var chId = bassRenderChannels[i];
             var midiMap = new MidiChannelMap();
-            midiMap.id = "Map for " + chId;
+            midiMap.id = 'Map for ' + chId;
             midiMap.channel = mergeIndex;
             midiMap.renderChannel = chId;
             var program = genData.bassChannelInstruments[mergeIndex % genData.bassChannelInstruments.length];
@@ -7662,7 +7662,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
         }
 
         var percussionMidiMap = new MidiChannelMap();
-        percussionMidiMap.id = "Map for " + percussionRenderChannel1.id;
+        percussionMidiMap.id = 'Map for ' + percussionRenderChannel1.id;
         percussionMidiMap.channel = 9;
         percussionMidiMap.renderChannel = percussionRenderChannel1.id;
         percussionMidiMap.program = 0;
@@ -7675,7 +7675,7 @@ function createTestModule(seed, inputGenInfo, resultObj) {
                 new InitialMidiControllerMessage().setType(chorusSendType).setValue(127 * genInfo.percussionChorusSend)
             ];
         }
-//        percussionMidiMap.initialControllerMessages = [new InitialMidiControllerMessage().setType(MidiControllerType.VOLUME).setValue(64)];
+        //        percussionMidiMap.initialControllerMessages = [new InitialMidiControllerMessage().setType(MidiControllerType.VOLUME).setValue(64)];
         midiRenderer.channelMaps.push(percussionMidiMap);
 
         module.addRenderer(midiRenderer);
@@ -7687,34 +7687,34 @@ function createTestModule(seed, inputGenInfo, resultObj) {
     // Remove expression that are unneccesary
     traverseValue(module, function(v, propName, obj) {
 
-//        if (propName.indexOf("_") >= 0) {
-//            logit(propName);
-//        }
+        //        if (propName.indexOf("_") >= 0) {
+        //            logit(propName);
+        //        }
 
-        if (stringEndsWith(propName, "Expression")) {
-            var valuePropName = propName.substring(0, propName.indexOf("Expression"));
-            var useStr = valuePropName + "UseExpression";
+        if (stringEndsWith(propName, 'Expression')) {
+            var valuePropName = propName.substring(0, propName.indexOf('Expression'));
+            var useStr = valuePropName + 'UseExpression';
 
             if (obj[useStr]) {
                 // Found expression
-                if (typeof(v) === "string" && !v.match(/[a-z]/i)) {
+                if (typeof(v) === 'string' && !v.match(/[a-z]/i)) {
                     if (typeof(obj[valuePropName]) != 'undefined') {
                         obj[valuePropName] = eval(v);
                         obj[useStr] = false;
-//                        logit("Evaluated expression value " + v + " to " + JSON.stringify(obj[valuePropName]));
+                        //                        logit("Evaluated expression value " + v + " to " + JSON.stringify(obj[valuePropName]));
                     } else {
-//                        logit("Value prop name was undefined? " + valuePropName);
+                        //                        logit("Value prop name was undefined? " + valuePropName);
                     }
                 } else {
-//                    logit("Will evaluate expression " + v + " for property " + propName + " on obj " + obj._constructorName);
+                    //                    logit("Will evaluate expression " + v + " for property " + propName + " on obj " + obj._constructorName);
                 }
-//                    logit("useStr for " + propName + " = " + useStr + " value: " + v);
+                //                    logit("useStr for " + propName + " = " + useStr + " value: " + v);
             }
         }
 
-//        if (propName.indexOf("Expression") > 0) {
-//            logit("Found expression property: " + propName + " " + v);
-//        }
+        //        if (propName.indexOf("Expression") > 0) {
+        //            logit("Found expression property: " + propName + " " + v);
+        //        }
     });
 
     return module;

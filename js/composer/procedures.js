@@ -1,8 +1,8 @@
 
 class EditorProcedure {
     constructor() {
-        this.id = "";
-        this._constructorName = "EditorProcedure";
+        this.id = '';
+        this._constructorName = 'EditorProcedure';
     }
 
     getProcedure(module) {
@@ -13,9 +13,9 @@ class EditorProcedure {
 class CustomEditorProcedure extends EditorProcedure {
     constructor() {
         super();
-        this.procedureText = "";
+        this.procedureText = '';
         
-        this._constructorName = "CustomEditorProcedure";
+        this._constructorName = 'CustomEditorProcedure';
     }
 
     getProcedure(module) {

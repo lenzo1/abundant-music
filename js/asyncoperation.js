@@ -24,35 +24,35 @@ var WorkerTaskType = {
 
 function AsyncOperation(options) {
 
-    this.requireLogin = getValueOrDefault(options, "requireLogin", true);
+    this.requireLogin = getValueOrDefault(options, 'requireLogin', true);
 
-    this.onDone = getValueOrDefault(options, "onDone", function(op) {
-//        console.log("No onDone function specified...");
+    this.onDone = getValueOrDefault(options, 'onDone', function(op) {
+        //        console.log("No onDone function specified...");
     });
-    this.onFail = getValueOrDefault(options, "onFail", function(op) {
-//        console.log("No onDone function specified...");
+    this.onFail = getValueOrDefault(options, 'onFail', function(op) {
+        //        console.log("No onDone function specified...");
     });
-    this.onCancel = getValueOrDefault(options, "onCancel", function(op) {
+    this.onCancel = getValueOrDefault(options, 'onCancel', function(op) {
     });
-    this.onSuccess = getValueOrDefault(options, "onSuccess", function(op) {
+    this.onSuccess = getValueOrDefault(options, 'onSuccess', function(op) {
     });
 
-    this.id = getValueOrDefault(options, "id", "theId");
+    this.id = getValueOrDefault(options, 'id', 'theId');
 
-    this.caption = getValueOrDefault(options, "caption", "Progress " + this.id + "(" + this.type + ")");
-    this.doneCaption = getValueOrDefault(options, "doneCaption", "Done!");
-    this.maxCount = getValueOrDefault(options, "maxCount", 1);
-    this.progressDivId = getValueOrDefault(options, "progressDivId", "progressdiv");
+    this.caption = getValueOrDefault(options, 'caption', 'Progress ' + this.id + '(' + this.type + ')');
+    this.doneCaption = getValueOrDefault(options, 'doneCaption', 'Done!');
+    this.maxCount = getValueOrDefault(options, 'maxCount', 1);
+    this.progressDivId = getValueOrDefault(options, 'progressDivId', 'progressdiv');
 
-    this.resultDivId = getValueOrDefault(options, "resultDivId", "progressdiv");
+    this.resultDivId = getValueOrDefault(options, 'resultDivId', 'progressdiv');
 
-    this.createProgress = getValueOrDefault(options, "createProgress", true);
+    this.createProgress = getValueOrDefault(options, 'createProgress', true);
 
 
     this.done = false;
     this.cancelled = false;
 
-    this.failReason = "";
+    this.failReason = '';
 
     this.removeDelay = 2000; // Milliseconds before the progress stuff is removed
     this.$progressBar = null;
@@ -86,7 +86,7 @@ AsyncOperation.prototype.cancel = function() {
 AsyncOperation.prototype.removeProgress = function(fraction) {
     if (this.$progressComp) {
         var that = this;
-        this.$progressComp.hide("fast", function() {
+        this.$progressComp.hide('fast', function() {
             that.$progressComp.remove();
         });
     }
@@ -96,18 +96,18 @@ AsyncOperation.prototype.removeProgress = function(fraction) {
 
 AsyncOperation.prototype.addResultUrl = function(resultUrl) {
     if (this.resultDivId) {
-        var $resultDiv = $("#" + this.resultDivId);
+        var $resultDiv = $('#' + this.resultDivId);
 
-        $resultDiv.prepend($("<div style=\"display: none\" class=\"ui-widget-content ui-corner-all progress-component\" ><a href=\"" + resultUrl + "\">Result</a></div>"));
-        $resultDiv.show("fast");
+        $resultDiv.prepend($('<div style="display: none" class="ui-widget-content ui-corner-all progress-component" ><a href="' + resultUrl + '">Result</a></div>'));
+        $resultDiv.show('fast');
     }
 };
 
 
 AsyncOperation.prototype.updateProgress = function(intProgress) {
     if (this.createProgress) {
-        var barId = this.$progressBar.attr("id");
-        this.$progressBar.progressbar("option", "value", intProgress);
+        var barId = this.$progressBar.attr('id');
+        this.$progressBar.progressbar('option', 'value', intProgress);
     }
 };
 
@@ -120,7 +120,7 @@ AsyncOperation.prototype.success = function() {
         // Some visual indication that the operation is a success
         that.updateProgress(100);
         that.$captionComp.html(that.doneCaption);
-        that.$cancelButton.button("disable");
+        that.$cancelButton.button('disable');
     }
     if (that.onSuccess) {
         that.onSuccess(that);
@@ -140,9 +140,9 @@ AsyncOperation.prototype.fail = function() {
 
     if (this.$progressComp) {
         // Some visual indication that the operation is a failure
-        var captionId = this.id + "_caption";
-        var failStr = this.failReason ? this.failReason : "Failed...";
-        this.$progressComp.find("#" + captionId)[0].innerHTML = failStr;
+        var captionId = this.id + '_caption';
+        var failStr = this.failReason ? this.failReason : 'Failed...';
+        this.$progressComp.find('#' + captionId)[0].innerHTML = failStr;
     }
     if (that.onFail) {
         that.onFail(that);
@@ -156,28 +156,28 @@ AsyncOperation.prototype.fail = function() {
 
 AsyncOperation.prototype.addProgress = function() {
     if (this.createProgress) {
-        var $progressDiv = $("#" + this.progressDivId);
+        var $progressDiv = $('#' + this.progressDivId);
 
-        var barId = this.id + "_progressbar";
-        var captionId = this.id + "_caption";
-        var cancelButtonId = this.id + "_cancelbutton";
+        var barId = this.id + '_progressbar';
+        var captionId = this.id + '_caption';
+        var cancelButtonId = this.id + '_cancelbutton';
         var progressStrs = [
-            "<div style=\"display: none\" class=\"ui-widget-content ui-corner-all progress-component\" >",
-            "<div class=\"ui-widget\" id=\"" + captionId + "\" >" + this.caption + "</div>",
-            "<div id=\"" + barId + "\" class=\"progress-bar\" ></div>",
-            "<button id=\"" + cancelButtonId + "\">Cancel</button>",
-            "</div>"];
+            '<div style="display: none" class="ui-widget-content ui-corner-all progress-component" >',
+            '<div class="ui-widget" id="' + captionId + '" >' + this.caption + '</div>',
+            '<div id="' + barId + '" class="progress-bar" ></div>',
+            '<button id="' + cancelButtonId + '">Cancel</button>',
+            '</div>'];
 
-        this.$progressComp = $(progressStrs.join(""));
+        this.$progressComp = $(progressStrs.join(''));
 
         $progressDiv.prepend(this.$progressComp);
-        this.$progressComp.show("fast");
+        this.$progressComp.show('fast');
 
-//        logit("Bar id " + barId);
-        this.$progressBar = this.$progressComp.find("#" + barId);
+        //        logit("Bar id " + barId);
+        this.$progressBar = this.$progressComp.find('#' + barId);
         this.$progressBar.progressbar();
-        this.$captionComp = this.$progressComp.find("#" + captionId);
-        this.$cancelButton = this.$progressComp.find("#" + cancelButtonId);
+        this.$captionComp = this.$progressComp.find('#' + captionId);
+        this.$cancelButton = this.$progressComp.find('#' + cancelButtonId);
         this.$cancelButton.button();
 
         var that = this;
@@ -190,14 +190,14 @@ AsyncOperation.prototype.addProgress = function() {
 
 function LoadSamplesAsyncOperation(options) {
     if (options) {
-        options.caption = "Loading samples...";
+        options.caption = 'Loading samples...';
     }
     AsyncOperation.call(this, options);
     this.requireLogin = false;
 
-    this.audioType = getValueOrDefault(options, "audioType", "audio/mpeg");
+    this.audioType = getValueOrDefault(options, 'audioType', 'audio/mpeg');
 
-    this.bufferUrls = getValueOrDefault(options, "bufferUrls", []);
+    this.bufferUrls = getValueOrDefault(options, 'bufferUrls', []);
 
     this.resultBuffers = [];
     this.loadedCount = 0;
@@ -225,9 +225,9 @@ LoadSM2SoundsAsyncOperation.prototype.start = function() {
     if (!LoadSM2SoundsAsyncOperation.prototype.sm2Loaded) {
 
         // Load the script dynamically
-        $.ajax("js/soundmanager2-nodebug-jsmin.js", {
+        $.ajax('js/soundmanager2-nodebug-jsmin.js', {
             complete: function(jqXhr, textStatus) {
-                if (textStatus == "success") {
+                if (textStatus == 'success') {
                     $.globalEval(jqXhr.responseText);
                     // Setup the sound manager
 
@@ -235,14 +235,14 @@ LoadSM2SoundsAsyncOperation.prototype.start = function() {
                         url: 'swf/',
 
                         onready: function() {
-                            logit("Soundmanager is ready!!!");
+                            logit('Soundmanager is ready!!!');
                             LoadSM2SoundsAsyncOperation.prototype.sm2Loaded = true;
                             that.start();
                         }
                     });
                 } else {
-                    console.log("Could not load: " + textStatus);
-                    that.failReason = "Unable to initialize player";
+                    console.log('Could not load: ' + textStatus);
+                    that.failReason = 'Unable to initialize player';
                     that.fail();
                 }
             },
@@ -287,7 +287,7 @@ LoadSM2SoundsAsyncOperation.prototype.start = function() {
             sound.load();
             addBuffer(sound, url, index);
 
-//            addBuffer(sound, url, index);
+            //            addBuffer(sound, url, index);
         }
     }
 
@@ -299,7 +299,7 @@ LoadSM2SoundsAsyncOperation.prototype.start = function() {
             }
         }
     } catch (ex) {
-        that.failReason = "Error when loading samples";
+        that.failReason = 'Error when loading samples';
         that.fail();
         throw ex;
     }
@@ -310,7 +310,7 @@ LoadSM2SoundsAsyncOperation.prototype.start = function() {
 function LoadAudioBuffersAsyncOperation(options) {
     LoadSamplesAsyncOperation.call(this, options);
 
-    this.audioContext = getValueOrDefault(options, "audioContext", null);
+    this.audioContext = getValueOrDefault(options, 'audioContext', null);
 }
 LoadAudioBuffersAsyncOperation.prototype = new LoadSamplesAsyncOperation();
 
@@ -365,7 +365,7 @@ LoadAudioBuffersAsyncOperation.prototype.start = function() {
 
         if (theBuffer) {
             // Already found the buffer
-//            logit("reusing buffer " + url);
+            //            logit("reusing buffer " + url);
             addBuffer(theBuffer, url, index);
         } else {
             var request = new XMLHttpRequest();
@@ -396,17 +396,17 @@ LoadAudioBuffersAsyncOperation.prototype.start = function() {
 
 function AsyncServerChildTask(options) {
     AsyncOperation.call(this, options);
-    this.taskType = getValueOrDefault(options, "taskType", AsyncServerChildTaskType.RENDER);
-    this.user = getValueOrDefault(options, "user", "guest");
-    this.content = getValueOrDefault(options, "content", {});
+    this.taskType = getValueOrDefault(options, 'taskType', AsyncServerChildTaskType.RENDER);
+    this.user = getValueOrDefault(options, 'user', 'guest');
+    this.content = getValueOrDefault(options, 'content', {});
 
     switch (this.taskType) {
-        case AsyncServerChildTaskType.EXPORT_MIDI:
-        case AsyncServerChildTaskType.EXPORT_MP3:
-        case AsyncServerChildTaskType.EXPORT_OGG:
-        case AsyncServerChildTaskType.RENDER:
-            this.requireLogin = false;
-            break;
+    case AsyncServerChildTaskType.EXPORT_MIDI:
+    case AsyncServerChildTaskType.EXPORT_MP3:
+    case AsyncServerChildTaskType.EXPORT_OGG:
+    case AsyncServerChildTaskType.RENDER:
+        this.requireLogin = false;
+        break;
     }
 
     this.resultUrl = null;
@@ -425,20 +425,20 @@ AsyncServerChildTask.prototype.cancel = function() {
     AsyncOperation.prototype.cancel.call(this);
 
     var message = {
-        type: "cancelTask",
+        type: 'cancelTask',
         taskName: this.taskName
     };
 
     var that = this;
-    $.ajax("task", {
+    $.ajax('task', {
         data: JSON.stringify(message),
-        contentType: "application/json",
+        contentType: 'application/json',
         complete: function(jqXhr, textStatus) {
-            if (textStatus == "success") {
+            if (textStatus == 'success') {
                 var response = $.parseJSON(jqXhr.responseText);
-//                logit(" Received task name " + that.taskName);
+                //                logit(" Received task name " + that.taskName);
             } else {
-                console.log("Task cancel ajax complete. Text status not success: " + textStatus);
+                console.log('Task cancel ajax complete. Text status not success: ' + textStatus);
             }
         },
         type: 'POST'
@@ -454,94 +454,94 @@ AsyncServerChildTask.prototype.update = function() {
 
     // Get progress reports from server
     var message = {
-        type: "getTaskProgress",
+        type: 'getTaskProgress',
         taskType: this.taskType,
         taskName: this.taskName
     };
 
     if (this.taskName && !this.done) {
         var that = this;
-        $.ajax("task", {
+        $.ajax('task', {
             data: JSON.stringify(message),
-            contentType: "application/json",
+            contentType: 'application/json',
             complete: function(jqXhr, textStatus) {
 
                 if (that.done) {
                     return; // A result that comes after the task is done, just ignore it
                 }
 
-                if (textStatus == "success") {
+                if (textStatus == 'success') {
 
                     var response = $.parseJSON(jqXhr.responseText);
 
-//                    logit(" received progress result: " + jqXhr.responseText);
+                    //                    logit(" received progress result: " + jqXhr.responseText);
 
-                    if (response.type == "progress") {
+                    if (response.type == 'progress') {
 
                         var intProgress = Math.round(100 * response.progress);
 
                         that.updateProgress(intProgress);
                         if (response.progress == 1 && (response.result || response.resultUrl)) {
                             if (response.resultUrl) {
-//                            <audio controls="controls">
-//                                <source src="horse.ogg" type="audio/ogg">
-//                                    <source src="horse.mp3" type="audio/mp3">
-//                                    Your browser does not support the audio element.
-//                                    </audio>
+                                //                            <audio controls="controls">
+                                //                                <source src="horse.ogg" type="audio/ogg">
+                                //                                    <source src="horse.mp3" type="audio/mp3">
+                                //                                    Your browser does not support the audio element.
+                                //                                    </audio>
 
                                 if (that.resultDivId) {
-                                    var $resultDiv = $("#" + that.resultDivId);
+                                    var $resultDiv = $('#' + that.resultDivId);
 
                                     var addAudioElement = true;
 
-                                    var audioType = "audio/mp3";
+                                    var audioType = 'audio/mp3';
 
                                     switch (that.taskType) {
-                                        case AsyncServerChildTaskType.EXPORT_MP3:
-                                            addAudioElement = true;
-                                            audioType = "audio/mp3";
-                                            break;
-                                        case AsyncServerChildTaskType.EXPORT_OGG:
-                                            addAudioElement = true;
-                                            audioType = "audio/ogg";
-                                            break;
-                                        case AsyncServerChildTaskType.EXPORT_WAV:
-                                        case AsyncServerChildTaskType.EXPORT_MIDI:
-                                        case AsyncServerChildTaskType.RENDER:
-                                            addAudioElement = false;
-                                            break;
+                                    case AsyncServerChildTaskType.EXPORT_MP3:
+                                        addAudioElement = true;
+                                        audioType = 'audio/mp3';
+                                        break;
+                                    case AsyncServerChildTaskType.EXPORT_OGG:
+                                        addAudioElement = true;
+                                        audioType = 'audio/ogg';
+                                        break;
+                                    case AsyncServerChildTaskType.EXPORT_WAV:
+                                    case AsyncServerChildTaskType.EXPORT_MIDI:
+                                    case AsyncServerChildTaskType.RENDER:
+                                        addAudioElement = false;
+                                        break;
                                     }
 
-                                    var audioElementHtml = "";
+                                    var audioElementHtml = '';
                                     if (addAudioElement) {
-                                        audioElementHtml = "<audio style=\"width: 20em; height: 3em; \" class=\"audio-player\" controls=\"controls\" preload=\"none\" >" +
-                                            "<source src=\"" + response.resultUrl + "\" type=\"" + audioType + "\" />" +
-                                            "</audio>";
+                                        audioElementHtml = '<audio style="width: 20em; height: 3em; " class="audio-player" controls="controls" preload="none" >' +
+                                            '<source src="' + response.resultUrl + '" type="' + audioType + '" />' +
+                                            '</audio>';
                                     }
 
-                                    var removeButtonId = response.resultUrl.replace(/\/|\./g, "_") + "_button";
-                                    var resultDivId = response.resultUrl.replace(/\/|\./g, "_") + "_div";
+                                    var removeButtonId = response.resultUrl.replace(/\/|\./g, '_') + '_button';
+                                    var resultDivId = response.resultUrl.replace(/\/|\./g, '_') + '_div';
 
-                                    var $theResult = $("<div style=\"display: none\" " +
-                                        "class=\"ui-widget-content ui-corner-all progress-component\" " +
-                                        "id=\"" + resultDivId + "\" >" +
+                                    var $theResult = $('<div style="display: none" ' +
+                                        'class="ui-widget-content ui-corner-all progress-component" ' +
+                                        'id="' + resultDivId + '" >' +
                                         audioElementHtml +
-                                        "<a class=\"result-url\" href=\"" + response.resultUrl + "\" target=\"_blank\" >Result Link</a>" +
-                                        "<button id=\"" + removeButtonId + "\">Remove</button>" +
-                                        "</div>");
+                                        '<a class="result-url" href="' + response.resultUrl + '" target="_blank" >Result Link</a>' +
+                                        '<button id="' + removeButtonId + '">Remove</button>' +
+                                        '</div>');
                                     $resultDiv.prepend($theResult);
-                                    $("#" + removeButtonId).button().click(function() {
-                                        $("#" + resultDivId).detach();
-//                                    logit("dhflks6djf");
+                                    $('#' + removeButtonId).button().click(function() {
+                                        $('#' + resultDivId).detach();
+                                        //                                    logit("dhflks6djf");
                                     });
-                                    $theResult.show("slow");
+                                    $theResult.show('slow');
 
                                     if (addAudioElement) {
-                                        that.$audioElement = $theResult.find("audio");
+                                        that.$audioElement = $theResult.find('audio');
                                     }
                                 }
 
-//                                that.addResultUrl(response.resultUrl);
+                                //                                that.addResultUrl(response.resultUrl);
                             }
                             if (response.result) {
                                 that.resultRenderData = response.result.renderData;
@@ -552,21 +552,21 @@ AsyncServerChildTask.prototype.update = function() {
                             }
                             that.success();
                         }
-                    } else if (response.type == "error") {
+                    } else if (response.type == 'error') {
                         if (!that.done) {
 
-                            that.failReason = "Unable to get progress";
+                            that.failReason = 'Unable to get progress';
                             logit(response);
                             that.fail();
                         }
                     } else {
 
-                        logit("Ignoring result from getTaskProgress");
+                        logit('Ignoring result from getTaskProgress');
                         logit(response);
                     }
 
                 } else {
-                    console.log("Task progress ajax complete. Text status not success: " + textStatus);
+                    console.log('Task progress ajax complete. Text status not success: ' + textStatus);
                     that.fail();
                 }
             },
@@ -578,30 +578,30 @@ AsyncServerChildTask.prototype.update = function() {
 AsyncServerChildTask.prototype.start = function() {
 
     var message = {
-        type: "startTask",
+        type: 'startTask',
         taskType: this.taskType,
         user: this.user,
         content: this.content
     };
 
     var that = this;
-    $.ajax("task", {
+    $.ajax('task', {
         data: JSON.stringify(message),
-        contentType: "application/json",
+        contentType: 'application/json',
         complete: function(jqXhr, textStatus) {
-            if (textStatus == "success") {
+            if (textStatus == 'success') {
                 var response = $.parseJSON(jqXhr.responseText);
-                if (response.type == "error") {
+                if (response.type == 'error') {
                     that.failReason = response.message;
                     that.fail();
                 }
-//                logit(response);
+                //                logit(response);
 
                 that.taskName = response.taskName;
-//                logit(" Received task name " + that.taskName);
+                //                logit(" Received task name " + that.taskName);
             } else {
                 that.fail();
-                console.log("Task start ajax complete. Text status not success: " + textStatus);
+                console.log('Task start ajax complete. Text status not success: ' + textStatus);
             }
         },
         type: 'POST'
@@ -617,8 +617,8 @@ function AsyncWorkerTask(options) {
 
     this.requireLogin = false;
 
-    this.taskType = getValueOrDefault(options, "taskType", WorkerTaskType.RENDER);
-    this.content = getValueOrDefault(options, "content", {});
+    this.taskType = getValueOrDefault(options, 'taskType', WorkerTaskType.RENDER);
+    this.content = getValueOrDefault(options, 'content', {});
 
     this.transferableSupported = false;
 
@@ -643,11 +643,11 @@ function AsyncWorkerTask(options) {
         if (testBuf.byteLength) {
             // Not supported
         } else {
-//        logit("Transferable supported!!!!");
-//            this.transferableSupported = true;
+            //        logit("Transferable supported!!!!");
+            //            this.transferableSupported = true;
         }
     } catch (exc) {
-        logit("Exception thrown when trying to post message to worker.");
+        logit('Exception thrown when trying to post message to worker.');
     }
 
     function padNumberString(number, length) {
@@ -660,14 +660,14 @@ function AsyncWorkerTask(options) {
 
     function getFilenamePrefix() {
         var date = new Date();
-        var songName = "song";
-        return songName + "_" +
-            padNumberString(date.getUTCFullYear(), 4) + "" +
-            padNumberString(date.getUTCMonth() + 1, 2) + "" + // utc month starts at zero :)
-            padNumberString(date.getUTCDate(), 2) + "_" +
-            padNumberString(date.getUTCHours(), 2) + "" +
-            padNumberString(date.getUTCMinutes(), 2) + "" +
-            padNumberString(date.getUTCSeconds(), 2) + "_" +
+        var songName = 'song';
+        return songName + '_' +
+            padNumberString(date.getUTCFullYear(), 4) + '' +
+            padNumberString(date.getUTCMonth() + 1, 2) + '' + // utc month starts at zero :)
+            padNumberString(date.getUTCDate(), 2) + '_' +
+            padNumberString(date.getUTCHours(), 2) + '' +
+            padNumberString(date.getUTCMinutes(), 2) + '' +
+            padNumberString(date.getUTCSeconds(), 2) + '_' +
             padNumberString(date.getUTCMilliseconds(), 3);
     }
 
@@ -678,122 +678,122 @@ function AsyncWorkerTask(options) {
 
         if (type) {
             switch (type) {
-                case "log":
-                    console.log(msg.data);
-                    break;
-                case "error":
-                    that.failReason = msg.data;
-                    that.fail();
-                    that.worker.terminate();
-                    break;
-                case "result":
-                    var result = JSON.parse(msg.data);
-                    that.resultRenderData = result.renderData;
-                    that.resultRenderDataLength = result.renderDataLength;
-                    that.resultChannelMaps = result.channelMaps;
-                    that.resultSongStructureInfo = result.songStructureInfo;
-                    that.resultSectionTimes = result.sectionTimes;
+            case 'log':
+                console.log(msg.data);
+                break;
+            case 'error':
+                that.failReason = msg.data;
+                that.fail();
+                that.worker.terminate();
+                break;
+            case 'result':
+                var result = JSON.parse(msg.data);
+                that.resultRenderData = result.renderData;
+                that.resultRenderDataLength = result.renderDataLength;
+                that.resultChannelMaps = result.channelMaps;
+                that.resultSongStructureInfo = result.songStructureInfo;
+                that.resultSectionTimes = result.sectionTimes;
 
-                    if (that.taskType == WorkerTaskType.EXPORT_MIDI || that.taskType == WorkerTaskType.EXPORT_WAV) {
-//                    logit(result.midiData);
+                if (that.taskType == WorkerTaskType.EXPORT_MIDI || that.taskType == WorkerTaskType.EXPORT_WAV) {
+                    //                    logit(result.midiData);
 
-                        var buffer = null;
-                        var extension = ".mid";
+                    var buffer = null;
+                    var extension = '.mid';
 
-                        var addAudioElement = false;
-                        var audioType = "audio/wav";
+                    var addAudioElement = false;
+                    var audioType = 'audio/wav';
 
-                        switch (that.taskType) {
-                            case WorkerTaskType.EXPORT_MIDI:
-                                var fakeByteArray = new FakeByteArray();
-                                Midi.encodeMidi(result.midiData, fakeByteArray);
-                                buffer = fakeByteArray.toBuffer();
-//                                addAudioElement = true;
-//                                audioType = "audio/midi";
-                                break;
-                            case WorkerTaskType.EXPORT_WAV:
-                                if (!that.resultBuffer) {
-                                    logit("Expected a result buffer from the worker before the result message");
-                                }
-                                buffer = that.resultBuffer;
-                                extension = ".wav";
-                                addAudioElement = true;
-                                audioType = "audio/wav";
-                                break;
+                    switch (that.taskType) {
+                    case WorkerTaskType.EXPORT_MIDI:
+                        var fakeByteArray = new FakeByteArray();
+                        Midi.encodeMidi(result.midiData, fakeByteArray);
+                        buffer = fakeByteArray.toBuffer();
+                        //                                addAudioElement = true;
+                        //                                audioType = "audio/midi";
+                        break;
+                    case WorkerTaskType.EXPORT_WAV:
+                        if (!that.resultBuffer) {
+                            logit('Expected a result buffer from the worker before the result message');
                         }
-
-                        if (buffer) {
-
-                            var blob = new Blob([new Uint8Array(buffer)]);
-
-                            var resultUrl = window.URL.createObjectURL(blob);
-
-                            var audioElementHtml = "";
-
-                            if (addAudioElement) {
-                                if (addAudioElement) {
-                                    audioElementHtml = "<audio style=\"width: 20em; height: 3em; \" class=\"audio-player\" controls=\"controls\" preload=\"none\" >" +
-                                        "<source src=\"" + resultUrl + "\" type=\"" + audioType + "\" />" +
-                                        "</audio>";
-                                }
-                            }
-
-                            var removeButtonId = that.id + "_result_remove_button";
-                            var loadButtonId = that.id + "_result_load_button";
-                            var resultDivId = that.id + "_result_div";
-
-                            var $resultDiv = $("#" + that.resultDivId);
-
-//                    var resultUrl = "";
-
-                            var downloadName = getFilenamePrefix() + extension;
-
-                            var extraHint = "";
-                            var a = document.createElement('a');
-                            if (typeof a.download === "undefined") {
-                                extraHint = '<div>You need to "save link target as" and ensure that the filename ends with "' + extension + '"</div>';
-                            }
-
-                            var $theResult = $("<div style=\"display: none\" " +
-                                "class=\"ui-widget-content ui-corner-all progress-component\" " +
-                                "id=\"" + resultDivId + "\" >" +
-                                audioElementHtml +
-                                "<a class=\"result-url\" " +
-                                'download="' + downloadName + '" ' +
-                                "href=\"" + resultUrl + "\" " +
-                                "target=\"_blank\" >Result Link</a>" +
-                                "<button id=\"" + removeButtonId + "\">Remove</button>" +
-                                "<button id=\"" + loadButtonId + "\">Load</button>" +
-                                extraHint +
-                                "</div>");
-                            $resultDiv.prepend($theResult);
-                            $("#" + removeButtonId).button().click(function() {
-                                $("#" + resultDivId).detach();
-                            });
-                            $("#" + loadButtonId).button().click(function() {
-                                updateSongSettingsComponent(that.content.genInfo, {name: that.content.name, seed: "" + that.content.strSeed});
-                                afterExport(that);
-                            });
-                            $theResult.show("slow");
-
-                            if (addAudioElement) {
-                                that.$audioElement = $theResult.find("audio");
-                            }
-
-                        } else {
-                            logit("Could not create wav blob...");
-                        }
-
+                        buffer = that.resultBuffer;
+                        extension = '.wav';
+                        addAudioElement = true;
+                        audioType = 'audio/wav';
+                        break;
                     }
-                    that.worker.removeEventListener('message', onWorkerMessage);
-                    that.worker.terminate();
-                    that.success();
-                    break;
-                case "progressReport":
-                    that.progress = Math.round(100 * parseFloat(msg.progress));
-//                console.log("Setting progress to " + that.progress);
-//                that.updateProgress()
-                    break;
+
+                    if (buffer) {
+
+                        var blob = new Blob([new Uint8Array(buffer)]);
+
+                        var resultUrl = window.URL.createObjectURL(blob);
+
+                        var audioElementHtml = '';
+
+                        if (addAudioElement) {
+                            if (addAudioElement) {
+                                audioElementHtml = '<audio style="width: 20em; height: 3em; " class="audio-player" controls="controls" preload="none" >' +
+                                        '<source src="' + resultUrl + '" type="' + audioType + '" />' +
+                                        '</audio>';
+                            }
+                        }
+
+                        var removeButtonId = that.id + '_result_remove_button';
+                        var loadButtonId = that.id + '_result_load_button';
+                        var resultDivId = that.id + '_result_div';
+
+                        var $resultDiv = $('#' + that.resultDivId);
+
+                        //                    var resultUrl = "";
+
+                        var downloadName = getFilenamePrefix() + extension;
+
+                        var extraHint = '';
+                        var a = document.createElement('a');
+                        if (typeof a.download === 'undefined') {
+                            extraHint = '<div>You need to "save link target as" and ensure that the filename ends with "' + extension + '"</div>';
+                        }
+
+                        var $theResult = $('<div style="display: none" ' +
+                                'class="ui-widget-content ui-corner-all progress-component" ' +
+                                'id="' + resultDivId + '" >' +
+                                audioElementHtml +
+                                '<a class="result-url" ' +
+                                'download="' + downloadName + '" ' +
+                                'href="' + resultUrl + '" ' +
+                                'target="_blank" >Result Link</a>' +
+                                '<button id="' + removeButtonId + '">Remove</button>' +
+                                '<button id="' + loadButtonId + '">Load</button>' +
+                                extraHint +
+                                '</div>');
+                        $resultDiv.prepend($theResult);
+                        $('#' + removeButtonId).button().click(function() {
+                            $('#' + resultDivId).detach();
+                        });
+                        $('#' + loadButtonId).button().click(function() {
+                            updateSongSettingsComponent(that.content.genInfo, {name: that.content.name, seed: '' + that.content.strSeed});
+                            afterExport(that);
+                        });
+                        $theResult.show('slow');
+
+                        if (addAudioElement) {
+                            that.$audioElement = $theResult.find('audio');
+                        }
+
+                    } else {
+                        logit('Could not create wav blob...');
+                    }
+
+                }
+                that.worker.removeEventListener('message', onWorkerMessage);
+                that.worker.terminate();
+                that.success();
+                break;
+            case 'progressReport':
+                that.progress = Math.round(100 * parseFloat(msg.progress));
+                //                console.log("Setting progress to " + that.progress);
+                //                that.updateProgress()
+                break;
             }
 
         } else {
@@ -814,7 +814,7 @@ AsyncWorkerTask.prototype.cancel = function() {
     AsyncOperation.prototype.cancel.call(this);
 
     var message = {
-        type: "cancelTask"
+        type: 'cancelTask'
     };
 //    this.worker.postMessage(message);
 };
@@ -832,7 +832,7 @@ AsyncWorkerTask.prototype.update = function() {
 AsyncWorkerTask.prototype.start = function() {
 
     var message = {
-        type: "startTask",
+        type: 'startTask',
         transferableSupported: this.transferableSupported,
         taskType: this.taskType,
         content: this.content

@@ -2,13 +2,13 @@
 
 class MidiRenderer {
     constructor() {
-        this.id = "";
-        this.structure = "";
+        this.id = '';
+        this.structure = '';
 
         this.channelMaps = [];
         this.controlChannelMaps = [];
 
-        this._constructorName = "MidiRenderer";
+        this._constructorName = 'MidiRenderer';
     }
 
     getMidiData(renderData, module, options) {
@@ -56,7 +56,7 @@ class MidiRenderer {
 
         // Avoid adding events to channels that have no notes
         for (let event of events) {
-            if (event.type == "noteOn" || event.type == "noteOff") {
+            if (event.type == 'noteOn' || event.type == 'noteOff') {
                 let channelMap = channelMaps[event.renderChannel.id];
                 if (channelMap) {
                     emptyChannels[channelMap.channel] = false;
@@ -73,7 +73,7 @@ class MidiRenderer {
                     let trackEvent = {
                         eventTime: 0,
                         eventMessage: {
-                            messageClass: "ProgramChangeMessage",
+                            messageClass: 'ProgramChangeMessage',
                             channel: map.channel,
                             program: map.program
                         }
@@ -91,21 +91,21 @@ class MidiRenderer {
                         let trackEvent = {
                             eventTime: 0,
                             eventMessage: {
-                                messageClass: "ChannelMessage",
+                                messageClass: 'ChannelMessage',
                                 channel: map.channel,
-                                status: "CONTROL_CHANGE",
+                                status: 'CONTROL_CHANGE',
                                 data1: controllerType,
                                 data2: message.value
                             }
                         };
                         trackEvents.push(trackEvent);
-    //                    logit("Adding ctrl change " + map.channel);
+                        //                    logit("Adding ctrl change " + map.channel);
                     } else {
-        //                logit("Not exporting " + controllerType);
+                        //                logit("Not exporting " + controllerType);
                     }
                 }
             } else {
-    //            logit("Channel " + map.channel + " was empty");
+                //            logit("Channel " + map.channel + " was empty");
             }
         }
 
@@ -120,7 +120,7 @@ class MidiRenderer {
             ticks += eventTime;
 
             let trackEvent = null;
-            if (event.type == "noteOn" || event.type == "noteOff") {
+            if (event.type == 'noteOn' || event.type == 'noteOff') {
                 let channelMap = channelMaps[event.renderChannel.id];
                 if (!channelMap) {
                     channelMap = {
@@ -128,27 +128,27 @@ class MidiRenderer {
                     };
                     // logit(" could not find channel map for " + event.renderChannel.id + " all maps: " + JSON.stringify(channelMaps) + "<br />")
                 }
-                const isNoteOn = event.type == "noteOn";
+                const isNoteOn = event.type == 'noteOn';
 
-                const status = isNoteOn ? "NOTE_ON" : "NOTE_OFF";
+                const status = isNoteOn ? 'NOTE_ON' : 'NOTE_OFF';
                 const dVelocity = isNoteOn ? event.onVelocity : event.offVelocity;
                 const velocity = Math.round(clamp(dVelocity * 127, 0, 127));
                 trackEvent = {
                     eventTime: eventTime,
                     eventMessage: {
-                        messageClass: "VoiceMessage",
+                        messageClass: 'VoiceMessage',
                         status: status,
                         channel: channelMap.channel,
                         data1: event.note,
                         data2: velocity
                     }
                 };
-            } else if (event.type == "setControl") {
+            } else if (event.type == 'setControl') {
 
                 const controlMap = controlChannelMaps[event.controlChannel.id];
                 if (!controlMap) {
                     continue;
-                 }
+                }
                 const ctrlData = clamp(Math.round(event.value * controlMap.amplitude + controlMap.bias), 0, 127);
                 let controllerType = MidiControllerType.getValue(controlMap.controllerType);
 
@@ -160,22 +160,22 @@ class MidiRenderer {
                         trackEvent = {
                             eventTime: eventTime,
                             eventMessage: {
-                                messageClass: "ChannelMessage",
+                                messageClass: 'ChannelMessage',
                                 channel: controlMap.channel,
-                                status: "CONTROL_CHANGE",
+                                status: 'CONTROL_CHANGE',
                                 data1: controllerType,
                                 data2: ctrlData
                             }
                         };
                     }
                 }
-            } else if (event.type == "setTempo") {
+            } else if (event.type == 'setTempo') {
                 const microsPerMinute = 60000000;
                 const microsPerQuarter = Math.round(microsPerMinute / event.bpm);
                 trackEvent = {
                     eventTime: eventTime,
                     eventMessage: {
-                        messageClass: "SetTempoMessage",
+                        messageClass: 'SetTempoMessage',
                         microsPerQuarter: microsPerQuarter
                     }
                 };
@@ -192,7 +192,7 @@ class MidiRenderer {
         trackEvents.push({
             eventTime: quarterTicks,
             eventMessage: {
-                messageClass: "EndTrackMessage"
+                messageClass: 'EndTrackMessage'
             }
         });
 
@@ -204,34 +204,34 @@ class MidiRenderer {
 
 class MidiChannelMap {
     constructor() {
-        this.id = "";
-        this.renderChannel = "";
+        this.id = '';
+        this.renderChannel = '';
         this.program = MidiProgram.ACOUSTIC_GRAND_PIANO;
         this.channel = 0;
         this.initialControllerMessages = [];
-        this._constructorName = "MidiChannelMap";
+        this._constructorName = 'MidiChannelMap';
     }
 }
 
 class MidiControlChannelMap {
     constructor() {
-        this.id = "";
-        this.controlChannel = "";
+        this.id = '';
+        this.controlChannel = '';
         this.channel = 0;
         this.amplitude = 1.0;
         this.bias = 0.0;
         this.controllerType = MidiControllerType.VOLUME;
-        this._constructorName = "MidiControlChannelMap";
+        this._constructorName = 'MidiControlChannelMap';
     }
 }
 
 
 class InitialMidiControllerMessage {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.type = MidiControllerType.VOLUME;
         this.value = 64;
-        this._constructorName = "InitialMidiControllerMessage";
+        this._constructorName = 'InitialMidiControllerMessage';
     }
 
     setType(v) {

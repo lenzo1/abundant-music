@@ -1,10 +1,10 @@
 
 class AbstractSection {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.active = true;
         this.modifiers = [];
-        this._constructorName = "AbstractSection";
+        this._constructorName = 'AbstractSection';
     }
 
     getConcreteSections(state) {
@@ -68,12 +68,12 @@ class AbstractSection {
 class SectionReference extends AbstractSection {
     constructor(sectionId) {
         super();
-        this.section = sectionId ? sectionId : "";
-        this._constructorName = "SectionReference";
+        this.section = sectionId ? sectionId : '';
+        this._constructorName = 'SectionReference';
     }
 
     getConcreteSections(state) {
-        const theSectionId = getValueOrExpressionValue(this, "section", state.module);
+        const theSectionId = getValueOrExpressionValue(this, 'section', state.module);
 
         const section = state.module.getSection(theSectionId);
         if (!section) {
@@ -96,17 +96,17 @@ const SectionTempoMode = {
 class Section extends AbstractSection {
     constructor() {
         super();
-        this.harmonicRythm = "";
-        this.voiceLinePlanner = "";
-        this.figurationPlanner = "";
+        this.harmonicRythm = '';
+        this.voiceLinePlanner = '';
+        this.figurationPlanner = '';
         this.tempoMode = SectionTempoMode.CONSTANT;
         this.tempo = 60.0;
-        this.tempoChannel = "";
+        this.tempoChannel = '';
         this.voiceLines = [];
         this.renderLines = [];
         this.controlLines = [];
         this.suspAntStrategies = [];
-        this._constructorName = "Section";
+        this._constructorName = 'Section';
     }
 
     getConcreteSections(state) {
@@ -164,7 +164,7 @@ class Section extends AbstractSection {
 
         if (this.voiceLinePlanner) {
 
-            const theVoiceLinePlannerId = getValueOrExpressionValue(this, "voiceLinePlanner", module);
+            const theVoiceLinePlannerId = getValueOrExpressionValue(this, 'voiceLinePlanner', module);
 
             const planner = module.getVoiceLinePlanner(theVoiceLinePlannerId);
 
@@ -190,7 +190,7 @@ class Section extends AbstractSection {
                     if (e instanceof ConstantVoiceLineElement || e instanceof UndefinedVoiceLineElement) {
                         newLine.add(e);
                     } else {
-                        logit("Only supports Constant voice line elements when no voice line planner is selected");
+                        logit('Only supports Constant voice line elements when no voice line planner is selected');
                     }
                 }
 
@@ -227,12 +227,12 @@ class Section extends AbstractSection {
             state.section = sm.modifySection(state.section, state);
         }
 
-        const harmonyId = getValueOrExpressionValue(state.section, "harmonicRythm", state.module);
+        const harmonyId = getValueOrExpressionValue(state.section, 'harmonicRythm', state.module);
 
         const harmony = state.module.getHarmony(harmonyId);
         if (harmony) {
             state.harmony = harmony;
-            const theTempo = getValueOrExpressionValue(state.section, "tempo", state.module);
+            const theTempo = getValueOrExpressionValue(state.section, 'tempo', state.module);
             const sectionTempoMode = this.tempoMode;
 
             const harmonyElements = harmony.getConstantHarmonyElements(state.module);
@@ -304,44 +304,44 @@ class Section extends AbstractSection {
 
 
             switch (sectionTempoMode) {
-                case SectionTempoMode.CONSTANT:
-                    state.data.addEvent(new SetTempoEvent(theTempo, state.sectionTime));
-                    break;
-                case SectionTempoMode.CHANGE_CONTROL_CHANNEL:
-                case SectionTempoMode.CONTROL_CHANNEL:
-                    const tempoCh = state.module.getControlChannel(this.tempoChannel);
-                    if (tempoCh) {
-                        let slotData = state.controlSlotDatas[tempoCh.id];
-                        if (slotData) {
-                            const sectionLength = state.constantHarmony.getBeatLength();
-                            const slotBeatFraction = 1.0 / tempoCh.slotsPerBeat;
-                            let oldTempo = 0;
-                            for (let i=0; i<sectionLength; i++) {
-                                for (let j=0; j<tempoCh.slotsPerBeat; j++) {
-                                    const slot = i * tempoCh.slotsPerBeat + j;
-                                    let tempoValue = tempoCh.readDouble(slot, slotData);
-                                    const beat = i + slotBeatFraction * j;
-                                    let newTempo = Math.round(theTempo * tempoValue);
-                                    if (newTempo > 10 && newTempo != oldTempo) {
-                                        state.data.addEvent(new SetTempoEvent(newTempo, state.sectionTime + beat));
-    //                                    logit("Setting tempo to " + newTempo + " value: " + tempoValue + " slot: " + slot);
-                                        oldTempo = newTempo;
-                                    } else if (newTempo <= 10) {
-                                        logit(`Tempo strange ${newTempo} tempoValue:${tempoValue} slot: ${slot}`);
-                                    }
+            case SectionTempoMode.CONSTANT:
+                state.data.addEvent(new SetTempoEvent(theTempo, state.sectionTime));
+                break;
+            case SectionTempoMode.CHANGE_CONTROL_CHANNEL:
+            case SectionTempoMode.CONTROL_CHANNEL:
+                const tempoCh = state.module.getControlChannel(this.tempoChannel);
+                if (tempoCh) {
+                    let slotData = state.controlSlotDatas[tempoCh.id];
+                    if (slotData) {
+                        const sectionLength = state.constantHarmony.getBeatLength();
+                        const slotBeatFraction = 1.0 / tempoCh.slotsPerBeat;
+                        let oldTempo = 0;
+                        for (let i=0; i<sectionLength; i++) {
+                            for (let j=0; j<tempoCh.slotsPerBeat; j++) {
+                                const slot = i * tempoCh.slotsPerBeat + j;
+                                let tempoValue = tempoCh.readDouble(slot, slotData);
+                                const beat = i + slotBeatFraction * j;
+                                let newTempo = Math.round(theTempo * tempoValue);
+                                if (newTempo > 10 && newTempo != oldTempo) {
+                                    state.data.addEvent(new SetTempoEvent(newTempo, state.sectionTime + beat));
+                                    //                                    logit("Setting tempo to " + newTempo + " value: " + tempoValue + " slot: " + slot);
+                                    oldTempo = newTempo;
+                                } else if (newTempo <= 10) {
+                                    logit(`Tempo strange ${newTempo} tempoValue:${tempoValue} slot: ${slot}`);
                                 }
                             }
-                        } else {
-                            let tempoValue = tempoCh.readDouble(0);
-                            let newTempo = Math.round(theTempo * tempoValue);
-                            state.data.addEvent(new SetTempoEvent(newTempo, state.sectionTime));
-    //                        logit("Could not find slot data for channel " + this.tempoChannel);
                         }
                     } else {
-                        logit(`Could not find tempo channel ${tempoCh}`);
-                        state.data.addEvent(new SetTempoEvent(theTempo, state.sectionTime));
+                        let tempoValue = tempoCh.readDouble(0);
+                        let newTempo = Math.round(theTempo * tempoValue);
+                        state.data.addEvent(new SetTempoEvent(newTempo, state.sectionTime));
+                        //                        logit("Could not find slot data for channel " + this.tempoChannel);
                     }
-                    break;
+                } else {
+                    logit(`Could not find tempo channel ${tempoCh}`);
+                    state.data.addEvent(new SetTempoEvent(theTempo, state.sectionTime));
+                }
+                break;
             }
 
             const beatLength = state.constantHarmony.getBeatLength();
@@ -349,7 +349,7 @@ class Section extends AbstractSection {
             for (const ch of state.module.controlChannels) {
                 let slotData = state.controlSlotDatas[ch.id];
                 if (!slotData) {
-    //                logit("Could not find any slot data for " + ch.id);
+                    //                logit("Could not find any slot data for " + ch.id);
                     slotData = ch.createSlotData(beatLength);
                     state.controlSlotDatas[ch.id] = slotData;
                 }
@@ -359,7 +359,7 @@ class Section extends AbstractSection {
                 let slotData = state.controlSlotDatas[ctrlCh];
                 const channel = state.module.getControlChannel(ctrlCh);
                 const ctrlEvents = channel.getControlEvents(slotData, state.sectionTime);
-    //            logit("Got " + ctrlEvents.length + " control events from " + ctrlCh);
+                //            logit("Got " + ctrlEvents.length + " control events from " + ctrlCh);
                 addAll(state.data.addEvents(ctrlEvents));
             }
 

@@ -2,7 +2,7 @@
 
 class GenMusicModule {
     constructor() {
-        this.id = "module1";
+        this.id = 'module1';
         this.renderers = [];
         this.structures = [];
         this.sections = [];
@@ -33,7 +33,7 @@ class GenMusicModule {
 
         this.reusables = {};
 
-        this._constructorName = "GenMusicModule";
+        this._constructorName = 'GenMusicModule';
     }
 
     getUniqueId(prefix, testArr) {
@@ -267,7 +267,7 @@ class GenMusicModule {
 
     toJSON() {
         // Create a pure JSON
-        }
+    }
 }
 
 
@@ -280,40 +280,40 @@ function createGenMusicModuleFromJson(options) {
 
     const moduleOptions = {
         motifs: [
-        {
-            id: "motif",
-            motifElements: [
             {
-                jsonType: "VerticalRelativeMotifElement",
-                length: 1,
-                index: 2
-            }
-            ]
-        }
-        ],
-        sections: [
-        {
-            voiceLines: [
-            {
-                id: "voiceLine",
-                jsonType: "ConstantVoiceLine",
-                lineElements: []
-            }
-            ],
-            renderLines: [
-            {
-                id: "renderLine",
-                channel: "renderChannel",
-                renderElements: [
-                {
-                    jsonType: "MotifRenderElement",
-                    motif: "motif",
-                    voiceLine: "voiceLine"
-                }
+                id: 'motif',
+                motifElements: [
+                    {
+                        jsonType: 'VerticalRelativeMotifElement',
+                        length: 1,
+                        index: 2
+                    }
                 ]
             }
-            ]
-        }
+        ],
+        sections: [
+            {
+                voiceLines: [
+                    {
+                        id: 'voiceLine',
+                        jsonType: 'ConstantVoiceLine',
+                        lineElements: []
+                    }
+                ],
+                renderLines: [
+                    {
+                        id: 'renderLine',
+                        channel: 'renderChannel',
+                        renderElements: [
+                            {
+                                jsonType: 'MotifRenderElement',
+                                motif: 'motif',
+                                voiceLine: 'voiceLine'
+                            }
+                        ]
+                    }
+                ]
+            }
         ],
         structures: [],
         harmony: []

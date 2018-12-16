@@ -1,9 +1,9 @@
 
 class Structure {
     constructor() {
-        this.id = "structure";
+        this.id = 'structure';
         this.references = [];
-        this._constructorName = "Structure";
+        this._constructorName = 'Structure';
     }
 
     renderBatch(state, progressFunc) {

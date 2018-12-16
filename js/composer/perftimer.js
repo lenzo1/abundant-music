@@ -26,17 +26,17 @@ class PerfTimer {
 
 
 
-const moduleConstructTimer = new PerfTimer("module construct");
-const composeTimer = new PerfTimer("compose");
+const moduleConstructTimer = new PerfTimer('module construct');
+const composeTimer = new PerfTimer('compose');
 
-const harmonyTimer = new PerfTimer("harmony");
-const voiceLeadingTimer = new PerfTimer("voice leading");
-const voiceLeadingPrepareTimer = new PerfTimer("voice leading prepare");
-const figurationTimer = new PerfTimer("figuration");
+const harmonyTimer = new PerfTimer('harmony');
+const voiceLeadingTimer = new PerfTimer('voice leading');
+const voiceLeadingPrepareTimer = new PerfTimer('voice leading prepare');
+const figurationTimer = new PerfTimer('figuration');
 
-const perfTimer1 = new PerfTimer("timer 1");
-const perfTimer2 = new PerfTimer("timer 2");
-const perfTimer3 = new PerfTimer("timer 3");
+const perfTimer1 = new PerfTimer('timer 1');
+const perfTimer2 = new PerfTimer('timer 2');
+const perfTimer3 = new PerfTimer('timer 3');
 
 
 

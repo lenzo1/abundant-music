@@ -4,7 +4,7 @@ class ChromaticOscillationHarmonyState {
         this.harmony = null;
         this.stepCost = 0;
         this.mode = 0; // 1 means that it is in another harmony than the base
-        this._constructorName = "ChromaticOscillationHarmonyState";
+        this._constructorName = 'ChromaticOscillationHarmonyState';
     }
 
     toString() {
@@ -20,17 +20,17 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
     constructor(options) {
         super(options);
         this.scaleBaseNote = getValueOrDefault(options,
-            "scaleBaseNote", 60);
+            'scaleBaseNote', 60);
         this.scaleType = getValueOrDefault(options,
-            "scaleType", ScaleType.MAJOR);
+            'scaleType', ScaleType.MAJOR);
 
         this.startScaleBaseChordRootScaleModeTuples = getValueOrDefault(options,
-            "startScaleBaseChordRootScaleModeTuples", [[this.scaleBaseNote, 0, 0]]);
+            'startScaleBaseChordRootScaleModeTuples', [[this.scaleBaseNote, 0, 0]]);
 
         this.endScaleBaseChordRootScaleModeTuples = getValueOrDefault(options,
-            "endScaleBaseChordRootScaleModeTuples", [[this.scaleBaseNote, 0, 0]]);
+            'endScaleBaseChordRootScaleModeTuples', [[this.scaleBaseNote, 0, 0]]);
 
-        this._constructorName = "ChromaticOscillationHarmonyGenerator";
+        this._constructorName = 'ChromaticOscillationHarmonyGenerator';
 
     }
 
@@ -75,7 +75,7 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
             if ((tuple[0] % 12) == (harmony.baseNote % 12) &&
                 (tuple[1] % 7) == (harmony.chordRoot % 12) &&
                 (tuple[2] % 7) == (harmony.scaleMode % 7)) {
-    //            logit("Was goal: " + JSON.stringify(harmony) + " " + state.mode);
+                //            logit("Was goal: " + JSON.stringify(harmony) + " " + state.mode);
                 return true;
             }
         }
@@ -89,10 +89,10 @@ class ChromaticOscillationHarmonyGenerator extends HarmonyGenerator {
 
     getSuccessors(state, states, likelihoods, costs) {
         switch (state.mode) {
-            case 1:
-                this.getStartStates(states, likelihoods, costs);
-            default:
-                break;
+        case 1:
+            this.getStartStates(states, likelihoods, costs);
+        default:
+            break;
         }
 
         const rootProgressions = [0, 1, 2, 3, 4, 5, 6];

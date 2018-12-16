@@ -1,17 +1,17 @@
 
 class RenderChannel {
     constructor () {
-        this.id = "";
+        this.id = '';
         this.percussion = false;
-        this._constructorName = "RenderChannel";
+        this._constructorName = 'RenderChannel';
     }
 }
 
 
 class NamedNote {
     constructor() {
-        this.id = "";
-        this._constructorName = "NamedNote";
+        this.id = '';
+        this._constructorName = 'NamedNote';
     }
 
     getNote() {
@@ -28,7 +28,7 @@ class SimpleNamedNote extends NamedNote {
     constructor() {
         super();
         this.note = 60;
-        this._constructorName = "SimpleNamedNote";
+        this._constructorName = 'SimpleNamedNote';
     }
 
     getNote() {
@@ -45,7 +45,7 @@ class MidiDrumNamedNote extends NamedNote {
     constructor() {
         super();
         this.note = MidiDrum.BASS_DRUM_1;
-        this._constructorName = "MidiDrumNamedNote";
+        this._constructorName = 'MidiDrumNamedNote';
     }
 
     getNote() {

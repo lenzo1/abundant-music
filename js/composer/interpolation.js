@@ -37,7 +37,7 @@ class BaseInterpolator {
     locate(x) {
         let ju, jm, jl;
         if (this.n < 2 || this.mm < 2 || this.mm > this.n) {
-            logit("Locate size error");
+            logit('Locate size error');
             return 0;
         }
         const ascnd = (this.xx[this.n - 1] >= this.xx[0]);
@@ -61,7 +61,7 @@ class BaseInterpolator {
         let jm, ju;
         let inc = 1;
         if (this.n < 2 || this.mm < 2 || this.mm > this.n) {
-            logit(" Hunt size error");
+            logit(' Hunt size error');
             return 0;
         }
         const ascnd = (this.xx[this.n - 1] > this.xx[0]);

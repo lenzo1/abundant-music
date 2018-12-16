@@ -19,23 +19,23 @@ const NonClassicalScaleFigurationMode = {
 class Figurator extends DfsSolver {
     constructor(options) {
         super(options);
-        this.module = getValueOrDefault(options, "module", null);
-        this.verbose = getValueOrDefault(options, "verbose", false);
-        this.seed = getValueOrDefault(options, "seed", 352435);
-        this.cluster = getValueOrDefault(options, "cluster", []);
-        this.harmonyIndices = getValueOrDefault(options, "harmonyIndices", [0]); // Also defines the voice line element indices
-        this.harmony = getValueOrDefault(options, "harmony", null); // For the section. Use harmonyIndices as index.
-        this.voiceLine = getValueOrDefault(options, "voiceLine", null); // For the section. Use harmonyIndices as index.
-        this.previousNotes = getValueOrDefault(options, "previousNotes", null); // Voice elements
-        this.nextNotes = getValueOrDefault(options, "nextNotes", null); // Voice elements
-        this.absoluteNotes = getValueOrDefault(options, "absoluteNotes", null);
+        this.module = getValueOrDefault(options, 'module', null);
+        this.verbose = getValueOrDefault(options, 'verbose', false);
+        this.seed = getValueOrDefault(options, 'seed', 352435);
+        this.cluster = getValueOrDefault(options, 'cluster', []);
+        this.harmonyIndices = getValueOrDefault(options, 'harmonyIndices', [0]); // Also defines the voice line element indices
+        this.harmony = getValueOrDefault(options, 'harmony', null); // For the section. Use harmonyIndices as index.
+        this.voiceLine = getValueOrDefault(options, 'voiceLine', null); // For the section. Use harmonyIndices as index.
+        this.previousNotes = getValueOrDefault(options, 'previousNotes', null); // Voice elements
+        this.nextNotes = getValueOrDefault(options, 'nextNotes', null); // Voice elements
+        this.absoluteNotes = getValueOrDefault(options, 'absoluteNotes', null);
 
         // Likelihood multipliers for certain intervals
-        this.diminishedFifthLikelihood = getValueOrDefault(options, "diminishedFifthLikelihood", 0.001);
-        this.augmentedFourthLikelihood = getValueOrDefault(options, "augmentedFourthLikelihood", 0.001);
-        this.augmentedSecondLikelihood = getValueOrDefault(options, "augmentedSecondLikelihood", 0.01);
-        this.minorSeventhLikelihood = getValueOrDefault(options, "minorSeventhLikelihood", 1.0);
-        this.majorSeventhLikelihood = getValueOrDefault(options, "majorSeventhLikelihood", 1.0);
+        this.diminishedFifthLikelihood = getValueOrDefault(options, 'diminishedFifthLikelihood', 0.001);
+        this.augmentedFourthLikelihood = getValueOrDefault(options, 'augmentedFourthLikelihood', 0.001);
+        this.augmentedSecondLikelihood = getValueOrDefault(options, 'augmentedSecondLikelihood', 0.01);
+        this.minorSeventhLikelihood = getValueOrDefault(options, 'minorSeventhLikelihood', 1.0);
+        this.majorSeventhLikelihood = getValueOrDefault(options, 'majorSeventhLikelihood', 1.0);
 
     }
 
@@ -69,22 +69,22 @@ class Figurator extends DfsSolver {
     getHorizontalOffsets(e, j, likelihoodArr) {
         let offsets = [];
         switch (e.horizontalDomainTypes[j]) {
-            case AdaptiveHorizontalDomainType.ENUMERABLE:
-                offsets = e.horizontalDomainOffsetElements[j];
+        case AdaptiveHorizontalDomainType.ENUMERABLE:
+            offsets = e.horizontalDomainOffsetElements[j];
+            if (likelihoodArr) {
+                for (let i=0; i<offsets.length; i++) {
+                    likelihoodArr[i] = e.horizontalDomainOffsetLikelihoods[j][i % e.horizontalDomainOffsetLikelihoods[j].length];
+                }
+            }
+            break;
+        case AdaptiveHorizontalDomainType.RANGE:
+            for (let i=e.horizontalDomainOffsetRanges[j][0]; i<= e.horizontalDomainOffsetRanges[j][1]; i++) {
+                offsets.push(i);
                 if (likelihoodArr) {
-                    for (let i=0; i<offsets.length; i++) {
-                        likelihoodArr[i] = e.horizontalDomainOffsetLikelihoods[j][i % e.horizontalDomainOffsetLikelihoods[j].length];
-                    }
+                    likelihoodArr.push(1);
                 }
-                break;
-            case AdaptiveHorizontalDomainType.RANGE:
-                for (let i=e.horizontalDomainOffsetRanges[j][0]; i<= e.horizontalDomainOffsetRanges[j][1]; i++) {
-                    offsets.push(i);
-                    if (likelihoodArr) {
-                        likelihoodArr.push(1);
-                    }
-                }
-                break;
+            }
+            break;
         }
         return offsets;
     }
@@ -93,43 +93,43 @@ class Figurator extends DfsSolver {
         let offsets = [];
 
         switch (e.verticalDomainType) {
-            case AdaptiveVerticalDomainType.ENUMERABLE:
-                offsets = e.verticalDomainOffsetElements;
-                for (let i=0; i<offsets.length; i++) {
-                    const l = e.verticalDomainOffsetElementLikelihoods[i % e.verticalDomainOffsetElementLikelihoods.length];
-                    likelihoodArr.push(l);
-                }
-                break;
-            case AdaptiveVerticalDomainType.RANGE:
-                for (let i=e.verticalDomainOffsetRange[0]; i<= e.verticalDomainOffsetRange[1]; i++) {
-                    offsets.push(i);
-                    likelihoodArr.push(1);
-                }
-                break;
-            case AdaptiveVerticalDomainType.CURVE:
-                // logit("Adaptive curve offsets not supported yet...");
-                const fraction = e.clusterPositionFraction;
+        case AdaptiveVerticalDomainType.ENUMERABLE:
+            offsets = e.verticalDomainOffsetElements;
+            for (let i=0; i<offsets.length; i++) {
+                const l = e.verticalDomainOffsetElementLikelihoods[i % e.verticalDomainOffsetElementLikelihoods.length];
+                likelihoodArr.push(l);
+            }
+            break;
+        case AdaptiveVerticalDomainType.RANGE:
+            for (let i=e.verticalDomainOffsetRange[0]; i<= e.verticalDomainOffsetRange[1]; i++) {
+                offsets.push(i);
+                likelihoodArr.push(1);
+            }
+            break;
+        case AdaptiveVerticalDomainType.CURVE:
+            // logit("Adaptive curve offsets not supported yet...");
+            const fraction = e.clusterPositionFraction;
 
-                const curve = e.verticalDomainCurve;
-                if (curve) {
-                    const theCurve = this.module.getCurve(curve);
-                    const offsetRange = e.verticalDomainCurveOffsetRange; // How far off the curve to go
-                    const multiplier = e.verticalDomainCurveOffsetLikelihoodMultiplier; // What to multiply the likelihood when getting outside curve
+            const curve = e.verticalDomainCurve;
+            if (curve) {
+                const theCurve = this.module.getCurve(curve);
+                const offsetRange = e.verticalDomainCurveOffsetRange; // How far off the curve to go
+                const multiplier = e.verticalDomainCurveOffsetLikelihoodMultiplier; // What to multiply the likelihood when getting outside curve
 
-                    let curveValue = theCurve.getValue(this.module, fraction);
-                    curveValue = SnapMetrics.snap(curveValue, SnapMetrics.ROUND);
-                    for (let i=offsetRange[0]; i<= offsetRange[1]; i++) {
-                        offsets.push(curveValue + i);
-                        let lik = 1;
-                        if (i != 0) {
-                            lik = Math.pow(multiplier, Math.abs(i));
-                        }
-                        likelihoodArr.push(lik);
+                let curveValue = theCurve.getValue(this.module, fraction);
+                curveValue = SnapMetrics.snap(curveValue, SnapMetrics.ROUND);
+                for (let i=offsetRange[0]; i<= offsetRange[1]; i++) {
+                    offsets.push(curveValue + i);
+                    let lik = 1;
+                    if (i != 0) {
+                        lik = Math.pow(multiplier, Math.abs(i));
                     }
-                } else {
-                    logit(`figurator could not find curve ${curve}<br />`);
+                    likelihoodArr.push(lik);
                 }
-                break;
+            } else {
+                logit(`figurator could not find curve ${curve}<br />`);
+            }
+            break;
         }
         return offsets;
     }
@@ -291,29 +291,29 @@ class Figurator extends DfsSolver {
             for (let j=0; j<prevElement.horizontalRelativeTypes.length; j++) {
                 let horizontalRelativeType = prevElement.horizontalRelativeTypes[j];
                 switch (horizontalRelativeType) {
-                    case HorizontalRelativeType.NEXT_NOTE:
-                        // The current element refers forward and influences the possible successors
+                case HorizontalRelativeType.NEXT_NOTE:
+                    // The current element refers forward and influences the possible successors
 
-                        if (prevToCurrentHorizontalDomain == null) {
-                            prevToCurrentHorizontalDomain = {};
-                        }
-                        let likelihoodArr = [];
-                        let offsets = this.getHorizontalOffsets(prevElement, j, likelihoodArr);
+                    if (prevToCurrentHorizontalDomain == null) {
+                        prevToCurrentHorizontalDomain = {};
+                    }
+                    let likelihoodArr = [];
+                    let offsets = this.getHorizontalOffsets(prevElement, j, likelihoodArr);
 
-                        for (let i=0; i<offsets.length; i++) {
-                            let absNote = prevElementHarmonyElement.offset(previousAbsNote,
-                                prevElement.horizontalDomainOffsetTypes[j], offsets[i], prevElementHarmonyElement);
+                    for (let i=0; i<offsets.length; i++) {
+                        let absNote = prevElementHarmonyElement.offset(previousAbsNote,
+                            prevElement.horizontalDomainOffsetTypes[j], offsets[i], prevElementHarmonyElement);
                             // Reinterpret this absolute note in the current harmony
-                            if (absNote > 1 && absNote < 127) {
-                                const reinterpreted = harmonyElement.snap(absNote, SnapType.SCALE, harmonyElement);
-                                if (reinterpreted > 1 && reinterpreted < 127) {
-                                    prevToCurrentHorizontalDomain[reinterpreted] = true;
-                                    const oldL = prevToCurrentHorizontalLikelihoods[reinterpreted];
-                                    prevToCurrentHorizontalLikelihoods[reinterpreted] = oldL ? oldL * likelihoodArr[i] : likelihoodArr[i];
-                                }
+                        if (absNote > 1 && absNote < 127) {
+                            const reinterpreted = harmonyElement.snap(absNote, SnapType.SCALE, harmonyElement);
+                            if (reinterpreted > 1 && reinterpreted < 127) {
+                                prevToCurrentHorizontalDomain[reinterpreted] = true;
+                                const oldL = prevToCurrentHorizontalLikelihoods[reinterpreted];
+                                prevToCurrentHorizontalLikelihoods[reinterpreted] = oldL ? oldL * likelihoodArr[i] : likelihoodArr[i];
                             }
                         }
-                        break;
+                    }
+                    break;
                 }
             }
         }
@@ -338,39 +338,39 @@ class Figurator extends DfsSolver {
         for (let j=0; j<currentElement.horizontalRelativeTypes.length; j++) {
             let horizontalRelativeType = currentElement.horizontalRelativeTypes[j];
             switch (horizontalRelativeType) {
-                case HorizontalRelativeType.PREVIOUS_NOTE:
-                case HorizontalRelativeType.PREVIOUS_VOICE_LINE_ELEMENT:
-                    // The current element refers backward and is influenced
+            case HorizontalRelativeType.PREVIOUS_NOTE:
+            case HorizontalRelativeType.PREVIOUS_VOICE_LINE_ELEMENT:
+                // The current element refers backward and is influenced
 
-                    if (currentToPreviousHorizontalDomain == null) {
-                        currentToPreviousHorizontalDomain = {};
-                    }
-                    let likelihoodArr = [];
-                    let offsets = this.getHorizontalOffsets(currentElement, j, likelihoodArr);
-                    let referenceAbsNote = previousAbsNote;
+                if (currentToPreviousHorizontalDomain == null) {
+                    currentToPreviousHorizontalDomain = {};
+                }
+                let likelihoodArr = [];
+                let offsets = this.getHorizontalOffsets(currentElement, j, likelihoodArr);
+                let referenceAbsNote = previousAbsNote;
 
-                    if (referenceAbsNote == null &&
+                if (referenceAbsNote == null &&
                         currentElement.horizontalRelativeTypes[j] == HorizontalRelativeType.PREVIOUS_NOTE) {
-                        const previousNote = this.previousNotes.get(currentElement);
-                        referenceAbsNote = this.absoluteNotes.get(previousNote);
-                    }
+                    const previousNote = this.previousNotes.get(currentElement);
+                    referenceAbsNote = this.absoluteNotes.get(previousNote);
+                }
 
-                    if (referenceAbsNote == null ||
+                if (referenceAbsNote == null ||
                         currentElement.horizontalRelativeTypes[j] == HorizontalRelativeType.PREVIOUS_VOICE_LINE_ELEMENT) {
-                        referenceAbsNote = prevHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(prevVoiceLineElement);
-                    }
+                    referenceAbsNote = prevHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(prevVoiceLineElement);
+                }
 
-                    for (let i=0; i<offsets.length; i++) {
-                        let absNote = harmonyElement.offset(referenceAbsNote,
-                            currentElement.horizontalDomainOffsetTypes[j], offsets[i], harmonyElement);
+                for (let i=0; i<offsets.length; i++) {
+                    let absNote = harmonyElement.offset(referenceAbsNote,
+                        currentElement.horizontalDomainOffsetTypes[j], offsets[i], harmonyElement);
                         //                        logit("______offset " + offsets[i] + " gave abs note " + absNote + "<br />");
 
-                        if (absNote > 1 && absNote < 127) {
-                            currentToPreviousHorizontalDomain[absNote] = true;
-                            currentToPreviousHorizontalLikelihoods[absNote] = likelihoodArr[i];
-                        }
+                    if (absNote > 1 && absNote < 127) {
+                        currentToPreviousHorizontalDomain[absNote] = true;
+                        currentToPreviousHorizontalLikelihoods[absNote] = likelihoodArr[i];
                     }
-                    break;
+                }
+                break;
             }
         }
 
@@ -398,41 +398,41 @@ class Figurator extends DfsSolver {
         for (let j=0; j<currentElement.horizontalRelativeTypes.length; j++) {
             let  horizontalRelativeType = currentElement.horizontalRelativeTypes[j];
             switch ( horizontalRelativeType) {
-                case HorizontalRelativeType.NEXT_NOTE:
-                case HorizontalRelativeType.NEXT_VOICE_LINE_ELEMENT:
-                    // The next element refers forward
+            case HorizontalRelativeType.NEXT_NOTE:
+            case HorizontalRelativeType.NEXT_VOICE_LINE_ELEMENT:
+                // The next element refers forward
 
-                    let likelihoodArr = [];
-                    let offsets = this.getHorizontalOffsets(currentElement, j, likelihoodArr);
-                    let referenceAbsNote = nextAbsNote;
-                    if (currentElement.horizontalRelativeTypes[j] == HorizontalRelativeType.NEXT_VOICE_LINE_ELEMENT) {
+                let likelihoodArr = [];
+                let offsets = this.getHorizontalOffsets(currentElement, j, likelihoodArr);
+                let referenceAbsNote = nextAbsNote;
+                if (currentElement.horizontalRelativeTypes[j] == HorizontalRelativeType.NEXT_VOICE_LINE_ELEMENT) {
+                    referenceAbsNote = nextHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(nextVoiceLineElement);
+                    //                    logit("______getting abs note from previous voice line " + referenceAbsNote + "<br />");
+                }
+                if (currentElement.horizontalRelativeTypes[j] == HorizontalRelativeType.NEXT_NOTE) {
+                    const nextNote = this.nextNotes.get(currentElement);
+                    if (nextNote) {
+                        referenceAbsNote = this.absoluteNotes.get(nextNote);
+                    }
+                    if (!referenceAbsNote && index == this.cluster.length - 1) {
                         referenceAbsNote = nextHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(nextVoiceLineElement);
-                        //                    logit("______getting abs note from previous voice line " + referenceAbsNote + "<br />");
                     }
-                    if (currentElement.horizontalRelativeTypes[j] == HorizontalRelativeType.NEXT_NOTE) {
-                        const nextNote = this.nextNotes.get(currentElement);
-                        if (nextNote) {
-                            referenceAbsNote = this.absoluteNotes.get(nextNote);
-                        }
-                        if (!referenceAbsNote && index == this.cluster.length - 1) {
-                            referenceAbsNote = nextHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(nextVoiceLineElement);
-                        }
+                }
+                if (referenceAbsNote != null) {
+                    if (currentToNextHorizontalDomain == null) {
+                        currentToNextHorizontalDomain = {};
                     }
-                    if (referenceAbsNote != null) {
-                        if (currentToNextHorizontalDomain == null) {
-                            currentToNextHorizontalDomain = {};
-                        }
-                        for (let i=0; i<offsets.length; i++) {
-                            let absNote = harmonyElement.offset(referenceAbsNote,
-                                currentElement.horizontalDomainOffsetTypes[j], offsets[i], harmonyElement);
+                    for (let i=0; i<offsets.length; i++) {
+                        let absNote = harmonyElement.offset(referenceAbsNote,
+                            currentElement.horizontalDomainOffsetTypes[j], offsets[i], harmonyElement);
                             //                        logit("______offset " + offsets[i] + " gave abs note " + absNote + "<br />");
-                            if (absNote > 1 && absNote < 127) {
-                                currentToNextHorizontalDomain[absNote] = true;
-                                currentToNextHorizontalLikelihoods[absNote] = likelihoodArr[i];
-                            }
+                        if (absNote > 1 && absNote < 127) {
+                            currentToNextHorizontalDomain[absNote] = true;
+                            currentToNextHorizontalLikelihoods[absNote] = likelihoodArr[i];
                         }
                     }
-                    break;
+                }
+                break;
             }
         }
 
@@ -530,7 +530,7 @@ class Figurator extends DfsSolver {
                         let prevLeapPenaltyCount = prevLeapSize - 5;
                         prevLeapPenaltyCount += leapSize;
                         let multiplier = 1.0 / (1 + prevLeapPenaltyCount);
-    //                    lik = multiplier * lik;
+                        //                    lik = multiplier * lik;
                     }
                 }
 

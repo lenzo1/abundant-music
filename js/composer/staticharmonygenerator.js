@@ -20,7 +20,7 @@ class StaticHarmonyState {
     }
 
     toString() {
-        return `SHS {harmony: ${this.harmony}mode: ${this.mode}stepCost: ${this.stepCost}${this.targetHarmony ? `targetHarmony: ${this.targetHarmony}` : ""}}`;
+        return `SHS {harmony: ${this.harmony}mode: ${this.mode}stepCost: ${this.stepCost}${this.targetHarmony ? `targetHarmony: ${this.targetHarmony}` : ''}}`;
     }
 }
 
@@ -28,183 +28,183 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
     constructor(options) {
         super(options);
         this.scaleBaseNote = getValueOrDefault(options,
-            "scaleBaseNote", 60);
+            'scaleBaseNote', 60);
         this.scaleType = getValueOrDefault(options,
-            "scaleType", ScaleType.MAJOR);
+            'scaleType', ScaleType.MAJOR);
         this.baseRoot = getValueOrDefault(options,
-            "baseRoot", 0);
+            'baseRoot', 0);
         this.baseHarmony = new ConstantHarmonyElement().setChordRoot(this.baseRoot).setBaseNote(this.scaleBaseNote).setScaleType(this.scaleType);
 
         this.baseToBaseLikelihood = getValueOrDefault(options,
-            "baseToBaseLikelihood", 0.01);
+            'baseToBaseLikelihood', 0.01);
         this.baseExpandedLikelihood = getValueOrDefault(options,
-            "baseExpandedLikelihood", 1);
+            'baseExpandedLikelihood', 1);
         this.baseToNeighbourLikelihood = getValueOrDefault(options,
-            "baseToNeighbourLikelihood", 1);
+            'baseToNeighbourLikelihood', 1);
         this.baseToPassingLikelihood = getValueOrDefault(options,
-            "baseToPassingLikelihood", 1);
+            'baseToPassingLikelihood', 1);
         this.baseToAuxiliaryLikelihood = getValueOrDefault(options,
-            "baseToAuxiliaryLikelihood", 1);
+            'baseToAuxiliaryLikelihood', 1);
 
         this.auxiliaryToAuxiliaryLikelihood = getValueOrDefault(options,
-            "auxiliaryToAuxiliaryLikelihood", 0.01);
+            'auxiliaryToAuxiliaryLikelihood', 0.01);
         this.auxiliaryExpandedLikelihood = getValueOrDefault(options,
-            "auxiliaryExpandedLikelihood", 1);
+            'auxiliaryExpandedLikelihood', 1);
         this.auxiliaryToBaseLikelihood = getValueOrDefault(options,
-            "auxiliaryToBaseLikelihood", 1);
+            'auxiliaryToBaseLikelihood', 1);
         this.auxiliaryToNeighbourLikelihood = getValueOrDefault(options,
-            "auxiliaryToNeighbourLikelihood", 1);
+            'auxiliaryToNeighbourLikelihood', 1);
         this.auxiliaryToPassingLikelihood = getValueOrDefault(options,
-            "auxiliaryToPassingLikelihood", 1);
+            'auxiliaryToPassingLikelihood', 1);
 
 
         this.baseToBaseCost = getValueOrDefault(options,
-            "baseToBaseCost", 0);
+            'baseToBaseCost', 0);
         this.baseExpandedCost = getValueOrDefault(options,
-            "baseExpandedCost", 0);
+            'baseExpandedCost', 0);
         this.baseToNeighbourCost = getValueOrDefault(options,
-            "baseToNeighbourCost", 0);
+            'baseToNeighbourCost', 0);
         this.baseToPassingCost = getValueOrDefault(options,
-            "baseToPassingCost", 0);
+            'baseToPassingCost', 0);
         this.baseToAuxiliaryCost = getValueOrDefault(options,
-            "baseToAuxiliaryCost", 0);
+            'baseToAuxiliaryCost', 0);
 
         this.auxiliaryToAuxiliaryCost = getValueOrDefault(options,
-            "auxiliaryToAuxiliaryCost", 0);
+            'auxiliaryToAuxiliaryCost', 0);
         this.auxiliaryExpandedCost = getValueOrDefault(options,
-            "auxiliaryExpandedCost", 0);
+            'auxiliaryExpandedCost', 0);
         this.auxiliaryToBaseCost = getValueOrDefault(options,
-            "auxiliaryToBaseCost", 0);
+            'auxiliaryToBaseCost', 0);
         this.auxiliaryToNeighbourCost = getValueOrDefault(options,
-            "auxiliaryToNeighbourCost", 0);
+            'auxiliaryToNeighbourCost', 0);
         this.auxiliaryToPassingCost = getValueOrDefault(options,
-            "auxiliaryToPassingCost", 0);
+            'auxiliaryToPassingCost', 0);
 
 
         this.auxiliaryChordRoots = getValueOrDefault(options,
-            "auxiliaryChordRoots", [3, 4, 2, 5]);
+            'auxiliaryChordRoots', [3, 4, 2, 5]);
         this.auxiliaryChordRootLikelihoods = getValueOrDefault(options,
-            "auxiliaryChordRootLikelihoods", [1, 1, 0.2, 0.2]);
+            'auxiliaryChordRootLikelihoods', [1, 1, 0.2, 0.2]);
         this.auxiliaryChordRootCosts = getValueOrDefault(options,
-            "auxiliaryChordRootCosts", [0, 0, 0, 0]);
+            'auxiliaryChordRootCosts', [0, 0, 0, 0]);
 
         this.minorPassingChordRoots = getValueOrDefault(options,
-            "minorPassingChordRoots", [0, 1, 2, 3, 4, 5, 6]);
+            'minorPassingChordRoots', [0, 1, 2, 3, 4, 5, 6]);
         this.minorPassingChordInversions = getValueOrDefault(options,
-            "minorPassingChordInversions", [[1], [1], [1], [1], [1], [1], [1]]);
+            'minorPassingChordInversions', [[1], [1], [1], [1], [1], [1], [1]]);
         this.majorPassingChordRoots = getValueOrDefault(options,
-            "majorPassingChordRoots", [0, 1, 2, 3, 4, 5, 6]);
+            'majorPassingChordRoots', [0, 1, 2, 3, 4, 5, 6]);
         this.majorPassingChordInversions = getValueOrDefault(options,
-            "majorPassingChordInversions", [[1], [1], [1], [1], [1], [1], [1]]);
+            'majorPassingChordInversions', [[1], [1], [1], [1], [1], [1], [1]]);
 
         this.passingIncrements = getValueOrDefault(options,
-            "passingIncrements", [-2, -1, 1, 2]);
+            'passingIncrements', [-2, -1, 1, 2]);
         this.passingIncrementLikelihoods = getValueOrDefault(options,
-            "passingIncrementLikelihoods", [0.25, 1, 1, 0.25]);
+            'passingIncrementLikelihoods', [0.25, 1, 1, 0.25]);
         this.passingIncrementCosts = getValueOrDefault(options,
-            "passingIncrementCosts", [0, 0, 0, 0]);
+            'passingIncrementCosts', [0, 0, 0, 0]);
 
         this.majorNeighbourChordRoots = getValueOrDefault(options,
-            "majorNeighbourChordRoots", [0, 1, 2, 3, 4, 5, 6]);
+            'majorNeighbourChordRoots', [0, 1, 2, 3, 4, 5, 6]);
         this.majorNeighbourChordInversions = getValueOrDefault(options,
-            "majorNeighbourChordInversions", [[1], [1], [1], [1], [1], [1], [1]]);
+            'majorNeighbourChordInversions', [[1], [1], [1], [1], [1], [1], [1]]);
         this.minorNeighbourChordRoots = getValueOrDefault(options,
-            "minorNeighbourChordRoots", [0, 1, 2, 3, 4, 5, 6]);
+            'minorNeighbourChordRoots', [0, 1, 2, 3, 4, 5, 6]);
         this.minorNeighbourChordInversions = getValueOrDefault(options,
-            "minorNeighbourChordInversions", [[1], [1], [1], [1], [1], [1], [1]]);
+            'minorNeighbourChordInversions', [[1], [1], [1], [1], [1], [1], [1]]);
         this.majorNeighbourSusChordRoots = getValueOrDefault(options,
-            "majorNeighbourSusChordRoots", [0, 1, 4, 5]);
+            'majorNeighbourSusChordRoots', [0, 1, 4, 5]);
         this.minorNeighbourSusChordRoots = getValueOrDefault(options,
-            "minorNeighbourSusChordRoots", [0, 2, 3]);
+            'minorNeighbourSusChordRoots', [0, 2, 3]);
         this.majorNeighbourMixtureChordRoots = getValueOrDefault(options,
-            "majorNeighbourMixtureChordRoots", [0, 1, 2, 3, 4, 5, 6]);
+            'majorNeighbourMixtureChordRoots', [0, 1, 2, 3, 4, 5, 6]);
         this.minorNeighbourMixtureChordRoots = getValueOrDefault(options,
-            "minorNeighbourMixtureChordRoots", [0, 1, 2, 3, 4, 5, 6]);
+            'minorNeighbourMixtureChordRoots', [0, 1, 2, 3, 4, 5, 6]);
 
-        this.mixture = getValueOrDefault(options, "mixture", true);
+        this.mixture = getValueOrDefault(options, 'mixture', true);
 
         this.canEndWithBase = getValueOrDefault(options,
-            "canEndWithBase", true);
+            'canEndWithBase', true);
         this.canEndWithAuxiliary = getValueOrDefault(options,
-            "canEndWithAuxiliary", false);
+            'canEndWithAuxiliary', false);
 
         this.possibleAuxiliaryEndRoots = getValueOrDefault(options,
-            "possibleAuxiliaryEndRoots", [3, 4, 2, 5]);
+            'possibleAuxiliaryEndRoots', [3, 4, 2, 5]);
         this.possibleAuxiliaryEndInversions = getValueOrDefault(options,
-            "possibleAuxiliaryEndInversions", [[0], [0], [0], [0]]);
+            'possibleAuxiliaryEndInversions', [[0], [0], [0], [0]]);
         this.possiblePassingEndRoots = getValueOrDefault(options,
-            "possiblePassingEndRoots", [0]);
+            'possiblePassingEndRoots', [0]);
         this.possiblePassingEndInversions = getValueOrDefault(options,
-            "possiblePassingEndInversions", [[0, 1]]);
+            'possiblePassingEndInversions', [[0, 1]]);
         this.possibleNeighbourEndRoots = getValueOrDefault(options,
-            "possibleNeighbourEndRoots", [0]);
+            'possibleNeighbourEndRoots', [0]);
         this.possibleNeighbourEndInversions = getValueOrDefault(options,
-            "possibleNeighbourEndInversions", [[0]]);
+            'possibleNeighbourEndInversions', [[0]]);
 
         this.baseSeventhLikelihoods = getValueOrDefault(options,
-            "baseSeventhLikelihoods", [[1, 1, 1, 1, 1, 1, 1]]);
+            'baseSeventhLikelihoods', [[1, 1, 1, 1, 1, 1, 1]]);
         this.baseSeventhCosts = getValueOrDefault(options,
-            "baseSeventhCosts", [[0, 0, 0, 0, 0, 0, 0]]);
+            'baseSeventhCosts', [[0, 0, 0, 0, 0, 0, 0]]);
         this.baseTriadLikelihoods = getValueOrDefault(options,
-            "baseTriadLikelihoods", [[1, 1, 1, 1, 1, 1, 1]]);
+            'baseTriadLikelihoods', [[1, 1, 1, 1, 1, 1, 1]]);
         this.baseTriadCosts = getValueOrDefault(options,
-            "baseTraidCosts", [[0, 0, 0, 0, 0, 0, 0]]);
+            'baseTraidCosts', [[0, 0, 0, 0, 0, 0, 0]]);
 
         this.auxiliarySeventhLikelihoods = getValueOrDefault(options,
-            "auxiliarySeventhLikelihoods", [[1, 1, 1, 1, 1, 1, 1]]);
+            'auxiliarySeventhLikelihoods', [[1, 1, 1, 1, 1, 1, 1]]);
         this.auxiliaryTriadLikelihoods = getValueOrDefault(options,
-            "auxiliaryTriadLikelihoods", [[1, 1, 1, 1, 1, 1, 1]]);
+            'auxiliaryTriadLikelihoods', [[1, 1, 1, 1, 1, 1, 1]]);
         this.passingSeventhLikelihoods = getValueOrDefault(options,
-            "passingSeventhLikelihoods", [[1, 1, 1, 1, 1, 1, 1]]);
+            'passingSeventhLikelihoods', [[1, 1, 1, 1, 1, 1, 1]]);
         this.passingTriadLikelihoods = getValueOrDefault(options,
-            "passingTriadLikelihoods", [[1, 1, 1, 1, 1, 1, 1]]);
+            'passingTriadLikelihoods', [[1, 1, 1, 1, 1, 1, 1]]);
         this.neighbourSeventhLikelihoods = getValueOrDefault(options,
-            "neighbourSeventhLikelihoods", [[1, 1, 1, 1, 1, 1, 1]]);
+            'neighbourSeventhLikelihoods', [[1, 1, 1, 1, 1, 1, 1]]);
         this.neighbourTriadLikelihoods = getValueOrDefault(options,
-            "neighbourTriadLikelihoods", [[1, 1, 1, 1, 1, 1, 1]]);
+            'neighbourTriadLikelihoods', [[1, 1, 1, 1, 1, 1, 1]]);
 
         this.simpleMixtureLikelihood = getValueOrDefault(options,
-            "simpleMixtureLikelihood", 1);
+            'simpleMixtureLikelihood', 1);
         this.sus2Likelihood = getValueOrDefault(options,
-            "sus2Likelihood", 1);
+            'sus2Likelihood', 1);
         this.sus4Likelihood = getValueOrDefault(options,
-            "sus4Likelihood", 1);
+            'sus4Likelihood', 1);
 
         this.neighbourMixtureSeventhLikelihoods = getValueOrDefault(options,
-            "neighbourMixtureSeventhLikelihoods", [[0, 0, 0, 0, 0, 0, 0]]);
+            'neighbourMixtureSeventhLikelihoods', [[0, 0, 0, 0, 0, 0, 0]]);
         this.neighbourMixtureTriadLikelihoods = getValueOrDefault(options,
-            "neighbourMixtureTriadLikelihoods", [[1, 1, 1, 1, 1, 1, 1]]);
+            'neighbourMixtureTriadLikelihoods', [[1, 1, 1, 1, 1, 1, 1]]);
 
         this.auxiliarySeventhCosts = getValueOrDefault(options,
-            "auxiliarySeventhCosts", [[0, 0, 0, 0, 0, 0, 0]]);
+            'auxiliarySeventhCosts', [[0, 0, 0, 0, 0, 0, 0]]);
         this.auxiliaryTriadCosts = getValueOrDefault(options,
-            "auxiliaryTriadCosts", [[0, 0, 0, 0, 0, 0, 0]]);
+            'auxiliaryTriadCosts', [[0, 0, 0, 0, 0, 0, 0]]);
         this.passingSeventhCosts = getValueOrDefault(options,
-            "passingSeventhCosts", [[0, 0, 0, 0, 0, 0, 0]]);
+            'passingSeventhCosts', [[0, 0, 0, 0, 0, 0, 0]]);
         this.passingTriadCosts = getValueOrDefault(options,
-            "passingTriadCosts", [[0, 0, 0, 0, 0, 0, 0]]);
+            'passingTriadCosts', [[0, 0, 0, 0, 0, 0, 0]]);
         this.neighbourSeventhCosts = getValueOrDefault(options,
-            "neighbourSeventhCosts", [[0, 0, 0, 0, 0, 0, 0]]);
+            'neighbourSeventhCosts', [[0, 0, 0, 0, 0, 0, 0]]);
         this.neighbourTriadCosts = getValueOrDefault(options,
-            "neighbourTriadCosts", [[0, 0, 0, 0, 0, 0, 0]]);
+            'neighbourTriadCosts', [[0, 0, 0, 0, 0, 0, 0]]);
 
         this.neighbourMixtureSeventhCosts = getValueOrDefault(options,
-            "neighbourMixtureSeventhCosts", [[0, 0, 0, 0, 0, 0, 0]]);
+            'neighbourMixtureSeventhCosts', [[0, 0, 0, 0, 0, 0, 0]]);
         this.neighbourMixtureTriadCosts = getValueOrDefault(options,
-            "neighbourMixtureTriadCosts", [[0, 0, 0, 0, 0, 0, 0]]);
+            'neighbourMixtureTriadCosts', [[0, 0, 0, 0, 0, 0, 0]]);
 
 
 
 
 
         this.startWithAccented64Likelihood = getValueOrDefault(options,
-            "startWithAccented64Likelihood", 110);
+            'startWithAccented64Likelihood', 110);
         this.startWithoutAccented64Likelihood = getValueOrDefault(options,
-            "startWithoutAccented64Likelihood", 1);
+            'startWithoutAccented64Likelihood', 1);
         this.startWithAccented64Cost = getValueOrDefault(options,
-            "startWithAccented64Cost", 10);
+            'startWithAccented64Cost', 10);
         this.startWithoutAccented64Cost = getValueOrDefault(options,
-            "startWithoutAccented64Cost", 0);
+            'startWithoutAccented64Cost', 0);
 
     //    this. = getValueOrDefault(options, "", [1, 1]);
     }
@@ -218,7 +218,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
         if (this.count > 1 && this.startWithAccented64Likelihood > 0) {
             const accState = new StaticHarmonyState();
             accState.harmony = this.baseHarmony.copy();
-            accState.harmony.note = "S";
+            accState.harmony.note = 'S';
             accState.harmony.chordRoot = (accState.harmony.chordRoot + 3) % 7;
             accState.harmony.chordInversions = 2;
             accState.harmony.chordType = ChordType.TRIAD;
@@ -232,9 +232,9 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
                 if (secondBeatStrength > firstBeatStrength) {
                     likelihood *= 0.1;
                     cost += 10;
-    //                logit("Should not start with 64 " + firstBeatStrength + " " + secondBeatStrength);
+                    //                logit("Should not start with 64 " + firstBeatStrength + " " + secondBeatStrength);
                 } else {
-    //                logit("Can start with 64 " + firstBeatStrength + " " + secondBeatStrength);
+                    //                logit("Can start with 64 " + firstBeatStrength + " " + secondBeatStrength);
                 }
             }
             likelihoods.push(likelihood);
@@ -242,7 +242,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
         }
         const state = new StaticHarmonyState();
         state.harmony = this.baseHarmony.copy();
-        state.harmony.note = "S";
+        state.harmony.note = 'S';
         state.mode = StaticHarmonyMode.BASE;
 
         this.getChordsStuff(0, state,
@@ -261,31 +261,31 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
 
         let result = true;
         switch (state.mode) {
-            case StaticHarmonyMode.BASE:
-                result = this.canEndWithBase;
-                break;
-            case StaticHarmonyMode.AUXILIARY:
-                if (this.canEndWithAuxiliary) {
-                    if (this.possibleAuxiliaryEndRoots.length > 0) {
-                        const rootPitchClass =
+        case StaticHarmonyMode.BASE:
+            result = this.canEndWithBase;
+            break;
+        case StaticHarmonyMode.AUXILIARY:
+            if (this.canEndWithAuxiliary) {
+                if (this.possibleAuxiliaryEndRoots.length > 0) {
+                    const rootPitchClass =
                             state.harmony.getAbsoluteNoteFromScaleIndex(state.harmony.getChordRootScaleIndex()) % 12;
-                        for (let i=0; i<this.possibleAuxiliaryEndRoots.length; i++) {
-                            const pitchClass = state.harmony.getAbsoluteNoteFromScaleIndex(this.possibleAuxiliaryEndRoots[i]) % 12;
-                            if (pitchClass == rootPitchClass) {
-                                result = true;
-                                break;
-                            }
+                    for (let i=0; i<this.possibleAuxiliaryEndRoots.length; i++) {
+                        const pitchClass = state.harmony.getAbsoluteNoteFromScaleIndex(this.possibleAuxiliaryEndRoots[i]) % 12;
+                        if (pitchClass == rootPitchClass) {
+                            result = true;
+                            break;
                         }
-                        result = false;
                     }
-                    result = true;
-                } else {
                     result = false;
                 }
-                break;
-            default:
+                result = true;
+            } else {
                 result = false;
-                break;
+            }
+            break;
+        default:
+            result = false;
+            break;
         }
         //    if (result) {
         //        logit("__ found goal state " + state + "<br />");
@@ -300,7 +300,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
     getBaseState() {
         const state = new StaticHarmonyState();
         state.harmony = this.baseHarmony.copy();
-        state.harmony.note = "S";
+        state.harmony.note = 'S';
         state.mode = StaticHarmonyMode.BASE;
         return state;
     }
@@ -308,7 +308,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
     getAuxiliaryHarmony(root) {
         const harmony = this.baseHarmony.copy();
         harmony.chordRoot = root;
-        harmony.note = "S, A";
+        harmony.note = 'S, A';
         return harmony;
     }
 
@@ -369,7 +369,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
             // Just add the target harmony
             const theTargetHarmony = targetHarmony.copy();
             harmonies.push(theTargetHarmony);
-            theTargetHarmony.note = `S${towardsAux ? ", A" : ""}`;
+            theTargetHarmony.note = `S${towardsAux ? ', A' : ''}`;
             modes.push(towardsAux ? StaticHarmonyMode.AUXILIARY : StaticHarmonyMode.BASE);
             likelihoods.push(moveToTargetLikelihood);
             costs.push(moveToTargetCost);
@@ -392,7 +392,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
                 //            logit("Getting " + passingChords.length + " passing chords from " + currentHarmony.toRomanString() + " to " + targetHarmony.toRomanString());
                 for (const pc of passingChords) {
                     harmonies.push(pc);
-                    pc.note = `S, ${towardsAux ? "PA" : "PB"}`;
+                    pc.note = `S, ${towardsAux ? 'PA' : 'PB'}`;
                     likelihoods.push(incrementLikelihood);
                     costs.push(incrementCost);
                     modes.push(towardsAux ? StaticHarmonyMode.PASSING_TOWARDS_AUXILIARY : StaticHarmonyMode.PASSING_TOWARDS_BASE);
@@ -402,8 +402,8 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
 
         const depth = node.depth;
 
-    //    index, state, likelihood, seventhLikelihoodArr, triadLikelihoodArr,
-    //        resultStates, resultLikelihoods
+        //    index, state, likelihood, seventhLikelihoodArr, triadLikelihoodArr,
+        //        resultStates, resultLikelihoods
 
         for (let i=0; i<harmonies.length; i++) {
             const state = new StaticHarmonyState();
@@ -428,7 +428,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
         if (this.baseToBaseLikelihood > 0) {
             let baseState = this.getBaseState();
             nextStates.push(baseState);
-            baseState.harmony.note = "S";
+            baseState.harmony.note = 'S';
             nextLikelihoods.push(this.baseToBaseLikelihood);
             nextCosts.push(this.baseToBaseCost);
         }
@@ -436,7 +436,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
             let baseState = this.getBaseState();
             baseState.harmony.chordInversions = 1;
             nextStates.push(baseState);
-            baseState.harmony.note = "S, BE";
+            baseState.harmony.note = 'S, BE';
             nextLikelihoods.push(this.baseExpandedLikelihood);
             nextCosts.push(this.baseExpandedCost);
         }
@@ -461,7 +461,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
             if (auxLikelihoods.length > 0) {
                 for (let i=0; i<auxLikelihoods.length; i++) {
                     nextStates.push(auxStates[i]);
-                    auxStates[i].harmony.note = "S, A";
+                    auxStates[i].harmony.note = 'S, A';
                     nextLikelihoods.push(this.baseToAuxiliaryLikelihood * auxLikelihoods[i]);
                     nextCosts.push(this.baseToAuxiliaryCost + auxCosts[i]);
                 }
@@ -501,14 +501,14 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
 
                 let state = new StaticHarmonyState();
                 state.harmony = harmonies[i];
-                state.harmony.note = "S, BN";
+                state.harmony.note = 'S, BN';
 
 
                 if (this.baseHarmony.scaleType != state.harmony.scaleType) {
-    //                logit(" Adding neighrour mixture!!");
-                    state.harmony.note += "X";
+                    //                logit(" Adding neighrour mixture!!");
+                    state.harmony.note += 'X';
                     likelihood *= this.simpleMixtureLikelihood;
-    //                logit(likelihood);
+                    //                logit(likelihood);
                     neighbourSeventhLikelihoods = this.neighbourMixtureSeventhLikelihoods;
                     neighbourTriadLikelihoods = this.neighbourMixtureTriadLikelihoods;
                     neighbourSeventhCosts = this.neighbourMixtureSeventhCosts;
@@ -567,11 +567,11 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
             for (let i=0; i<harmonies.length; i++) {
                 let state = new StaticHarmonyState();
                 state.harmony = harmonies[i];
-                state.harmony.note = "S, PA";
+                state.harmony.note = 'S, PA';
                 state.targetHarmony = targetHarmonies[i];
                 state.mode = StaticHarmonyMode.PASSING_TOWARDS_AUXILIARY;
 
-    //            logit("Testing " + state.harmony.toRomanString() + " " + (this.baseToPassingLikelihood * likelihoods[i]));
+                //            logit("Testing " + state.harmony.toRomanString() + " " + (this.baseToPassingLikelihood * likelihoods[i]));
 
                 this.getChordsStuff(depth, state, this.baseToPassingLikelihood * likelihoods[i], this.baseToPassingCost + costs[i],
                     this.passingSeventhLikelihoods, this.passingTriadLikelihoods,
@@ -579,7 +579,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
                     nextStates, nextLikelihoods, nextCosts);
             }
 
-    //        logit("  Added " + (nextStates.length - sizeBefore) + " states");
+            //        logit("  Added " + (nextStates.length - sizeBefore) + " states");
 
         }
 
@@ -592,7 +592,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
         if (this.auxiliaryToAuxiliaryLikelihood > 0) {
             let nextState = new StaticHarmonyState();
             nextState.harmony = node.state.harmony.copy();
-            nextState.harmony.note = "S, A";
+            nextState.harmony.note = 'S, A';
             nextState.mode = StaticHarmonyMode.AUXILIARY;
             nextStates.push(nextState);
             nextLikelihoods.push(this.auxiliaryToAuxiliaryLikelihood);
@@ -601,7 +601,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
         if (this.auxiliaryExpandedLikelihood > 0 && currentHarmony.chordInversions == 0) {
             let nextState = new StaticHarmonyState();
             nextState.harmony = currentHarmony.copy();
-            nextState.harmony.note = "S, AE";
+            nextState.harmony.note = 'S, AE';
             nextState.harmony.chordInversions = 1;
             nextState.mode = StaticHarmonyMode.AUXILIARY;
             nextStates.push(nextState);
@@ -611,7 +611,7 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
         if (this.auxiliaryToBaseLikelihood > 0) {
             let nextState = new StaticHarmonyState();
             nextState.harmony = this.baseHarmony.copy();
-            nextState.harmony.note = "S";
+            nextState.harmony.note = 'S';
             nextState.mode = StaticHarmonyMode.BASE;
             nextStates.push(nextState);
             nextLikelihoods.push(this.auxiliaryToBaseLikelihood);
@@ -641,11 +641,11 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
             for (let i=0; i<neighbours.length; i++) {
                 const state = new StaticHarmonyState();
                 state.harmony = neighbours[i];
-                state.harmony.note = "S, AN";
+                state.harmony.note = 'S, AN';
                 let likelihood = this.auxiliaryToNeighbourLikelihood * likelihoods[i];
                 if (node.state.harmony.scaleType != state.harmony.scaleType) {
-    //                logit(" Adding neighrour mixture!!");
-                    state.harmony.note += "X";
+                    //                logit(" Adding neighrour mixture!!");
+                    state.harmony.note += 'X';
                     likelihood *= this.simpleMixtureLikelihood;
                 }
                 state.mode = StaticHarmonyMode.AUXILIARY_NEIGHBOUR;
@@ -667,38 +667,38 @@ class StaticHarmonyGenerator extends HarmonyGenerator {
         const chordsLeft = this.count - node.depth;
 
         switch (state.mode) {
-            case StaticHarmonyMode.ACCENTED_64_BASE:
-                let state = new StaticHarmonyState();
-                state.harmony = this.baseHarmony.copy();
-                state.mode = StaticHarmonyMode.BASE;
-                possibleNextStates.push(state);
-                possibleNextStateLikelihoods.push(1);
-                possibleNextStateCosts.push(0);
-                break;
-            case StaticHarmonyMode.BASE:
-                this.getBaseStatesAndLikelihoods(node, possibleNextStates, possibleNextStateLikelihoods, possibleNextStateCosts);
-                break;
-            case StaticHarmonyMode.AUXILIARY:
-                this.getAuxiliaryStatesAndLikelihoods(node, possibleNextStates, possibleNextStateLikelihoods, possibleNextStateCosts);
-                break;
-            case StaticHarmonyMode.BASE_NEIGHBOUR:
-                // Always goes back to base
-                possibleNextStates.push(this.getBaseState());
-                possibleNextStateLikelihoods.push(1.0);
-                possibleNextStateCosts.push(0);
-                break;
-            case StaticHarmonyMode.AUXILIARY_NEIGHBOUR:
-                // Always goes back to previous auxiliary
-                possibleNextStates.push(this.getAuxiliaryState(node.state.auxiliaryRoot));
-                possibleNextStateLikelihoods.push(1.0);
-                possibleNextStateCosts.push(0);
-                break;
-            case StaticHarmonyMode.PASSING_TOWARDS_AUXILIARY:
-                this.getPassingTowardsTargetStatesAndLikelihoods(node, possibleNextStates, possibleNextStateLikelihoods, possibleNextStateCosts);
-                break;
-            case StaticHarmonyMode.PASSING_TOWARDS_BASE:
-                this.getPassingTowardsTargetStatesAndLikelihoods(node, possibleNextStates, possibleNextStateLikelihoods, possibleNextStateCosts);
-                break;
+        case StaticHarmonyMode.ACCENTED_64_BASE:
+            let state = new StaticHarmonyState();
+            state.harmony = this.baseHarmony.copy();
+            state.mode = StaticHarmonyMode.BASE;
+            possibleNextStates.push(state);
+            possibleNextStateLikelihoods.push(1);
+            possibleNextStateCosts.push(0);
+            break;
+        case StaticHarmonyMode.BASE:
+            this.getBaseStatesAndLikelihoods(node, possibleNextStates, possibleNextStateLikelihoods, possibleNextStateCosts);
+            break;
+        case StaticHarmonyMode.AUXILIARY:
+            this.getAuxiliaryStatesAndLikelihoods(node, possibleNextStates, possibleNextStateLikelihoods, possibleNextStateCosts);
+            break;
+        case StaticHarmonyMode.BASE_NEIGHBOUR:
+            // Always goes back to base
+            possibleNextStates.push(this.getBaseState());
+            possibleNextStateLikelihoods.push(1.0);
+            possibleNextStateCosts.push(0);
+            break;
+        case StaticHarmonyMode.AUXILIARY_NEIGHBOUR:
+            // Always goes back to previous auxiliary
+            possibleNextStates.push(this.getAuxiliaryState(node.state.auxiliaryRoot));
+            possibleNextStateLikelihoods.push(1.0);
+            possibleNextStateCosts.push(0);
+            break;
+        case StaticHarmonyMode.PASSING_TOWARDS_AUXILIARY:
+            this.getPassingTowardsTargetStatesAndLikelihoods(node, possibleNextStates, possibleNextStateLikelihoods, possibleNextStateCosts);
+            break;
+        case StaticHarmonyMode.PASSING_TOWARDS_BASE:
+            this.getPassingTowardsTargetStatesAndLikelihoods(node, possibleNextStates, possibleNextStateLikelihoods, possibleNextStateCosts);
+            break;
         }
         //    logit("Iterator for " + node + " states:" + possibleNextStates + " likelihoods: " + possibleNextStateLikelihoods + "<br />");
 

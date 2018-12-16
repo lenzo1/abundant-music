@@ -2,10 +2,10 @@
 
 class SuspAntStrategy {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.voiceLines = [];
         
-        this._constructorName = "SuspAntStrategy";
+        this._constructorName = 'SuspAntStrategy';
     }
 
     getNewLengthsSuspend(toIncreaseBeatLength, toDecreaseBeatLength, harmony, harmonyBeatOffset) {
@@ -38,15 +38,15 @@ class SuspAntStrategy {
         toDec.length = newLengths[1];
         toDec.lengthUnit = PositionUnit.BEATS;
 
-    //    function strangeLength(l) {
-    //        return l != 1 || l != 2 || l != 3 || l != 4 || l != 6 || l != 8;
-    //    }
-    //    if (strangeLength(toInc.length)) {
-    //        logit("Strange length detected in toInc " + toInc.length);
-    //    }
-    //    if (strangeLength(toDec.length)) {
-    //        logit("Strange length detected in toDec " + toDec.length);
-    //    }
+        //    function strangeLength(l) {
+        //        return l != 1 || l != 2 || l != 3 || l != 4 || l != 6 || l != 8;
+        //    }
+        //    if (strangeLength(toInc.length)) {
+        //        logit("Strange length detected in toInc " + toInc.length);
+        //    }
+        //    if (strangeLength(toDec.length)) {
+        //        logit("Strange length detected in toDec " + toDec.length);
+        //    }
 
     }
 
@@ -55,9 +55,9 @@ class SuspAntStrategy {
         for (let i=0; i<voiceLine.size(); i++) {
             const vle = voiceLine.get(i);
             if (vle.suspend) {
-    //            logit("suspending " + i + ": " + arrayElementsPropertyToString(harmony.harmonyElements, "length").join(", ") + "<br /><br /><br />");
+                //            logit("suspending " + i + ": " + arrayElementsPropertyToString(harmony.harmonyElements, "length").join(", ") + "<br /><br /><br />");
                 harmony = this.suspend(i, harmony, module);
-    //            logit("suspending result: " + arrayElementsPropertyToString(harmony.harmonyElements, "length").join(", ") + "<br /><br /><br />");
+                //            logit("suspending result: " + arrayElementsPropertyToString(harmony.harmonyElements, "length").join(", ") + "<br /><br /><br />");
             } else if (vle.anticipate) {
                 harmony = this.anticipate(i, harmony, module);
             }
@@ -99,7 +99,7 @@ class SimpleSuspAntStrategy extends SuspAntStrategy {
         this.minLength = 1;
         this.minLengthUnit = PositionUnit.BEATS;
 
-        this._constructorName = "SimpleSuspAntStrategy";
+        this._constructorName = 'SimpleSuspAntStrategy';
     }
 
     getNewLengthsSuspend(toIncreaseBeatLength, toDecreaseBeatLength, harmony, harmonyBeatOffset) {

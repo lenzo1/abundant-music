@@ -75,12 +75,12 @@ function getMainSeed() {
 function getSeedStringsObject(reference, genInfo) {
     var result = {};
     for (var prop in reference) {
-        if (prop.indexOf("Seed") >= 0) {
+        if (prop.indexOf('Seed') >= 0) {
             var seed = genInfo[prop];
             if (typeof(seed) != 'undefined') {
-                result[prop] = "" + seed;
+                result[prop] = '' + seed;
             } else {
-                result[prop] = "";
+                result[prop] = '';
             }
         }
     }
@@ -89,7 +89,7 @@ function getSeedStringsObject(reference, genInfo) {
 
 function getSeeds(result, settings) {
     for (var prop in settings) {
-        if (prop.indexOf("Seed") >= 0) {
+        if (prop.indexOf('Seed') >= 0) {
             var seedStr = settings[prop];
             if (seedStr) {
                 var seed = parseInt(seedStr);
@@ -141,16 +141,16 @@ function getGenInfo() {
 
 
 function showModalDialog(title, content, options) {
-    var $dialog = $("<div title=\"" + title + "\" >" + content + "</div>");
+    var $dialog = $('<div title="' + title + '" >' + content + '</div>');
 
-    $("#dialogsdiv").append($dialog);
+    $('#dialogsdiv').append($dialog);
 
     if (!options) {
         options = {
             modal: true,
             buttons: {
-                "Ok": function() {
-                    $( this ).dialog( "close" );
+                'Ok': function() {
+                    $( this ).dialog( 'close' );
                 }
             }
         }
@@ -164,13 +164,13 @@ function showConfirmDialog(title, content, yesCaption, noCaption, yesCallback, n
 
     var buttons = {};
     buttons[yesCaption] = function() {
-        $(this).dialog("close");
+        $(this).dialog('close');
         if (yesCallback) {
             yesCallback();
         }
     };
     buttons[noCaption] = function() {
-        $(this).dialog("close");
+        $(this).dialog('close');
         if (noCallback) {
             noCallback();
         }
@@ -188,7 +188,7 @@ function setSongSettingsDirty(val) {
     songSettingsDirty = val;
 
     if ($refreshButton) {
-        $refreshButton.button("option", "disabled", !val);
+        $refreshButton.button('option', 'disabled', !val);
     }
 }
 
@@ -208,22 +208,22 @@ function afterExport(op) {
                 var time = $latestAudioElement[0].currentTime;
                 if (time) {
                     var beat = predictBeat(tempTempoEvents, time);
-//                    logit("predicted beat " + beat + " from " + time);
+                    //                    logit("predicted beat " + beat + " from " + time);
                     visualizer.setCurrentPlayBeatTime(beat);
                 }
                 exportTimeout = setTimeout(updateExportPlayer, 100);
             }
         }
 
-        $latestAudioElement.on("play", function() {
+        $latestAudioElement.on('play', function() {
             visualizer.setMode(VisualizerMode.PLAY);
             visualizer.setCurrentPlayBeatTime(0);
             updateExportPlayer();
         });
-        $latestAudioElement.on("pause", function() {
+        $latestAudioElement.on('pause', function() {
             visualizer.setMode(VisualizerMode.PAUSE);
         });
-        $latestAudioElement.on("stop", function() {
+        $latestAudioElement.on('stop', function() {
             visualizer.setMode(VisualizerMode.STOP);
             visualizer.setCurrentPlayBeatTime(0);
         });
@@ -243,11 +243,11 @@ function joinNotEmpty(arr, str) {
 }
 
 var exportSupportArr = [
-    (window.ArrayBuffer ? "" : "Array Buffer"),
-    (window.DataView ? "" : "Data View"),
-    (window.URL ? "" : "URL object"),
-    (Modernizr.webworkers ? "" : "Web Workers"),
-    (Modernizr.blobconstructor ? "" : "Blob Constructor")
+    (window.ArrayBuffer ? '' : 'Array Buffer'),
+    (window.DataView ? '' : 'Data View'),
+    (window.URL ? '' : 'URL object'),
+    (Modernizr.webworkers ? '' : 'Web Workers'),
+    (Modernizr.blobconstructor ? '' : 'Blob Constructor')
 ];
 
 function exportMidi() {
@@ -255,8 +255,8 @@ function exportMidi() {
     var clientExportSupport = Modernizr.webworkers && Modernizr.blobconstructor && window.URL && window.ArrayBuffer && window.DataView;
 
     if (lightServerMode && !clientExportSupport) {
-        showModalDialog("Midi Export Not Supported by this browser",
-            "The browser need support for " + joinNotEmpty(exportSupportArr, ", "));
+        showModalDialog('Midi Export Not Supported by this browser',
+            'The browser need support for ' + joinNotEmpty(exportSupportArr, ', '));
     } else {
         var seed = getMainSeed();
         var genInfo = getGenInfo();
@@ -269,13 +269,13 @@ function exportMidi() {
         var params = {
             taskType: AsyncServerChildTaskType.EXPORT_MIDI,
             content: renderRequestData,
-            caption: "Exporting midi...",
-            doneCaption: "Done!",
-            resultDivId: "midi-export-result-div",
+            caption: 'Exporting midi...',
+            doneCaption: 'Done!',
+            resultDivId: 'midi-export-result-div',
             onSuccess: function(op) {
                 afterExport(op);
             },
-            id: "task" + asyncOperationCounter};
+            id: 'task' + asyncOperationCounter};
 
         var task = null;
         if (clientExportSupport) {
@@ -295,8 +295,8 @@ function exportWav() {
     var clientExportSupport = Modernizr.webworkers && Modernizr.blobconstructor && window.URL && window.ArrayBuffer && window.DataView;
 
     if (lightServerMode && !clientExportSupport) {
-        showModalDialog("Wav Export Not Supported by this browser",
-            "The browser need support for " + joinNotEmpty(exportSupportArr, ", "));
+        showModalDialog('Wav Export Not Supported by this browser',
+            'The browser need support for ' + joinNotEmpty(exportSupportArr, ', '));
     } else {
         var seed = getMainSeed();
         var genInfo = getGenInfo();
@@ -314,13 +314,13 @@ function exportWav() {
         var params = {
             taskType: AsyncServerChildTaskType.EXPORT_WAV,
             content: renderRequestData,
-            caption: "Exporting wav...",
-            doneCaption: "Done!",
-            resultDivId: "wav-export-result-div",
+            caption: 'Exporting wav...',
+            doneCaption: 'Done!',
+            resultDivId: 'wav-export-result-div',
             onSuccess: function(op) {
                 afterExport(op);
             },
-            id: "task" + asyncOperationCounter};
+            id: 'task' + asyncOperationCounter};
 
         var task = null;
         if (clientExportSupport) {
@@ -336,7 +336,7 @@ function exportWav() {
 
 
 function exportIT() {
-    showModalDialog("", "IT export not implemented.");
+    showModalDialog('', 'IT export not implemented.');
 }
 
 function savePreset() {
@@ -349,19 +349,19 @@ function savePreset() {
     var task = new AsyncServerChildTask({
         taskType: AsyncServerChildTaskType.SAVE_PRESET,
         content: renderRequestData,
-        caption: "Saving preset...",
-        doneCaption: "Done!",
+        caption: 'Saving preset...',
+        doneCaption: 'Done!',
         requireLogin: false,
-        resultDivId: "",
-        id: "task" + asyncOperationCounter});
+        resultDivId: '',
+        id: 'task' + asyncOperationCounter});
     addAsyncOperation(task);
 }
 
 function exportMp3() {
 
     if (lightServerMode) {
-        showModalDialog("Mp3 Export Not Supported",
-            "The server doesn't support this operation and you can not do this in the browser yet.");
+        showModalDialog('Mp3 Export Not Supported',
+            'The server doesn\'t support this operation and you can not do this in the browser yet.');
     } else {
         var seed = getMainSeed();
         var genInfo = getGenInfo();
@@ -373,21 +373,21 @@ function exportMp3() {
         var task = new AsyncServerChildTask({
             taskType: AsyncServerChildTaskType.EXPORT_MP3,
             content: renderRequestData,
-            caption: "Exporting mp3...",
-            doneCaption: "Done!",
-            resultDivId: "mp3-export-result-div",
+            caption: 'Exporting mp3...',
+            doneCaption: 'Done!',
+            resultDivId: 'mp3-export-result-div',
             onSuccess: function(op) {
                 afterExport(op);
             },
-            id: "task" + asyncOperationCounter});
+            id: 'task' + asyncOperationCounter});
         addAsyncOperation(task);
     }
 }
 
 function exportOgg() {
     if (lightServerMode) {
-        showModalDialog("Mp3 Export Not Supported",
-            "The server doesn't support this operation and you can not do this in the browser yet.");
+        showModalDialog('Mp3 Export Not Supported',
+            'The server doesn\'t support this operation and you can not do this in the browser yet.');
     } else {
         var seed = getMainSeed();
         var genInfo = getGenInfo();
@@ -399,13 +399,13 @@ function exportOgg() {
         var task = new AsyncServerChildTask({
             taskType: AsyncServerChildTaskType.EXPORT_OGG,
             content: renderRequestData,
-            caption: "Exporting ogg...",
-            doneCaption: "Done!",
-            resultDivId: "ogg-export-result-div",
+            caption: 'Exporting ogg...',
+            doneCaption: 'Done!',
+            resultDivId: 'ogg-export-result-div',
             onSuccess: function(op) {
                 afterExport(op);
             },
-            id: "task" + asyncOperationCounter});
+            id: 'task' + asyncOperationCounter});
         addAsyncOperation(task);
     }
 }
@@ -437,7 +437,7 @@ function addAsyncOperation(op) {
         asyncOperationCounter++;
         return true;
     } else {
-        showModalDialog("Not logged in", "You must log in to export or compose new songs.");
+        showModalDialog('Not logged in', 'You must log in to export or compose new songs.');
         return false;
     }
 }
@@ -460,7 +460,7 @@ function getFirstRunningServerTaskWithType(type) {
 
 
 function createExportPanel() {
-    var tabCaptions = ["Midi", "Mp3", "Ogg", "IT"];
+    var tabCaptions = ['Midi', 'Mp3', 'Ogg', 'IT'];
     var tabObjects = [midiExportSettings, mp3ExportSettings, oggExportSettings, itExportSettings];
     var tabObjectPresets = [midiExportSettingsPresets, mp3ExportSettingsPresets, oggExportSettingsPresets, itExportSettingsPresets];
 
@@ -468,72 +468,72 @@ function createExportPanel() {
         tabCaptions.length = 1;
         tabObjects.length = 1;
         tabObjectPresets.length = 1;
-//        tabCaptions.push("Wav (Alpha)");
-//        tabObjects.push(wavClientExportSettings);
-//        tabObjectPresets.push(wavClientExportSettingsPresets);
+        //        tabCaptions.push("Wav (Alpha)");
+        //        tabObjects.push(wavClientExportSettings);
+        //        tabObjectPresets.push(wavClientExportSettingsPresets);
     }
-    SongSettingsComponent.createTabs($("#exportDialogDiv"), "exportTab", "export-panel", tabCaptions, tabObjects,
+    SongSettingsComponent.createTabs($('#exportDialogDiv'), 'exportTab', 'export-panel', tabCaptions, tabObjects,
         function() {
             settingsDirty = true;
         }, tabObjectPresets);
 
     if (lightServerMode) {
-        $("#exportTab0").prepend($("<div id=\"midi-export-result-div\" ></div>"));
-//        $("#exportTab1").prepend($("<div id=\"wav-export-result-div\" ></div>"));
+        $('#exportTab0').prepend($('<div id="midi-export-result-div" ></div>'));
+        //        $("#exportTab1").prepend($("<div id=\"wav-export-result-div\" ></div>"));
     } else {
-        $("#exportTab0").prepend($("<div id=\"midi-export-result-div\" ></div>"));
-        $("#exportTab1").prepend($("<div id=\"mp3-export-result-div\" ></div>"));
-        $("#exportTab2").prepend($("<div id=\"ogg-export-result-div\" ></div>"));
-        $("#exportTab3").prepend($("<div id=\"it-export-result-div\" ></div>"));
+        $('#exportTab0').prepend($('<div id="midi-export-result-div" ></div>'));
+        $('#exportTab1').prepend($('<div id="mp3-export-result-div" ></div>'));
+        $('#exportTab2').prepend($('<div id="ogg-export-result-div" ></div>'));
+        $('#exportTab3').prepend($('<div id="it-export-result-div" ></div>'));
     }
 
 }
 
 
 function createSongInfoPanel() {
-    var $songInfoDiv = $("#songInfoTabs");
+    var $songInfoDiv = $('#songInfoTabs');
     $songInfoDiv.tabs();
 }
 
 function getSongPartName(i, songStructureInfo) {
 
-    var text = "Part";
+    var text = 'Part';
 
     var indexInfo = songStructureInfo.indexInfos[i];
 
     var songPartType = songStructureInfo.songPartTypes[i];
     if (indexInfo.isIntro) {
-        text = "Intro";
+        text = 'Intro';
     } else if (indexInfo.isEnd) {
-        text = "End";
+        text = 'End';
     } else if (indexInfo.isConnectGroup) {
-        text = "Connect";
+        text = 'Connect';
         if (indexInfo.isPostfixGroup) {
-            text = "Postfix";
+            text = 'Postfix';
         } else if (indexInfo.isPrefixGroup) {
-            text = "Prefix";
+            text = 'Prefix';
         }
     } else {
         switch (songPartType) {
-            case 0:
-            case 1:
-                text = "Verse " + (songPartType + 1);
-                break;
-            case 2:
-            case 3:
-                text = "Chorus " + (songPartType - 1);
-                break;
-            case 4:
-            case 5:
-                text = "Bridge " + (songPartType - 3);
-                break;
-            case 6:
-            case 7:
-                text = "Misc " + (songPartType - 5);
-                break;
+        case 0:
+        case 1:
+            text = 'Verse ' + (songPartType + 1);
+            break;
+        case 2:
+        case 3:
+            text = 'Chorus ' + (songPartType - 1);
+            break;
+        case 4:
+        case 5:
+            text = 'Bridge ' + (songPartType - 3);
+            break;
+        case 6:
+        case 7:
+            text = 'Misc ' + (songPartType - 5);
+            break;
         }
         if (indexInfo.phraseGroupCount > 1) {
-            text += ", " + (indexInfo.phraseGroupIndex + 1);
+            text += ', ' + (indexInfo.phraseGroupIndex + 1);
         }
     }
 
@@ -541,8 +541,8 @@ function getSongPartName(i, songStructureInfo) {
 }
 
 function updateSongInfoPanel() {
-    var $structureDiv = $("#songInfoTabStructure");
-    var $instrumentsDiv = $("#songInfoTabInstruments");
+    var $structureDiv = $('#songInfoTabStructure');
+    var $instrumentsDiv = $('#songInfoTabInstruments');
 
     $instrumentsDiv.empty();
     $structureDiv.empty();
@@ -570,7 +570,7 @@ function updateSongInfoPanel() {
         }
 
         if (indexInfos) {
-//            logit(songStructureInfo);
+            //            logit(songStructureInfo);
             var rowClass = rowClasses[rowIndex % rowClasses.length];
             htmlArr.push('<tr class="' + rowClass + '">');
             htmlArr.push('<td>Type</td>')
@@ -580,29 +580,29 @@ function updateSongInfoPanel() {
             }
             htmlArr.push('</tr>');
             rowIndex++;
-            getPropertyTableRow("Harmony Rythm", songStructureInfo.harmonyRythmIndices);
-            getPropertyTableRow("Harmony Char.", songStructureInfo.harmonyExtraIndices);
-            getPropertyTableRow("Melody Shape", songStructureInfo.melodyShapeIndices);
-            getPropertyTableRow("Bass Shape", songStructureInfo.bassShapeIndices);
-            getPropertyTableRow("Melody Motif Dist.", songStructureInfo.melodyMotifDistributionIndices);
-            getPropertyTableRow("Bass Motif Dist.", songStructureInfo.bassMotifDistributionIndices);
-            getPropertyTableRow("Inner 1 Motif Dist.", songStructureInfo.inner1MotifDistributionIndices);
-            getPropertyTableRow("Inner 2 Motif Dist.", songStructureInfo.inner2MotifDistributionIndices);
-            getPropertyTableRow("Percussion Dist.", songStructureInfo.percussionMotifDistributionIndices);
-            getPropertyTableRow("Percussion Fill Dist.", songStructureInfo.percussionFillMotifDistributionIndices);
-            getPropertyTableRow("Melody Instr.", songStructureInfo.melodyChannelDistributionIndices);
-            getPropertyTableRow("Bass Instr.", songStructureInfo.bassChannelDistributionIndices);
-            getPropertyTableRow("Inner 1 Instr.", songStructureInfo.inner1ChannelDistributionIndices);
-            getPropertyTableRow("Inner 2 Instr.", songStructureInfo.inner2ChannelDistributionIndices);
-            getPropertyTableRow("Melody Effects", songStructureInfo.sequentialMelodyEffectChangeIndices);
-            getPropertyTableRow("Bass Effects", songStructureInfo.sequentialBassEffectChangeIndices);
-            getPropertyTableRow("Inner 1 Effects", songStructureInfo.sequentialInner1EffectChangeIndices);
-            getPropertyTableRow("Inner 2 Effects", songStructureInfo.sequentialInner2EffectChangeIndices);
-            getPropertyTableRow("Percussion Effects", songStructureInfo.sequentialPercussionEffectChangeIndices);
+            getPropertyTableRow('Harmony Rythm', songStructureInfo.harmonyRythmIndices);
+            getPropertyTableRow('Harmony Char.', songStructureInfo.harmonyExtraIndices);
+            getPropertyTableRow('Melody Shape', songStructureInfo.melodyShapeIndices);
+            getPropertyTableRow('Bass Shape', songStructureInfo.bassShapeIndices);
+            getPropertyTableRow('Melody Motif Dist.', songStructureInfo.melodyMotifDistributionIndices);
+            getPropertyTableRow('Bass Motif Dist.', songStructureInfo.bassMotifDistributionIndices);
+            getPropertyTableRow('Inner 1 Motif Dist.', songStructureInfo.inner1MotifDistributionIndices);
+            getPropertyTableRow('Inner 2 Motif Dist.', songStructureInfo.inner2MotifDistributionIndices);
+            getPropertyTableRow('Percussion Dist.', songStructureInfo.percussionMotifDistributionIndices);
+            getPropertyTableRow('Percussion Fill Dist.', songStructureInfo.percussionFillMotifDistributionIndices);
+            getPropertyTableRow('Melody Instr.', songStructureInfo.melodyChannelDistributionIndices);
+            getPropertyTableRow('Bass Instr.', songStructureInfo.bassChannelDistributionIndices);
+            getPropertyTableRow('Inner 1 Instr.', songStructureInfo.inner1ChannelDistributionIndices);
+            getPropertyTableRow('Inner 2 Instr.', songStructureInfo.inner2ChannelDistributionIndices);
+            getPropertyTableRow('Melody Effects', songStructureInfo.sequentialMelodyEffectChangeIndices);
+            getPropertyTableRow('Bass Effects', songStructureInfo.sequentialBassEffectChangeIndices);
+            getPropertyTableRow('Inner 1 Effects', songStructureInfo.sequentialInner1EffectChangeIndices);
+            getPropertyTableRow('Inner 2 Effects', songStructureInfo.sequentialInner2EffectChangeIndices);
+            getPropertyTableRow('Percussion Effects', songStructureInfo.sequentialPercussionEffectChangeIndices);
         }
         htmlArr.push('</table>');
 
-        $structureDiv.append(htmlArr.join(""));
+        $structureDiv.append(htmlArr.join(''));
     }
 
     var channelMaps = renderStorage.channelMaps;
@@ -614,55 +614,55 @@ function updateSongInfoPanel() {
             htmlArr.push('<tr class="' + rowClass + '">');
             var chMap = channelMaps[i];
             var str = MidiProgram.toString(chMap.program);
-            var instrStr = "Unknown";
+            var instrStr = 'Unknown';
             switch (i) {
-                case 0:
-                case 1:
-                case 2:
-                    instrStr = "Melody instrument " + (i + 1);
-                    break;
-                case 3:
-                case 4:
-                case 5:
-                    instrStr = "Inner 1 instrument " + (i + 2);
-                    break;
-                case 6:
-                case 7:
-                case 8:
-                    instrStr = "Inner 2 instrument " + (i - 5);
-                    break;
-                case 9:
-                case 10:
-                case 11:
-                    instrStr = "Bass instrument " + (i - 8);
-                    break;
+            case 0:
+            case 1:
+            case 2:
+                instrStr = 'Melody instrument ' + (i + 1);
+                break;
+            case 3:
+            case 4:
+            case 5:
+                instrStr = 'Inner 1 instrument ' + (i + 2);
+                break;
+            case 6:
+            case 7:
+            case 8:
+                instrStr = 'Inner 2 instrument ' + (i - 5);
+                break;
+            case 9:
+            case 10:
+            case 11:
+                instrStr = 'Bass instrument ' + (i - 8);
+                break;
             }
             htmlArr.push('<td>' + instrStr + '</td>');
             htmlArr.push('<td>' + str + '</td>');
-//            htmlArr.push(str + '<br />');
-            htmlArr.push("</tr>");
+            //            htmlArr.push(str + '<br />');
+            htmlArr.push('</tr>');
         }
         htmlArr.push('</table>');
-        $instrumentsDiv.append(htmlArr.join(""));
+        $instrumentsDiv.append(htmlArr.join(''));
     }
 }
 
 
 function deleteSong(songIndex, callback) {
 
-    showConfirmDialog("Really delete?", "Do you really want to delete the song?", "Yes", "No",
+    showConfirmDialog('Really delete?', 'Do you really want to delete the song?', 'Yes', 'No',
         function() {
             var deleteRequestData = {songIndex: songIndex};
             var task = new AsyncServerChildTask({
                 taskType: AsyncServerChildTaskType.DELETE_SONG,
                 content: deleteRequestData,
-                caption: "Deleting song...",
-                doneCaption: "Done!",
-                resultDivId: "",
+                caption: 'Deleting song...',
+                doneCaption: 'Done!',
+                resultDivId: '',
                 onDone: function(op) {
                     callback();
                 },
-                id: "task" + asyncOperationCounter});
+                id: 'task' + asyncOperationCounter});
             addAsyncOperation(task);
         },
         function() {
@@ -674,13 +674,13 @@ function renameSong(songIndex, newName, callback) {
     var task = new AsyncServerChildTask({
         taskType: AsyncServerChildTaskType.RENAME_SONG,
         content: deleteRequestData,
-        caption: "Renaming song...",
-        doneCaption: "Done!",
-        resultDivId: "",
+        caption: 'Renaming song...',
+        doneCaption: 'Done!',
+        resultDivId: '',
         onDone: function(op) {
             callback();
         },
-        id: "task" + asyncOperationCounter});
+        id: 'task' + asyncOperationCounter});
     addAsyncOperation(task);
 }
 
@@ -695,15 +695,15 @@ function overwriteSong(prefix, songInfo) {
     var task = new AsyncServerChildTask({
         taskType: AsyncServerChildTaskType.OVERWRITE_SONG,
         content: owRequestData,
-        caption: "Overwriting song...",
-        doneCaption: "Done!",
-        resultDivId: "",
+        caption: 'Overwriting song...',
+        doneCaption: 'Done!',
+        resultDivId: '',
         onDone: function() {
             loadMySongsList();
         },
-        id: "task" + asyncOperationCounter});
+        id: 'task' + asyncOperationCounter});
     if (!addAsyncOperation(task)) {
-        logit("Failed to add async op for overwrite song?");
+        logit('Failed to add async op for overwrite song?');
     }
 
 }
@@ -711,12 +711,12 @@ function overwriteSong(prefix, songInfo) {
 function completeGenInfo(genInfo) {
     var refGenInfo = new GenInfo();
     for (var prop in refGenInfo) {
-        if (!stringEndsWith(prop, "Seed")) {
+        if (!stringEndsWith(prop, 'Seed')) {
             var refValue = refGenInfo[prop];
             var value = genInfo[prop];
             if (!isFunction(refValue) && typeof(value) === 'undefined') {
                 genInfo[prop] = copyValueDeep(refValue);
-//                logit("Completing gen info " + prop + ": " + refValue);
+                //                logit("Completing gen info " + prop + ": " + refValue);
             }
         }
     }
@@ -725,7 +725,7 @@ function completeGenInfo(genInfo) {
 
 function updateSongSettingsComponent(genInfo, newSongSettings) {
 
-    var tabsId = "songSettingsTab";
+    var tabsId = 'songSettingsTab';
 
     completeGenInfo(genInfo);
     var newValues = [
@@ -748,16 +748,16 @@ function loadSong(prefix, songInfo, force) {
 
     function loadTheSongNow() {
 
-        var dataFilename = prefix + "/" + songInfo.prefix + ".json";
+        var dataFilename = prefix + '/' + songInfo.prefix + '.json';
 
         $.ajax(dataFilename, {
             complete: function(jqXhr, textStatus) {
-                if (textStatus == "success") {
+                if (textStatus == 'success') {
                     var response = $.parseJSON(jqXhr.responseText);
                     if (response) {
-//                            logit(response);
+                        //                            logit(response);
                         var genInfo = response.genInfo;
-                        var newSongSettings = {name: songInfo.name || "Song", seed: "" + response.seed};
+                        var newSongSettings = {name: songInfo.name || 'Song', seed: '' + response.seed};
                         // Copy all those properties that are missing from the default GenInfo
                         // This happens when new properties are added and loading an old song
 
@@ -785,7 +785,7 @@ function loadSong(prefix, songInfo, force) {
 
                     }
                 } else {
-                    console.log("Failed to load song: " + dataFilename);
+                    console.log('Failed to load song: ' + dataFilename);
                 }
             },
             type: 'GET'
@@ -793,7 +793,7 @@ function loadSong(prefix, songInfo, force) {
     }
 
     if (songSettingsDirty && loggedIn && !force) {
-        showConfirmDialog("Load?", "Really load the song? This will overwrite the current song settings", "Yes", "No",
+        showConfirmDialog('Load?', 'Really load the song? This will overwrite the current song settings', 'Yes', 'No',
             function() {
                 loadTheSongNow();
             },
@@ -805,7 +805,7 @@ function loadSong(prefix, songInfo, force) {
 }
 
 function loadPresetSong(songInfo, force) {
-    loadSong("songpresets", songInfo, force);
+    loadSong('songpresets', songInfo, force);
 }
 
 
@@ -813,11 +813,11 @@ function getUserInfo(onSuccess, onFail, onDone) {
     if (lightServerMode) {
 
     } else {
-        $.ajax("task", {
-            data: JSON.stringify({type: "getUserInfo"}),
-            contentType: "application/json",
+        $.ajax('task', {
+            data: JSON.stringify({type: 'getUserInfo'}),
+            contentType: 'application/json',
             complete: function(jqXhr, textStatus) {
-                if (textStatus == "success") {
+                if (textStatus == 'success') {
                     var response = $.parseJSON(jqXhr.responseText);
                     if (onSuccess) {
                         onSuccess(response);
@@ -831,7 +831,7 @@ function getUserInfo(onSuccess, onFail, onDone) {
                     onDone(jqXhr, textStatus);
                 }
             },
-            type: "POST"
+            type: 'POST'
         });
     }
 }
@@ -843,21 +843,21 @@ function loadMySongsList() {
     } else {
         $('#my-songs-song-list').remove();
 
-        var urlPrefix = "users/" + userToDirName(user);
-        var indexUrl = urlPrefix + "/index.json";
+        var urlPrefix = 'users/' + userToDirName(user);
+        var indexUrl = urlPrefix + '/index.json';
 
-        var $mySongsDiv = $("#my-songs-tab");
+        var $mySongsDiv = $('#my-songs-tab');
 
         getUserInfo(
             function(response) {
                 if (response && response.songs) { // onSuccess
-                    createSongList(response, $mySongsDiv, urlPrefix, "my-songs", "Song", true, true, true);
+                    createSongList(response, $mySongsDiv, urlPrefix, 'my-songs', 'Song', true, true, true);
                 } else {
-                    console.log("Did not get a valid UserInfo from server.");
+                    console.log('Did not get a valid UserInfo from server.');
                 }
             },
             function(jqXhr, textStatus) { // onFail
-                console.log("Did not get an answer for getUserInfo from server. Text status not success: " + textStatus);
+                console.log('Did not get an answer for getUserInfo from server. Text status not success: ' + textStatus);
             });
     }
 
@@ -865,21 +865,21 @@ function loadMySongsList() {
 
 
 function createLoadButton(buttonId, songInfo, $targetDiv, urlPrefix) {
-    var $loadButton = $targetDiv.find("#" + buttonId);
+    var $loadButton = $targetDiv.find('#' + buttonId);
     $loadButton.button();
     $loadButton.click(function() {
         loadSong(urlPrefix, songInfo);
     });
 }
 function createOverwriteButton(buttonId, songInfo, $targetDiv, urlPrefix) {
-    var $owButton = $targetDiv.find("#" + buttonId);
+    var $owButton = $targetDiv.find('#' + buttonId);
     $owButton.button();
     $owButton.click(function() {
         overwriteSong(urlPrefix, songInfo);
     });
 }
 function createDeleteButton(buttonId, songInfos, songInfoIndex, $targetDiv, urlPrefix) {
-    var $button = $targetDiv.find("#" + buttonId);
+    var $button = $targetDiv.find('#' + buttonId);
     $button.button();
     $button.click(function() {
         deleteSong(songInfoIndex, function() {
@@ -888,7 +888,7 @@ function createDeleteButton(buttonId, songInfos, songInfoIndex, $targetDiv, urlP
     });
 }
 function createRenameButton(buttonId, songInfos, songInfoIndex, $targetDiv, urlPrefix) {
-    var $button = $targetDiv.find("#" + buttonId);
+    var $button = $targetDiv.find('#' + buttonId);
     $button.button();
     $button.click(function() {
     });
@@ -896,28 +896,28 @@ function createRenameButton(buttonId, songInfos, songInfoIndex, $targetDiv, urlP
 
 function createSongList(info, $targetDiv, urlPrefix, idPrefix, namePrefix, createLoad, createDelete, createRename) {
     var songs = info.songs;
-    var content = "";
+    var content = '';
     content += '<ol id="' + idPrefix + '-song-list" class="song-list" >';
 
-    var linkStyle = "margin-right: 0.5em;";
+    var linkStyle = 'margin-right: 0.5em;';
     for (var i=0; i<songs.length; i++) {
         var songInfo = songs[i];
 
         var songName = songInfo.name;
         if (!songName) {
-            songName = namePrefix + " " + (i + 1);
+            songName = namePrefix + ' ' + (i + 1);
         }
 
-        var tableContent = "<tr><td>" + songName + "</td>";
+        var tableContent = '<tr><td>' + songName + '</td>';
 
         var columns = 1;
         var columnCounter = 1;
         if (songInfo.soundfonts && songInfo.soundfonts.length > 0) {
             var defaultSfIndex = songInfo.soundfonts[0];
-            var prefix = urlPrefix + "/" + songInfo.prefix;
-            var midiFilename = prefix + ".mid";
-            var mp3Filename = prefix + "_" + defaultSfIndex + ".mp3";
-            var oggFilename = prefix + "_" + defaultSfIndex + ".ogg";
+            var prefix = urlPrefix + '/' + songInfo.prefix;
+            var midiFilename = prefix + '.mid';
+            var mp3Filename = prefix + '_' + defaultSfIndex + '.mp3';
+            var oggFilename = prefix + '_' + defaultSfIndex + '.ogg';
 
             tableContent += '<td><a style="' + linkStyle + '" href="' + midiFilename + '" >Midi</a>';
             tableContent += '<a style="' + linkStyle + '" href="' + mp3Filename + '" >Mp3</a>';
@@ -925,64 +925,64 @@ function createSongList(info, $targetDiv, urlPrefix, idPrefix, namePrefix, creat
             columnCounter += 1;
         }
 
-        tableContent += "<td>";
+        tableContent += '<td>';
         columnCounter += 1;
         if (createDelete) {
-            var deleteButtonId = idPrefix + "-delete-song-button-" + i;
+            var deleteButtonId = idPrefix + '-delete-song-button-' + i;
             tableContent += '<button id="' + deleteButtonId + '" >Delete</button>';
         }
-//        if (createOverwrite) {
-//            var owButtonId = idPrefix + "-overwrite-song-button-" + i;
-//            liContent += '<button id="' + owButtonId + '" >Overwrite</button>';
-//        }
+        //        if (createOverwrite) {
+        //            var owButtonId = idPrefix + "-overwrite-song-button-" + i;
+        //            liContent += '<button id="' + owButtonId + '" >Overwrite</button>';
+        //        }
         if (createRename) {
-            var renameButtonId = idPrefix + "-rename-song-button-" + i;
+            var renameButtonId = idPrefix + '-rename-song-button-' + i;
             tableContent += '<button id="' + renameButtonId + '" >Rename</button>';
         }
         if (createLoad) {
-            var loadButtonId = idPrefix + "-load-song-button-" + i;
+            var loadButtonId = idPrefix + '-load-song-button-' + i;
             tableContent += '<button id="' + loadButtonId + '" >Load</button>';
         }
-        tableContent += "</td>";
+        tableContent += '</td>';
 
-        tableContent += "</tr>";
+        tableContent += '</tr>';
 
         columns = columnCounter;
         columnCounter = 0;
-//        if (songInfo.soundfonts && songInfo.soundfonts.length > 0) {
-//            tableContent += "<tr>";
-//            tableContent += "<td>Variants Mp3</td>";
-//            columnCounter += 1;
-//            tableContent += "<td>";
-//            columnCounter += 1;
-//            for (var j=1; j<songInfo.soundfonts.length; j++) {
-//                var sfIndex = songInfo.soundfonts[j];
-//                var sfName = SoundFontType.toShortString(sfIndex);
-//                var mp3Filename = prefix + "_" + sfIndex + ".mp3";
-//                tableContent += '<a style="' + linkStyle + '" href="' + mp3Filename + '" >' + sfName + '</a>';
-//            }
-//            tableContent += "</td>";
-//            tableContent += "</tr>";
-//
-//            columns = Math.max(columns, columnCounter);
-//            columnCounter = 0;
-//
-//            tableContent += "<tr>";
-//            tableContent += "<td>Variants Ogg</td>";
-//            columnCounter += 1;
-//            tableContent += "<td>";
-//            columnCounter += 1;
-//            for (var j=1; j<songInfo.soundfonts.length; j++) {
-//                var sfIndex = songInfo.soundfonts[j];
-//                var sfName = SoundFontType.toShortString(sfIndex);
-//                var oggFilename = prefix + "_" + sfIndex + ".ogg";
-//                tableContent += '<a style="' + linkStyle + '" href="' + oggFilename + '" >' + sfName + '</a>';
-//                columnCounter += 1;
-//            }
-//            tableContent += "</td>";
-//            tableContent += "</tr>";
-//            columns = Math.max(columns, columnCounter);
-//        }
+        //        if (songInfo.soundfonts && songInfo.soundfonts.length > 0) {
+        //            tableContent += "<tr>";
+        //            tableContent += "<td>Variants Mp3</td>";
+        //            columnCounter += 1;
+        //            tableContent += "<td>";
+        //            columnCounter += 1;
+        //            for (var j=1; j<songInfo.soundfonts.length; j++) {
+        //                var sfIndex = songInfo.soundfonts[j];
+        //                var sfName = SoundFontType.toShortString(sfIndex);
+        //                var mp3Filename = prefix + "_" + sfIndex + ".mp3";
+        //                tableContent += '<a style="' + linkStyle + '" href="' + mp3Filename + '" >' + sfName + '</a>';
+        //            }
+        //            tableContent += "</td>";
+        //            tableContent += "</tr>";
+        //
+        //            columns = Math.max(columns, columnCounter);
+        //            columnCounter = 0;
+        //
+        //            tableContent += "<tr>";
+        //            tableContent += "<td>Variants Ogg</td>";
+        //            columnCounter += 1;
+        //            tableContent += "<td>";
+        //            columnCounter += 1;
+        //            for (var j=1; j<songInfo.soundfonts.length; j++) {
+        //                var sfIndex = songInfo.soundfonts[j];
+        //                var sfName = SoundFontType.toShortString(sfIndex);
+        //                var oggFilename = prefix + "_" + sfIndex + ".ogg";
+        //                tableContent += '<a style="' + linkStyle + '" href="' + oggFilename + '" >' + sfName + '</a>';
+        //                columnCounter += 1;
+        //            }
+        //            tableContent += "</td>";
+        //            tableContent += "</tr>";
+        //            columns = Math.max(columns, columnCounter);
+        //        }
 
         content += '<table style="margin: 0px; padding: 0px; border: 0px; width: 100%" class="ui-widget-content" >';
         content += '<colgroup>';
@@ -990,32 +990,32 @@ function createSongList(info, $targetDiv, urlPrefix, idPrefix, namePrefix, creat
         for (var j=0; j<columns; j++) {
             content += '<col span="1" style="width: ' + Math.round(colWidth) + '%;">';
         }
-        content += "</colgroup>";
+        content += '</colgroup>';
         content += tableContent;
-        content += "</table>";
+        content += '</table>';
     }
-    content += "</ol>";
+    content += '</ol>';
     var $list = $(content);
-//        $list.selectable();
+    //        $list.selectable();
 
     $targetDiv.append($list);
 
     for (var i=0; i<songs.length; i++) {
         var songInfo = songs[i];
         if (createLoad) {
-            var buttonId = idPrefix + "-load-song-button-" + i;
+            var buttonId = idPrefix + '-load-song-button-' + i;
             createLoadButton(buttonId, songInfo, $targetDiv, urlPrefix);
         }
-//        if (createOverwrite) {
-//            var buttonId = idPrefix + "-overwrite-song-button-" + i;
-//            createOverwriteButton(buttonId, songInfo, $targetDiv, urlPrefix);
-//        }
+        //        if (createOverwrite) {
+        //            var buttonId = idPrefix + "-overwrite-song-button-" + i;
+        //            createOverwriteButton(buttonId, songInfo, $targetDiv, urlPrefix);
+        //        }
         if (createDelete) {
-            var buttonId = idPrefix + "-delete-song-button-" + i;
+            var buttonId = idPrefix + '-delete-song-button-' + i;
             createDeleteButton(buttonId, songs, i, $targetDiv, urlPrefix);
         }
         if (createRename) {
-            var buttonId = idPrefix + "-rename-song-button-" + i;
+            var buttonId = idPrefix + '-rename-song-button-' + i;
             createRenameButton(buttonId, songs, i, $targetDiv, urlPrefix);
         }
     }
@@ -1024,18 +1024,18 @@ function createSongList(info, $targetDiv, urlPrefix, idPrefix, namePrefix, creat
 
 function createSongsPanel() {
     if (loggedIn && user) {
-        $("#songtabs ul").append($('<li><a href="#my-songs-tab">My Songs</a></li>'));
+        $('#songtabs ul').append($('<li><a href="#my-songs-tab">My Songs</a></li>'));
 
-        var mySongsContent = "";
+        var mySongsContent = '';
 
         mySongsContent += '<button id="save-song-button">Save Current Song</button>';
 
-        $("#songtabs").append($('<div id="my-songs-tab" >' + mySongsContent + '</div> '));;
+        $('#songtabs').append($('<div id="my-songs-tab" >' + mySongsContent + '</div> '));;
     }
 
 
 
-    $("#save-song-button").button().click(function() {
+    $('#save-song-button').button().click(function() {
         var seed = getMainSeed();
         var name = songSettings.name;
         var genInfo = getGenInfo();
@@ -1046,41 +1046,41 @@ function createSongsPanel() {
         var task = new AsyncServerChildTask({
             taskType: AsyncServerChildTaskType.SAVE_SONG,
             content: saveRequestData,
-            caption: "Saving song...",
-            doneCaption: "Done!",
-            resultDivId: "",
+            caption: 'Saving song...',
+            doneCaption: 'Done!',
+            resultDivId: '',
             onDone: function() {
                 loadMySongsList();
             },
-            id: "task" + asyncOperationCounter});
+            id: 'task' + asyncOperationCounter});
         if (!addAsyncOperation(task)) {
-            logit("Failed to add async op for saving song?");
+            logit('Failed to add async op for saving song?');
         }
 
     });
 
-    $("#songtabs").tabs();
+    $('#songtabs').tabs();
 
-    var $examplesDiv = $("#example-songs-tab");
+    var $examplesDiv = $('#example-songs-tab');
 
 
 
     // Loading presets
-    $.ajax("songpresets/index.json", {
-//        contentType: "application/json",
+    $.ajax('songpresets/index.json', {
+        //        contentType: "application/json",
         complete: function(jqXhr, textStatus) {
-            if (textStatus == "success") {
+            if (textStatus == 'success') {
                 var response = $.parseJSON(jqXhr.responseText);
                 if (response) {
-                    createSongList(response, $examplesDiv, "songpresets", "preset", "Song Example", true, false, false);
+                    createSongList(response, $examplesDiv, 'songpresets', 'preset', 'Song Example', true, false, false);
                     var songs = response.songs;
                     if (!renderStorage.renderData && songs.length > 0) {
                         loadPresetSong(songs[0], true);
                     }
                 }
-//                logit(response);
+                //                logit(response);
             } else {
-                console.log("Failed to get preset songs: " + textStatus);
+                console.log('Failed to get preset songs: ' + textStatus);
             }
         },
         type: 'GET'
@@ -1095,26 +1095,26 @@ function createSongsPanel() {
 }
 
 function UserInfo() {
-    this.name = "";
-    this.email = "";
+    this.name = '';
+    this.email = '';
     this.subscribe = false;
     this.acceptedTOU = false;
-    this._constructorName = "UserInfo";
+    this._constructorName = 'UserInfo';
 }
 
 function sendSimpleCommand(data) {
-    $.ajax("task", {
+    $.ajax('task', {
         data: JSON.stringify(data),
-        contentType: "application/json",
+        contentType: 'application/json',
         complete: function(jqXhr, textStatus) {
-            if (textStatus == "success") {
+            if (textStatus == 'success') {
 
             } else {
-                logit("Failed to send simple command:");
+                logit('Failed to send simple command:');
                 logit(data);
             }
         },
-        type: "POST"
+        type: 'POST'
     });
 
 }
@@ -1124,12 +1124,12 @@ function updateUserInfo(showDialog) {
 //    logit(userInfo);
 
     if ($updateUserInfoButton) {
-        $updateUserInfoButton.button("disable");
+        $updateUserInfoButton.button('disable');
     }
 
-    sendSimpleCommand({type: "updateUserInfo", name: userInfo.name, email: userInfo.email, subscribe: userInfo.subscribe, acceptedTOU: userInfo.acceptedTOU});
+    sendSimpleCommand({type: 'updateUserInfo', name: userInfo.name, email: userInfo.email, subscribe: userInfo.subscribe, acceptedTOU: userInfo.acceptedTOU});
     if (showDialog) {
-        showModalDialog("User info updated", "<p>Your personal information will only be used for support, unless you subscribe to the newsletter.</p>");
+        showModalDialog('User info updated', '<p>Your personal information will only be used for support, unless you subscribe to the newsletter.</p>');
     }
 }
 
@@ -1144,15 +1144,15 @@ function createAccountPanel() {
         var userInfoComp = null;
         getUserInfo(
             function(response) { // onSuccess
-                if (response._constructorName == "UserInfo") {
+                if (response._constructorName == 'UserInfo') {
                     loggedIn = true;
                     userInfo = response;
-//                logit(userInfo);
+                    //                logit(userInfo);
                     if (typeof(userInfo.name) == 'undefined') {
-                        userInfo.name = "";
+                        userInfo.name = '';
                     }
                     if (typeof(userInfo.email) == 'undefined') {
-                        userInfo.email = "";
+                        userInfo.email = '';
                     }
                     if (typeof(userInfo.subscribe) == 'undefined') {
                         userInfo.subscribe = false;
@@ -1173,10 +1173,10 @@ function createAccountPanel() {
                 }
             },
             function(jqXhr, textStatus) { // onFail
-                console.log("Failed to get user info in account panel " + textStatus);
+                console.log('Failed to get user info in account panel ' + textStatus);
             },
             function() { // onDone
-                var html = "<p></p>";
+                var html = '<p></p>';
                 if (loggedIn) {
                     html =
                         '<form action="logout" method="get" id="logout_form">' +
@@ -1186,18 +1186,18 @@ function createAccountPanel() {
                             '</div>' +
                             '</fieldset>' +
                             '</form>';
-//                html += userInfo.name + " " + userInfo.email;
+                    //                html += userInfo.name + " " + userInfo.email;
 
                     var userInfoComp = new GuiPropertiesComponent({object: userInfo, propertyInfoProvider: propertyInfoProvider});
                     userInfoComp.changeListeners.push(function() {
                         if ($updateUserInfoButton) {
-                            $updateUserInfoButton.button("enable");
+                            $updateUserInfoButton.button('enable');
                         }
                     });
 
                     var contentArr = [];
                     userInfoComp.createJQueryStrings(contentArr);
-                    html += contentArr.join("");
+                    html += contentArr.join('');
 
                     html += '<button id="updateUserInfoButton" >Submit personal info</button>';
 
@@ -1228,23 +1228,23 @@ function createAccountPanel() {
                 var $html = $(html);
 
 
-                var $div = $("#accountDialogDiv");
+                var $div = $('#accountDialogDiv');
                 $div.append($html);
 
-                $updateUserInfoButton = $("#updateUserInfoButton");
+                $updateUserInfoButton = $('#updateUserInfoButton');
                 $updateUserInfoButton.button().click(function() {
                     updateUserInfo(true);
                 });
-                $updateUserInfoButton.button("disable");
+                $updateUserInfoButton.button('disable');
 
-                $touButton = $("#touButton");
+                $touButton = $('#touButton');
                 $touButton.button().click(function() {
                     showTermsOfUse();
                 });
 
                 openid.init('openid_identifier');
 
-                $div.find("#openid_submit").button();
+                $div.find('#openid_submit').button();
                 //    openid.setDemoMode(true);
 
                 if (userInfoComp) {
@@ -1261,7 +1261,7 @@ function createAccountPanel() {
 
 function createTutorialsPanel() {
 
-    var $tutorialTabs = $("#tutorialtabs");
+    var $tutorialTabs = $('#tutorialtabs');
 
     var arr = ['<ul>'];
 
@@ -1271,11 +1271,11 @@ function createTutorialsPanel() {
     for (var i=1; i<=5; i++) {
         arr.push('<li><a href="tutorials/tutorial_' + i + '.html">Tutorial ' + i + '</a></li>');
     }
-//    <li><a href="tutorials/tutorial_1.html">Tutorial 1</a></li>
+    //    <li><a href="tutorials/tutorial_1.html">Tutorial 1</a></li>
 
     arr.push('</ul>');
 
-    $tutorialTabs.append($(arr.join("")));
+    $tutorialTabs.append($(arr.join('')));
 
     $tutorialTabs.tabs();
 
@@ -1284,43 +1284,43 @@ function createTutorialsPanel() {
 
 function createPlayerPanel() {
 
-    var $playerDialog = $("#playerDialogDiv");
+    var $playerDialog = $('#playerDialogDiv');
 
     if (AudioPlayerConstructor) {
-        var prefixes = ["wa"];
+        var prefixes = ['wa'];
 
-        var playerButtons = ["rewind", "play", "stop", "forward"];
-        var playerButtonIcons = ["seek-prev", "play", "stop", "seek-next"];
+        var playerButtons = ['rewind', 'play', 'stop', 'forward'];
+        var playerButtonIcons = ['seek-prev', 'play', 'stop', 'seek-next'];
         for (var j=0; j<prefixes.length; j++) {
             var prefix = prefixes[j];
             for (var i=0; i<playerButtons.length; i++) {
-                var $button = $("#" + prefix + playerButtons[i] + "button");
+                var $button = $('#' + prefix + playerButtons[i] + 'button');
 
                 var icon = playerButtonIcons[i];
                 $button.button({
-                    "text": false,
-                    "icons": {
-                        primary: "ui-icon-" + icon
+                    'text': false,
+                    'icons': {
+                        primary: 'ui-icon-' + icon
                     }
                 });
             }
         }
 
 
-        var $webAudioPlayerDiv = $("#waPlayerDiv");
+        var $webAudioPlayerDiv = $('#waPlayerDiv');
 
         var tabCaptions = [AudioPlayerConstructor.prototype.title];
         var tabObjects = [webAudioPlayerSettings];
 
         var tabObjectPresets = null; // [visualizer3DSettingsPresets];
 
-        var result = SongSettingsComponent.createTabs($playerDialog, "playerSettingsTab", "player-settings-panel", tabCaptions, tabObjects,
+        var result = SongSettingsComponent.createTabs($playerDialog, 'playerSettingsTab', 'player-settings-panel', tabCaptions, tabObjects,
             function(comp, oldValue, newValue) {
                 settingsDirty = true;
             }, tabObjectPresets);
 
         $webAudioPlayerDiv.detach();
-        $("#playerSettingsTab0").prepend($webAudioPlayerDiv);
+        $('#playerSettingsTab0').prepend($webAudioPlayerDiv);
 
         return result;
     } else {
@@ -1331,13 +1331,13 @@ function createPlayerPanel() {
 
 
 function createVisualizerSettingsPanel() {
-    var tabCaptions = ["Visualizer", "Interface"];
+    var tabCaptions = ['Visualizer', 'Interface'];
     var tabObjects = [visualizer3DSettings, themeSettings];
     var tabObjectPresets = null; // [visualizer3DSettingsPresets, themeSettingsPresets];
 
-    var id = "visualizerSettingsTab";
-    var cls = "visualizer-settings-panel";
-    SongSettingsComponent.createTabs($("#visualizerSettingsDialogDiv"), id, cls, tabCaptions, tabObjects,
+    var id = 'visualizerSettingsTab';
+    var cls = 'visualizer-settings-panel';
+    SongSettingsComponent.createTabs($('#visualizerSettingsDialogDiv'), id, cls, tabCaptions, tabObjects,
         function(comp, oldValue, newValue) {
             settingsDirty = true;
         }, tabObjectPresets);
@@ -1346,13 +1346,13 @@ function createVisualizerSettingsPanel() {
 
 
 function createSongSettingsPanel() {
-    var $songSettingsDialog = $("#songSettingsDialogDiv");
-    var tabCaptions = ["Song", "Structure Seeds", "Content Seeds", "Indices Seeds", "Parameters", "Domains", "Details"];
+    var $songSettingsDialog = $('#songSettingsDialogDiv');
+    var tabCaptions = ['Song', 'Structure Seeds', 'Content Seeds', 'Indices Seeds', 'Parameters', 'Domains', 'Details'];
     var tabObjects = [songSettings, songStructureSeedSettings, songContentSeedSettings, songIndicesSeedSettings, songParameters, songDomains, songDetails];
     var tabObjectPresets = [songSettingsPresets, songStructureSeedSettingsPresets, songContentSeedSettingsPresets, songIndicesSeedSettingsPresets, songParametersPresets, songDomainsPresets, songDetailsPresets];
     var createSeeds = [false, true, true, true, false, false, false];
-    var tabsId = "songSettingsTab";
-    return SongSettingsComponent.createTabs($songSettingsDialog, tabsId, "settings-panel", tabCaptions, tabObjects,
+    var tabsId = 'songSettingsTab';
+    return SongSettingsComponent.createTabs($songSettingsDialog, tabsId, 'settings-panel', tabCaptions, tabObjects,
         function(comp, oldValue, newValue) {
             settingsDirty = true;
             setSongSettingsDirty(true);
@@ -1368,17 +1368,17 @@ function updateGuiFromEditorSettings(dialogs) {
     // Hide the dialogs that should be hidden :)
     for (var i=0; i<dialogs.length; i++) {
         var dialog = dialogs[i];
-        var $dialog = $("#" + dialog + "DialogDiv");
-        var pos = editorSettings[dialog + "Position"];
+        var $dialog = $('#' + dialog + 'DialogDiv');
+        var pos = editorSettings[dialog + 'Position'];
         if (pos) {
-            $dialog.dialog("option", "position", {my: "left top", at: "left+" + pos[0] + " top+" + pos[1]});
-//            console.log("left : " + left);
+            $dialog.dialog('option', 'position', {my: 'left top', at: 'left+' + pos[0] + ' top+' + pos[1]});
+            //            console.log("left : " + left);
         } else {
-            logit("Could not find pos for " + dialog);
+            logit('Could not find pos for ' + dialog);
         }
-        var visible = !!editorSettings[dialog + "Visible"];
+        var visible = !!editorSettings[dialog + 'Visible'];
         if (!visible) {
-            $dialog.dialog("close");
+            $dialog.dialog('close');
         }
     }
 }
@@ -1386,115 +1386,115 @@ function updateGuiFromEditorSettings(dialogs) {
 
 function createDialogAndToggle(dialog, caption, width, at) {
 
-    var $buttonsDiv = $("#buttonsDiv");
+    var $buttonsDiv = $('#buttonsDiv');
 
     $buttonsDiv.append($('<input type="checkbox" checked="checked" id="' + dialog + 'DialogShow"/><label class="toggle-button" for="' + dialog + 'DialogShow">' + caption + '</label>'));
 
-    var $toggle = $("#" + dialog + "DialogShow");
-    var $dialog = $("#" + dialog + "DialogDiv");
+    var $toggle = $('#' + dialog + 'DialogShow');
+    var $dialog = $('#' + dialog + 'DialogDiv');
 
     $dialog.dialog({
-//        dialogClass: "transparent",
-        closeText: "hide",
+        //        dialogClass: "transparent",
+        closeText: 'hide',
         width: width,
         resizable: false,
-        show: {effect: "fade", duration: "fast"},
+        show: {effect: 'fade', duration: 'fast'},
 
         create: function(event, ui) {
-            var widget = $(this).dialog("widget");
-            $(".ui-dialog-titlebar-close span", widget)
-                .removeClass("ui-icon-closethick")
-                .addClass("ui-icon-minusthick");
+            var widget = $(this).dialog('widget');
+            $('.ui-dialog-titlebar-close span', widget)
+                .removeClass('ui-icon-closethick')
+                .addClass('ui-icon-minusthick');
         },
         dragStop: function(event, ui) {
-            editorSettings[dialog + "Position"] = [ui.position.left, ui.position.top];
+            editorSettings[dialog + 'Position'] = [ui.position.left, ui.position.top];
             settingsDirty = true;
             editorSettings.dirty = true;
-//            logit(JSON.stringify(ui));
-//            if (pos) {
-//                $dialog.dialog("option", "position", {my: "left top", at: "left+" + pos[0] + " top+" + pos[1]});
-//            }
-//                logit("hej");
+            //            logit(JSON.stringify(ui));
+            //            if (pos) {
+            //                $dialog.dialog("option", "position", {my: "left top", at: "left+" + pos[0] + " top+" + pos[1]});
+            //            }
+            //                logit("hej");
         }
-//        hide: {effect: "fade", duration: 20}
+        //        hide: {effect: "fade", duration: 20}
     });
 
 
-    $dialog.dialog("option", "position", {my: "center", at: at});
+    $dialog.dialog('option', 'position', {my: 'center', at: at});
 
-//    $dialog.on("dragstop", function(event, ui) {logit("hej")});
+    //    $dialog.on("dragstop", function(event, ui) {logit("hej")});
 
 
-    var $dialogWidget = $dialog.dialog("widget");
+    var $dialogWidget = $dialog.dialog('widget');
     if (themeSettings.transparentDialogs) {
-        $dialogWidget.addClass("transparent");
-        $dialog.addClass("very-transparent");
+        $dialogWidget.addClass('transparent');
+        $dialog.addClass('very-transparent');
     }
 
     function makeFullyVisible() {
         if (visualizer && !visualizer.mouseCanvasDown) {
-            $dialogWidget.removeClass("transparent");
-            $dialog.removeClass("very-transparent");
-            $dialog.removeClass("transparent");
+            $dialogWidget.removeClass('transparent');
+            $dialog.removeClass('very-transparent');
+            $dialog.removeClass('transparent');
         }
     }
 
-    $dialogWidget.on("mousedown", function() {
+    $dialogWidget.on('mousedown', function() {
         makeFullyVisible();
-        $dialog.dialog("moveToTop");
-        $dialog.data("dragging", true);
+        $dialog.dialog('moveToTop');
+        $dialog.data('dragging', true);
     });
 
-    $dialogWidget.on("mouseup", function() {
+    $dialogWidget.on('mouseup', function() {
         makeFullyVisible();
-        $dialog.data("dragging", false);
+        $dialog.data('dragging', false);
     });
 
-    $dialogWidget.on("mouseenter", function() {
+    $dialogWidget.on('mouseenter', function() {
         if (visualizer && !visualizer.mouseCanvasDown) {
             makeFullyVisible();
-//            $dialog.removeClass("very-transparent");
+            //            $dialog.removeClass("very-transparent");
         }
     });
-    $dialogWidget.on("mouseleave", function() {
-        if (themeSettings.transparentDialogs && !$dialog.data("dragging")) {
-            $dialogWidget.addClass("transparent");
-            $dialog.addClass("very-transparent");
-            $dialog.removeClass("transparent");
+    $dialogWidget.on('mouseleave', function() {
+        if (themeSettings.transparentDialogs && !$dialog.data('dragging')) {
+            $dialogWidget.addClass('transparent');
+            $dialog.addClass('very-transparent');
+            $dialog.removeClass('transparent');
         }
     });
 
-    $dialog.on("dialogclose", function() {
-//            console.log("Closing...");
+    $dialog.on('dialogclose', function() {
+        //            console.log("Closing...");
         $toggle[0].checked = false;
-        $toggle.button("refresh");
-        editorSettings[dialog + "Visible"] = false;
+        $toggle.button('refresh');
+        editorSettings[dialog + 'Visible'] = false;
         editorSettings.dirty = true;
         settingsDirty = true;
-//        $dialogWidget.addClass("transparent");
-//        logit("Closing " + dialog);
+        //        $dialogWidget.addClass("transparent");
+        //        logit("Closing " + dialog);
     });
-//    $dialogsDiv.css("opacity", "0.5");
-//    $dialog.css("opacity", "0.5");
+    //    $dialogsDiv.css("opacity", "0.5");
+    //    $dialog.css("opacity", "0.5");
 
-    $dialog.css("max-height", "35em");
-//    $dialog.css("opacity", "0.5");
-//        $dialog.css("min-height", "500px");
-//        $dialog.dialog("option", "maxHeight", 500);
-//        $dialog.dialog("option", "minHeight", 400);
-    $dialog.on("dialogopen", function() {
-//                   console.log("Opening...");
-        editorSettings[dialog + "Visible"] = true;
+    $dialog.css('max-height', '35em');
+    //    $dialog.css("opacity", "0.5");
+    //        $dialog.css("min-height", "500px");
+    //        $dialog.dialog("option", "maxHeight", 500);
+    //        $dialog.dialog("option", "minHeight", 400);
+    $dialog.on('dialogopen', function() {
+        //                   console.log("Opening...");
+        editorSettings[dialog + 'Visible'] = true;
         editorSettings.dirty = true;
         settingsDirty = true;
-//        logit("Opening " + dialog);
+        //        logit("Opening " + dialog);
     });
-    $toggle.button().on("change", function() {
-        var dialogOpen = $dialog.dialog("isOpen");
+    $toggle.button().on('change', function() {
+        var dialogOpen = $dialog.dialog('isOpen');
         if (this.checked && !dialogOpen) {
-            $dialog.dialog("open");
+            $dialog.dialog('open');
         } else if (!this.checked && dialogOpen) {
-            $dialog.dialog("close");
+            $dialog.dialog('close');
         }
     });
 }
@@ -1508,7 +1508,7 @@ function stopSong() {
     if (audioPlayer) {
         visualizer.setCurrentPlayBeatTime(audioPlayer.songPlayBeatTime);
     }
-    $playButton.button( "option", "icons", {primary: "ui-icon-play"});
+    $playButton.button( 'option', 'icons', {primary: 'ui-icon-play'});
 }
 
 //function foo() {
@@ -1526,13 +1526,13 @@ var termsOfUseContent = [
         'It is not allowed to use the site in parallel from several computers with same login.</li>',
     '<li>The site uses cookies, which are small files stored on the user\'s computer. ' +
         'The cookies on the site are only used to determine whether users are logged in or not.</li>',
-//            '<li></li>',
+    //            '<li></li>',
     '</ul>',
     '<p>',
     '<p>Note that these terms of use may change.</p>'];
 
 function showTermsOfUse() {
-    showModalDialog("Terms of Use", termsOfUseContent.join(""),
+    showModalDialog('Terms of Use', termsOfUseContent.join(''),
         {
             resizable: false,
             draggable: false,
@@ -1540,8 +1540,8 @@ function showTermsOfUse() {
             modal: true,
             closeOnEscape: false,
             buttons: {
-                "OK": function() {
-                    $(this).dialog("close");
+                'OK': function() {
+                    $(this).dialog('close');
                 }
             }
         });
@@ -1550,7 +1550,7 @@ function showTermsOfUse() {
 function showAcceptTermsOfUseIfNecessary() {
     // Show the terms of use if not accepted
     if (userInfo && !userInfo.acceptedTOU) {
-        showModalDialog("Terms of Use", termsOfUseContent.join(""),
+        showModalDialog('Terms of Use', termsOfUseContent.join(''),
             {
                 resizable: false,
                 draggable: false,
@@ -1563,13 +1563,13 @@ function showAcceptTermsOfUseIfNecessary() {
                 modal: true,
                 closeOnEscape: false,
                 buttons: {
-                    "I Accept": function() {
+                    'I Accept': function() {
                         userInfo.acceptedTOU = true;
                         updateUserInfo(false);
-                        $(this).dialog("close");
+                        $(this).dialog('close');
                     },
-                    "Logout": function() {
-                        window.location.href = "logout";
+                    'Logout': function() {
+                        window.location.href = 'logout';
                     }
                 }
             });
@@ -1586,7 +1586,7 @@ function updateRenderStorageAndVisualizer(op) {
     renderStorage.dirty = true;
     settingsDirty = true;
 
-    tempTempoEvents = copyValueDeep(gatherEventsWithType(renderStorage.renderData.events, "t"));
+    tempTempoEvents = copyValueDeep(gatherEventsWithType(renderStorage.renderData.events, 't'));
     visualizer.resetRenderData();
     visualizer.addRenderData(renderStorage.renderData, renderStorage.renderDataLength);
 
@@ -1603,8 +1603,8 @@ function updateRenderStorageAndVisualizer(op) {
 function renderSong(doneFunc, cancelFunc, failFunc) {
 
     if (lightServerMode && !window.Worker) {
-        showModalDialog("Not Supported",
-            "The server doesn't support this operation and you need a browser with WebWorker support to do this in the client.");
+        showModalDialog('Not Supported',
+            'The server doesn\'t support this operation and you need a browser with WebWorker support to do this in the client.');
     } else {
 
         songSettingsChangedWhileRendering = false;
@@ -1612,16 +1612,16 @@ function renderSong(doneFunc, cancelFunc, failFunc) {
         var seed = getMainSeed();
         var renderRequestData = {seed: seed, sectionIndex: -1, genInfo: getGenInfo()};
 
-//    logit("Rendeirng with seed " + seed);
+        //    logit("Rendeirng with seed " + seed);
 
         var params = {
             taskType: WorkerTaskType.RENDER,
             content: renderRequestData,
-            caption: "Composing song...",
-            doneCaption: "Done!",
+            caption: 'Composing song...',
+            doneCaption: 'Done!',
             onSuccess: function(op) {
 
-//            logit("Rendered song success!");
+                //            logit("Rendered song success!");
                 updateRenderStorageAndVisualizer(op);
                 if (doneFunc) {
                     doneFunc();
@@ -1637,15 +1637,15 @@ function renderSong(doneFunc, cancelFunc, failFunc) {
                     failFunc();
                 }
             },
-            id: "task" + asyncOperationCounter};
+            id: 'task' + asyncOperationCounter};
 
         var task = null;
         if (window.Worker) {
             task = new AsyncWorkerTask(params);
         } else {
             if (lightServerMode) {
-                showModalDialog("No Web Worker Support Detected",
-                    "This browser doesn't support web workers, which is necessary when Abundant Music runs on a lightweight server");
+                showModalDialog('No Web Worker Support Detected',
+                    'This browser doesn\'t support web workers, which is necessary when Abundant Music runs on a lightweight server');
             } else {
                 params.taskType = AsyncServerChildTaskType.RENDER;
                 task = new AsyncServerChildTask(params);
@@ -1671,10 +1671,10 @@ function setVisualizerSize() {
         h = $document.innerWidth();
     }
     if (first) {
-        $body = $("body");
+        $body = $('body');
         var scaler = clamp(Math.min(w, h) / 1000, 0.5, 2);
         var fontSize = 16 * scaler;
-        $body.css("font-size", fontSize + "px");
+        $body.css('font-size', fontSize + 'px');
         first = false;
     }
 
@@ -1683,13 +1683,13 @@ function setVisualizerSize() {
 
 function sendFeedback() {
 
-    var feedbackStr = $("#feedbackTextArea").val();
+    var feedbackStr = $('#feedbackTextArea').val();
 
     if (feedbackStr) {
-        sendSimpleCommand({type: "giveFeedback", feedback: feedbackStr});
-        showModalDialog("Feedback sent", "<p>Thanks a lot!</p>");
+        sendSimpleCommand({type: 'giveFeedback', feedback: feedbackStr});
+        showModalDialog('Feedback sent', '<p>Thanks a lot!</p>');
     } else {
-        showModalDialog("Feedback info", "<p>Feedback text empty?</p>");
+        showModalDialog('Feedback info', '<p>Feedback text empty?</p>');
     }
 }
 
@@ -1697,20 +1697,20 @@ function sendFeedback() {
 function composeSetup1() {
 
     // Check if we are logged in
-    loggedIn = $.cookie('loggedin') == "true";
+    loggedIn = $.cookie('loggedin') == 'true';
     user = decodeURIComponent($.cookie('loggedinuser'));
 
-//    logit("user dir name: " + userToDirName(user) + " from " + user);
+    //    logit("user dir name: " + userToDirName(user) + " from " + user);
 
     var $window = $(window);
-    var $canvasfor2dcontext = $("#canvasfor2dcontext");
+    var $canvasfor2dcontext = $('#canvasfor2dcontext');
 
     var canvasfor2dcontext = $canvasfor2dcontext[0];
 
     var startTime = Date.now();
 
     if (Modernizr.webgl && !visualizer3DSettings.forceContext2D) {
-//        visualizer = new CanvasVisualizer3D(canvasfor2dcontext, startTime);
+        //        visualizer = new CanvasVisualizer3D(canvasfor2dcontext, startTime);
         var webGLOptions = {
             addBloom: visualizer3DSettings.addBloom,
             addSimulatedAA: visualizer3DSettings.addSimulatedAA,
@@ -1721,17 +1721,17 @@ function composeSetup1() {
             usingWebGL = true;
         } catch (exc) {
             console.log(exc);
-            console.log("Error when initializing webgl. Using 2D context.");
+            console.log('Error when initializing webgl. Using 2D context.');
             visualizer = new CanvasVisualizer3D(canvasfor2dcontext, startTime);
             visualizer3DSettings.forceContext2D = true;
         }
     } else {
         visualizer = new CanvasVisualizer3D(canvasfor2dcontext, startTime);
     }
-//    visualizer.render();
+    //    visualizer.render();
 
 
-    $window.on("resize", function() {
+    $window.on('resize', function() {
         setVisualizerSize();
         visualizer.render();
     });
@@ -1758,7 +1758,7 @@ function composeSetup3() {
     createAccountPanel();
     createTutorialsPanel();
 
-    $("#helpTabs").tabs();
+    $('#helpTabs').tabs();
 
     createSongsPanel();
 
@@ -1769,21 +1769,21 @@ function composeSetup3() {
 
 
 function composeSetup4() {
-    var $feedbackDialogDiv = $("#feedbackDialogDiv");
+    var $feedbackDialogDiv = $('#feedbackDialogDiv');
     if (!loggedIn) {
         $feedbackDialogDiv.empty();
-        $feedbackDialogDiv.append("Log in to enable feedback. Thanks!");
+        $feedbackDialogDiv.append('Log in to enable feedback. Thanks!');
     } else {
-        $feedbackDialogDiv.find("#submitFeedbackButton").button().click(function() {
+        $feedbackDialogDiv.find('#submitFeedbackButton').button().click(function() {
             sendFeedback();
-            $feedbackDialogDiv.find("#feedbackTextArea").val("");
+            $feedbackDialogDiv.find('#feedbackTextArea').val('');
         });
     }
 
-    var dialogs = ["songSettings", "songInfo", "player", "visualizerSettings", "tutorials", "songs", "export", "help", "feedback", "account"];
-    var captions = ["Song Settings" , "Song Info", "Player", "Visual Settings", "Tutorials", "Songs", "Export", "Help/Credits", "Feedback", "Account"];
-    var widths = ["60em", "60em", Modernizr.webaudio ? "45em" : null, "45em", "55em", "45em", "45em", "50em", lightServerMode ? null : "45em", lightServerMode ? null : "40em"];
-    var ats = ["right", "right top", "right", "top", "left", "top", "top", "left", "left", "left"];
+    var dialogs = ['songSettings', 'songInfo', 'player', 'visualizerSettings', 'tutorials', 'songs', 'export', 'help', 'feedback', 'account'];
+    var captions = ['Song Settings' , 'Song Info', 'Player', 'Visual Settings', 'Tutorials', 'Songs', 'Export', 'Help/Credits', 'Feedback', 'Account'];
+    var widths = ['60em', '60em', Modernizr.webaudio ? '45em' : null, '45em', '55em', '45em', '45em', '50em', lightServerMode ? null : '45em', lightServerMode ? null : '40em'];
+    var ats = ['right', 'right top', 'right', 'top', 'left', 'top', 'top', 'left', 'left', 'left'];
 
     for (var i=0; i<dialogs.length; i++) {
 
@@ -1794,31 +1794,31 @@ function composeSetup4() {
             createDialogAndToggle(dialog, caption, width, ats[i]);
         } else {
             // Remove toggle
-            var $dialog = $("#" + dialog + "DialogDiv");
+            var $dialog = $('#' + dialog + 'DialogDiv');
             $dialog.remove();
         }
     }
 
     $refreshButton = $('<button style="margin-left: 1em;">Compose</button>');
-    var $buttonsDiv = $("#buttonsDiv");
+    var $buttonsDiv = $('#buttonsDiv');
     $buttonsDiv.append($refreshButton);
     $refreshButton.button({
-            icons: {
-                primary: "ui-icon-locked"
-            }
+        icons: {
+            primary: 'ui-icon-locked'
         }
+    }
     );
     $refreshButton.click(function() {
         if (songSettingsDirty) {
-            $refreshButton.button("option", "disabled", true);
+            $refreshButton.button('option', 'disabled', true);
             renderSong(
                 function() { // On done
                 },
                 function() { // On cancel
-                    $refreshButton.button("option", "disabled", false);
+                    $refreshButton.button('option', 'disabled', false);
                 },
                 function() { // On fail
-                    $refreshButton.button("option", "disabled", false);
+                    $refreshButton.button('option', 'disabled', false);
                 }
             );
         }
@@ -1827,10 +1827,10 @@ function composeSetup4() {
     // Updating GUI from settings
     updateGuiFromEditorSettings(dialogs);
 
-    $playButton = $("#waplaybutton");
-    $stopButton = $("#wastopbutton");
-    $forwardButton = $("#waforwardbutton");
-    $rewindButton = $("#warewindbutton");
+    $playButton = $('#waplaybutton');
+    $stopButton = $('#wastopbutton');
+    $forwardButton = $('#waforwardbutton');
+    $rewindButton = $('#warewindbutton');
 
     var audioStepTime = 10;
 
@@ -1845,15 +1845,15 @@ function composeSetup4() {
 
             audioStepTime = 0.95 * audioStepTime + 0.05 * diff;
 
-//            logit(" audio step time " + audioStepTime + " latest: " + diff);
-//            logit("player beat time: " + webAudioPlayer.songPlayBeatTime);
+            //            logit(" audio step time " + audioStepTime + " latest: " + diff);
+            //            logit("player beat time: " + webAudioPlayer.songPlayBeatTime);
 
             if (audioPlayer.mode == AudioPlayerMode.PLAY) {
                 visualizer.setCurrentPlayBeatTime(audioPlayer.songPlayBeatTime);
                 updateMillis = 100;
             }
         }
-//        logit("Update millis " + updateMillis);
+        //        logit("Update millis " + updateMillis);
         setTimeout(playerUpdate, updateMillis);
     }
 
@@ -1876,15 +1876,15 @@ function composeSetup4() {
             audioPlayer.play();
             visualizer.setMode(VisualizerMode.PLAY);
             visualizer.setCurrentPlayBeatTime(audioPlayer.songPlayBeatTime);
-            $playButton.button( "option", "icons", {primary: "ui-icon-pause"});
+            $playButton.button( 'option', 'icons', {primary: 'ui-icon-pause'});
         }
         audioPlayer.getReadyForPlay(
             function() {
-                $playButton.button("option", "disabled", false);
+                $playButton.button('option', 'disabled', false);
                 doPlay();
             },
             function() { // cancel
-                $playButton.button("option", "disabled", false);
+                $playButton.button('option', 'disabled', false);
             }
         );
     }
@@ -1892,7 +1892,7 @@ function composeSetup4() {
     function pauseSong() {
         audioPlayer.pause();
         visualizer.setMode(VisualizerMode.PAUSE);
-        $playButton.button( "option", "icons", {primary: "ui-icon-play"});
+        $playButton.button( 'option', 'icons', {primary: 'ui-icon-play'});
     }
 
     function stepForward() {
@@ -1915,22 +1915,22 @@ function composeSetup4() {
         if (audioPlayer && audioPlayer.mode == AudioPlayerMode.PLAY) {
             pauseSong();
         } else {
-            $playButton.button("option", "disabled", true);
+            $playButton.button('option', 'disabled', true);
             if (songSettingsDirty) {
                 renderSong(
                     function() { // On done
                         playSong();
                     },
                     function() { // On cancel
-                        $playButton.button("option", "disabled", false);
+                        $playButton.button('option', 'disabled', false);
                     },
                     function() { // On fail
-                        logit("kljd");
-                        $playButton.button("option", "disabled", false);
+                        logit('kljd');
+                        $playButton.button('option', 'disabled', false);
                     }
                 );
             } else {
-                $playButton.button("option", "disabled", true);
+                $playButton.button('option', 'disabled', true);
                 playSong();
             }
         }
@@ -1952,7 +1952,7 @@ function composeSetup4() {
         if (settingsDirty) {
             saveSettingsToLocalStorage();
             settingsDirty = false;
-            logit("Saving settings");
+            logit('Saving settings');
         }
         setTimeout(checkSettingsChange, 500);
     }
@@ -1965,7 +1965,7 @@ function composeSetup4() {
     function animate() {
         requestAnimationFrame(animate);
 
-//        logit("dhskf " + stepCounter);
+        //        logit("dhskf " + stepCounter);
         var paintFps = visualizer3DSettings.context2DFps;
         if (usingWebGL) {
             paintFps = visualizer3DSettings.webGLFps;
@@ -2010,7 +2010,7 @@ function composeSetup4() {
 
 
     // All is loaded now. We can stop hiding :)
-    $("#hider-div").remove();
+    $('#hider-div').remove();
 
     allLoaded = true;
 }

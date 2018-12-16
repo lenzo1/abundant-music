@@ -12,7 +12,7 @@ Modernizr.load(
         {
             both: [],
             complete: function() {
-                console.log("Loaded jQuery!");
+                console.log('Loaded jQuery!');
 
                 $.uiBackCompat = false;
 
@@ -26,8 +26,8 @@ Modernizr.load(
             complete: function() {
                 loadSettingsFromLocalStorage();
                 var theme = JQueryUITheme.toUrlString(themeSettings.theme);
-                console.log("loading theme: " + theme);
-                var themeHref = "css/" + theme + "/jquery.ui.theme.css";
+                console.log('loading theme: ' + theme);
+                var themeHref = 'css/' + theme + '/jquery.ui.theme.css';
                 Modernizr.load(themeHref);
                 updateLoaderProgress(20);
             }
@@ -35,7 +35,7 @@ Modernizr.load(
         {
             both: [],
             complete: function() {
-                console.log("Loaded jQuery plugins and three.js");
+                console.log('Loaded jQuery plugins and three.js');
                 updateLoaderProgress(30);
             }
         },
@@ -43,7 +43,7 @@ Modernizr.load(
             test: Modernizr.webgl,
             yep: [],
             complete: function() {
-                console.log("Loaded webgl stuff for three.js");
+                console.log('Loaded webgl stuff for three.js');
                 updateLoaderProgress(40);
             }
         },

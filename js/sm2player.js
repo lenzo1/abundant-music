@@ -19,7 +19,7 @@ function SoundManager2Player() {
 }
 SoundManager2Player.prototype = new AudioPlayer();
 
-SoundManager2Player.prototype.title = "Sound Manager 2 (Web Audio not detected)";
+SoundManager2Player.prototype.title = 'Sound Manager 2 (Web Audio not detected)';
 
 
 SoundManager2Player.prototype.getSoundFontPrefix = function(type) {
@@ -83,10 +83,10 @@ SoundManager2Player.prototype.scheduleNoteOnOff = function(noteData) {
     var audioElement = bufferInfo.buffer;
 
     var volMult = 1;
-    if (bufferInfo.channelPrefix == "percussion") {
+    if (bufferInfo.channelPrefix == 'percussion') {
         volMult = this.settings.percussionVolumeMultiplier;
     } else {
-        var arr = this.settings[bufferInfo.channelPrefix + "VolumeMultipliers"];
+        var arr = this.settings[bufferInfo.channelPrefix + 'VolumeMultipliers'];
         if (arr.length > 0) {
             volMult = arr[bufferInfo.voiceIndex % arr.length];
         }
@@ -100,10 +100,10 @@ SoundManager2Player.prototype.scheduleNoteOnOff = function(noteData) {
 
     var delaySeconds = Math.max(0, onTime - this.getContextTime());
 
-//    logit("delay " + delaySeconds);
+    //    logit("delay " + delaySeconds);
     voice.timeout = setTimeout(function() {
-//        audioElement.stop();
-//        audioElement.currentTime = 0;
+        //        audioElement.stop();
+        //        audioElement.currentTime = 0;
         audioElement.play({volume: Math.round(clamp(volMult * 100, 0, 100))});
     }, Math.round(delaySeconds * 1000));
 };

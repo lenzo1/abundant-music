@@ -2,8 +2,8 @@
 
 
 function MidiSynth(options) {
-    this.sampleFreq = getValueOrDefault(options, "sampleFreq", 44100);
-    this.channels = getValueOrDefault(options, "channels", 2);
+    this.sampleFreq = getValueOrDefault(options, 'sampleFreq', 44100);
+    this.channels = getValueOrDefault(options, 'channels', 2);
 
     this.voices = [];
     this.instruments = [];
@@ -13,7 +13,7 @@ function MidiSynth(options) {
 MidiSynth.prototype.synthesizeBatch = function(midiData, progressFunc) {
 //    logit(midiData);
 
-//    var midiEvents = midiData.tracks[0];
+    //    var midiEvents = midiData.tracks[0];
 
     var events = midiData.midiTracks[0].trackEvents;
 
@@ -24,7 +24,7 @@ MidiSynth.prototype.synthesizeBatch = function(midiData, progressFunc) {
 
     var bufferLen = Math.max(1, Math.round(this.sampleFreq / controlFreq));
 
-//    logit("Control freq of " + controlFreq + " gives a buffer size " + bufferLen);
+    //    logit("Control freq of " + controlFreq + " gives a buffer size " + bufferLen);
 
 
     var channelBuffers = [];
@@ -44,13 +44,13 @@ MidiSynth.prototype.synthesizeBatch = function(midiData, progressFunc) {
     for (var i=0; i<events.length; i++) {
         var e = events[i];
         var eventMessage = e.eventMessage;
-        if (eventMessage.messageClass == "SetTempoMessage") {
+        if (eventMessage.messageClass == 'SetTempoMessage') {
             if (tempTick == 0) {
                 // The initial tempo
                 currentMicrosPerQuarter = eventMessage.microsPerQuarter;
             }
             tempMicrosPerQuarter = eventMessage.microsPerQuarter;
-//            logit("Tempo at " + tempSeconds + " set to " + (1000000 * 60) / tempMicrosPerQuarter);
+            //            logit("Tempo at " + tempSeconds + " set to " + (1000000 * 60) / tempMicrosPerQuarter);
         }
         var micros = tempMicrosPerQuarter * (e.eventTime / midiDivisions);
         var seconds = micros / 1000000;
@@ -63,7 +63,7 @@ MidiSynth.prototype.synthesizeBatch = function(midiData, progressFunc) {
     var endSeconds = 1;
     var totalBufferLen = Math.round(this.sampleFreq * (tempSeconds + endSeconds));
 
-//    logit("Total buffer length: " + totalBufferLen);
+    //    logit("Total buffer length: " + totalBufferLen);
 
     var mixerBuffer = [];
 
@@ -76,10 +76,10 @@ MidiSynth.prototype.synthesizeBatch = function(midiData, progressFunc) {
     var bufferLenLeft = totalBufferLen;
 
 
-//    logit("Max tick " + maxTick);
-//    logit("Song length " + tempSeconds + " seconds");
-//    logit("Init tempo is " + currentMicrosPerQuarter);
-//    logit("Bpm: " + (1000000 * 60) / currentMicrosPerQuarter);
+    //    logit("Max tick " + maxTick);
+    //    logit("Song length " + tempSeconds + " seconds");
+    //    logit("Init tempo is " + currentMicrosPerQuarter);
+    //    logit("Bpm: " + (1000000 * 60) / currentMicrosPerQuarter);
 
     var bufferLenSeconds = bufferLen / this.sampleFreq;
 
@@ -117,71 +117,71 @@ MidiSynth.prototype.synthesizeBatch = function(midiData, progressFunc) {
 
                 // Handle midi message here
                 switch (eventMessage.messageClass) {
-                    case "ChannelMessage":
-                        var statusStr = eventMessage.status;
-//                        status = MessageStatus.CONTROL_CHANGE;
-                        switch (statusStr) {
-                            case "CONTROL_CHANGE":
-//                                status = MessageStatus.CONTROL_CHANGE;
-                                break;
-                        }
-//                        message = new ChannelMessage(status, eventMessage.channel, eventMessage.data1, eventMessage.data2);
+                case 'ChannelMessage':
+                    var statusStr = eventMessage.status;
+                    //                        status = MessageStatus.CONTROL_CHANGE;
+                    switch (statusStr) {
+                    case 'CONTROL_CHANGE':
+                        //                                status = MessageStatus.CONTROL_CHANGE;
                         break;
-                    case "VoiceMessage":
-//                        logit("Taking care of midi event " + JSON.stringify(e));
-                        statusStr = eventMessage.status;
-//                        status = MessageStatus.NOTE_OFF;
-                        switch (statusStr) {
-                            case "NOTE_ON":
-                                // Create a new voice
-                                var newVoice = new MidiSynthVoice(this.sampleFreq, bufferLen);
-                                newVoice.channel = eventMessage.channel;
-                                newVoice.note = eventMessage.data1;
-                                newVoice.velocity = eventMessage.data2;
-                                newVoice.startTime = currentMidiTickSeconds;
-                                this.voices.push(newVoice);
-//                                logit(newVoice);
-//                                logit("Adding note " + JSON.stringify(newVoice));
-                                break;
-                            case "NOTE_OFF":
-                                // Find the oldest voice with the note
-                                var oldestVoice = null;
-                                var minTime = currentMidiTickSeconds + 100;
-//                                logit("Should remove note " + eventMessage.data1 + " on channel " + eventMessage.channel + " minTime " + minTime);
+                    }
+                    //                        message = new ChannelMessage(status, eventMessage.channel, eventMessage.data1, eventMessage.data2);
+                    break;
+                case 'VoiceMessage':
+                    //                        logit("Taking care of midi event " + JSON.stringify(e));
+                    statusStr = eventMessage.status;
+                    //                        status = MessageStatus.NOTE_OFF;
+                    switch (statusStr) {
+                    case 'NOTE_ON':
+                        // Create a new voice
+                        var newVoice = new MidiSynthVoice(this.sampleFreq, bufferLen);
+                        newVoice.channel = eventMessage.channel;
+                        newVoice.note = eventMessage.data1;
+                        newVoice.velocity = eventMessage.data2;
+                        newVoice.startTime = currentMidiTickSeconds;
+                        this.voices.push(newVoice);
+                        //                                logit(newVoice);
+                        //                                logit("Adding note " + JSON.stringify(newVoice));
+                        break;
+                    case 'NOTE_OFF':
+                        // Find the oldest voice with the note
+                        var oldestVoice = null;
+                        var minTime = currentMidiTickSeconds + 100;
+                        //                                logit("Should remove note " + eventMessage.data1 + " on channel " + eventMessage.channel + " minTime " + minTime);
 
-                                for (var j=0; j<this.voices.length; j++) {
-                                    var v = this.voices[j];
-                                    if (v.mode == MidiSynthVoiceMode.ON &&
+                        for (var j=0; j<this.voices.length; j++) {
+                            var v = this.voices[j];
+                            if (v.mode == MidiSynthVoiceMode.ON &&
                                         v.channel == eventMessage.channel &&
                                         v.note == eventMessage.data1) {
-                                        if (v.startTime < minTime) {
-                                            minTime = v.startTime;
-                                            oldestVoice = v;
-                                        }
-                                    }
+                                if (v.startTime < minTime) {
+                                    minTime = v.startTime;
+                                    oldestVoice = v;
                                 }
-                                if (oldestVoice) {
-                                    oldestVoice.noteOff();
-                                } else {
-                                    logit("Could not find an active voice");
-                                }
-                                break;
+                            }
                         }
-//                        message = new VoiceMessage(status, eventMessage.channel, eventMessage.data1, eventMessage.data2);
+                        if (oldestVoice) {
+                            oldestVoice.noteOff();
+                        } else {
+                            logit('Could not find an active voice');
+                        }
                         break;
-                    case "EndTrackMessage":
-//                        message = EndTrackMessage.prototype.END_OF_TRACK;
-                        break;
-                    case "ProgramChangeMessage":
-//                        message = new ProgramChangeMessage(eventMessage.channel, eventMessage.program);
-                        break;
-                    case "SetTempoMessage":
-                        nextMicrosPerQuarter = eventMessage.microsPerQuarter;
-                        break;
-                    default:
-                        logit("Unknown message ");
-                        logit(eventMessage);
-                        break;
+                    }
+                    //                        message = new VoiceMessage(status, eventMessage.channel, eventMessage.data1, eventMessage.data2);
+                    break;
+                case 'EndTrackMessage':
+                    //                        message = EndTrackMessage.prototype.END_OF_TRACK;
+                    break;
+                case 'ProgramChangeMessage':
+                    //                        message = new ProgramChangeMessage(eventMessage.channel, eventMessage.program);
+                    break;
+                case 'SetTempoMessage':
+                    nextMicrosPerQuarter = eventMessage.microsPerQuarter;
+                    break;
+                default:
+                    logit('Unknown message ');
+                    logit(eventMessage);
+                    break;
                 }
             } else {
                 // We wait
@@ -189,7 +189,7 @@ MidiSynth.prototype.synthesizeBatch = function(midiData, progressFunc) {
             }
         }
 
-//        logit("Voice count " + this.voices.length);
+        //        logit("Voice count " + this.voices.length);
 
         var newVoices = [];
         // Gather everything from the voices
@@ -209,7 +209,7 @@ MidiSynth.prototype.synthesizeBatch = function(midiData, progressFunc) {
             if (voice.mode != MidiSynthVoiceMode.OFF) {
                 newVoices.push(voice);
             } else {
-//                logit("Removing voice ");
+                //                logit("Removing voice ");
             }
         }
         this.voices = newVoices;
@@ -264,11 +264,11 @@ MidiSynth.prototype.synthesizeBatch = function(midiData, progressFunc) {
     }
 
     if (this.voices.length > 0) {
-        logit("Voice count after finish: " + this.voices.length);
+        logit('Voice count after finish: ' + this.voices.length);
 
         for (var i=0; i<this.voices.length; i++) {
             var v = this.voices[i];
-            logit(" voice " + i + ": " + v.mode);
+            logit(' voice ' + i + ': ' + v.mode);
         }
     }
 
@@ -300,29 +300,29 @@ MidiSynth.prototype.synthesizeBatch = function(midiData, progressFunc) {
             }
         }
     }
-    logit("Normalize multiplier: " + multiplier + " max: " + absMax + " at " + maxIndex);
+    logit('Normalize multiplier: ' + multiplier + ' max: ' + absMax + ' at ' + maxIndex);
 
-    logit("Final buffer lengths " + result[0].length);
+    logit('Final buffer lengths ' + result[0].length);
 
-//    var testEnv = new MidiSynthADSREnvelope(100, 100);
-//    var testBuf = createFilledArray(100, 0);
-//    testEnv.writeEnvelope(testBuf, 0, 100, this);
-//
-//    logit("Test env output: " + JSON.stringify(testBuf));
+    //    var testEnv = new MidiSynthADSREnvelope(100, 100);
+    //    var testBuf = createFilledArray(100, 0);
+    //    testEnv.writeEnvelope(testBuf, 0, 100, this);
+    //
+    //    logit("Test env output: " + JSON.stringify(testBuf));
 
 
-//    var sampleCount = this.sampleFreq;
-//
-//    var freqFactor = (2 * Math.PI) / this.sampleFreq;
-//
-//    for (var j=0; j<this.channels; j++) {
-//        var arr = result[j];
-//        for (var i=0; i<sampleCount; i++) {
-//            arr[i] = Math.sin(freqFactor * i * 440 * (j + 1));
-//        }
-//    }
+    //    var sampleCount = this.sampleFreq;
+    //
+    //    var freqFactor = (2 * Math.PI) / this.sampleFreq;
+    //
+    //    for (var j=0; j<this.channels; j++) {
+    //        var arr = result[j];
+    //        for (var i=0; i<sampleCount; i++) {
+    //            arr[i] = Math.sin(freqFactor * i * 440 * (j + 1));
+    //        }
+    //    }
 
-//    logit(result);
+    //    logit(result);
 
     return result;
 };

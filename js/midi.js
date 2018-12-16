@@ -21,15 +21,15 @@ var Midi = (function() {
     };
 
     MessageStatus.STRING_TABLE = {};
-    MessageStatus.STRING_TABLE[MessageStatus.NOTE_OFF] = "NOTE_OFF";
-    MessageStatus.STRING_TABLE[MessageStatus.NOTE_ON] = "NOTE_ON";
-    MessageStatus.STRING_TABLE[MessageStatus.KEY_PRESSURE] = "KEY_PRESSURE";
-    MessageStatus.STRING_TABLE[MessageStatus.CONTROL_CHANGE] = "CONTROL_CHANGE";
-    MessageStatus.STRING_TABLE[MessageStatus.PROGRAM_CHANGE] = "PROGRAM_CHANGE";
-    MessageStatus.STRING_TABLE[MessageStatus.CHANNEL_PRESSURE] = "CHANNEL_PRESSURE";
-    MessageStatus.STRING_TABLE[MessageStatus.PITCH_BEND] = "PITCH_BEND";
-    MessageStatus.STRING_TABLE[MessageStatus.SYSTEM] = "SYSTEM";
-    MessageStatus.STRING_TABLE[MessageStatus.INVALID] = "INVALID";
+    MessageStatus.STRING_TABLE[MessageStatus.NOTE_OFF] = 'NOTE_OFF';
+    MessageStatus.STRING_TABLE[MessageStatus.NOTE_ON] = 'NOTE_ON';
+    MessageStatus.STRING_TABLE[MessageStatus.KEY_PRESSURE] = 'KEY_PRESSURE';
+    MessageStatus.STRING_TABLE[MessageStatus.CONTROL_CHANGE] = 'CONTROL_CHANGE';
+    MessageStatus.STRING_TABLE[MessageStatus.PROGRAM_CHANGE] = 'PROGRAM_CHANGE';
+    MessageStatus.STRING_TABLE[MessageStatus.CHANNEL_PRESSURE] = 'CHANNEL_PRESSURE';
+    MessageStatus.STRING_TABLE[MessageStatus.PITCH_BEND] = 'PITCH_BEND';
+    MessageStatus.STRING_TABLE[MessageStatus.SYSTEM] = 'SYSTEM';
+    MessageStatus.STRING_TABLE[MessageStatus.INVALID] = 'INVALID';
 
 
     function Message(status) {
@@ -38,7 +38,7 @@ var Midi = (function() {
     Message.prototype.encode = function(data) {
     };
     Message.prototype.toString = function() {
-        return "[Message(status=" + MessageStatus.toString(this.status) + ")]";
+        return '[Message(status=' + MessageStatus.toString(this.status) + ')]';
     };
 
 
@@ -76,7 +76,7 @@ var Midi = (function() {
     };
 
     ChannelMessage.prototype.toString = function() {
-        return "[ChannelMessage(status=" + MessageStatus.toString(this.status) + " channel=" + this.channel + " data1=" + this.data1.toString(16) + " data2=" + this.data2.toString(16) + ")]";
+        return '[ChannelMessage(status=' + MessageStatus.toString(this.status) + ' channel=' + this.channel + ' data1=' + this.data1.toString(16) + ' data2=' + this.data2.toString(16) + ')]';
     };
 
 
@@ -98,7 +98,7 @@ var Midi = (function() {
         return this.data2;
     };
     VoiceMessage.prototype.toString = function() {
-        return "[VoiceMessage(status=" + MessageStatus.toString(this.status) + " channel=" + this.channel + " note=" + MIDINote.toString(this.note()) + " octave=" + this.octave() + " velocity=" + this.velocity() + ")]";
+        return '[VoiceMessage(status=' + MessageStatus.toString(this.status) + ' channel=' + this.channel + ' note=' + MIDINote.toString(this.note()) + ' octave=' + this.octave() + ' velocity=' + this.velocity() + ')]';
     };
 
 
@@ -119,21 +119,21 @@ var Midi = (function() {
         toString: function(value) {
             switch(value)
             {
-                case this.C: return "C";
-                case this.C_SHARP: return "C#";
-                case this.D: return "D";
-                case this.D_SHARP: return "D#";
-                case this.E: return "E";
-                case this.F: return "F";
-                case this.F_SHARP: return "F#";
-                case this.G: return "G";
-                case this.G_SHARP: return "G#";
-                case this.A: return "A";
-                case this.A_SHARP: return "A#";
-                case this.B: return "B";
+            case this.C: return 'C';
+            case this.C_SHARP: return 'C#';
+            case this.D: return 'D';
+            case this.D_SHARP: return 'D#';
+            case this.E: return 'E';
+            case this.F: return 'F';
+            case this.F_SHARP: return 'F#';
+            case this.G: return 'G';
+            case this.G_SHARP: return 'G#';
+            case this.A: return 'A';
+            case this.A_SHARP: return 'A#';
+            case this.B: return 'B';
             }
 
-            return "UNKNOWN";
+            return 'UNKNOWN';
         }
     };
 
@@ -181,21 +181,21 @@ var Midi = (function() {
         toString: function(value) {
             switch(value)
             {
-                case this.SYS_EX_START: return "SYS_EX_START";
-                case this.MIDI_TIME_CODE: return "MIDI_TIME_CODE";
-                case this.SONG_POSITION: return "SONG_POSITION";
-                case this.SONG_SELECT: return "SONG_SELECT";
-                case this.TUNE_REQUEST: return "TUNE_REQUEST";
-                case this.SYS_EX_END: return "SYS_EX_END";
-                case this.TIMING_CLOCK: return "TIMING_CLOCK";
-                case this.START: return "START";
-                case this.CONTINUE: return "CONTINUE";
-                case this.STOP: return "STOP";
-                case this.ACTIVE_SENSING: return "ACTIVE_SENSING";
-                case this.SYSTEM_RESET: return "SYSTEM_RESET";
+            case this.SYS_EX_START: return 'SYS_EX_START';
+            case this.MIDI_TIME_CODE: return 'MIDI_TIME_CODE';
+            case this.SONG_POSITION: return 'SONG_POSITION';
+            case this.SONG_SELECT: return 'SONG_SELECT';
+            case this.TUNE_REQUEST: return 'TUNE_REQUEST';
+            case this.SYS_EX_END: return 'SYS_EX_END';
+            case this.TIMING_CLOCK: return 'TIMING_CLOCK';
+            case this.START: return 'START';
+            case this.CONTINUE: return 'CONTINUE';
+            case this.STOP: return 'STOP';
+            case this.ACTIVE_SENSING: return 'ACTIVE_SENSING';
+            case this.SYSTEM_RESET: return 'SYSTEM_RESET';
             }
 
-            return "UNKNOWN";
+            return 'UNKNOWN';
         }
     };
 
@@ -234,7 +234,7 @@ var Midi = (function() {
 
 
     ProgramChangeMessage.prototype.toString = function() {
-        return "[ProgramChangeMessage(channel=" + this.channel + " program=" + this.data1 + ")]";
+        return '[ProgramChangeMessage(channel=' + this.channel + ' program=' + this.data1 + ')]';
     };
 
 
@@ -255,7 +255,7 @@ var Midi = (function() {
     };
 
     SetTempoMessage.prototype.toString= function() {
-        return "[SetTempoMessage(microsPerQuarter=" + this.microsPerQuarter + ")]";
+        return '[SetTempoMessage(microsPerQuarter=' + this.microsPerQuarter + ')]';
     };
 
 
@@ -273,7 +273,7 @@ var Midi = (function() {
     };
 
     MIDITrackEvent.prototype.toString = function() {
-        return "[MIDITrackEvent(time=" + this.eventTime + " message=" + this.eventMessage + ")]";
+        return '[MIDITrackEvent(time=' + this.eventTime + ' message=' + this.eventMessage + ')]';
     };
 
 
@@ -282,7 +282,7 @@ var Midi = (function() {
         this.trackEvents = events;
     }
     MIDITrack.prototype.toString = function() {
-        return "[MIDITrack(events=\n\t" + this.trackEvents.join("\n\t") + ")]";
+        return '[MIDITrack(events=\n\t' + this.trackEvents.join('\n\t') + ')]';
     };
 
 
@@ -297,7 +297,7 @@ var Midi = (function() {
         return this.midiTracks.length;
     };
     MIDIFile.prototype.toString = function() {
-        return "[MIDIFile(format=" + this.fileFormat + " division=" + this.midiDivision + " numTracks=" + this.midiTracks.length + " tracks=\n\t" + this.midiTracks.join("\n\t") + ")]";
+        return '[MIDIFile(format=' + this.fileFormat + ' division=' + this.midiDivision + ' numTracks=' + this.midiTracks.length + ' tracks=\n\t' + this.midiTracks.join('\n\t') + ')]';
     };
 
 
@@ -325,13 +325,13 @@ var Midi = (function() {
         var timingDivision = file.midiDivision;
 
         if (typeof(format) === 'undefined') {
-            logit("format undef...");
+            logit('format undef...');
         }
         if (typeof(numTracks) === 'undefined') {
-            logit("numtracks undef...");
+            logit('numtracks undef...');
         }
         if (typeof(timingDivision) === 'undefined') {
-            logit("divisiion undef...");
+            logit('divisiion undef...');
         }
         data.writeShort(format);
         data.writeShort(numTracks);
@@ -370,7 +370,7 @@ var Midi = (function() {
             // Write all the track bytes
             data.appendByteArray(trackBytes);
         }
-//    logit("Data length: " + data.lengths.length);
+        //    logit("Data length: " + data.lengths.length);
     }
 
 
@@ -393,8 +393,8 @@ var Midi = (function() {
             bytes.push(0);
         }
 
-//var str = "";
-//var hexStr = "";
+        //var str = "";
+        //var hexStr = "";
         for (i = bytes.length - 1; i >= 0; i--) {
             byt = bytes[i];
             if (i != 0) {
@@ -404,7 +404,7 @@ var Midi = (function() {
             //str += byte.toString(2);
             //hexStr += byte.toString(16);
         }
-//trace("Result: " + str + " or " + hexStr);
+        //trace("Result: " + str + " or " + hexStr);
     }
 
 
@@ -414,12 +414,12 @@ var Midi = (function() {
         var resultMidiTracks = [];
 
         if (typeof(midiDataObject.midiTracks) === 'undefined') {
-            logit("Midi data missing midiTracks property<br />");
+            logit('Midi data missing midiTracks property<br />');
             return;
         }
 
         if (typeof(midiDataObject.midiTracks.length) === 'undefined') {
-            logit("Midi data midiTracks property not an array<br />");
+            logit('Midi data midiTracks property not an array<br />');
             return;
         }
 
@@ -434,10 +434,10 @@ var Midi = (function() {
             var track = inputMidiTracks[i];
 
             if (typeof(track.trackEvents) === 'undefined') {
-//        textArea.text += "Midi data track missing trackEvents property\n";
-//        textArea.text += JSON.stringify(track) + "\n";
-//        textArea.text += JSON.stringify(inputMidiTracks[i]) + "\n";
-//        textArea.text += JSON.stringify(inputMidiTracks) + "\n";
+                //        textArea.text += "Midi data track missing trackEvents property\n";
+                //        textArea.text += JSON.stringify(track) + "\n";
+                //        textArea.text += JSON.stringify(inputMidiTracks[i]) + "\n";
+                //        textArea.text += JSON.stringify(inputMidiTracks) + "\n";
                 return;
             }
 
@@ -446,67 +446,67 @@ var Midi = (function() {
                 var event = events[j];
 
                 if (typeof(event.eventTime) === 'undefined') {
-//            textArea.text += "Midi data event missing eventTime property\n";
+                    //            textArea.text += "Midi data event missing eventTime property\n";
                     return;
                 }
 
                 var eventTime = event.eventTime;
 
                 if (typeof(event.eventMessage) === 'undefined') {
-//            textArea.text += "Midi data event missing eventMessage property\n";
+                    //            textArea.text += "Midi data event missing eventMessage property\n";
                     return;
                 }
 
                 var eventMessage = event.eventMessage;
 
                 if (typeof(eventMessage.messageClass) === 'undefined') {
-//            textArea.text += "Midi data event message missing messageClass property\n";
+                    //            textArea.text += "Midi data event message missing messageClass property\n";
                     return;
                 }
 
                 var messageClass = eventMessage.messageClass;
 
                 var message = null;
-                var statusStr = "";
+                var statusStr = '';
                 var status = 0;
                 switch (messageClass) {
-                    case "ChannelMessage":
-                        statusStr = eventMessage.status;
+                case 'ChannelMessage':
+                    statusStr = eventMessage.status;
+                    status = MessageStatus.CONTROL_CHANGE;
+                    switch (statusStr) {
+                    case 'CONTROL_CHANGE':
                         status = MessageStatus.CONTROL_CHANGE;
-                        switch (statusStr) {
-                            case "CONTROL_CHANGE":
-                                status = MessageStatus.CONTROL_CHANGE;
-                                break;
-                        }
-                        message = new ChannelMessage(status, eventMessage.channel, eventMessage.data1, eventMessage.data2);
                         break;
-                    case "VoiceMessage":
-                        statusStr = eventMessage.status;
+                    }
+                    message = new ChannelMessage(status, eventMessage.channel, eventMessage.data1, eventMessage.data2);
+                    break;
+                case 'VoiceMessage':
+                    statusStr = eventMessage.status;
+                    status = MessageStatus.NOTE_OFF;
+                    switch (statusStr) {
+                    case 'NOTE_ON':
+                        status = MessageStatus.NOTE_ON;
+                        break;
+                    case 'NOTE_OFF':
                         status = MessageStatus.NOTE_OFF;
-                        switch (statusStr) {
-                            case "NOTE_ON":
-                                status = MessageStatus.NOTE_ON;
-                                break;
-                            case "NOTE_OFF":
-                                status = MessageStatus.NOTE_OFF;
-                                break;
-                        }
-                        message = new VoiceMessage(status, eventMessage.channel, eventMessage.data1, eventMessage.data2);
                         break;
-                    case "EndTrackMessage":
-                        message = EndTrackMessage.prototype.END_OF_TRACK;
-                        break;
-                    case "ProgramChangeMessage":
-                        message = new ProgramChangeMessage(eventMessage.channel, eventMessage.program);
-                        break;
-                    case "SetTempoMessage":
-                        message = new SetTempoMessage(eventMessage.microsPerQuarter);
-                        break;
+                    }
+                    message = new VoiceMessage(status, eventMessage.channel, eventMessage.data1, eventMessage.data2);
+                    break;
+                case 'EndTrackMessage':
+                    message = EndTrackMessage.prototype.END_OF_TRACK;
+                    break;
+                case 'ProgramChangeMessage':
+                    message = new ProgramChangeMessage(eventMessage.channel, eventMessage.program);
+                    break;
+                case 'SetTempoMessage':
+                    message = new SetTempoMessage(eventMessage.microsPerQuarter);
+                    break;
                 }
                 if (message != null) {
                     trackEvents.push(new MIDITrackEvent(eventTime, message));
                 } else {
-                    logit("message was " + message + " " + messageClass);
+                    logit('message was ' + message + ' ' + messageClass);
                 }
 
             }
@@ -515,7 +515,7 @@ var Midi = (function() {
 
         var midiFile = new MIDIFile(midiDataObject.fileFormat, midiDataObject.midiDivisions, resultMidiTracks);
 
-//trace("file before: " + midiFile.toString());
+        //trace("file before: " + midiFile.toString());
 
         var encoder = new MIDIEncoder();
         encoder.encodeFile(resultBuffer, midiFile);

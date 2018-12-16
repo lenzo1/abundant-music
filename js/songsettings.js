@@ -2,7 +2,7 @@
 
 
 function AbstractSettings(options) {
-    this.storagePrefix = ""; // getValueOrDefault(options, "storagePrefix", "");
+    this.storagePrefix = ''; // getValueOrDefault(options, "storagePrefix", "");
     this.dirty = false;
 }
 AbstractSettings.prototype.getStoragePropertyName = function() {
@@ -26,7 +26,7 @@ AbstractSettings.prototype.loadFromLocalStorage = function() {
         }
     } catch (exc) {
         // Just silently ignore this
-        logit("Error when loading from local storage " + this._constructorName);
+        logit('Error when loading from local storage ' + this._constructorName);
     }
 };
 
@@ -43,7 +43,7 @@ AbstractSettings.prototype.saveToLocalStorage = function() {
         localStorage.setItem(lsPropName, JSON.stringify(toStore));
     } catch (exc) {
         // Silently ignore
-        logit("Error when saving to local storage " + this._constructorName);
+        logit('Error when saving to local storage ' + this._constructorName);
     }
 };
 
@@ -59,7 +59,7 @@ function RenderStorage() {
     this.renderDataLength = 1;
     this.songStructureInfo = null;
 
-    this._constructorName = "RenderStorage";
+    this._constructorName = 'RenderStorage';
 }
 RenderStorage.prototype = new AbstractSettings();
 
@@ -95,14 +95,14 @@ function EditorSettings() {
     this.accountPosition = [xStep * xSteps++, yStep * 3];
     this.songInfoPosition = [xStep * xSteps++, yStep * 3];
 
-    this._constructorName = "EditorSettings";
+    this._constructorName = 'EditorSettings';
 }
 EditorSettings.prototype = new AbstractSettings();
 
 function AbstractSettingsPresets() {
     AbstractSettings.call(this);
     this.items = [];
-    this._constructorName = "AbstractSettingsPresets";
+    this._constructorName = 'AbstractSettingsPresets';
 }
 AbstractSettingsPresets.prototype = new AbstractSettings();
 
@@ -125,9 +125,9 @@ AbstractSettingsPresets.prototype.getItemIndexWithName = function(name) {
 
 
 function PresetItem() {
-    this.name = "";
+    this.name = '';
     this.data = null;
-    this._constructorName = "PresetItem";
+    this._constructorName = 'PresetItem';
 }
 PresetItem.prototype.setName = function(n) {
     this.name = n;
@@ -141,111 +141,111 @@ PresetItem.prototype.setData = function(n) {
 
 function SongSettingsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new SongSettings()));
-    this._constructorName = "SongSettingsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new SongSettings()));
+    this._constructorName = 'SongSettingsPresets';
 }
 SongSettingsPresets.prototype = new AbstractSettingsPresets();
 
 
 function SongStructureSeedSettingsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new SongStructureSeedSettings()));
-    this._constructorName = "SongStructureSeedSettingsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new SongStructureSeedSettings()));
+    this._constructorName = 'SongStructureSeedSettingsPresets';
 }
 SongStructureSeedSettingsPresets.prototype = new AbstractSettingsPresets();
 
 function SongContentSeedSettingsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new SongContentSeedSettings()));
-    this._constructorName = "SongContentSeedSettingsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new SongContentSeedSettings()));
+    this._constructorName = 'SongContentSeedSettingsPresets';
 }
 SongContentSeedSettingsPresets.prototype = new AbstractSettingsPresets();
 
 function SongIndicesSeedSettingsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new SongIndicesSeedSettings()));
-    this._constructorName = "SongIndicesSeedSettingsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new SongIndicesSeedSettings()));
+    this._constructorName = 'SongIndicesSeedSettingsPresets';
 }
 SongIndicesSeedSettingsPresets.prototype = new AbstractSettingsPresets();
 
 function SongParametersPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new SongParameters()));
-    this._constructorName = "SongParametersPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new SongParameters()));
+    this._constructorName = 'SongParametersPresets';
 }
 SongParametersPresets.prototype = new AbstractSettingsPresets();
 
 function SongDomainsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new SongDomains()));
-    this._constructorName = "SongDomainsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new SongDomains()));
+    this._constructorName = 'SongDomainsPresets';
 }
 SongDomainsPresets.prototype = new AbstractSettingsPresets();
 
 function SongDetailsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new SongDetails()));
-    this._constructorName = "SongDetailsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new SongDetails()));
+    this._constructorName = 'SongDetailsPresets';
 }
 SongDetailsPresets.prototype = new AbstractSettingsPresets();
 
 
 function Visualizer3DSettingsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new Visualizer3DSettings()));
-    this._constructorName = "Visualizer3DSettingsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new Visualizer3DSettings()));
+    this._constructorName = 'Visualizer3DSettingsPresets';
 }
 Visualizer3DSettingsPresets.prototype = new AbstractSettingsPresets();
 
 
 function ThemeSettingsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new ThemeSettings()));
-    this._constructorName = "ThemeSettingsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new ThemeSettings()));
+    this._constructorName = 'ThemeSettingsPresets';
 }
 ThemeSettingsPresets.prototype = new AbstractSettingsPresets();
 
 
 function MidiExportSettingsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new MidiExportSettings()));
-    this._constructorName = "MidiExportSettingsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new MidiExportSettings()));
+    this._constructorName = 'MidiExportSettingsPresets';
 }
 MidiExportSettingsPresets.prototype = new AbstractSettingsPresets();
 
 function WavExportSettingsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new WavExportSettings()));
-    this._constructorName = "WavExportSettingsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new WavExportSettings()));
+    this._constructorName = 'WavExportSettingsPresets';
 }
 WavExportSettingsPresets.prototype = new AbstractSettingsPresets();
 
 function WavClientExportSettingsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new WavClientExportSettings()));
-    this._constructorName = "WavClientExportSettingsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new WavClientExportSettings()));
+    this._constructorName = 'WavClientExportSettingsPresets';
 }
 WavClientExportSettingsPresets.prototype = new AbstractSettingsPresets();
 
 function Mp3ExportSettingsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new Mp3ExportSettings()));
+    this.items.push(new PresetItem().setName('Default').setData(new Mp3ExportSettings()));
 
-    this._constructorName = "Mp3ExportSettingsPresets";
+    this._constructorName = 'Mp3ExportSettingsPresets';
 }
 Mp3ExportSettingsPresets.prototype = new AbstractSettingsPresets();
 
 function OggExportSettingsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new OggExportSettings()));
-    this._constructorName = "OggExportSettingsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new OggExportSettings()));
+    this._constructorName = 'OggExportSettingsPresets';
 }
 OggExportSettingsPresets.prototype = new AbstractSettingsPresets();
 
 function ItExportSettingsPresets() {
     AbstractSettingsPresets.call(this);
-    this.items.push(new PresetItem().setName("Default").setData(new ItExportSettings()));
-    this._constructorName = "ItExportSettingsPresets";
+    this.items.push(new PresetItem().setName('Default').setData(new ItExportSettings()));
+    this._constructorName = 'ItExportSettingsPresets';
 }
 ItExportSettingsPresets.prototype = new AbstractSettingsPresets();
 
@@ -274,7 +274,7 @@ function MidiExportSettings() {
     this.bassVolumeMultipliers = [1];
     this.percussionVolumeMultiplier = 1;
 
-    this._constructorName = "MidiExportSettings";
+    this._constructorName = 'MidiExportSettings';
 }
 MidiExportSettings.prototype = new AbstractSettings();
 
@@ -283,38 +283,38 @@ function WavExportSettings() {
     this.soundFontType = SoundFontType.STANDARD_LIGHT;
     this.normalizeRenderedResult = false;
     this.compressRenderedResult = false;
-    this._constructorName = "WavExportSettings";
+    this._constructorName = 'WavExportSettings';
 }
 WavExportSettings.prototype = new MidiExportSettings();
 
 function WavClientExportSettings() {
     MidiExportSettings.call(this);
-    this._constructorName = "WavClientExportSettings";
+    this._constructorName = 'WavClientExportSettings';
 }
 WavClientExportSettings.prototype = new MidiExportSettings();
 
 function Mp3ExportSettings() {
     WavExportSettings.call(this);
-    this._constructorName = "Mp3ExportSettings";
+    this._constructorName = 'Mp3ExportSettings';
 }
 Mp3ExportSettings.prototype = new WavExportSettings();
 
 function OggExportSettings() {
     WavExportSettings.call(this);
-    this._constructorName = "OggExportSettings";
+    this._constructorName = 'OggExportSettings';
 }
 OggExportSettings.prototype = new WavExportSettings();
 
 function ItExportSettings() {
     AbstractSettings.call(this);
-    this._constructorName = "ItExportSettings";
+    this._constructorName = 'ItExportSettings';
 }
 ItExportSettings.prototype = new AbstractSettings();
 
 
 function PlayerSettings() {
     WavExportSettings.call(this);
-    this._constructorName = "PlayerSettings";
+    this._constructorName = 'PlayerSettings';
 }
 PlayerSettings.prototype = new WavExportSettings();
 
@@ -326,16 +326,16 @@ var PrimitiveWebAudioPlayerInstrumentType = {
 
     toString: function(t) {
         switch (t) {
-            case PrimitiveWebAudioPlayerInstrumentType.SAW:
-                return "Saw";
-            case PrimitiveWebAudioPlayerInstrumentType.SINE:
-                return "Sine";
-            case PrimitiveWebAudioPlayerInstrumentType.SQUARE:
-                return "Square";
-            case PrimitiveWebAudioPlayerInstrumentType.TRIANGLE:
-                return "Triangle";
+        case PrimitiveWebAudioPlayerInstrumentType.SAW:
+            return 'Saw';
+        case PrimitiveWebAudioPlayerInstrumentType.SINE:
+            return 'Sine';
+        case PrimitiveWebAudioPlayerInstrumentType.SQUARE:
+            return 'Square';
+        case PrimitiveWebAudioPlayerInstrumentType.TRIANGLE:
+            return 'Triangle';
         }
-        return "Unknown wa instr type " + t;
+        return 'Unknown wa instr type ' + t;
     }
 };
 addPossibleValuesFunction(PrimitiveWebAudioPlayerInstrumentType, PrimitiveWebAudioPlayerInstrumentType.SINE, PrimitiveWebAudioPlayerInstrumentType.SQUARE);
@@ -343,13 +343,13 @@ addPossibleValuesFunction(PrimitiveWebAudioPlayerInstrumentType, PrimitiveWebAud
 
 function WebAudioPlayerInstrument() {
 
-    this._constructorName = "WebAudioPlayerInstrument";
+    this._constructorName = 'WebAudioPlayerInstrument';
 }
 
 function PrimitiveWebAudioPlayerInstrument() {
     WebAudioPlayerInstrument.call(this);
     this.type = PrimitiveWebAudioPlayerInstrumentType.SQUARE;
-    this._constructorName = "PrimitiveWebAudioPlayerInstrument";
+    this._constructorName = 'PrimitiveWebAudioPlayerInstrument';
 }
 
 
@@ -360,21 +360,21 @@ function WebAudioPlayerSettings() {
     this.inner1Instruments = [];
     this.inner2Instruments = [];
     this.bassInstruments = [];
-    this._constructorName = "WebAudioPlayerSettings";
+    this._constructorName = 'WebAudioPlayerSettings';
 }
 WebAudioPlayerSettings.prototype = new PlayerSettings();
 
 
 function AudioElementPlayerSettings() {
     PlayerSettings.call(this);
-    this._constructorName = "AudioElementPlayerSettings";
+    this._constructorName = 'AudioElementPlayerSettings';
 }
 AudioElementPlayerSettings.prototype = new PlayerSettings();
 
 
 function SoundManager2PlayerSettings() {
     PlayerSettings.call(this);
-    this._constructorName = "SoundManager2PlayerSettings";
+    this._constructorName = 'SoundManager2PlayerSettings';
 }
 SoundManager2PlayerSettings.prototype = new PlayerSettings();
 
@@ -407,111 +407,111 @@ var JQueryUITheme = {
 
     toUrlString: function(t) {
         switch (t) {
-            case JQueryUITheme.BLITZER:
-                return "blitzer";
-            case JQueryUITheme.BLACK_TIE:
-                return "black-tie";
-            case JQueryUITheme.CUPERTINO:
-                return "cupertino";
-            case JQueryUITheme.DARK_HIVE:
-                return "dark-hive";
-            case JQueryUITheme.DOT_LUV:
-                return "dot-luv";
-            case JQueryUITheme.EGGPLANT:
-                return "eggplant";
-            case JQueryUITheme.EXCITE_BIKE:
-                return "excite-bike";
-            case JQueryUITheme.FLICK:
-                return "flick";
-            case JQueryUITheme.HOT_SNEAKS:
-                return "hot-sneaks";
-            case JQueryUITheme.HUMANITY:
-                return "humanity";
-            case JQueryUITheme.LE_FROG:
-                return "le-frog";
-            case JQueryUITheme.MINT_CHOC:
-                return "mint-choc";
-            case JQueryUITheme.OVERCAST:
-                return "overcast";
-            case JQueryUITheme.PEPPER_GRINDER:
-                return "pepper-grinder";
-            case JQueryUITheme.REDMOND:
-                return "redmond";
-            case JQueryUITheme.SMOOTHNESS:
-                return "smoothness";
-            case JQueryUITheme.SOUTH_STREET:
-                return "south-street";
-            case JQueryUITheme.START:
-                return "start";
-            case JQueryUITheme.SUNNY:
-                return "sunny";
-            case JQueryUITheme.SWANKY_PURSE:
-                return "swanky-purse";
-            case JQueryUITheme.TRONTASTIC:
-                return "trontastic";
-            case JQueryUITheme.UI_DARKNESS:
-                return "ui-darkness";
-            case JQueryUITheme.UI_LIGHTNESS:
-                return "ui-lightness";
-            case JQueryUITheme.VADER:
-                return "vader";
+        case JQueryUITheme.BLITZER:
+            return 'blitzer';
+        case JQueryUITheme.BLACK_TIE:
+            return 'black-tie';
+        case JQueryUITheme.CUPERTINO:
+            return 'cupertino';
+        case JQueryUITheme.DARK_HIVE:
+            return 'dark-hive';
+        case JQueryUITheme.DOT_LUV:
+            return 'dot-luv';
+        case JQueryUITheme.EGGPLANT:
+            return 'eggplant';
+        case JQueryUITheme.EXCITE_BIKE:
+            return 'excite-bike';
+        case JQueryUITheme.FLICK:
+            return 'flick';
+        case JQueryUITheme.HOT_SNEAKS:
+            return 'hot-sneaks';
+        case JQueryUITheme.HUMANITY:
+            return 'humanity';
+        case JQueryUITheme.LE_FROG:
+            return 'le-frog';
+        case JQueryUITheme.MINT_CHOC:
+            return 'mint-choc';
+        case JQueryUITheme.OVERCAST:
+            return 'overcast';
+        case JQueryUITheme.PEPPER_GRINDER:
+            return 'pepper-grinder';
+        case JQueryUITheme.REDMOND:
+            return 'redmond';
+        case JQueryUITheme.SMOOTHNESS:
+            return 'smoothness';
+        case JQueryUITheme.SOUTH_STREET:
+            return 'south-street';
+        case JQueryUITheme.START:
+            return 'start';
+        case JQueryUITheme.SUNNY:
+            return 'sunny';
+        case JQueryUITheme.SWANKY_PURSE:
+            return 'swanky-purse';
+        case JQueryUITheme.TRONTASTIC:
+            return 'trontastic';
+        case JQueryUITheme.UI_DARKNESS:
+            return 'ui-darkness';
+        case JQueryUITheme.UI_LIGHTNESS:
+            return 'ui-lightness';
+        case JQueryUITheme.VADER:
+            return 'vader';
         }
-        return "blitzer";
+        return 'blitzer';
     },
 
     toString: function(t) {
         switch (t) {
-            case JQueryUITheme.BLITZER:
-                return "Blitzer";
-            case JQueryUITheme.BLACK_TIE:
-                return "Black Tie";
-            case JQueryUITheme.CUPERTINO:
-                return "Cupertino";
-            case JQueryUITheme.DARK_HIVE:
-                return "Dark hive";
-            case JQueryUITheme.DOT_LUV:
-                return "Dot luv";
-            case JQueryUITheme.EGGPLANT:
-                return "Eggplant";
-            case JQueryUITheme.EXCITE_BIKE:
-                return "Excite bike";
-            case JQueryUITheme.FLICK:
-                return "Flick";
-            case JQueryUITheme.HOT_SNEAKS:
-                return "Hot sneaks";
-            case JQueryUITheme.HUMANITY:
-                return "Humanity";
-            case JQueryUITheme.LE_FROG:
-                return "Le frog";
-            case JQueryUITheme.MINT_CHOC:
-                return "Mint choc";
-            case JQueryUITheme.OVERCAST:
-                return "Overcast";
-            case JQueryUITheme.PEPPER_GRINDER:
-                return "Pepper grinder";
-            case JQueryUITheme.REDMOND:
-                return "Redmond";
-            case JQueryUITheme.SMOOTHNESS:
-                return "Smoothness";
-            case JQueryUITheme.SOUTH_STREET:
-                return "South street";
-            case JQueryUITheme.START:
-                return "Start";
-            case JQueryUITheme.SUNNY:
-                return "Sunny";
-            case JQueryUITheme.SWANKY_PURSE:
-                return "Swanky purse";
-            case JQueryUITheme.TRONTASTIC:
-                return "Trontastic";
-            case JQueryUITheme.UI_DARKNESS:
-                return "UI darkness";
-            case JQueryUITheme.UI_LIGHTNESS:
-                return "UI lightness";
-            case JQueryUITheme.VADER:
-                return "Vader";
+        case JQueryUITheme.BLITZER:
+            return 'Blitzer';
+        case JQueryUITheme.BLACK_TIE:
+            return 'Black Tie';
+        case JQueryUITheme.CUPERTINO:
+            return 'Cupertino';
+        case JQueryUITheme.DARK_HIVE:
+            return 'Dark hive';
+        case JQueryUITheme.DOT_LUV:
+            return 'Dot luv';
+        case JQueryUITheme.EGGPLANT:
+            return 'Eggplant';
+        case JQueryUITheme.EXCITE_BIKE:
+            return 'Excite bike';
+        case JQueryUITheme.FLICK:
+            return 'Flick';
+        case JQueryUITheme.HOT_SNEAKS:
+            return 'Hot sneaks';
+        case JQueryUITheme.HUMANITY:
+            return 'Humanity';
+        case JQueryUITheme.LE_FROG:
+            return 'Le frog';
+        case JQueryUITheme.MINT_CHOC:
+            return 'Mint choc';
+        case JQueryUITheme.OVERCAST:
+            return 'Overcast';
+        case JQueryUITheme.PEPPER_GRINDER:
+            return 'Pepper grinder';
+        case JQueryUITheme.REDMOND:
+            return 'Redmond';
+        case JQueryUITheme.SMOOTHNESS:
+            return 'Smoothness';
+        case JQueryUITheme.SOUTH_STREET:
+            return 'South street';
+        case JQueryUITheme.START:
+            return 'Start';
+        case JQueryUITheme.SUNNY:
+            return 'Sunny';
+        case JQueryUITheme.SWANKY_PURSE:
+            return 'Swanky purse';
+        case JQueryUITheme.TRONTASTIC:
+            return 'Trontastic';
+        case JQueryUITheme.UI_DARKNESS:
+            return 'UI darkness';
+        case JQueryUITheme.UI_LIGHTNESS:
+            return 'UI lightness';
+        case JQueryUITheme.VADER:
+            return 'Vader';
 
         }
-        return "Unknown theme " + t;
+        return 'Unknown theme ' + t;
     }
 };
 addPossibleValuesFunction(JQueryUITheme, JQueryUITheme.BLITZER, JQueryUITheme.VADER);
@@ -522,7 +522,7 @@ function ThemeSettings() {
     AbstractSettings.call(this);
     this.theme = JQueryUITheme.SUNNY;
     this.transparentDialogs = false;
-    this._constructorName = "ThemeSettings";
+    this._constructorName = 'ThemeSettings';
 }
 ThemeSettings.prototype = new AbstractSettings();
 
@@ -540,24 +540,24 @@ var Visualizer3DStopMovementMode = {
 
     toString: function(t) {
         switch (t) {
-            case Visualizer3DStopMovementMode.ROTATE:
-                return "Rotate";
-            case Visualizer3DStopMovementMode.PAN:
-                return "Pan";
-            case Visualizer3DStopMovementMode.ROTATE_INTERACTIVE_HOVER:
-                return "Rotate Interactive Hover";
-            case Visualizer3DStopMovementMode.PAN_INTERACTIVE_HOVER:
-                return "Pan Interactive Hover";
-            case Visualizer3DStopMovementMode.ROTATE_PAN_INTERACTIVE_HOVER:
-                return "Rotate + Pan Interactive Hover";
-            case Visualizer3DStopMovementMode.ROTATE_PAN_INTERACTIVE_DRAG:
-                return "Rotate + Pan Interactive Drag";
-            case Visualizer3DStopMovementMode.ROTATE_INTERACTIVE_DRAG:
-                return "Rotate Interactive Drag";
-            case Visualizer3DStopMovementMode.PAN_INTERACTIVE_DRAG:
-                return "Pan Interactive Drag";
+        case Visualizer3DStopMovementMode.ROTATE:
+            return 'Rotate';
+        case Visualizer3DStopMovementMode.PAN:
+            return 'Pan';
+        case Visualizer3DStopMovementMode.ROTATE_INTERACTIVE_HOVER:
+            return 'Rotate Interactive Hover';
+        case Visualizer3DStopMovementMode.PAN_INTERACTIVE_HOVER:
+            return 'Pan Interactive Hover';
+        case Visualizer3DStopMovementMode.ROTATE_PAN_INTERACTIVE_HOVER:
+            return 'Rotate + Pan Interactive Hover';
+        case Visualizer3DStopMovementMode.ROTATE_PAN_INTERACTIVE_DRAG:
+            return 'Rotate + Pan Interactive Drag';
+        case Visualizer3DStopMovementMode.ROTATE_INTERACTIVE_DRAG:
+            return 'Rotate Interactive Drag';
+        case Visualizer3DStopMovementMode.PAN_INTERACTIVE_DRAG:
+            return 'Pan Interactive Drag';
         }
-        return "Unknown vis movement mode " + t;
+        return 'Unknown vis movement mode ' + t;
     }
 };
 addPossibleValuesFunction(Visualizer3DStopMovementMode, Visualizer3DStopMovementMode.ROTATE, Visualizer3DStopMovementMode.ROTATE_PAN_INTERACTIVE_DRAG);
@@ -574,37 +574,37 @@ function Visualizer3DSettings() {
     this.addBloom = true;
     this.addVignette = true;
     this.addSimulatedAA = true;
-    this._constructorName = "Visualizer3DSettings";
+    this._constructorName = 'Visualizer3DSettings';
 }
 Visualizer3DSettings.prototype = new AbstractSettings();
 
 
 function SongSettings() {
     AbstractSettings.call(this);
-    this.name = "";
-    this.seed = "12345";
-    this._constructorName = "SongSettings";
+    this.name = '';
+    this.seed = '12345';
+    this._constructorName = 'SongSettings';
 }
 SongSettings.prototype = new AbstractSettings();
 
 
 function SongStructureSeedSettings() {
     AbstractSettings.call(this);
-    this.tempoSeed = "";
-    this.scaleSeed = "";
-    this.tsSeed = "";
-    this.introSeed = "";
-    this.endSeed = "";
-    this.renderAmountSeed = "";
-    this.modulationSeed = "";
-    this.tonicizationSeed = "";
-    this.songStructureSeed = "";
-    this.glueSeed = "";
-    this.phraseGroupSeed = "";
-    this.phraseGroupSimilaritySeed = "";
-    this.groupSimilaritySeed = "";
-    this.groupDifferenceSeed = "";
-    this._constructorName = "SongStructureSeedSettings";
+    this.tempoSeed = '';
+    this.scaleSeed = '';
+    this.tsSeed = '';
+    this.introSeed = '';
+    this.endSeed = '';
+    this.renderAmountSeed = '';
+    this.modulationSeed = '';
+    this.tonicizationSeed = '';
+    this.songStructureSeed = '';
+    this.glueSeed = '';
+    this.phraseGroupSeed = '';
+    this.phraseGroupSimilaritySeed = '';
+    this.groupSimilaritySeed = '';
+    this.groupDifferenceSeed = '';
+    this._constructorName = 'SongStructureSeedSettings';
 }
 SongStructureSeedSettings.prototype = new AbstractSettings();
 
@@ -612,76 +612,76 @@ SongStructureSeedSettings.prototype = new AbstractSettings();
 
 function SongContentSeedSettings() {
     AbstractSettings.call(this);
-    this.instrumentTypeSeed = "";
-    this.melodyInstrumentSeed = "";
-    this.inner1InstrumentSeed = "";
-    this.inner2InstrumentSeed = "";
-    this.bassInstrumentSeed = "";
-    this.melodyMotifSeed = "";
-    this.melodyMotifRythmSeed = "";
-    this.melodyMotifEmbellishConnectSeed = "";
-    this.bassMotifSeed = "";
-    this.bassMotifRythmSeed = "";
-    this.bassMotifEmbellishConnectSeed = "";
-    this.harmonyMotifSeed = "";
-    this.harmonyMotifRythmSeed = "";
-    this.harmonyMotifEmbellishConnectSeed = "";
-    this.percussionInstrumentSeed = "";
-    this.percussionFillInstrumentSeed = "";
-    this.percussionMotifSeed = "";
-    this.percussionMotifRythmSeed = "";
-    this.percussionFillMotifSeed = "";
-    this.percussionFillMotifRythmSeed = "";
-    this.melodyShapeSeed = "";
-    this.bassShapeSeed = "";
-    this.harmonyRythmSeed = "";
-    this.melodyMotifDistributionSeed = "";
-    this.inner1MotifDistributionSeed = "";
-    this.inner2MotifDistributionSeed = "";
-    this.bassMotifDistributionSeed = "";
-    this.percussionMotifDistributionSeed = "";
-    this.percussionFillMotifDistributionSeed = "";
-    this.melodyHarmonyPunctationSeed = "";
-    this.innerHarmonyPunctationSeed = "";
-    this.harmonySeed = "";
-    this.channelDistributionSeed = "";
-    this.tempoChangeSeed = "";
-    this.effectChangeSeed = "";
-    this.suspendSeed = "";
-    this._constructorName = "SongContentSeedSettings";
+    this.instrumentTypeSeed = '';
+    this.melodyInstrumentSeed = '';
+    this.inner1InstrumentSeed = '';
+    this.inner2InstrumentSeed = '';
+    this.bassInstrumentSeed = '';
+    this.melodyMotifSeed = '';
+    this.melodyMotifRythmSeed = '';
+    this.melodyMotifEmbellishConnectSeed = '';
+    this.bassMotifSeed = '';
+    this.bassMotifRythmSeed = '';
+    this.bassMotifEmbellishConnectSeed = '';
+    this.harmonyMotifSeed = '';
+    this.harmonyMotifRythmSeed = '';
+    this.harmonyMotifEmbellishConnectSeed = '';
+    this.percussionInstrumentSeed = '';
+    this.percussionFillInstrumentSeed = '';
+    this.percussionMotifSeed = '';
+    this.percussionMotifRythmSeed = '';
+    this.percussionFillMotifSeed = '';
+    this.percussionFillMotifRythmSeed = '';
+    this.melodyShapeSeed = '';
+    this.bassShapeSeed = '';
+    this.harmonyRythmSeed = '';
+    this.melodyMotifDistributionSeed = '';
+    this.inner1MotifDistributionSeed = '';
+    this.inner2MotifDistributionSeed = '';
+    this.bassMotifDistributionSeed = '';
+    this.percussionMotifDistributionSeed = '';
+    this.percussionFillMotifDistributionSeed = '';
+    this.melodyHarmonyPunctationSeed = '';
+    this.innerHarmonyPunctationSeed = '';
+    this.harmonySeed = '';
+    this.channelDistributionSeed = '';
+    this.tempoChangeSeed = '';
+    this.effectChangeSeed = '';
+    this.suspendSeed = '';
+    this._constructorName = 'SongContentSeedSettings';
 }
 SongContentSeedSettings.prototype = new AbstractSettings();
 
 function SongIndicesSeedSettings() {
     AbstractSettings.call(this);
 
-    this.melodyShapeIndicesSeed = "";
-    this.bassShapeIndicesSeed = "";
-    this.harmonyIndicesSeed = "";
-    this.harmonyRythmIndicesSeed = "";
-    this.suspendIndicesSeed = "";
-    this.melodyChannelDistributionIndicesSeed = "";
-    this.inner1ChannelDistributionIndicesSeed = "";
-    this.inner2ChannelDistributionIndicesSeed = "";
-    this.bassChannelDistributionIndicesSeed = "";
-    this.melodyMotifDistributionIndicesSeed = "";
-    this.inner1MotifDistributionIndicesSeed = "";
-    this.inner2MotifDistributionIndicesSeed = "";
-    this.bassMotifDistributionIndicesSeed = "";
-    this.percussionMotifDistributionIndicesSeed = "";
-    this.percussionFillMotifDistributionIndicesSeed = "";
-    this.harmonyExtraIndicesSeed = "";
-    this.renderAmountIndicesSeed = "";
-    this.tempoIndicesSeed = "";
-    this.sequentialTempoChangeIndicesSeed = "";
-    this.parallelTempoChangeIndicesSeed = "";
-    this.sequentialMelodyEffectChangeIndicesSeed = "";
-    this.sequentialInner1EffectChangeIndicesSeed = "";
-    this.sequentialInner2EffectChangeIndicesSeed = "";
-    this.sequentialBassEffectChangeIndicesSeed = "";
-    this.sequentialPercussionEffectChangeIndicesSeed = "";
+    this.melodyShapeIndicesSeed = '';
+    this.bassShapeIndicesSeed = '';
+    this.harmonyIndicesSeed = '';
+    this.harmonyRythmIndicesSeed = '';
+    this.suspendIndicesSeed = '';
+    this.melodyChannelDistributionIndicesSeed = '';
+    this.inner1ChannelDistributionIndicesSeed = '';
+    this.inner2ChannelDistributionIndicesSeed = '';
+    this.bassChannelDistributionIndicesSeed = '';
+    this.melodyMotifDistributionIndicesSeed = '';
+    this.inner1MotifDistributionIndicesSeed = '';
+    this.inner2MotifDistributionIndicesSeed = '';
+    this.bassMotifDistributionIndicesSeed = '';
+    this.percussionMotifDistributionIndicesSeed = '';
+    this.percussionFillMotifDistributionIndicesSeed = '';
+    this.harmonyExtraIndicesSeed = '';
+    this.renderAmountIndicesSeed = '';
+    this.tempoIndicesSeed = '';
+    this.sequentialTempoChangeIndicesSeed = '';
+    this.parallelTempoChangeIndicesSeed = '';
+    this.sequentialMelodyEffectChangeIndicesSeed = '';
+    this.sequentialInner1EffectChangeIndicesSeed = '';
+    this.sequentialInner2EffectChangeIndicesSeed = '';
+    this.sequentialBassEffectChangeIndicesSeed = '';
+    this.sequentialPercussionEffectChangeIndicesSeed = '';
 
-    this._constructorName = "SongIndicesSeedSettings";
+    this._constructorName = 'SongIndicesSeedSettings';
 }
 SongIndicesSeedSettings.prototype = new AbstractSettings();
 
@@ -691,7 +691,7 @@ SongIndicesSeedSettings.prototype = new AbstractSettings();
 function SongParameters() {
     GenInfo.call(this);
     AbstractSettings.call(this);
-    this._constructorName = "SongParameters";
+    this._constructorName = 'SongParameters';
 }
 SongParameters.prototype = new AbstractSettings();
 
@@ -700,7 +700,7 @@ SongParameters.prototype = new AbstractSettings();
 function SongDomains() {
     GenInfo.call(this);
     AbstractSettings.call(this);
-    this._constructorName = "SongDomains";
+    this._constructorName = 'SongDomains';
 }
 SongDomains.prototype = new AbstractSettings();
 
@@ -709,7 +709,7 @@ SongDomains.prototype = new AbstractSettings();
 function SongDetails() {
     GenInfo.call(this);
     AbstractSettings.call(this);
-    this._constructorName = "SongDetails";
+    this._constructorName = 'SongDetails';
 }
 SongDetails.prototype = new AbstractSettings();
 

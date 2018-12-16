@@ -1,25 +1,25 @@
 
 function PianoRoll(options) {
     GuiComponent.call(this, options);
-    this.autoWidth = getValueOrDefault(options, "autoSize", true);
-    this.autoHeight = getValueOrDefault(options, "autoSize", true);
-    this.showKeys = getValueOrDefault(options, "showKeys", true);
-    this.keysWidth = getValueOrDefault(options, "keysWidth", 60);
-    this.noteRowHeight = getValueOrDefault(options, "noteRowHeight", 8);
-    this.beatWidth = getValueOrDefault(options, "beatWidth", 50);
-    this.harmony = getValueOrDefault(options, "harmony", new ConstantHarmonicRythm([new ConstantHarmonyElement()]));
-    this.renderData = getValueOrDefault(options, "renderData", null);
-    this.visibleChannels = getValueOrDefault(options, "visibleChannels", null); // Null means that all are visible
-    this.controlSlotDatas = getValueOrDefault(options, "controlSlotDatas", null);
-    this.visibleControlChannels = getValueOrDefault(options, "visibleControlChannels", null); // Null means that all are visible
-    this.channelColors = getValueOrDefault(options, "channelColors", {});
-    this.autoNoteLimits = getValueOrDefault(options, "autoNoteLimits", true);
-    this.noteLimits = getValueOrDefault(options, "noteLimits", [20, 100]);
-    this.noRenderDataLimits = getValueOrDefault(options, "noteLimits", [60, 75]);
-    this.noteLimitBorder = getValueOrDefault(options, "noteLimitBorder", 1);
-    this.harmonyInHeader = getValueOrDefault(options, "harmonyInHeader", true);
-    this.highlightScales = getValueOrDefault(options, "highlightScales", false);
-    this.highlightChords = getValueOrDefault(options, "highlightChords", false);
+    this.autoWidth = getValueOrDefault(options, 'autoSize', true);
+    this.autoHeight = getValueOrDefault(options, 'autoSize', true);
+    this.showKeys = getValueOrDefault(options, 'showKeys', true);
+    this.keysWidth = getValueOrDefault(options, 'keysWidth', 60);
+    this.noteRowHeight = getValueOrDefault(options, 'noteRowHeight', 8);
+    this.beatWidth = getValueOrDefault(options, 'beatWidth', 50);
+    this.harmony = getValueOrDefault(options, 'harmony', new ConstantHarmonicRythm([new ConstantHarmonyElement()]));
+    this.renderData = getValueOrDefault(options, 'renderData', null);
+    this.visibleChannels = getValueOrDefault(options, 'visibleChannels', null); // Null means that all are visible
+    this.controlSlotDatas = getValueOrDefault(options, 'controlSlotDatas', null);
+    this.visibleControlChannels = getValueOrDefault(options, 'visibleControlChannels', null); // Null means that all are visible
+    this.channelColors = getValueOrDefault(options, 'channelColors', {});
+    this.autoNoteLimits = getValueOrDefault(options, 'autoNoteLimits', true);
+    this.noteLimits = getValueOrDefault(options, 'noteLimits', [20, 100]);
+    this.noRenderDataLimits = getValueOrDefault(options, 'noteLimits', [60, 75]);
+    this.noteLimitBorder = getValueOrDefault(options, 'noteLimitBorder', 1);
+    this.harmonyInHeader = getValueOrDefault(options, 'harmonyInHeader', true);
+    this.highlightScales = getValueOrDefault(options, 'highlightScales', false);
+    this.highlightChords = getValueOrDefault(options, 'highlightChords', false);
 
     this.updateNoteLimits();
     this.updateSize();
@@ -47,8 +47,8 @@ PianoRoll.prototype.updateNoteLimits = function() {
     } else if (this.renderData == null) {
         this.noteLimits = [this.noRenderDataLimits[0], this.noRenderDataLimits[1]];
     } else {
-// Just keep the current limits
-}
+        // Just keep the current limits
+    }
 };
 
 PianoRoll.prototype.getHeaderHeight = function() {
@@ -131,11 +131,11 @@ PianoRoll.prototype.paintKeys = function(x, y, context) {
             var keyY = y + totalHeight - (whiteIndex + 0.35) * whiteSize - (lastCIndex - startNote + 1) * this.noteRowHeight;
 
             var keyHeight = whiteSize;
-            context.fillStyle = "#ffffff";
+            context.fillStyle = '#ffffff';
             context.fillRect(keyX, keyY, this.keysWidth, keyHeight);
-            context.fillStyle = "#aaaaaa";
+            context.fillStyle = '#aaaaaa';
             context.fillRect(keyX + border, keyY + border, this.keysWidth - border, keyHeight - border);
-            context.fillStyle = "#eeeeee";
+            context.fillStyle = '#eeeeee';
             context.fillRect(keyX + border, keyY + border, this.keysWidth - border * 2, keyHeight - border * 2);
         }
     }
@@ -149,11 +149,11 @@ PianoRoll.prototype.paintKeys = function(x, y, context) {
             var keyY = y + totalHeight - (index + 1) * this.noteRowHeight;
             var keyHeight = this.noteRowHeight;
             var keyWidth = this.keysWidth * 0.6;
-            context.fillStyle = "#222222";
+            context.fillStyle = '#222222';
             context.fillRect(keyX, keyY, keyWidth, keyHeight);
-            context.fillStyle = "#000000";
+            context.fillStyle = '#000000';
             context.fillRect(keyX + border, keyY + border, keyWidth - border, keyHeight - border);
-            context.fillStyle = "#111111";
+            context.fillStyle = '#111111';
             context.fillRect(keyX + border, keyY + border, keyWidth - border * 2, keyHeight - border * 2);
         }
     }
@@ -190,17 +190,17 @@ PianoRoll.prototype.paintNotes = function(x, y, context) {
                     var noteX = x + startBeat * this.beatWidth;
                     var noteY = y + totalHeight - (index + 1) * this.noteRowHeight;
                     var noteWidth = (e.getTime() - startBeat) * this.beatWidth;
-                    context.fillStyle = "#44ff44";
+                    context.fillStyle = '#44ff44';
                     context.fillRect(noteX, noteY,
                         noteWidth, this.noteRowHeight);
-                    context.fillStyle = "#00aa00";
+                    context.fillStyle = '#00aa00';
                     context.fillRect(noteX + border, noteY + border,
                         noteWidth - border, this.noteRowHeight - border);
-                    context.fillStyle = "#11ff11";
+                    context.fillStyle = '#11ff11';
                     context.fillRect(noteX + border, noteY + border,
                         noteWidth - border * 2, this.noteRowHeight - border * 2);
                 } else {
-                    logit("Could not find a note on that matches note off for note " + e.note + "<br />");
+                    logit('Could not find a note on that matches note off for note ' + e.note + '<br />');
                 }
             }
         }
@@ -215,9 +215,9 @@ PianoRoll.prototype.paintRows = function(x, y, context) {
     var w = this.getNoteRowsWidth();
     for (var i=0; i<range; i++) {
         if (i % 2 == 0) {
-            context.fillStyle = "#aaaaaa";
+            context.fillStyle = '#aaaaaa';
         } else {
-            context.fillStyle = "#cccccc";
+            context.fillStyle = '#cccccc';
         }
         context.fillRect(x, y + i * this.noteRowHeight, w, this.noteRowHeight);
     }
@@ -232,7 +232,7 @@ PianoRoll.prototype.paintRows = function(x, y, context) {
         context.lineTo(currentX, y + range * this.noteRowHeight);
     }
     context.lineWidth = 1;
-    context.strokeStyle = "#888888";
+    context.strokeStyle = '#888888';
     context.stroke();
 
     var ches = this.harmony.getConstantHarmonyElements();
@@ -254,10 +254,10 @@ PianoRoll.prototype.paintRows = function(x, y, context) {
                 var highlightChord = arrayContains(chordPitchClasses, pitchClass);
                 var noteY = y + totalHeight - (j + 1) * this.noteRowHeight;
                 if (highlightChord && this.highlightChords) {
-                    context.fillStyle = "#ffff00";
+                    context.fillStyle = '#ffff00';
                     context.fillRect(currentX, noteY, beats * this.beatWidth, this.noteRowHeight);
                 } else if (highlightScale && this.highlightScales) {
-                    context.fillStyle = "#ffffff";
+                    context.fillStyle = '#ffffff';
                     context.fillRect(currentX, noteY, beats * this.beatWidth, this.noteRowHeight);
                 }
             }
@@ -275,7 +275,7 @@ PianoRoll.prototype.paintRows = function(x, y, context) {
         context.lineTo(currentX, y + range * this.noteRowHeight);
     }
     context.lineWidth = 2;
-    context.strokeStyle = "#666666";
+    context.strokeStyle = '#666666';
     context.stroke();
 
 };
@@ -290,7 +290,7 @@ PianoRoll.prototype.paint = function(offsetX, offsetY, context) {
 
     // Paint one harmony at a time since the time signature can change
 
-    context.fillStyle = "#444444";
+    context.fillStyle = '#444444';
     context.fillRect(offsetX, offsetY, this.width, this.height);
 
 

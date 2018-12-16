@@ -1,10 +1,10 @@
 
 function StrokeAndFillLooks(args) {
-    this.fillStyle = args && args.fillStyle ? args.fillStyle : "#ffffff";
+    this.fillStyle = args && args.fillStyle ? args.fillStyle : '#ffffff';
     this.fillAlpha = args && args.fillAlpha ? args.fillAlpha : 0.3;
-    this.fill = getValueOrDefault(args, "fill", true);
-    this.stroke = getValueOrDefault(args, "stroke", true);
-    this.strokeLooks = getValueOrDefault(args, "strokeLooks", new StrokeLooks());
+    this.fill = getValueOrDefault(args, 'fill', true);
+    this.stroke = getValueOrDefault(args, 'stroke', true);
+    this.strokeLooks = getValueOrDefault(args, 'strokeLooks', new StrokeLooks());
 }
 
 StrokeAndFillLooks.prototype.applyFillAndStroke = function(context) {
@@ -24,11 +24,11 @@ StrokeAndFillLooks.prototype.applyFillAndStroke = function(context) {
 
 
 function StrokeLooks(args) {
-    this.strokeStyles = args && args.strokeStyles ? args.strokeStyles : ["#ffffff"];
+    this.strokeStyles = args && args.strokeStyles ? args.strokeStyles : ['#ffffff'];
     this.strokeAlphas = args && args.strokeAlphas ? args.strokeAlphas : [0.3, 0.9];
     this.lineWidths = args && args.lineWidths ? args.lineWidths : [5, 2];
-    this.lineCaps = args && args.lineCaps ? args.lineCaps : ["round"];
-    this.lineJoins = args && args.lineJoins ? args.lineJoins : ["round"];
+    this.lineCaps = args && args.lineCaps ? args.lineCaps : ['round'];
+    this.lineJoins = args && args.lineJoins ? args.lineJoins : ['round'];
 }
 
 StrokeLooks.prototype.getSize = function() {
@@ -80,9 +80,9 @@ VerticalLayoutManager.prototype = new LayoutManager();
 VerticalLayoutManager.prototype.layout = function() {
 
     var options = this.options;
-    var separation = getValueOrDefault(options, "separation", 5);
-    var distribution = getValueOrDefault(options, "distribution", "none");
-    var keepX = getValueOrDefault(options, "keepX", false);
+    var separation = getValueOrDefault(options, 'separation', 5);
+    var distribution = getValueOrDefault(options, 'distribution', 'none');
+    var keepX = getValueOrDefault(options, 'keepX', false);
 
     var component = this.component;
     var components = component.components;
@@ -94,19 +94,19 @@ VerticalLayoutManager.prototype.layout = function() {
     var contentWidth = rect[2];
     var contentHeight = rect[3];
     switch (distribution) {
-        case "none":
-            break;
-        case "even":
-            var sum = 0;
-            for (var i=0; i<components.length; i++) {
-                var c = components[i];
-                sum += c.height;
-            }
-            var space = Math.max(0, contentHeight - sum);
-            if (components.length > 1) {
-                step = space / (components.length - 1);
-            }
-            break;
+    case 'none':
+        break;
+    case 'even':
+        var sum = 0;
+        for (var i=0; i<components.length; i++) {
+            var c = components[i];
+            sum += c.height;
+        }
+        var space = Math.max(0, contentHeight - sum);
+        if (components.length > 1) {
+            step = space / (components.length - 1);
+        }
+        break;
     }
     for (var i=0; i<components.length; i++) {
         var c = components[i];
@@ -128,9 +128,9 @@ HorizontalLayoutManager.prototype = new LayoutManager();
 HorizontalLayoutManager.prototype.layout = function() {
 
     var options = this.options;
-    var separation = getValueOrDefault(options, "separation", 5);
-    var distribution = getValueOrDefault(options, "distribution", "none");
-    var keepY = getValueOrDefault(options, "keepY", false);
+    var separation = getValueOrDefault(options, 'separation', 5);
+    var distribution = getValueOrDefault(options, 'distribution', 'none');
+    var keepY = getValueOrDefault(options, 'keepY', false);
 
     var currentX = 0;
 
@@ -143,25 +143,25 @@ HorizontalLayoutManager.prototype.layout = function() {
     var contentHeight = rect[3];
     var stepBefore = false;
     switch (distribution) {
-        case "none":
-            break;
-        case "even":
-        case "even2": // also adds space at start and end
-            var sum = 0;
-            for (var i=0; i<components.length; i++) {
-                var c = components[i];
-                sum += c.width;
+    case 'none':
+        break;
+    case 'even':
+    case 'even2': // also adds space at start and end
+        var sum = 0;
+        for (var i=0; i<components.length; i++) {
+            var c = components[i];
+            sum += c.width;
+        }
+        var space = Math.max(0, contentWidth - sum);
+        if (distribution == 'even') {
+            if (components.length > 1) {
+                step = space / (components.length - 1);
             }
-            var space = Math.max(0, contentWidth - sum);
-            if (distribution == "even") {
-                if (components.length > 1) {
-                    step = space / (components.length - 1);
-                }
-            } else if (distribution == "even2") {
-                step = space / (components.length + 1);
-                stepBefore = true;
-            }
-            break;
+        } else if (distribution == 'even2') {
+            step = space / (components.length + 1);
+            stepBefore = true;
+        }
+        break;
     }
     for (var i=0; i<components.length; i++) {
         var c = components[i];
@@ -207,10 +207,10 @@ CardLayoutManager.prototype.layout = function() {
 
 
 function GuiComponent(options) {
-    this.x = getValueOrDefault(options, "x", 0);
-    this.y = getValueOrDefault(options, "y", 0);
-    this.width = getValueOrDefault(options, "width", 100);
-    this.height = getValueOrDefault(options, "height", 100);
+    this.x = getValueOrDefault(options, 'x', 0);
+    this.y = getValueOrDefault(options, 'y', 0);
+    this.width = getValueOrDefault(options, 'width', 100);
+    this.height = getValueOrDefault(options, 'height', 100);
     this.components = [];
     this.alignmentX = 0.5; // For the layout stuff
     this.alignmentY = 0.5;
@@ -223,7 +223,7 @@ function GuiComponent(options) {
 
 GuiComponent.prototype.getContentRect = function() {
     var result = [this.x + this.leftBorder, this.y + this.topBorder,
-    this.width - this.leftBorder - this.rightBorder, this.height - this.topBorder - this.bottomBorder];
+        this.width - this.leftBorder - this.rightBorder, this.height - this.topBorder - this.bottomBorder];
     return result;
 };
 
@@ -291,7 +291,7 @@ function TransparentPanel(x, y, width, height) {
 TransparentPanel.prototype = new GuiComponent();
 
 TransparentPanel.prototype.shrinkWrap = function() {
-    };
+};
 
 
 // Each component is
@@ -365,7 +365,7 @@ CardPanel.prototype.step = function(offsetX, offsetY) {
 
 function Button(options) {
     GuiComponent.call(this, options);
-    this.text = "";
+    this.text = '';
     this.maxTextScale = 1000;
     this.textAlignmentX = 0.5;
     this.textAlignmentY = 0.5;
@@ -471,9 +471,9 @@ Button.prototype.step = function(offsetX, offsetY) {
         }
     }
 
-//    if (this.clicked) {
-//        logit("clicked button\n");
-//    }
+    //    if (this.clicked) {
+    //        logit("clicked button\n");
+    //    }
 
 };
 
@@ -515,7 +515,7 @@ Button.prototype.paint = function(offsetX, offsetY, context) {
     var contentWidth = rect[2];
     var contentHeight = rect[3];
 
-    if (this.text != "") {
+    if (this.text != '') {
         var textScale = rect[3];
         textScale = Math.min(textScale, this.maxTextScale);
 
@@ -525,9 +525,9 @@ Button.prototype.paint = function(offsetX, offsetY, context) {
         var textX = this.x + calculateAlignment(rect[0], contentWidth + rect[0], textWidth, this.textAlignmentX) + offsetX;
         var textY = this.y + calculateAlignment(rect[1], contentHeight + rect[1], textHeight, this.textAlignmentY) + offsetY + textHeight;
 
-//        LineFont.pathString(this.font, this.text, textX, textY, textScale, 0, currentContext);
-//
-//        this.textLooks.applyAndStrokeAll(currentContext);
+        //        LineFont.pathString(this.font, this.text, textX, textY, textScale, 0, currentContext);
+        //
+        //        this.textLooks.applyAndStrokeAll(currentContext);
     }
 };
 

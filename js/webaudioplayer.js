@@ -8,7 +8,7 @@ function WebAudioVoice() {
 
 
 function WebAudioChannelNodes() {
-    this.channelName = "";
+    this.channelName = '';
     this.chorusSend = null;
     this.delaySend = null;
     this.reverbSend = null;
@@ -33,7 +33,7 @@ function WebAudioPlayer() {
 }
 WebAudioPlayer.prototype = new AudioPlayer();
 
-WebAudioPlayer.prototype.title = "Web Audio";
+WebAudioPlayer.prototype.title = 'Web Audio';
 
 
 WebAudioPlayer.prototype.getContextTime = function() {
@@ -85,8 +85,8 @@ WebAudioPlayer.prototype.getOrCreateChannelNodes = function(channel) {
         this.compressor.connect(this.context.destination);
 
 
-//        void setPosition(in float x, in float y, in float z);
-//        void setOrientation(in float x, in float y, in float z, in float xUp, in float yUp, in float zUp);
+        //        void setPosition(in float x, in float y, in float z);
+        //        void setOrientation(in float x, in float y, in float z, in float xUp, in float yUp, in float zUp);
         this.context.listener.setPosition(0, 0, 0);
         this.context.listener.setOrientation(0, 0, -1, 0, 1, 0);
 
@@ -109,7 +109,7 @@ WebAudioPlayer.prototype.getOrCreateChannelNodes = function(channel) {
 
         nodes.gain = this.context.createGain();
         nodes.gain.connect(nodes.filter);
-//        logit(" Creating nodes for channel " + channel);
+        //        logit(" Creating nodes for channel " + channel);
     }
     return nodes;
 };
@@ -119,40 +119,40 @@ WebAudioPlayer.prototype.scheduleControlWithChannelInfo = function(info, value, 
 
         if (info.nodes) {
 
-//        logit("Scheduling control for " + info.nodes.channelName);
+            //        logit("Scheduling control for " + info.nodes.channelName);
             switch (info.controlType) {
-                case "Pan":
-//                logit("Setting pan to " + value);
-                    var maxAngle = Math.PI / 4;
-                    var angleFrac = 2 * (value - 0.5);
-                    var angle = angleFrac * maxAngle;
-                    var distance = 1;
+            case 'Pan':
+                //                logit("Setting pan to " + value);
+                var maxAngle = Math.PI / 4;
+                var angleFrac = 2 * (value - 0.5);
+                var angle = angleFrac * maxAngle;
+                var distance = 1;
 
-//                logit("Setting angle frac to " + angleFrac + " " + info.nodes.channelName + " " + this.data.controlChannelNames[channelIndex]);
+                //                logit("Setting angle frac to " + angleFrac + " " + info.nodes.channelName + " " + this.data.controlChannelNames[channelIndex]);
 
-                    info.nodes.panner.setPosition(distance * Math.sin(angle), 0, -distance * Math.cos(angle));
-                    break;
-                case "FilterF":
-//                info.nodes.filter.frequency.value =
-                    var maxFreq = this.noteToFrequency(127);
-                    var minFreq = this.noteToFrequency(0);
+                info.nodes.panner.setPosition(distance * Math.sin(angle), 0, -distance * Math.cos(angle));
+                break;
+            case 'FilterF':
+                //                info.nodes.filter.frequency.value =
+                var maxFreq = this.noteToFrequency(127);
+                var minFreq = this.noteToFrequency(0);
 
-                    var frequency = minFreq + (maxFreq - minFreq) * value;
-//                logit("Setting filter f to " + frequency + " at " + time + " " + maxFreq + " " + minFreq);
-                    info.nodes.filter.frequency.exponentialRampToValueAtTime(frequency, time);
-                    break;
-                case "FilterQ":
-                    var newQ = 1.0 / (0.01 + 0.1 * value);
-//                logit("Setting filter q to " + newQ + " at " + time);
-                    info.nodes.filter.Q.exponentialRampToValueAtTime(newQ, time);
-                    break;
-                default:
-                    logit("Unknown control type " + info.controlType);
-                    break;
+                var frequency = minFreq + (maxFreq - minFreq) * value;
+                //                logit("Setting filter f to " + frequency + " at " + time + " " + maxFreq + " " + minFreq);
+                info.nodes.filter.frequency.exponentialRampToValueAtTime(frequency, time);
+                break;
+            case 'FilterQ':
+                var newQ = 1.0 / (0.01 + 0.1 * value);
+                //                logit("Setting filter q to " + newQ + " at " + time);
+                info.nodes.filter.Q.exponentialRampToValueAtTime(newQ, time);
+                break;
+            default:
+                logit('Unknown control type ' + info.controlType);
+                break;
             }
         }
     } catch (ex) {
-        logit("Error when scheduling control");
+        logit('Error when scheduling control');
     }
 };
 
@@ -190,7 +190,7 @@ WebAudioPlayer.prototype.scheduleNoteOnOff = function(noteData) {
     var bufferInfoId = this.getBufferInfoId(noteData);
     var bufferInfo = this.bufferInfos[bufferInfoId];
 
-    var isPercussion = bufferInfo.channelPrefix == "percussion";
+    var isPercussion = bufferInfo.channelPrefix == 'percussion';
     var onEvent = noteData.onEvent;
 
     var delay = 0.1;
@@ -206,18 +206,18 @@ WebAudioPlayer.prototype.scheduleNoteOnOff = function(noteData) {
     var instrType = null; // PrimitiveWebAudioPlayerInstrumentType.SQUARE;
     var instrumentArr = null;
     switch (bufferInfo.channelPrefix) {
-        case "melody":
-            instrumentArr = this.settings.melodyInstruments;
-            break;
-        case "inner1":
-            instrumentArr = this.settings.inner1Instruments;
-            break;
-        case "inner2":
-            instrumentArr = this.settings.inner2Instruments;
-            break;
-        case "bass":
-            instrumentArr = this.settings.bassInstruments;
-            break;
+    case 'melody':
+        instrumentArr = this.settings.melodyInstruments;
+        break;
+    case 'inner1':
+        instrumentArr = this.settings.inner1Instruments;
+        break;
+    case 'inner2':
+        instrumentArr = this.settings.inner2Instruments;
+        break;
+    case 'bass':
+        instrumentArr = this.settings.bassInstruments;
+        break;
     }
     if (instrumentArr != null) {
         if (instrumentArr.length > 0) {
@@ -230,11 +230,11 @@ WebAudioPlayer.prototype.scheduleNoteOnOff = function(noteData) {
         }
     }
     if (!isPercussion && typeof(instrType) === 'undefined') {
-//        logit("Got instr type " + instrType + " for prop name " + typePropName);
+        //        logit("Got instr type " + instrType + " for prop name " + typePropName);
         instrType = PrimitiveWebAudioPlayerInstrumentType.MATCH;
     }
     if (instrType == null) {
-//        logit("Not scheduling " + bufferInfo.channelPrefix);
+        //        logit("Not scheduling " + bufferInfo.channelPrefix);
         return;
     }
 
@@ -251,7 +251,7 @@ WebAudioPlayer.prototype.scheduleNoteOnOff = function(noteData) {
         buffer = bufferInfo.buffer;
 
         if (!buffer) {
-            logit("Could not find percussion buffer " + onEvent.n);
+            logit('Could not find percussion buffer ' + onEvent.n);
             buffer = this.percussionBuffers[onEvent.n];
 
             if (!buffer) {
@@ -275,25 +275,25 @@ WebAudioPlayer.prototype.scheduleNoteOnOff = function(noteData) {
     } else {
         bufferSource.loop = true;
         var freq = this.noteToFrequency(onEvent.n);
-//            var freqScale = this.context.sampleRate / 500.0;
+        //            var freqScale = this.context.sampleRate / 500.0;
 
         var freqMult = 22;
         buffer = this.melodicBuffers[instrType];
         if (!buffer) {
             var bufferFunc = this.sineBufferFunc;
             switch (instrType) {
-                case PrimitiveWebAudioPlayerInstrumentType.SAW:
-                    bufferFunc = this.sawBufferFunc;
-                    break;
-                case PrimitiveWebAudioPlayerInstrumentType.SINE:
-                    bufferFunc = this.sineBufferFunc;
-                    break;
-                case PrimitiveWebAudioPlayerInstrumentType.TRIANGLE:
-                    bufferFunc = this.triangleBufferFunc;
-                    break;
-                case PrimitiveWebAudioPlayerInstrumentType.SQUARE:
-                    bufferFunc = this.squareBufferFunc;
-                    break;
+            case PrimitiveWebAudioPlayerInstrumentType.SAW:
+                bufferFunc = this.sawBufferFunc;
+                break;
+            case PrimitiveWebAudioPlayerInstrumentType.SINE:
+                bufferFunc = this.sineBufferFunc;
+                break;
+            case PrimitiveWebAudioPlayerInstrumentType.TRIANGLE:
+                bufferFunc = this.triangleBufferFunc;
+                break;
+            case PrimitiveWebAudioPlayerInstrumentType.SQUARE:
+                bufferFunc = this.squareBufferFunc;
+                break;
             }
             buffer = this.createBuffer(bufferFunc, freqMult);
             this.melodicBuffers[instrType] = buffer;
@@ -322,15 +322,15 @@ WebAudioPlayer.prototype.scheduleNoteOnOff = function(noteData) {
 
     bufferSource.buffer = buffer;
 
-//    logit(" Scheduling note with time " + noteData.onTime + " at " + onTime + " offset: " + this.contextOffset);
+    //    logit(" Scheduling note with time " + noteData.onTime + " at " + onTime + " offset: " + this.contextOffset);
 
-//    logit(" Active source count: " + this.context.activeSourceCount);
+    //    logit(" Active source count: " + this.context.activeSourceCount);
 
     var volMult = 1;
-    if (bufferInfo.channelPrefix == "percussion") {
+    if (bufferInfo.channelPrefix == 'percussion') {
         volMult = this.settings.percussionVolumeMultiplier;
     } else {
-        var arr = this.settings[bufferInfo.channelPrefix + "VolumeMultipliers"];
+        var arr = this.settings[bufferInfo.channelPrefix + 'VolumeMultipliers'];
         if (arr && arr.length > 0) {
             volMult = arr[bufferInfo.voiceIndex % arr.length];
         }
@@ -339,7 +339,7 @@ WebAudioPlayer.prototype.scheduleNoteOnOff = function(noteData) {
     var velNode = this.context.createGain();
     velNode.gain.value = onEvent.v * volMult;
 
-//    logit(onEvent.v);
+    //    logit(onEvent.v);
 
     oscOutput.connect(velNode);
 

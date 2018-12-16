@@ -14,20 +14,20 @@ class VoiceLineSearchNode {
 
 class VoiceLineGenerator {
     constructor(options) {
-        this.reusables = getValueOrDefault(options, "reusables", {});
+        this.reusables = getValueOrDefault(options, 'reusables', {});
 
-        this.maxSearchDepth = getValueOrDefault(options, "maxSearchDepth", 3);
-        this.maxSearchSteps = getValueOrDefault(options, "maxSearchSteps", 2000);
+        this.maxSearchDepth = getValueOrDefault(options, 'maxSearchDepth', 3);
+        this.maxSearchSteps = getValueOrDefault(options, 'maxSearchSteps', 2000);
         this.harmony = getValueOrDefault(options,
-            "harmony", new ConstantHarmonicRythm([new ConstantHarmonyElement().setChordRoot(0)]));
-        this.checkParallelOctavesAndUnisons = getValueOrDefault(options, "checkParallelOctavesAndUnisons", true);
-        this.parallelOctavesAndUnisonsPenalty = getValueOrDefault(options, "parallelOctavesAndUnisonsPenalty", 10);
-        this.checkParallelFifths = getValueOrDefault(options, "checkParallelFifths", true);
-        this.parallelFifthsPenalty = getValueOrDefault(options, "parallelFifthsPenalty", 10);
-        this.checkLargeLeapReverseDirection = getValueOrDefault(options, "checkLargeLeapReverseDirection", true);
-        this.largeLeapReverseDirectionPenaltyFactor = getValueOrDefault(options, "largeLeapReverseDirectionPenaltyFactor", 1);
-        this.checkLeadingToneDoubling = getValueOrDefault(options, "checkLeadingToneDoubling", true); //
-        this.leadingToneDoublingPenalty = getValueOrDefault(options, "leadingToneDoubling", 5); //
+            'harmony', new ConstantHarmonicRythm([new ConstantHarmonyElement().setChordRoot(0)]));
+        this.checkParallelOctavesAndUnisons = getValueOrDefault(options, 'checkParallelOctavesAndUnisons', true);
+        this.parallelOctavesAndUnisonsPenalty = getValueOrDefault(options, 'parallelOctavesAndUnisonsPenalty', 10);
+        this.checkParallelFifths = getValueOrDefault(options, 'checkParallelFifths', true);
+        this.parallelFifthsPenalty = getValueOrDefault(options, 'parallelFifthsPenalty', 10);
+        this.checkLargeLeapReverseDirection = getValueOrDefault(options, 'checkLargeLeapReverseDirection', true);
+        this.largeLeapReverseDirectionPenaltyFactor = getValueOrDefault(options, 'largeLeapReverseDirectionPenaltyFactor', 1);
+        this.checkLeadingToneDoubling = getValueOrDefault(options, 'checkLeadingToneDoubling', true); //
+        this.leadingToneDoublingPenalty = getValueOrDefault(options, 'leadingToneDoubling', 5); //
 
         this.bestSolutionCost = 99999999;
         this.resultStates = [];
@@ -164,7 +164,7 @@ class VoiceLineGenerator {
         let bestState = null; // Best state at current index
 
         const states = this.getStates(node);
-    //        logit("__Current search depth: " + node.searchDepth + "<br />");
+        //        logit("__Current search depth: " + node.searchDepth + "<br />");
         //    logit("____Domain: " + domain + "<br />");
         for (let i=0; i<states.length; i++) {
 
@@ -178,7 +178,7 @@ class VoiceLineGenerator {
             const stepCost = this.getStepCost(newNode);
 
             const totalCost = stepCost + node.totalCost;
-    //        logit("__ " + i + " step cost: " + stepCost + " total cost: " + totalCost + " best cost: " + this.bestSolutionCost);
+            //        logit("__ " + i + " step cost: " + stepCost + " total cost: " + totalCost + " best cost: " + this.bestSolutionCost);
             if (totalCost < this.bestSolutionCost) {
                 newNode.totalCost = totalCost;
                 this.resultStates[index] = newState; // Writing to result so the next search level has access to previous states
@@ -217,13 +217,13 @@ class VoiceLineGenerator {
 
         const harmonyElements = this.harmony.getConstantHarmonyElements();
 
-    //    logit("Entering voice line search...");
+        //    logit("Entering voice line search...");
 
         let totalSearchSteps = 0;
         let sortOfTotalCost = 0;
         const individualSearchSteps = [];
         for (let i=0; i<harmonyElements.length; i++) {
-    //        logit("Searching step " + i + "<br />");
+            //        logit("Searching step " + i + "<br />");
             this.bestSolutionCost = 99999999;
             this.searchSteps = 0;
             const emptyState = this.createInitialState();
@@ -241,15 +241,15 @@ class VoiceLineGenerator {
                 }
                 //            logit("_Step " + i + " result scale index: " + state.scaleIndex + "<br />");
             } else {
-                this.failReason = "Failed to find solution";
+                this.failReason = 'Failed to find solution';
                 return null;
             }
             totalSearchSteps += this.searchSteps;
             sortOfTotalCost += this.bestSolutionCost;
             individualSearchSteps.push(this.searchSteps);
         }
-    //    logit("search steps: " + totalSearchSteps + " individual steps: " + individualSearchSteps.join(",") + " sort of cost: " + sortOfTotalCost + "<br />");
-    //    logit("Sort of cost: " + sortOfTotalCost);
+        //    logit("search steps: " + totalSearchSteps + " individual steps: " + individualSearchSteps.join(",") + " sort of cost: " + sortOfTotalCost + "<br />");
+        //    logit("Sort of cost: " + sortOfTotalCost);
 
 
         return result;

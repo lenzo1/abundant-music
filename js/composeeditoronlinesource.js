@@ -67,7 +67,7 @@ printStackTrace.implementation.prototype = {
                 return 'opera10a'; // use e.stacktrace
             }
             // e.stacktrace && e.stack -> opera10b
-            if (e.stacktrace.indexOf("called from line") < 0) {
+            if (e.stacktrace.indexOf('called from line') < 0) {
                 return 'opera10b'; // use e.stacktrace, format differs from 'opera10a'
             }
             // e.stacktrace && e.stack -> opera11
@@ -120,9 +120,9 @@ printStackTrace.implementation.prototype = {
      */
     chrome: function(e) {
         var stack = (e.stack + '\n').replace(/^\S[^\(]+?[\n$]/gm, '').
-          replace(/^\s+at\s+/gm, '').
-          replace(/^([^\(]+?)([\n$])/gm, '{anonymous}()@$1$2').
-          replace(/^Object.<anonymous>\s*\(([^\)]+)\)/gm, '{anonymous}()@$1').split('\n');
+            replace(/^\s+at\s+/gm, '').
+            replace(/^([^\(]+?)([\n$])/gm, '{anonymous}()@$1$2').
+            replace(/^Object.<anonymous>\s*\(([^\)]+)\)/gm, '{anonymous}()@$1').split('\n');
         stack.pop();
         return stack;
     },
@@ -149,8 +149,8 @@ printStackTrace.implementation.prototype = {
             var match = lineRE.exec(lines[i]);
             if (match) {
                 var location = match[4] + ':' + match[1] + ':' + match[2];
-                var fnName = match[3] || "global code";
-                fnName = fnName.replace(/<anonymous function: (\S+)>/, "$1").replace(/<anonymous function>/, ANON);
+                var fnName = match[3] || 'global code';
+                fnName = fnName.replace(/<anonymous function: (\S+)>/, '$1').replace(/<anonymous function>/, ANON);
                 result.push(fnName + '@' + location + ' -- ' + lines[i + 1].replace(/^\s+/, ''));
             }
         }
@@ -168,7 +168,7 @@ printStackTrace.implementation.prototype = {
         for (var i = 0, len = lines.length; i < len; i++) {
             var match = lineRE.exec(lines[i]);
             if (match) {
-                var fnName = match[1]? (match[1] + '()') : "global code";
+                var fnName = match[1]? (match[1] + '()') : 'global code';
                 result.push(fnName + '@' + match[2] + ':' + match[3]);
             }
         }
@@ -376,7 +376,7 @@ printStackTrace.implementation.prototype = {
         var reFunctionEvaluation = /['"]?([0-9A-Za-z_]+)['"]?\s*[:=]\s*(?:eval|new Function)\b/;
         // Walk backwards in the source lines until we find
         // the line which matches one of the patterns above
-        var code = "", line, maxLines = Math.min(lineNo, 20), m, commentPos;
+        var code = '', line, maxLines = Math.min(lineNo, 20), m, commentPos;
         for (var i = 0; i < maxLines; ++i) {
             // lineNo is 1-based, source[] is 0-based
             line = source[lineNo - i - 1];
@@ -662,7 +662,7 @@ function getProbabilityFractions(likelihoods) {
         }
     }
 
-//    logit("sum : " + sum + "<br />");
+    //    logit("sum : " + sum + "<br />");
 
     //    logit("ProbabilityFractions input: " + likelihoods + " result: " + result + "<br />");
     return result;
@@ -730,7 +730,7 @@ function sampleIndexIntegerDistribution(rnd, cumulative) {
             return j;
         }
     }
-    logit("RandomUtils: Could not properly sample "
+    logit('RandomUtils: Could not properly sample '
         + cumulative);
     return 0; // This should never happen
 }
@@ -798,7 +798,7 @@ function arrayDeleteAll(arr, values) {
 
 function investigateObject(obj) {
     for (var key in obj) {
-        logit("__" + key + ":" + obj[key] + "<br />");
+        logit('__' + key + ':' + obj[key] + '<br />');
     }
 }
 
@@ -807,7 +807,7 @@ function investigateKeys(obj) {
     for (var key in obj) {
         keys.push(key);
     }
-    logit("Keys: " + keys.join(", ") + "<br />");
+    logit('Keys: ' + keys.join(', ') + '<br />');
 }
 
 function investigateArrayIds(arr) {
@@ -815,7 +815,7 @@ function investigateArrayIds(arr) {
     for (var i=0; i<arr.length; i++) {
         ids.push(arr[i].id);
     }
-    logit("ids: " + ids.join(", ") + "<br />");
+    logit('ids: ' + ids.join(', ') + '<br />');
 }
 
 // Get item from array if not the index is within the startItems or at the end, overlapping endItems
@@ -824,7 +824,7 @@ function investigateArrayIds(arr) {
 function getItemFromArrayWithStartEndItems(defaultWhenEmpty, items, length, index, startItems, endItems) {
     var theDefault = defaultWhenEmpty;
     if (!items) {
-        logit(printStackTrace().join("<br />"));
+        logit(printStackTrace().join('<br />'));
     }
     if (index >= 0 && items.length > 0) {
         theDefault = items[index % items.length];
@@ -855,21 +855,21 @@ function isArray(obj) {
 
 function showStacktraceDialog(ex, description) {
     if (!description) {
-        description = "";
+        description = '';
     }
     var stString = printStackTrace({
         e: ex,
         guess:true
-    }).join("\n");
+    }).join('\n');
     var w = 1000;
     var h = 500;
-    var $dialogDiv = $("<div title='Error Stacktrace " + description + "' ><textarea style='width: " + w + "px; height: " + h + "px' >" + stString + "</textarea></div>");
+    var $dialogDiv = $('<div title=\'Error Stacktrace ' + description + '\' ><textarea style=\'width: ' + w + 'px; height: ' + h + 'px\' >' + stString + '</textarea></div>');
     $dialogDiv.dialog({
         width: w + 50,
         height: h + 150,
         buttons: {
-            "Close": function() {
-                $dialogDiv.dialog("close");
+            'Close': function() {
+                $dialogDiv.dialog('close');
             }
         }
     });
@@ -942,32 +942,32 @@ function toPitchClassString(note) {
     var pitchClass = note % 12;
 
     switch (pitchClass) {
-        case 0:
-            return "C";
-        case 1:
-            return "C#";
-        case 2:
-            return "D";
-        case 3:
-            return "D#";
-        case 4:
-            return "E";
-        case 5:
-            return "F";
-        case 6:
-            return "F#";
-        case 7:
-            return "G";
-        case 8:
-            return "G#";
-        case 9:
-            return "A";
-        case 10:
-            return "A#";
-        case 11:
-            return "B";
+    case 0:
+        return 'C';
+    case 1:
+        return 'C#';
+    case 2:
+        return 'D';
+    case 3:
+        return 'D#';
+    case 4:
+        return 'E';
+    case 5:
+        return 'F';
+    case 6:
+        return 'F#';
+    case 7:
+        return 'G';
+    case 8:
+        return 'G#';
+    case 9:
+        return 'A';
+    case 10:
+        return 'A#';
+    case 11:
+        return 'B';
     }
-    return "?";
+    return '?';
 }
 
 
@@ -1071,14 +1071,14 @@ function copyObjectDeep(obj, options) {
         copy = {};
     } else {
         if (isValidFunctionName(obj._constructorName)) {
-            copy = eval("new " + obj._constructorName + "()");
+            copy = eval('new ' + obj._constructorName + '()');
         } else {
             copy = {};
         }
     }
-    var createUniqueIds = getValueOrDefault(options, "createUniqueIds", false);
+    var createUniqueIds = getValueOrDefault(options, 'createUniqueIds', false);
     if (createUniqueIds) {
-        var propertyInfoProvider = getValueOrDefault(options, "propertyInfoProvider", null);
+        var propertyInfoProvider = getValueOrDefault(options, 'propertyInfoProvider', null);
         if (propertyInfoProvider && obj._constructorName) {
             var propertyInfos = propertyInfoProvider.getGuiPropertyInfos(obj);
             options.propertyInfos = propertyInfos;
@@ -1103,7 +1103,7 @@ function copyObjectDeep(obj, options) {
 function objectFromJson(jsonStr) {
     var jsonObj = $.parseJSON(jsonStr);
     if (!jsonObj._constructorName) {
-        logit("Missing _constructorName " + jsonObj.id + " in objectFromJson()<br />");
+        logit('Missing _constructorName ' + jsonObj.id + ' in objectFromJson()<br />');
     }
     return copyObjectDeep(jsonObj);
 }
@@ -1111,7 +1111,7 @@ function objectFromJson(jsonStr) {
 
 function objectToJson(obj, arr, visited) {
     if (!obj._constructorName) {
-        logit("Missing _constructorName " + obj.id + " in objectToJson()<br />");
+        logit('Missing _constructorName ' + obj.id + ' in objectToJson()<br />');
     }
     if (!arr) {
         arr = [];
@@ -1122,16 +1122,16 @@ function objectToJson(obj, arr, visited) {
     }
     var hasVisited = visited.get(obj);
     if (hasVisited) {
-        logit("Have visited " + JSON.stringify(obj));
+        logit('Have visited ' + JSON.stringify(obj));
         return;
     }
     visited.put(obj, true);
 
-    arr.push("{\n");
+    arr.push('{\n');
 
     var propNames = [];
     for (var propName in obj) {
-        if (propName.indexOf("__") < 0) {
+        if (propName.indexOf('__') < 0) {
             var value = obj[propName];
             if (value != null) {
                 if (!(typeof(value) === 'object') || value._constructorName || isArray(value)) {
@@ -1146,13 +1146,13 @@ function objectToJson(obj, arr, visited) {
     for (var i=0; i<propNames.length; i++) {
         var propName = propNames[i];
         var value = obj[propName];
-        arr.push("\"" + propName + "\": ");
+        arr.push('"' + propName + '": ');
         valueToJson(value, arr, visited);
         if (i != propNames.length - 1) {
-            arr.push(", ");
+            arr.push(', ');
         }
     }
-    arr.push("}");
+    arr.push('}');
     return arr;
 }
 
@@ -1165,19 +1165,19 @@ function valueToJson(value, arr, visited) {
         arr = [];
     }
     if (isArray(value)) {
-        arr.push("[");
+        arr.push('[');
         for (var i=0; i<value.length; i++) {
             valueToJson(value[i], arr, visited);
             if (i != value.length - 1) {
-                arr.push(", ");
+                arr.push(', ');
             }
         }
-        arr.push("]");
+        arr.push(']');
     } else if (isFunction(value)) {
     } else if (typeof(value) === 'object') {
         objectToJson(value, arr, visited);
     } else if (typeof(value) === 'string') {
-        arr.push("\"" + value + "\"");
+        arr.push('"' + value + '"');
     } else {
         arr.push(value);
     }
@@ -1202,13 +1202,13 @@ function traverseValue(value, visitor, visited) {
 
         var hasVisited = visited.get(value);
         if (hasVisited) {
-//            logit("Have visited " + JSON.stringify(value));
+            //            logit("Have visited " + JSON.stringify(value));
             return;
         }
         visited.put(value, true);
 
         for (var propName in value) {
-            if (propName.indexOf("__") < 0) {
+            if (propName.indexOf('__') < 0) {
                 var v = value[propName];
                 visitor(v, propName, value);
                 if (v != null) {
@@ -1226,26 +1226,26 @@ function traverseValue(value, visitor, visited) {
 
 function getExpressionValue(expression, module, extraVars, verbose, object, propName) {
 
-//    perfTimer3.start();
+    //    perfTimer3.start();
 
     var result = null;
 
-    var exprIsString = typeof(expression) === "string";
+    var exprIsString = typeof(expression) === 'string';
 
     if (exprIsString && !expression.match(/[a-z]/i)) {
-//        logit("Expression simple " + expression);
+        //        logit("Expression simple " + expression);
         result = eval(expression);
-//        perfTimer3.pause();
+        //        perfTimer3.pause();
         return result;
     }
 
     // Checking if there are only a single variable in the expression
     if (exprIsString && !expression.match(/[^a-z]/i)) {
-//           logit("A single var expression? " + expression);
+        //           logit("A single var expression? " + expression);
         var variable = module.getVariable(expression);
         if (variable) {
             result = variable.getValue(module);
-//            perfTimer3.pause();
+            //            perfTimer3.pause();
             return result;
         }
     }
@@ -1268,7 +1268,7 @@ function getExpressionValue(expression, module, extraVars, verbose, object, prop
                     var varValue = variable.getValue(module);
                     var valueType = typeof(varValue);
                     if (valueType === 'string' || valueType === 'number' || isArray(varValue)) {
-                        var re = new RegExp(myArray[i], "g");
+                        var re = new RegExp(myArray[i], 'g');
                         replacedExpression = replacedExpression.replace(re, JSON.stringify(variable.getValue(module)));
                     } else {
                         replaceSuccess = false;
@@ -1281,15 +1281,15 @@ function getExpressionValue(expression, module, extraVars, verbose, object, prop
             }
         }
     } while (myArray != null && replaceSuccess);
-//    logit(JSON.stringify(myArray));
+    //    logit(JSON.stringify(myArray));
     if (replaceSuccess) {
-//            logit("transformed " + expression + " to " + tempExpr);
+        //            logit("transformed " + expression + " to " + tempExpr);
         try {
             var result = eval(replacedExpression);
-//            perfTimer3.pause();
+            //            perfTimer3.pause();
             return result;
         } catch (exc) {
-            logit("Error when evaluating " + replacedExpression + " original: " + expression + " exc: " + exc);
+            logit('Error when evaluating ' + replacedExpression + ' original: ' + expression + ' exc: ' + exc);
         }
     }
 
@@ -1303,7 +1303,7 @@ function getExpressionValue(expression, module, extraVars, verbose, object, prop
             // I assume you wanted undefined. If you also want null add: || value===null
             // Another way is to check arguments.length to get how many parameters was
             // given to this function when it was called.
-            if (typeof value === "undefined"){
+            if (typeof value === 'undefined'){
                 //check if hasOwnProperty so you don't unexpected results from
                 //the objects prototype.
                 return Object.prototype.hasOwnProperty.call(prv,name) ? prv[name] : undefined;
@@ -1314,17 +1314,17 @@ function getExpressionValue(expression, module, extraVars, verbose, object, prop
     }
 
     var pub = {};
-    pub["module"] = prop("module", module); // Make the module available
+    pub['module'] = prop('module', module); // Make the module available
 
     for (var varId in foundVars) {
         var v = foundVars[varId];
         pub[v.id] = prop(v.id, v.getValue(module));
     }
-//    var variables = module.getVariables();
-//    for (var i=0; i<variables.length; i++) {
-//        var v = variables[i];
-//        pub[v.id] = prop(v.id, v.getValue(module));
-//    }
+    //    var variables = module.getVariables();
+    //    for (var i=0; i<variables.length; i++) {
+    //        var v = variables[i];
+    //        pub[v.id] = prop(v.id, v.getValue(module));
+    //    }
     for (var i=0; i<module.procedures.length; i++) {
         var v = module.procedures[i];
         pub[v.id] = prop(v.id, v.getProcedure(module));
@@ -1336,13 +1336,11 @@ function getExpressionValue(expression, module, extraVars, verbose, object, prop
     }
 
     pub.getTheValue = function() {
-        with (prv) {
-            return eval(expression);
-        }
+        return eval(expression);
     };
 
     result = pub.getTheValue();
-//    perfTimer3.pause();
+    //    perfTimer3.pause();
 
     return result;
 }
@@ -1350,11 +1348,11 @@ function getExpressionValue(expression, module, extraVars, verbose, object, prop
 function getValueOrExpressionValue(object, propName, module, extraVars, verbose) {
     var result = object[propName];
     try {
-        if (object[propName + "UseExpression"]) {
-            var expression = object[propName + "Expression"];
+        if (object[propName + 'UseExpression']) {
+            var expression = object[propName + 'Expression'];
             if (expression) {
                 if (verbose) {
-                    logit("Found expression " + expression);
+                    logit('Found expression ' + expression);
                 }
                 var temp = getExpressionValue(expression, module, extraVars, verbose, object, propName);
                 if (temp != null) {
@@ -1363,8 +1361,8 @@ function getValueOrExpressionValue(object, propName, module, extraVars, verbose)
             }
         }
     } catch (ex) {
-        logit("Expression eval error. useExpression: " + object[propName + "UseExpression"] + " expression: " + object[propName + "Expression"]);
-//        showStacktraceDialog(ex, "Error in expression evaluation");
+        logit('Expression eval error. useExpression: ' + object[propName + 'UseExpression'] + ' expression: ' + object[propName + 'Expression']);
+        //        showStacktraceDialog(ex, "Error in expression evaluation");
     }
     return result;
 }
@@ -1480,7 +1478,7 @@ function sortEnumAlphabetically(obj) {
     var valuePropNames = {};
     for (var propName in obj) {
         var value = obj[propName];
-        if (typeof(value) === "number") {
+        if (typeof(value) === 'number') {
             valuePropNames[value] = propName;
         }
     }
@@ -1520,7 +1518,7 @@ function stringStartsWith(str, prefix) {
 
 function userToDirName(user) {
     var oldUser = user;
-    var strs = ["http://www.", "https://www."];
+    var strs = ['http://www.', 'https://www.'];
     for (var i=0; i<strs.length; i++) {
         var str = strs[i];
         if (user.indexOf(str) == 0) {
@@ -1528,7 +1526,7 @@ function userToDirName(user) {
         }
     }
     var temp = user;
-    var result = temp.replace(/[^a-zA-Z\d_]/g, "_");
+    var result = temp.replace(/[^a-zA-Z\d_]/g, '_');
     return result;
 }
 
@@ -1565,14 +1563,14 @@ function validateArrayValue(arrayValue, allowedTypes, defaultAllowedArrayTypes, 
     var type = typeof(arrayValue);
 
     if (isArray(arrayValue)) {
-        result = allowedTypes["array"];
+        result = allowedTypes['array'];
     } else if (type === 'object') {
         result = allowedTypes[arrayValue._constructorName];
         if (result) {
             // Need to validate against a default value there as well
-            var safeValue = eval("new " + arrayValue._constructorName + "()");
+            var safeValue = eval('new ' + arrayValue._constructorName + '()');
             result = validateValueWithSafeValue(arrayValue, safeValue, null, defaultAllowedArrayTypes, correct);
-//            console.log("Validated object in array " + arrayValue._constructorName + ". Result: " + result);
+            //            console.log("Validated object in array " + arrayValue._constructorName + ". Result: " + result);
         }
     } else {
         result = allowedTypes[type];
@@ -1609,7 +1607,7 @@ function validateValueWithSafeValue(testValue, safeValue, allowedTypes, defaultA
             var val = testValue[i];
             var typeValid = validateArrayValue(val, allowedTypes, defaultAllowedArrayTypes, correct);
             if (!typeValid) {
-                logit("Type not valid in array " + val + " " + typeof(val) + " " + allowedTypes);
+                logit('Type not valid in array ' + val + ' ' + typeof(val) + ' ' + allowedTypes);
                 arrayOk = false;
                 break;
             }
@@ -1627,10 +1625,10 @@ function validateValueWithSafeValue(testValue, safeValue, allowedTypes, defaultA
         for (var prop in testValue) {
             var oldValue = safeValue[prop];
             if (typeof(oldValue) == 'undefined') {
-                logit("Property " + prop + " in " + safeValue._constructorName + " did not exist");
+                logit('Property ' + prop + ' in ' + safeValue._constructorName + ' did not exist');
                 if (correct) {
                     // Just removed the incorrect value
-                    logit("Removed it!");
+                    logit('Removed it!');
                     delete testValue[prop];
                     return true;
                 }
@@ -1638,21 +1636,21 @@ function validateValueWithSafeValue(testValue, safeValue, allowedTypes, defaultA
             } else {
                 var newValue = testValue[prop];
 
-                var types = safeValue[prop + "_allowedTypes"];
+                var types = safeValue[prop + '_allowedTypes'];
 
-//                if (types) {
-//                    console.log("Found types for " + prop);
-//                }
-//                if (!types && isArray(newValue)) {
-//                    console.log(safeValue._constructorName + " missing allowed types for array")
-//                }
+                //                if (types) {
+                //                    console.log("Found types for " + prop);
+                //                }
+                //                if (!types && isArray(newValue)) {
+                //                    console.log(safeValue._constructorName + " missing allowed types for array")
+                //                }
 
                 var v = validateValueWithSafeValue(newValue, oldValue, types, defaultAllowedArrayTypes, correct);
                 if (!v) {
-                    logit("Property " + prop + " in " + safeValue._constructorName + " was not valid");
-//                    console.log(newValue);
+                    logit('Property ' + prop + ' in ' + safeValue._constructorName + ' was not valid');
+                    //                    console.log(newValue);
                     if (correct) {
-                        logit("Used default value for it instead!");
+                        logit('Used default value for it instead!');
                         testValue[prop] = oldValue;
                         return true;
                     } else {
@@ -1696,24 +1694,24 @@ var ChordType = {
 
     toString: function(type) {
         switch (type) {
-            case ChordType.CUSTOM:
-                return "Custom";
-            case ChordType.SEVENTH:
-                return "Seventh";
-            case ChordType.SUS2:
-                return "Sus2";
-            case ChordType.SUS2_SEVENTH:
-                return "Sus2 Seventh";
-            case ChordType.SUS4:
-                return "Sus4";
-            case ChordType.SUS4_SEVENTH:
-                return "Sus4 Seventh";
-            case ChordType.TRIAD:
-                return "Triad";
-            case ChordType.NINTH:
-                return "Ninth";
+        case ChordType.CUSTOM:
+            return 'Custom';
+        case ChordType.SEVENTH:
+            return 'Seventh';
+        case ChordType.SUS2:
+            return 'Sus2';
+        case ChordType.SUS2_SEVENTH:
+            return 'Sus2 Seventh';
+        case ChordType.SUS4:
+            return 'Sus4';
+        case ChordType.SUS4_SEVENTH:
+            return 'Sus4 Seventh';
+        case ChordType.TRIAD:
+            return 'Triad';
+        case ChordType.NINTH:
+            return 'Ninth';
         }
-        return "Unknown chord type " + type;
+        return 'Unknown chord type ' + type;
     }
 };
 addPossibleValuesFunction(ChordType, ChordType.TRIAD, ChordType.CUSTOM);
@@ -1726,12 +1724,12 @@ var SimpleScaleType = {
 
     toString: function(type) {
         switch (type) {
-            case SimpleScaleType.MAJOR:
-                return "Major";
-            case SimpleScaleType.NATURAL_MINOR:
-                return "Minor";
+        case SimpleScaleType.MAJOR:
+            return 'Major';
+        case SimpleScaleType.NATURAL_MINOR:
+            return 'Minor';
         }
-        return "Unknown scale type " + type;
+        return 'Unknown scale type ' + type;
     }
 };
 addPossibleValuesFunction(SimpleScaleType, SimpleScaleType.MAJOR, SimpleScaleType.NATURAL_MINOR);
@@ -1758,46 +1756,46 @@ var ScaleType = {
 
     getChromaticSteps: function(type) {
         switch (type) {
-            case ScaleType.MAJOR:
-                return ScaleType.MAJOR_SCALE_STEPS;
-            case ScaleType.NATURAL_MINOR:
-                return ScaleType.NATURAL_MINOR_SCALE_STEPS;
-            case ScaleType.HARMONIC_MINOR:
-                return ScaleType.HARMONIC_MINOR_SCALE_STEPS;
-            case ScaleType.MELODIC_MINOR:
-                return ScaleType.MELODIC_MINOR_SCALE_STEPS;
-            case ScaleType.PERSIAN:
-                return ScaleType.PERSIAN_SCALE_STEPS;
-            case ScaleType.DIMINISHED:
-                return ScaleType.DIMINISHED_SCALE_STEPS;
-            case ScaleType.WHOLE_NOTE:
-                return ScaleType.WHOLE_NOTE_SCALE_STEPS;
-            default:
-                return ScaleType.MAJOR_SCALE_STEPS;
+        case ScaleType.MAJOR:
+            return ScaleType.MAJOR_SCALE_STEPS;
+        case ScaleType.NATURAL_MINOR:
+            return ScaleType.NATURAL_MINOR_SCALE_STEPS;
+        case ScaleType.HARMONIC_MINOR:
+            return ScaleType.HARMONIC_MINOR_SCALE_STEPS;
+        case ScaleType.MELODIC_MINOR:
+            return ScaleType.MELODIC_MINOR_SCALE_STEPS;
+        case ScaleType.PERSIAN:
+            return ScaleType.PERSIAN_SCALE_STEPS;
+        case ScaleType.DIMINISHED:
+            return ScaleType.DIMINISHED_SCALE_STEPS;
+        case ScaleType.WHOLE_NOTE:
+            return ScaleType.WHOLE_NOTE_SCALE_STEPS;
+        default:
+            return ScaleType.MAJOR_SCALE_STEPS;
         }
         return ScaleType.MAJOR_SCALE_STEPS;
     },
 
     toString: function(type) {
         switch (type) {
-            case ScaleType.CUSTOM:
-                return "Custom";
-            case ScaleType.MAJOR:
-                return "Major";
-            case ScaleType.NATURAL_MINOR:
-                return "Minor";
-            case ScaleType.HARMONIC_MINOR:
-                return "Harmonic minor";
-            case ScaleType.MELODIC_MINOR:
-                return "Melodic minor";
-            case ScaleType.PERSIAN:
-                return "Persian";
-            case ScaleType.DIMINISHED:
-                return "Diminished";
-            case ScaleType.WHOLE_NOTE:
-                return "Whole note";
+        case ScaleType.CUSTOM:
+            return 'Custom';
+        case ScaleType.MAJOR:
+            return 'Major';
+        case ScaleType.NATURAL_MINOR:
+            return 'Minor';
+        case ScaleType.HARMONIC_MINOR:
+            return 'Harmonic minor';
+        case ScaleType.MELODIC_MINOR:
+            return 'Melodic minor';
+        case ScaleType.PERSIAN:
+            return 'Persian';
+        case ScaleType.DIMINISHED:
+            return 'Diminished';
+        case ScaleType.WHOLE_NOTE:
+            return 'Whole note';
         }
-        return "Unknown scale type " + type;
+        return 'Unknown scale type ' + type;
     }
 };
 addPossibleValuesFunction(ScaleType, ScaleType.CUSTOM, ScaleType.WHOLE_NOTE);
@@ -1812,16 +1810,16 @@ var IndexType = {
 
     toString: function(type) {
         switch (type) {
-            case IndexType.MIDI_NOTE:
-                return "Midi note";
-            case IndexType.SCALE:
-                return "Scale";
-            case IndexType.CHORD_BASS:
-                return "Chord bass";
-            case IndexType.CHORD_ROOT:
-                return "Chord root";
+        case IndexType.MIDI_NOTE:
+            return 'Midi note';
+        case IndexType.SCALE:
+            return 'Scale';
+        case IndexType.CHORD_BASS:
+            return 'Chord bass';
+        case IndexType.CHORD_ROOT:
+            return 'Chord root';
         }
-        return "Unknown index type " + type;
+        return 'Unknown index type ' + type;
     }
 };
 addPossibleValuesFunction(IndexType, IndexType.MIDI_NOTE, IndexType.CHORD_ROOT);
@@ -1836,14 +1834,14 @@ var SnapType = {
 
     toString: function(type) {
         switch (type) {
-            case SnapType.NONE:
-                return "None";
-            case SnapType.CHORD:
-                return "Chord";
-            case SnapType.SCALE:
-                return "Scale";
+        case SnapType.NONE:
+            return 'None';
+        case SnapType.CHORD:
+            return 'Chord';
+        case SnapType.SCALE:
+            return 'Scale';
         }
-        return "Unknown snap type " + type;
+        return 'Unknown snap type ' + type;
     }
 };
 addPossibleValuesFunction(SnapType, SnapType.NONE, SnapType.CHORD);
@@ -1854,12 +1852,12 @@ var FrequencyUnit = {
 
     toString: function(type) {
         switch (type) {
-            case FrequencyUnit.HERTZ:
-                return "Hertz";
-            case FrequencyUnit.MIDI_NOTE:
-                return "Midi note";
+        case FrequencyUnit.HERTZ:
+            return 'Hertz';
+        case FrequencyUnit.MIDI_NOTE:
+            return 'Midi note';
         }
-        return "Unknown frequency unit " + type;
+        return 'Unknown frequency unit ' + type;
     }
 };
 addPossibleValuesFunction(FrequencyUnit, FrequencyUnit.HERTZ, FrequencyUnit.MIDI_NOTE);
@@ -1875,32 +1873,32 @@ var CyclesUnit = {
         var periodBeats = periodEndBeat - periodStartBeat;
         if (periodBeats > 0) {
             switch (unit) {
-                case CyclesUnit.CYCLES_PER_PERIOD:
-                    return cycles;
-                case CyclesUnit.CYCLES_PER_BEAT:
-                    return cycles;
-                case CyclesUnit.CYCLES_PER_MEASURE:
-                    // positionUnitToBeats(length, unit, numerator, denominator, harmony);
-                    return cycles;
-                case CyclesUnit.CYCLES_PER_HARMONY:
-                    var harmonyBeats = harmony.getBeatLength();
-                    return periodBeats / harmonyBeats;
+            case CyclesUnit.CYCLES_PER_PERIOD:
+                return cycles;
+            case CyclesUnit.CYCLES_PER_BEAT:
+                return cycles;
+            case CyclesUnit.CYCLES_PER_MEASURE:
+                // positionUnitToBeats(length, unit, numerator, denominator, harmony);
+                return cycles;
+            case CyclesUnit.CYCLES_PER_HARMONY:
+                var harmonyBeats = harmony.getBeatLength();
+                return periodBeats / harmonyBeats;
             }
         }
         return cycles;
     },
     toString: function(type) {
         switch (type) {
-            case CyclesUnit.CYCLES_PER_PERIOD:
-                return "Cycles per period";
-            case CyclesUnit.CYCLES_PER_BEAT:
-                return "Cycles per beat";
-            case CyclesUnit.CYCLES_PER_MEASURE:
-                return "Cycles per measure";
-            case CyclesUnit.CYCLES_PER_HARMONY:
-                return "Cycles per harmony";
+        case CyclesUnit.CYCLES_PER_PERIOD:
+            return 'Cycles per period';
+        case CyclesUnit.CYCLES_PER_BEAT:
+            return 'Cycles per beat';
+        case CyclesUnit.CYCLES_PER_MEASURE:
+            return 'Cycles per measure';
+        case CyclesUnit.CYCLES_PER_HARMONY:
+            return 'Cycles per harmony';
         }
-        return "Unknown cycles unit " + type;
+        return 'Unknown cycles unit ' + type;
     }
 };
 addPossibleValuesFunction(CyclesUnit, CyclesUnit.CYCLES_PER_PERIOD, CyclesUnit.CYCLES_PER_HARMONY);
@@ -1908,11 +1906,11 @@ addPossibleValuesFunction(CyclesUnit, CyclesUnit.CYCLES_PER_PERIOD, CyclesUnit.C
 
 function frequencyUnitToHertz(freq, unit) {
     switch (unit) {
-        case FrequencyUnit.HERTZ:
-            return freq;
-        case FrequencyUnit.MIDI_NOTE:
-            var n = freq - 69; // A4;
-            return 440.0 * Math.pow(2.0, n / 12.0);
+    case FrequencyUnit.HERTZ:
+        return freq;
+    case FrequencyUnit.MIDI_NOTE:
+        var n = freq - 69; // A4;
+        return 440.0 * Math.pow(2.0, n / 12.0);
     }
     return freq;
 }
@@ -1924,23 +1922,23 @@ var SnapMetrics = {
     ROUND: 2,
     toString: function(type) {
         switch (type) {
-            case SnapMetrics.CEIL:
-                return "Ceil";
-            case SnapMetrics.FLOOR:
-                return "Floor";
-            case SnapMetrics.ROUND:
-                return "Round";
+        case SnapMetrics.CEIL:
+            return 'Ceil';
+        case SnapMetrics.FLOOR:
+            return 'Floor';
+        case SnapMetrics.ROUND:
+            return 'Round';
         }
-        return "Unknown snap metrics " + type;
+        return 'Unknown snap metrics ' + type;
     },
     snap: function(value, metrics) {
         switch (metrics) {
-            case SnapMetrics.CEIL:
-                return Math.ceil(value);
-            case SnapMetrics.FLOOR:
-                return Math.floor(value);
-            case SnapMetrics.ROUND:
-                return Math.round(value);
+        case SnapMetrics.CEIL:
+            return Math.ceil(value);
+        case SnapMetrics.FLOOR:
+            return Math.floor(value);
+        case SnapMetrics.ROUND:
+            return Math.round(value);
         }
         return Math.round(value);
     }
@@ -1959,20 +1957,20 @@ var VerticalRelativeType = {
 
     toString: function(type) {
         switch (type) {
-            case VerticalRelativeType.MIDI_ZERO:
-                return "Midi zero";
-            case VerticalRelativeType.SCALE_BASE:
-                return "Scale base";
-            case VerticalRelativeType.CHORD_BASS:
-                return "Chord bass";
-            case VerticalRelativeType.CHORD_ROOT:
-                return "Chord root";
-            case VerticalRelativeType.VOICE_LINE:
-                return "Voice line";
-            case VerticalRelativeType.NOTE:
-                return "Note";
+        case VerticalRelativeType.MIDI_ZERO:
+            return 'Midi zero';
+        case VerticalRelativeType.SCALE_BASE:
+            return 'Scale base';
+        case VerticalRelativeType.CHORD_BASS:
+            return 'Chord bass';
+        case VerticalRelativeType.CHORD_ROOT:
+            return 'Chord root';
+        case VerticalRelativeType.VOICE_LINE:
+            return 'Voice line';
+        case VerticalRelativeType.NOTE:
+            return 'Note';
         }
-        return "Unknown type " + type;
+        return 'Unknown type ' + type;
     },
 
     sample: function(rnd) {
@@ -1993,14 +1991,14 @@ var IndexBorderMode = {
 
     toString: function(type) {
         switch (type) {
-            case IndexBorderMode.END:
-                return "End";
-            case IndexBorderMode.RESTART:
-                return "Restart";
-            case IndexBorderMode.MIRROR:
-                return "Mirror";
-            case IndexBorderMode.CLAMP:
-                return "Clamp";
+        case IndexBorderMode.END:
+            return 'End';
+        case IndexBorderMode.RESTART:
+            return 'Restart';
+        case IndexBorderMode.MIRROR:
+            return 'Mirror';
+        case IndexBorderMode.CLAMP:
+            return 'Clamp';
         }
     },
 
@@ -2009,21 +2007,21 @@ var IndexBorderMode = {
             return index;
         }
         switch (mode) {
-            case IndexBorderMode.END:
-                return -1;
-            case IndexBorderMode.CLAMP:
-                return size - 1;
-            case IndexBorderMode.RESTART:
-                return index % size;
-            case IndexBorderMode.MIRROR:
-                var period = size * 2;
-                var periodIndex = index % period;
-                if (periodIndex < size) {
-                    return periodIndex;
-                } else {
-                    return period - periodIndex - 1;
-                }
-                return index % size;
+        case IndexBorderMode.END:
+            return -1;
+        case IndexBorderMode.CLAMP:
+            return size - 1;
+        case IndexBorderMode.RESTART:
+            return index % size;
+        case IndexBorderMode.MIRROR:
+            var period = size * 2;
+            var periodIndex = index % period;
+            if (periodIndex < size) {
+                return periodIndex;
+            } else {
+                return period - periodIndex - 1;
+            }
+            return index % size;
         }
         return index;
     }
@@ -2040,16 +2038,16 @@ var HorizontalRelativeType = {
 
     toString: function(type) {
         switch (type) {
-            case HorizontalRelativeType.NEXT_NOTE:
-                return "Next note";
-            case HorizontalRelativeType.NEXT_VOICE_LINE_ELEMENT:
-                return "Next voice line element";
-            case HorizontalRelativeType.PREVIOUS_NOTE:
-                return "Previous note";
-            case HorizontalRelativeType.PREVIOUS_VOICE_LINE_ELEMENT:
-                return "Previous voice line element";
+        case HorizontalRelativeType.NEXT_NOTE:
+            return 'Next note';
+        case HorizontalRelativeType.NEXT_VOICE_LINE_ELEMENT:
+            return 'Next voice line element';
+        case HorizontalRelativeType.PREVIOUS_NOTE:
+            return 'Previous note';
+        case HorizontalRelativeType.PREVIOUS_VOICE_LINE_ELEMENT:
+            return 'Previous voice line element';
         }
-        return "Unknown horiz. relative type " + type;
+        return 'Unknown horiz. relative type ' + type;
     }
 };
 addPossibleValuesFunction(HorizontalRelativeType, HorizontalRelativeType.PREVIOUS_NOTE, VerticalRelativeType.NEXT_VOICE_LINE_ELEMENT);
@@ -2065,20 +2063,20 @@ var OffsetType = {
 
     toString: function(type) {
         switch (type) {
-            case OffsetType.CHORD:
-                return "Chord";
-            case OffsetType.SCALE:
-                return "Scale";
-            case OffsetType.HALF_STEP:
-                return "Half step";
-            case OffsetType.OCTAVE:
-                return "Octave";
-            case OffsetType.CHORD_TRIAD_ONLY:
-                return "Chord triad only";
-            case OffsetType.CHORD_SEVENTH_ONLY:
-                return "Chord seventh only";
+        case OffsetType.CHORD:
+            return 'Chord';
+        case OffsetType.SCALE:
+            return 'Scale';
+        case OffsetType.HALF_STEP:
+            return 'Half step';
+        case OffsetType.OCTAVE:
+            return 'Octave';
+        case OffsetType.CHORD_TRIAD_ONLY:
+            return 'Chord triad only';
+        case OffsetType.CHORD_SEVENTH_ONLY:
+            return 'Chord seventh only';
         }
-        return "Unknown offset type " + type;
+        return 'Unknown offset type ' + type;
     }
 
 };
@@ -2093,16 +2091,16 @@ var LengthAndCountUnit = {
 
     toString: function(unit) {
         switch (unit) {
-            case LengthAndCountUnit.LENGTH:
-                return "Length";
-            case LengthAndCountUnit.COUNT:
-                return "Count";
-            case LengthAndCountUnit.LENGTH_PERCENT:
-                return "Length percent";
-            case LengthAndCountUnit.COUNT_PERCENT:
-                return "Count percent";
+        case LengthAndCountUnit.LENGTH:
+            return 'Length';
+        case LengthAndCountUnit.COUNT:
+            return 'Count';
+        case LengthAndCountUnit.LENGTH_PERCENT:
+            return 'Length percent';
+        case LengthAndCountUnit.COUNT_PERCENT:
+            return 'Count percent';
         }
-        return "Unknown length and count unit";
+        return 'Unknown length and count unit';
     }
 
 };
@@ -2125,94 +2123,94 @@ var CountUnit = {
 
     toString: function(unit) {
         switch (unit) {
-            case CountUnit.PLAIN:
-                return "Plain";
-            case CountUnit.HARMONY_BEATS:
-                return "Harmony beats";
-            case CountUnit.HARMONY_ELEMENT_BEATS:
-                return "Harmony element beats";
-            case CountUnit.HARMONY_ELEMENT_COUNT:
-                return "Harmony element count";
-            case CountUnit.HARMONY_ELEMENT_MEASURES:
-                return "Harmony element measures";
-            case CountUnit.HARMONY_MEASURES:
-                return "Harmony measures";
-            case CountUnit.PHRASE_ELEMENT_COUNT:
-                return "Phrase element count";
-            case CountUnit.PLAIN_PLUS_HARMONY_BEATS:
-                return "Plain + Harmony beats";
-            case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_BEATS:
-                return "Plain + Harmony element beats";
-            case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_COUNT:
-                return "Plain + Harmony element count";
-            case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_MEASURES:
-                return "Plain + Harmony element measures";
-            case CountUnit.PLAIN_PLUS_HARMONY_MEASURES:
-                return "Plain + Harmony measures";
+        case CountUnit.PLAIN:
+            return 'Plain';
+        case CountUnit.HARMONY_BEATS:
+            return 'Harmony beats';
+        case CountUnit.HARMONY_ELEMENT_BEATS:
+            return 'Harmony element beats';
+        case CountUnit.HARMONY_ELEMENT_COUNT:
+            return 'Harmony element count';
+        case CountUnit.HARMONY_ELEMENT_MEASURES:
+            return 'Harmony element measures';
+        case CountUnit.HARMONY_MEASURES:
+            return 'Harmony measures';
+        case CountUnit.PHRASE_ELEMENT_COUNT:
+            return 'Phrase element count';
+        case CountUnit.PLAIN_PLUS_HARMONY_BEATS:
+            return 'Plain + Harmony beats';
+        case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_BEATS:
+            return 'Plain + Harmony element beats';
+        case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_COUNT:
+            return 'Plain + Harmony element count';
+        case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_MEASURES:
+            return 'Plain + Harmony element measures';
+        case CountUnit.PLAIN_PLUS_HARMONY_MEASURES:
+            return 'Plain + Harmony measures';
         }
-        return "Unknown count unit " + unit;
+        return 'Unknown count unit ' + unit;
     },
 
     getCount: function(count, unit, harmony, harmonyBeatOffset) {
         switch (unit) {
-            case CountUnit.PLAIN:
-                return count;
-            case CountUnit.HARMONY_ELEMENT_COUNT:
-                return harmony.getCount() * count;
-            case CountUnit.HARMONY_BEATS:
-                var beats = 0;
-                for (var i=0; i<harmony.getCount(); i++) {
-                    var he = harmony.get(i);
-                    beats += positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
-                }
-                return beats * count;
-            case CountUnit.HARMONY_ELEMENT_BEATS:
-                var harmonyIndex = harmony.getHarmonyIndexAt(harmonyBeatOffset);
-                var he = harmony.get(harmonyIndex);
-                return count * positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
-            case CountUnit.HARMONY_ELEMENT_MEASURES:
-                var harmonyIndex = harmony.getHarmonyIndexAt(harmonyBeatOffset);
-                var he = harmony.get(harmonyIndex);
+        case CountUnit.PLAIN:
+            return count;
+        case CountUnit.HARMONY_ELEMENT_COUNT:
+            return harmony.getCount() * count;
+        case CountUnit.HARMONY_BEATS:
+            var beats = 0;
+            for (var i=0; i<harmony.getCount(); i++) {
+                var he = harmony.get(i);
+                beats += positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
+            }
+            return beats * count;
+        case CountUnit.HARMONY_ELEMENT_BEATS:
+            var harmonyIndex = harmony.getHarmonyIndexAt(harmonyBeatOffset);
+            var he = harmony.get(harmonyIndex);
+            return count * positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
+        case CountUnit.HARMONY_ELEMENT_MEASURES:
+            var harmonyIndex = harmony.getHarmonyIndexAt(harmonyBeatOffset);
+            var he = harmony.get(harmonyIndex);
+            var beats = positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
+            return count * (beats / he.tsNumerator);
+        case CountUnit.HARMONY_MEASURES:
+            var measures = 0;
+            for (var i=0; i<harmony.getCount(); i++) {
+                var he = harmony.get(i);
                 var beats = positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
-                return count * (beats / he.tsNumerator);
-            case CountUnit.HARMONY_MEASURES:
-                var measures = 0;
-                for (var i=0; i<harmony.getCount(); i++) {
-                    var he = harmony.get(i);
-                    var beats = positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
-                    measures += (beats / he.tsNumerator);
-                }
-                return measures * count;
+                measures += (beats / he.tsNumerator);
+            }
+            return measures * count;
 
-            case CountUnit.PHRASE_ELEMENT_COUNT:
-                var range = harmony.getPhraseRangeAt(harmonyBeatOffset);
-                return count * (range[1] - range[0] + 1);
-            case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_COUNT:
-                return harmony.getCount() + count;
-            case CountUnit.PLAIN_PLUS_HARMONY_BEATS:
-                var beats = 0;
-                for (var i=0; i<harmony.getCount(); i++) {
-                    var he = harmony.get(i);
-                    beats += positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
-                }
-                return beats + count;
-            case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_BEATS:
-                var harmonyIndex = harmony.getHarmonyIndexAt(harmonyBeatOffset);
-                var he = harmony.get(harmonyIndex);
-                return count + positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
-            case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_MEASURES:
-                var harmonyIndex = harmony.getHarmonyIndexAt(harmonyBeatOffset);
-                var he = harmony.get(harmonyIndex);
+        case CountUnit.PHRASE_ELEMENT_COUNT:
+            var range = harmony.getPhraseRangeAt(harmonyBeatOffset);
+            return count * (range[1] - range[0] + 1);
+        case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_COUNT:
+            return harmony.getCount() + count;
+        case CountUnit.PLAIN_PLUS_HARMONY_BEATS:
+            var beats = 0;
+            for (var i=0; i<harmony.getCount(); i++) {
+                var he = harmony.get(i);
+                beats += positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
+            }
+            return beats + count;
+        case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_BEATS:
+            var harmonyIndex = harmony.getHarmonyIndexAt(harmonyBeatOffset);
+            var he = harmony.get(harmonyIndex);
+            return count + positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
+        case CountUnit.PLAIN_PLUS_HARMONY_ELEMENT_MEASURES:
+            var harmonyIndex = harmony.getHarmonyIndexAt(harmonyBeatOffset);
+            var he = harmony.get(harmonyIndex);
+            var beats = positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
+            return beats / he.tsNumerator + count;
+        case CountUnit.PLAIN_PLUS_HARMONY_MEASURES:
+            var measures = 0;
+            for (var i=0; i<harmony.getCount(); i++) {
+                var he = harmony.get(i);
                 var beats = positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
-                return beats / he.tsNumerator + count;
-            case CountUnit.PLAIN_PLUS_HARMONY_MEASURES:
-                var measures = 0;
-                for (var i=0; i<harmony.getCount(); i++) {
-                    var he = harmony.get(i);
-                    var beats = positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
-                    measures += (beats / he.tsNumerator);
-                }
-                return measures + count;
+                measures += (beats / he.tsNumerator);
+            }
+            return measures + count;
         }
         return count;
     }
@@ -2246,50 +2244,50 @@ var PositionUnit = {
 
     toString: function(unit) {
         switch (unit) {
-            case PositionUnit.BEATS:
-                return "Beats";
-            case PositionUnit.BEATS_PLUS_MEASURE:
-                return "Beats plus one measure";
-            case PositionUnit.BEATS_PLUS_HARMONY:
-                return "Beats plus harmony length";
-            case PositionUnit.BEATS_PLUS_HARMONY_ELEMENT:
-                return "Beats plus harmony element length";
-            case PositionUnit.BEAT_EIGHTHS:
-                return "Beat eighths";
-            case PositionUnit.BEAT_FIFTHS:
-                return "Beat fifths";
-            case PositionUnit.BEAT_FOURTHS:
-                return "Beat fourths";
-            case PositionUnit.BEAT_NINTHS:
-                return "Beat ninths";
-            case PositionUnit.BEAT_SEVENTHS:
-                return "Beat sevenths";
-            case PositionUnit.BEAT_SIXTHS:
-                return "Beat sixths";
-            case PositionUnit.BEAT_THIRDS:
-                return "Beat thirds";
-            case PositionUnit.EIGHTH_NOTES:
-                return "Eighth notes";
-            case PositionUnit.HALF_NOTES:
-                return "Half notes";
-            case PositionUnit.MEASURES:
-                return "Measures";
-            case PositionUnit.QUARTER_NOTES:
-                return "Quarter notes";
-            case PositionUnit.SIXTEENTH_NOTES:
-                return "Sixteenth notes";
-            case PositionUnit.WHOLE_NOTES:
-                return "Whole notes";
-            case PositionUnit.HARMONY_INDEX:
-                return "Harmony index";
-            case PositionUnit.HARMONY:
-                return "Harmony";
-            case PositionUnit.HARMONY_ELEMENTS:
-                return "Harmony elements";
-            case PositionUnit.PHRASE:
-                return "Phrase";
+        case PositionUnit.BEATS:
+            return 'Beats';
+        case PositionUnit.BEATS_PLUS_MEASURE:
+            return 'Beats plus one measure';
+        case PositionUnit.BEATS_PLUS_HARMONY:
+            return 'Beats plus harmony length';
+        case PositionUnit.BEATS_PLUS_HARMONY_ELEMENT:
+            return 'Beats plus harmony element length';
+        case PositionUnit.BEAT_EIGHTHS:
+            return 'Beat eighths';
+        case PositionUnit.BEAT_FIFTHS:
+            return 'Beat fifths';
+        case PositionUnit.BEAT_FOURTHS:
+            return 'Beat fourths';
+        case PositionUnit.BEAT_NINTHS:
+            return 'Beat ninths';
+        case PositionUnit.BEAT_SEVENTHS:
+            return 'Beat sevenths';
+        case PositionUnit.BEAT_SIXTHS:
+            return 'Beat sixths';
+        case PositionUnit.BEAT_THIRDS:
+            return 'Beat thirds';
+        case PositionUnit.EIGHTH_NOTES:
+            return 'Eighth notes';
+        case PositionUnit.HALF_NOTES:
+            return 'Half notes';
+        case PositionUnit.MEASURES:
+            return 'Measures';
+        case PositionUnit.QUARTER_NOTES:
+            return 'Quarter notes';
+        case PositionUnit.SIXTEENTH_NOTES:
+            return 'Sixteenth notes';
+        case PositionUnit.WHOLE_NOTES:
+            return 'Whole notes';
+        case PositionUnit.HARMONY_INDEX:
+            return 'Harmony index';
+        case PositionUnit.HARMONY:
+            return 'Harmony';
+        case PositionUnit.HARMONY_ELEMENTS:
+            return 'Harmony elements';
+        case PositionUnit.PHRASE:
+            return 'Phrase';
         }
-        return "Unknown position unit " + unit;
+        return 'Unknown position unit ' + unit;
     }
 };
 addPossibleValuesFunction(PositionUnit, PositionUnit.MEASURES, PositionUnit.PHRASE);
@@ -2326,115 +2324,115 @@ function positionUnitToBeats2(length, unit, harmonyBeatOffset, harmony) {
 function positionUnitToBeats(length, unit, numerator, denominator, harmony, harmonyElement, phraseIndexRange) {
     var multiplier = 1.0;
     switch (denominator) {
-        case 2:
-            multiplier = 0.5;
-            break;
-        case 4:
-            multiplier = 1.0;
-            break;
-        case 8:
-            multiplier = 2.0;
-            break;
+    case 2:
+        multiplier = 0.5;
+        break;
+    case 4:
+        multiplier = 1.0;
+        break;
+    case 8:
+        multiplier = 2.0;
+        break;
     }
 
     switch (unit) {
-        case PositionUnit.BEATS:
-            return length;
-        case PositionUnit.BEAT_THIRDS:
-            return length / 3.0;
-        case PositionUnit.BEAT_FOURTHS:
-            return length / 4.0;
-        case PositionUnit.BEAT_FIFTHS:
-            return length / 5.0;
-        case PositionUnit.BEAT_SIXTHS:
-            return length / 6.0;
-        case PositionUnit.BEAT_SEVENTHS:
-            return length / 7.0;
-        case PositionUnit.BEAT_EIGHTHS:
-            return length / 8.0;
-        case PositionUnit.BEAT_NINTHS:
-            return length / 9.0;
-        case PositionUnit.QUARTER_NOTES:
-            return multiplier * length;
-        case PositionUnit.EIGHTH_NOTES:
-            return multiplier * 0.5 * length;
-        case PositionUnit.HALF_NOTES:
-            return multiplier * 2.0 * length;
-        case PositionUnit.MEASURES:
-            return numerator * length;
-        case PositionUnit.SIXTEENTH_NOTES:
-            return multiplier * 0.25 * length;
-        case PositionUnit.WHOLE_NOTES:
-            return multiplier * 4 * length;
-        case PositionUnit.BEATS_PLUS_MEASURE:
+    case PositionUnit.BEATS:
+        return length;
+    case PositionUnit.BEAT_THIRDS:
+        return length / 3.0;
+    case PositionUnit.BEAT_FOURTHS:
+        return length / 4.0;
+    case PositionUnit.BEAT_FIFTHS:
+        return length / 5.0;
+    case PositionUnit.BEAT_SIXTHS:
+        return length / 6.0;
+    case PositionUnit.BEAT_SEVENTHS:
+        return length / 7.0;
+    case PositionUnit.BEAT_EIGHTHS:
+        return length / 8.0;
+    case PositionUnit.BEAT_NINTHS:
+        return length / 9.0;
+    case PositionUnit.QUARTER_NOTES:
+        return multiplier * length;
+    case PositionUnit.EIGHTH_NOTES:
+        return multiplier * 0.5 * length;
+    case PositionUnit.HALF_NOTES:
+        return multiplier * 2.0 * length;
+    case PositionUnit.MEASURES:
+        return numerator * length;
+    case PositionUnit.SIXTEENTH_NOTES:
+        return multiplier * 0.25 * length;
+    case PositionUnit.WHOLE_NOTES:
+        return multiplier * 4 * length;
+    case PositionUnit.BEATS_PLUS_MEASURE:
+        return numerator + length;
+    case PositionUnit.HARMONY:
+        if (harmony) {
+            return length * harmony.getBeatLength();
+        } else {
+            return length * numerator;
+        }
+    case PositionUnit.HARMONY_ELEMENTS:
+        if (harmonyElement) {
+            return length * positionUnitToBeats(harmonyElement.length, harmonyElement.lengthUnit, numerator, denominator);
+        } else {
+            return length * numerator;
+        }
+    case PositionUnit.BEATS_PLUS_HARMONY_ELEMENT:
+        if (harmonyElement) {
+            return length + positionUnitToBeats(harmonyElement.length, harmonyElement.lengthUnit, numerator, denominator);
+        } else {
             return numerator + length;
-        case PositionUnit.HARMONY:
-            if (harmony) {
-                return length * harmony.getBeatLength();
-            } else {
-                return length * numerator;
-            }
-        case PositionUnit.HARMONY_ELEMENTS:
-            if (harmonyElement) {
-                return length * positionUnitToBeats(harmonyElement.length, harmonyElement.lengthUnit, numerator, denominator);
-            } else {
-                return length * numerator;
-            }
-        case PositionUnit.BEATS_PLUS_HARMONY_ELEMENT:
-            if (harmonyElement) {
-                return length + positionUnitToBeats(harmonyElement.length, harmonyElement.lengthUnit, numerator, denominator);
-            } else {
-                return numerator + length;
-            }
-        case PositionUnit.BEATS_PLUS_HARMONY:
-            if (harmony) {
-                return length + harmony.getBeatLength();
-            } else {
-                return numerator + length;
-            }
-        case PositionUnit.HARMONY_INDEX:
-            if (harmony) {
-                var intLength = Math.floor(length);
+        }
+    case PositionUnit.BEATS_PLUS_HARMONY:
+        if (harmony) {
+            return length + harmony.getBeatLength();
+        } else {
+            return numerator + length;
+        }
+    case PositionUnit.HARMONY_INDEX:
+        if (harmony) {
+            var intLength = Math.floor(length);
 
-                var frac = length - intLength;
-                var currentBeat = 0;
-                var lastExisting = null;
-                for (var i = 0; i<intLength; i++) {
-                    var he = harmony.get(i);
-                    if (he) {
-                        currentBeat += positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
-                        lastExisting = he;
+            var frac = length - intLength;
+            var currentBeat = 0;
+            var lastExisting = null;
+            for (var i = 0; i<intLength; i++) {
+                var he = harmony.get(i);
+                if (he) {
+                    currentBeat += positionUnitToBeats(he.length, he.lengthUnit, he.tsNumerator, he.tsDenominator, null);
+                    lastExisting = he;
+                }
+            }
+            var last = harmony.get(intLength);
+            if (!last) {
+                last = lastExisting;
+            }
+            if (last) {
+                currentBeat += positionUnitToBeats(last.length * frac, last.lengthUnit, last.tsNumerator, last.tsDenominator, null);
+            }
+            return currentBeat;
+        } else {
+            return positionUnitToBeats(length, PositionUnit.MEASURES, numerator, denominator, harmony);
+        }
+        break;
+    case PositionUnit.PHRASE:
+        if (harmony) {
+            if (phraseIndexRange) {
+                var phraseBeatLength = 0;
+                for (var i=phraseIndexRange[0]; i<=phraseIndexRange[1]; i++) {
+                    if (i >= 0 && i < harmony.getCount()) {
+                        phraseBeatLength += harmony.get(i).getBeatLength();
                     }
                 }
-                var last = harmony.get(intLength);
-                if (!last) {
-                    last = lastExisting;
-                }
-                if (last) {
-                    currentBeat += positionUnitToBeats(last.length * frac, last.lengthUnit, last.tsNumerator, last.tsDenominator, null);
-                }
-                return currentBeat;
+                return length * phraseBeatLength;
             } else {
-                return positionUnitToBeats(length, PositionUnit.MEASURES, numerator, denominator, harmony);
+                return length * harmony.getBeatLength();
             }
-            break;
-        case PositionUnit.PHRASE:
-            if (harmony) {
-                if (phraseIndexRange) {
-                    var phraseBeatLength = 0;
-                    for (var i=phraseIndexRange[0]; i<=phraseIndexRange[1]; i++) {
-                        if (i >= 0 && i < harmony.getCount()) {
-                            phraseBeatLength += harmony.get(i).getBeatLength();
-                        }
-                    }
-                    return length * phraseBeatLength;
-                } else {
-                    return length * harmony.getBeatLength();
-                }
-            } else {
-                return length * numerator;
-            }
-            break;
+        } else {
+            return length * numerator;
+        }
+        break;
     }
 
     return length;
@@ -2471,60 +2469,60 @@ var PhraseHarmonyElementType = {
 
     toString: function(type) {
         switch (type) {
-            case PhraseHarmonyElementType.CHROMATIC_OSCILLATION:
-                return "Chromatic oscillation";
-            case PhraseHarmonyElementType.INCOMPLETE_NO_DOMINANT:
-                return "Incomplete no dominant";
-            case PhraseHarmonyElementType.COMPLETE_TONICIZE:
-                return "Complete tonicize";
-            case PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC:
-                return "Complete lengthen final tonic";
-            case PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT:
-                return "Complete lengthen cadence dominant";
-            case PhraseHarmonyElementType.COMPLETE_TONICIZE_IMPERFECT:
-                return "Complete tonicize imperfect";
-            case PhraseHarmonyElementType.CHROMATIC_TRANSITION_MODULATE:
-                return "Chromatic transition modulate";
-            case PhraseHarmonyElementType.CHROMATIC_TRANSITION_TONICIZE:
-                return "Chromatic transition tonicize";
-            case PhraseHarmonyElementType.CHROMATIC_TRANSITION_INCOMPLETE:
-                return "Chromatic transition incomplete";
-            case PhraseHarmonyElementType.CHROMATIC_TRANSITION_COMPLETE:
-                return "Chromatic transition complete";
-            case PhraseHarmonyElementType.ANTECEDENT_CONSEQUENT:
-                return "Antecedent consequent";
-            case PhraseHarmonyElementType.COMPLETE:
-                return "Complete";
-            case PhraseHarmonyElementType.COMPLETE_IMPERFECT:
-                return "Complete imperfect";
-            case PhraseHarmonyElementType.INCOMPLETE:
-                return "Incomplete";
-            case PhraseHarmonyElementType.INCOMPLETE_INITIAL:
-                return "Incomplete initial";
-            case PhraseHarmonyElementType.DECEPTIVE:
-                return "Deceptive";
-            case PhraseHarmonyElementType.PROLONGED_TONIC:
-                return "Prolonged tonic";
-            case PhraseHarmonyElementType.PROLONGED_TONIC_COMPLETE:
-                return "Prolonged tonic complete";
-            case PhraseHarmonyElementType.PROLONGED_TONIC_COMPLETE_IMPERFECT:
-                return "Prolonged tonic imperfect";
-            case PhraseHarmonyElementType.PROLONGED_TONIC_INCOMPLETE:
-                return "Prolonged tonic incomplete";
-            case PhraseHarmonyElementType.COMPLETE_MODULATE:
-                return "Complete modulate";
-            case PhraseHarmonyElementType.COMPLETE_MODULATE_IMPERFECT:
-                return "Complete modulate imperfect";
-            case PhraseHarmonyElementType.CONSEQUENT:
-                return "Consequent";
-            case PhraseHarmonyElementType.PROLONGED_DOMINANT:
-                return "Prolonged dominant";
-            case PhraseHarmonyElementType.PROLONGED_DOMINANT_CADENCE:
-                return "Prolonged dominant cadence";
-            case PhraseHarmonyElementType.COMPLETE_PLAGIAL:
-                return "Complete plagial";
+        case PhraseHarmonyElementType.CHROMATIC_OSCILLATION:
+            return 'Chromatic oscillation';
+        case PhraseHarmonyElementType.INCOMPLETE_NO_DOMINANT:
+            return 'Incomplete no dominant';
+        case PhraseHarmonyElementType.COMPLETE_TONICIZE:
+            return 'Complete tonicize';
+        case PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC:
+            return 'Complete lengthen final tonic';
+        case PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT:
+            return 'Complete lengthen cadence dominant';
+        case PhraseHarmonyElementType.COMPLETE_TONICIZE_IMPERFECT:
+            return 'Complete tonicize imperfect';
+        case PhraseHarmonyElementType.CHROMATIC_TRANSITION_MODULATE:
+            return 'Chromatic transition modulate';
+        case PhraseHarmonyElementType.CHROMATIC_TRANSITION_TONICIZE:
+            return 'Chromatic transition tonicize';
+        case PhraseHarmonyElementType.CHROMATIC_TRANSITION_INCOMPLETE:
+            return 'Chromatic transition incomplete';
+        case PhraseHarmonyElementType.CHROMATIC_TRANSITION_COMPLETE:
+            return 'Chromatic transition complete';
+        case PhraseHarmonyElementType.ANTECEDENT_CONSEQUENT:
+            return 'Antecedent consequent';
+        case PhraseHarmonyElementType.COMPLETE:
+            return 'Complete';
+        case PhraseHarmonyElementType.COMPLETE_IMPERFECT:
+            return 'Complete imperfect';
+        case PhraseHarmonyElementType.INCOMPLETE:
+            return 'Incomplete';
+        case PhraseHarmonyElementType.INCOMPLETE_INITIAL:
+            return 'Incomplete initial';
+        case PhraseHarmonyElementType.DECEPTIVE:
+            return 'Deceptive';
+        case PhraseHarmonyElementType.PROLONGED_TONIC:
+            return 'Prolonged tonic';
+        case PhraseHarmonyElementType.PROLONGED_TONIC_COMPLETE:
+            return 'Prolonged tonic complete';
+        case PhraseHarmonyElementType.PROLONGED_TONIC_COMPLETE_IMPERFECT:
+            return 'Prolonged tonic imperfect';
+        case PhraseHarmonyElementType.PROLONGED_TONIC_INCOMPLETE:
+            return 'Prolonged tonic incomplete';
+        case PhraseHarmonyElementType.COMPLETE_MODULATE:
+            return 'Complete modulate';
+        case PhraseHarmonyElementType.COMPLETE_MODULATE_IMPERFECT:
+            return 'Complete modulate imperfect';
+        case PhraseHarmonyElementType.CONSEQUENT:
+            return 'Consequent';
+        case PhraseHarmonyElementType.PROLONGED_DOMINANT:
+            return 'Prolonged dominant';
+        case PhraseHarmonyElementType.PROLONGED_DOMINANT_CADENCE:
+            return 'Prolonged dominant cadence';
+        case PhraseHarmonyElementType.COMPLETE_PLAGIAL:
+            return 'Complete plagial';
         }
-        return "Unknown phrase harmony element type " + type;
+        return 'Unknown phrase harmony element type ' + type;
     }
 
 };
@@ -2580,7 +2578,7 @@ Map.prototype.disableLinking = function() {
 Map.prototype.hash = function(value) {
     return value instanceof Object ? (value.__hash ||
         (value.__hash = 'object ' + ++arguments.callee.current)) :
-    (typeof value) + ' ' + String(value);
+        (typeof value) + ' ' + String(value);
 };
 
 Map.prototype.hash.current = 0;
@@ -2661,7 +2659,7 @@ Map.prototype.contains = function(key) {
 Map.prototype.isUndefined = function(key) {
     var hash = this.hash(key);
     return this.hasOwnProperty(hash) ?
-    typeof this[hash] === 'undefined' : false;
+        typeof this[hash] === 'undefined' : false;
 };
 
 Map.prototype.next = function() {
@@ -2694,7 +2692,7 @@ Map.prototype.flip = function(linkEntries) {
 
     for(var i = this.size; i--; this.next()) {
         var	value = this.value(),
-        list = map.get(value);
+            list = map.get(value);
 
         if(list) list.push(this.key());
         else map.put(value, [this.key()]);
@@ -2758,7 +2756,7 @@ Map.reverseIndexTableFrom = function(array, linkEntries) {
 
     for(var i = 0, len = array.length; i < len; ++i) {
         var	entry = array[i],
-        list = map.get(entry);
+            list = map.get(entry);
 
         if(list) list.push(i);
         else map.put(entry, [i]);
@@ -2995,10 +2993,10 @@ if (!JSON) {
 
     function quote(string) {
 
-// If the string contains no control characters, no quote characters, and no
-// backslash characters, then we can safely slap some quotes around it.
-// Otherwise we must also replace the offending characters with safe escape
-// sequences.
+        // If the string contains no control characters, no quote characters, and no
+        // backslash characters, then we can safely slap some quotes around it.
+        // Otherwise we must also replace the offending characters with safe escape
+        // sequences.
 
         escapable.lastIndex = 0;
         return escapable.test(string) ? '"' + string.replace(escapable, function (a) {
@@ -3012,7 +3010,7 @@ if (!JSON) {
 
     function str(key, holder) {
 
-// Produce a string from holder[key].
+        // Produce a string from holder[key].
 
         var i,          // The loop counter.
             k,          // The member key.
@@ -3022,21 +3020,21 @@ if (!JSON) {
             partial,
             value = holder[key];
 
-// If the value has a toJSON method, call it to obtain a replacement value.
+        // If the value has a toJSON method, call it to obtain a replacement value.
 
         if (value && typeof value === 'object' &&
                 typeof value.toJSON === 'function') {
             value = value.toJSON(key);
         }
 
-// If we were called with a replacer function, then call the replacer to
-// obtain a replacement value.
+        // If we were called with a replacer function, then call the replacer to
+        // obtain a replacement value.
 
         if (typeof rep === 'function') {
             value = rep.call(holder, key, value);
         }
 
-// What happens next depends on the value's type.
+        // What happens next depends on the value's type.
 
         switch (typeof value) {
         case 'string':
@@ -3044,61 +3042,61 @@ if (!JSON) {
 
         case 'number':
 
-// JSON numbers must be finite. Encode non-finite numbers as null.
+            // JSON numbers must be finite. Encode non-finite numbers as null.
 
             return isFinite(value) ? String(value) : 'null';
 
         case 'boolean':
         case 'null':
 
-// If the value is a boolean or null, convert it to a string. Note:
-// typeof null does not produce 'null'. The case is included here in
-// the remote chance that this gets fixed someday.
+            // If the value is a boolean or null, convert it to a string. Note:
+            // typeof null does not produce 'null'. The case is included here in
+            // the remote chance that this gets fixed someday.
 
             return String(value);
 
-// If the type is 'object', we might be dealing with an object or an array or
-// null.
+            // If the type is 'object', we might be dealing with an object or an array or
+            // null.
 
         case 'object':
 
-// Due to a specification blunder in ECMAScript, typeof null is 'object',
-// so watch out for that case.
+            // Due to a specification blunder in ECMAScript, typeof null is 'object',
+            // so watch out for that case.
 
             if (!value) {
                 return 'null';
             }
 
-// Make an array to hold the partial results of stringifying this object value.
+            // Make an array to hold the partial results of stringifying this object value.
 
             gap += indent;
             partial = [];
 
-// Is the value an array?
+            // Is the value an array?
 
             if (Object.prototype.toString.apply(value) === '[object Array]') {
 
-// The value is an array. Stringify every element. Use null as a placeholder
-// for non-JSON values.
+                // The value is an array. Stringify every element. Use null as a placeholder
+                // for non-JSON values.
 
                 length = value.length;
                 for (i = 0; i < length; i += 1) {
                     partial[i] = str(i, value) || 'null';
                 }
 
-// Join all of the elements together, separated with commas, and wrap them in
-// brackets.
+                // Join all of the elements together, separated with commas, and wrap them in
+                // brackets.
 
                 v = partial.length === 0
                     ? '[]'
                     : gap
-                    ? '[\n' + gap + partial.join(',\n' + gap) + '\n' + mind + ']'
-                    : '[' + partial.join(',') + ']';
+                        ? '[\n' + gap + partial.join(',\n' + gap) + '\n' + mind + ']'
+                        : '[' + partial.join(',') + ']';
                 gap = mind;
                 return v;
             }
 
-// If the replacer is an array, use it to select the members to be stringified.
+            // If the replacer is an array, use it to select the members to be stringified.
 
             if (rep && typeof rep === 'object') {
                 length = rep.length;
@@ -3113,7 +3111,7 @@ if (!JSON) {
                 }
             } else {
 
-// Otherwise, iterate through all of the keys in the object.
+                // Otherwise, iterate through all of the keys in the object.
 
                 for (k in value) {
                     if (Object.prototype.hasOwnProperty.call(value, k)) {
@@ -3125,50 +3123,50 @@ if (!JSON) {
                 }
             }
 
-// Join all of the member texts together, separated with commas,
-// and wrap them in braces.
+            // Join all of the member texts together, separated with commas,
+            // and wrap them in braces.
 
             v = partial.length === 0
                 ? '{}'
                 : gap
-                ? '{\n' + gap + partial.join(',\n' + gap) + '\n' + mind + '}'
-                : '{' + partial.join(',') + '}';
+                    ? '{\n' + gap + partial.join(',\n' + gap) + '\n' + mind + '}'
+                    : '{' + partial.join(',') + '}';
             gap = mind;
             return v;
         }
     }
 
-// If the JSON object does not yet have a stringify method, give it one.
+    // If the JSON object does not yet have a stringify method, give it one.
 
     if (typeof JSON.stringify !== 'function') {
         JSON.stringify = function (value, replacer, space) {
 
-// The stringify method takes a value and an optional replacer, and an optional
-// space parameter, and returns a JSON text. The replacer can be a function
-// that can replace values, or an array of strings that will select the keys.
-// A default replacer method can be provided. Use of the space parameter can
-// produce text that is more easily readable.
+            // The stringify method takes a value and an optional replacer, and an optional
+            // space parameter, and returns a JSON text. The replacer can be a function
+            // that can replace values, or an array of strings that will select the keys.
+            // A default replacer method can be provided. Use of the space parameter can
+            // produce text that is more easily readable.
 
             var i;
             gap = '';
             indent = '';
 
-// If the space parameter is a number, make an indent string containing that
-// many spaces.
+            // If the space parameter is a number, make an indent string containing that
+            // many spaces.
 
             if (typeof space === 'number') {
                 for (i = 0; i < space; i += 1) {
                     indent += ' ';
                 }
 
-// If the space parameter is a string, it will be used as the indent string.
+                // If the space parameter is a string, it will be used as the indent string.
 
             } else if (typeof space === 'string') {
                 indent = space;
             }
 
-// If there is a replacer, it must be a function or an array.
-// Otherwise, throw an error.
+            // If there is a replacer, it must be a function or an array.
+            // Otherwise, throw an error.
 
             rep = replacer;
             if (replacer && typeof replacer !== 'function' &&
@@ -3177,28 +3175,28 @@ if (!JSON) {
                 throw new Error('JSON.stringify');
             }
 
-// Make a fake root object containing our value under the key of ''.
-// Return the result of stringifying the value.
+            // Make a fake root object containing our value under the key of ''.
+            // Return the result of stringifying the value.
 
             return str('', {'': value});
         };
     }
 
 
-// If the JSON object does not yet have a parse method, give it one.
+    // If the JSON object does not yet have a parse method, give it one.
 
     if (typeof JSON.parse !== 'function') {
         JSON.parse = function (text, reviver) {
 
-// The parse method takes a text and an optional reviver function, and returns
-// a JavaScript value if the text is a valid JSON text.
+            // The parse method takes a text and an optional reviver function, and returns
+            // a JavaScript value if the text is a valid JSON text.
 
             var j;
 
             function walk(holder, key) {
 
-// The walk method is used to recursively walk the resulting structure so
-// that modifications can be made.
+                // The walk method is used to recursively walk the resulting structure so
+                // that modifications can be made.
 
                 var k, v, value = holder[key];
                 if (value && typeof value === 'object') {
@@ -3217,9 +3215,9 @@ if (!JSON) {
             }
 
 
-// Parsing happens in four stages. In the first stage, we replace certain
-// Unicode characters with escape sequences. JavaScript handles many characters
-// incorrectly, either silently deleting them, or treating them as line endings.
+            // Parsing happens in four stages. In the first stage, we replace certain
+            // Unicode characters with escape sequences. JavaScript handles many characters
+            // incorrectly, either silently deleting them, or treating them as line endings.
 
             text = String(text);
             cx.lastIndex = 0;
@@ -3230,40 +3228,40 @@ if (!JSON) {
                 });
             }
 
-// In the second stage, we run the text against regular expressions that look
-// for non-JSON patterns. We are especially concerned with '()' and 'new'
-// because they can cause invocation, and '=' because it can cause mutation.
-// But just to be safe, we want to reject all unexpected forms.
+            // In the second stage, we run the text against regular expressions that look
+            // for non-JSON patterns. We are especially concerned with '()' and 'new'
+            // because they can cause invocation, and '=' because it can cause mutation.
+            // But just to be safe, we want to reject all unexpected forms.
 
-// We split the second stage into 4 regexp operations in order to work around
-// crippling inefficiencies in IE's and Safari's regexp engines. First we
-// replace the JSON backslash pairs with '@' (a non-JSON character). Second, we
-// replace all simple value tokens with ']' characters. Third, we delete all
-// open brackets that follow a colon or comma or that begin the text. Finally,
-// we look to see that the remaining characters are only whitespace or ']' or
-// ',' or ':' or '{' or '}'. If that is so, then the text is safe for eval.
+            // We split the second stage into 4 regexp operations in order to work around
+            // crippling inefficiencies in IE's and Safari's regexp engines. First we
+            // replace the JSON backslash pairs with '@' (a non-JSON character). Second, we
+            // replace all simple value tokens with ']' characters. Third, we delete all
+            // open brackets that follow a colon or comma or that begin the text. Finally,
+            // we look to see that the remaining characters are only whitespace or ']' or
+            // ',' or ':' or '{' or '}'. If that is so, then the text is safe for eval.
 
             if (/^[\],:{}\s]*$/
-                    .test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@')
-                        .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
-                        .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+                .test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@')
+                    .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+                    .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
 
-// In the third stage we use the eval function to compile the text into a
-// JavaScript structure. The '{' operator is subject to a syntactic ambiguity
-// in JavaScript: it can begin a block or an object literal. We wrap the text
-// in parens to eliminate the ambiguity.
+                // In the third stage we use the eval function to compile the text into a
+                // JavaScript structure. The '{' operator is subject to a syntactic ambiguity
+                // in JavaScript: it can begin a block or an object literal. We wrap the text
+                // in parens to eliminate the ambiguity.
 
                 j = eval('(' + text + ')');
 
-// In the optional fourth stage, we recursively walk the new structure, passing
-// each name/value pair to a reviver function for possible transformation.
+                // In the optional fourth stage, we recursively walk the new structure, passing
+                // each name/value pair to a reviver function for possible transformation.
 
                 return typeof reviver === 'function'
                     ? walk({'': j}, '')
                     : j;
             }
 
-// If the text is not JSON parseable, then a SyntaxError is thrown.
+            // If the text is not JSON parseable, then a SyntaxError is thrown.
 
             throw new SyntaxError('JSON.parse');
         };
@@ -3344,287 +3342,287 @@ var MidiControllerType = {
 
     getValue: function(type) {
         switch (type) {
-            case MidiControllerType.ALL_CONTROLLERS_OFF:
-                return 121;
-            case MidiControllerType.ALL_NOTES_OFF:
-                return 123;
-            case MidiControllerType.ALL_SOUNDS_OFF:
-                return 120;
-            case MidiControllerType.BALANCE:
-                return 8;
-            case MidiControllerType.BANK_SELECT:
-                return 0;
-            case MidiControllerType.BREATH_CONTROLLER:
-                return 2;
-            case MidiControllerType.BALANCE_LSB:
-                return 40;
-            case MidiControllerType.BANK_SELECT_LSB:
-                return 32;
-            case MidiControllerType.BREATH_CONTROLLER_LSB:
-                return 34;
-            case MidiControllerType.DAMPER_PEDAL:
-                return 64;
-            case MidiControllerType.DATA_DECREMENT:
-                return 97;
-            case MidiControllerType.DATA_ENTRY_MSB:
-                return 6;
-            case MidiControllerType.DATA_INCREMENT:
-                return 96;
-            case MidiControllerType.DATA_ENTRY_LSB:
-                return 0;
-            case MidiControllerType.EFFECTS_DEPTH_1:
-                return 91;
-            case MidiControllerType.EFFECTS_DEPTH_2:
-                return 92;
-            case MidiControllerType.EFFECTS_DEPTH_3:
-                return 93;
-            case MidiControllerType.EFFECTS_DEPTH_4:
-                return 94;
-            case MidiControllerType.EFFECTS_DEPTH_5:
-                return 95;
-            case MidiControllerType.EFFECT_CONTROL_1:
-                return 12;
-            case MidiControllerType.EFFECT_CONTROL_2:
-                return 13;
-            case MidiControllerType.EFFECT_CONTROL_1_LSB:
-                return 44;
-            case MidiControllerType.EFFECT_CONTROL_2_LSB:
-                return 45;
-            case MidiControllerType.EXPRESSION_CONTROLLER_LSB:
-                return 43;
-            case MidiControllerType.EXPRESSION_CONTROLLER:
-                return 11;
-            case MidiControllerType.FOOT_CONTROLLER:
-                return 4;
-            case MidiControllerType.FOOT_CONTROLLER_LSB:
-                return 36;
-            case MidiControllerType.GENERAL_PURPOSE_1:
-                return 16;
-            case MidiControllerType.GENERAL_PURPOSE_2:
-                return 17;
-            case MidiControllerType.GENERAL_PURPOSE_3:
-                return 18;
-            case MidiControllerType.GENERAL_PURPOSE_4:
-                return 19;
-            case MidiControllerType.GENERAL_PURPOSE_5:
-                return 80;
-            case MidiControllerType.GENERAL_PURPOSE_6:
-                return 81;
-            case MidiControllerType.GENERAL_PURPOSE_7:
-                return 82;
-            case MidiControllerType.GENERAL_PURPOSE_8:
-                return 83;
-            case MidiControllerType.HOLD_2:
-                return 69;
-            case MidiControllerType.LOCAL_KEYBOARD:
-                return 0;
-            case MidiControllerType.LEGATO_FOOTSWITCH:
-                return 68;
-            case MidiControllerType.MODULATION:
-                return 1;
-            case MidiControllerType.MODULATION_LSB:
-                return 33;
-            case MidiControllerType.MONO_OPERATION:
-                return 126;
-            case MidiControllerType.NRPN_LSB:
-                return 98;
-            case MidiControllerType.NRPN_MSB:
-                return 99;
-            case MidiControllerType.OMNI_MODE_OFF:
-                return 124;
-            case MidiControllerType.OMNI_MODE_ON:
-                return 125;
-            case MidiControllerType.PAN:
-                return 10;
-            case MidiControllerType.PORTAMENTO:
-                return 65;
-            case MidiControllerType.PORTAMENTO_CONTROL:
-                return 84;
-            case MidiControllerType.PORTAMENTO_TIME:
-                return 5;
-            case MidiControllerType.PAN_LSB:
-                return 42;
-            case MidiControllerType.POLY_OPERATION:
-                return 127;
-            case MidiControllerType.PORTAMENTO_TIME_LSB:
-                return 37;
-            case MidiControllerType.RPN_LSB:
-                return 100;
-            case MidiControllerType.RPN_MSB:
-                return 101;
-            case MidiControllerType.SOFT_PEDAL:
-                return 67;
-            case MidiControllerType.SOSTENUTO:
-                return 66;
-            case MidiControllerType.SOUND_CONTROLLER_1:
-                return 70;
-            case MidiControllerType.SOUND_CONTROLLER_2:
-                return 71;
-            case MidiControllerType.SOUND_CONTROLLER_3:
-                return 72;
-            case MidiControllerType.SOUND_CONTROLLER_4:
-                return 73;
-            case MidiControllerType.SOUND_CONTROLLER_5:
-                return 74;
-            case MidiControllerType.SOUND_CONTROLLER_6:
-                return 75;
-            case MidiControllerType.SOUND_CONTROLLER_7:
-                return 76;
-            case MidiControllerType.SOUND_CONTROLLER_8:
-                return 77;
-            case MidiControllerType.SOUND_CONTROLLER_9:
-                return 78;
-            case MidiControllerType.SOUND_CONTROLLER_10:
-                return 79;
-            case MidiControllerType.VOLUME:
-                return 7;
-            case MidiControllerType.VOLUME_LSB:
-                return 39;
+        case MidiControllerType.ALL_CONTROLLERS_OFF:
+            return 121;
+        case MidiControllerType.ALL_NOTES_OFF:
+            return 123;
+        case MidiControllerType.ALL_SOUNDS_OFF:
+            return 120;
+        case MidiControllerType.BALANCE:
+            return 8;
+        case MidiControllerType.BANK_SELECT:
+            return 0;
+        case MidiControllerType.BREATH_CONTROLLER:
+            return 2;
+        case MidiControllerType.BALANCE_LSB:
+            return 40;
+        case MidiControllerType.BANK_SELECT_LSB:
+            return 32;
+        case MidiControllerType.BREATH_CONTROLLER_LSB:
+            return 34;
+        case MidiControllerType.DAMPER_PEDAL:
+            return 64;
+        case MidiControllerType.DATA_DECREMENT:
+            return 97;
+        case MidiControllerType.DATA_ENTRY_MSB:
+            return 6;
+        case MidiControllerType.DATA_INCREMENT:
+            return 96;
+        case MidiControllerType.DATA_ENTRY_LSB:
+            return 0;
+        case MidiControllerType.EFFECTS_DEPTH_1:
+            return 91;
+        case MidiControllerType.EFFECTS_DEPTH_2:
+            return 92;
+        case MidiControllerType.EFFECTS_DEPTH_3:
+            return 93;
+        case MidiControllerType.EFFECTS_DEPTH_4:
+            return 94;
+        case MidiControllerType.EFFECTS_DEPTH_5:
+            return 95;
+        case MidiControllerType.EFFECT_CONTROL_1:
+            return 12;
+        case MidiControllerType.EFFECT_CONTROL_2:
+            return 13;
+        case MidiControllerType.EFFECT_CONTROL_1_LSB:
+            return 44;
+        case MidiControllerType.EFFECT_CONTROL_2_LSB:
+            return 45;
+        case MidiControllerType.EXPRESSION_CONTROLLER_LSB:
+            return 43;
+        case MidiControllerType.EXPRESSION_CONTROLLER:
+            return 11;
+        case MidiControllerType.FOOT_CONTROLLER:
+            return 4;
+        case MidiControllerType.FOOT_CONTROLLER_LSB:
+            return 36;
+        case MidiControllerType.GENERAL_PURPOSE_1:
+            return 16;
+        case MidiControllerType.GENERAL_PURPOSE_2:
+            return 17;
+        case MidiControllerType.GENERAL_PURPOSE_3:
+            return 18;
+        case MidiControllerType.GENERAL_PURPOSE_4:
+            return 19;
+        case MidiControllerType.GENERAL_PURPOSE_5:
+            return 80;
+        case MidiControllerType.GENERAL_PURPOSE_6:
+            return 81;
+        case MidiControllerType.GENERAL_PURPOSE_7:
+            return 82;
+        case MidiControllerType.GENERAL_PURPOSE_8:
+            return 83;
+        case MidiControllerType.HOLD_2:
+            return 69;
+        case MidiControllerType.LOCAL_KEYBOARD:
+            return 0;
+        case MidiControllerType.LEGATO_FOOTSWITCH:
+            return 68;
+        case MidiControllerType.MODULATION:
+            return 1;
+        case MidiControllerType.MODULATION_LSB:
+            return 33;
+        case MidiControllerType.MONO_OPERATION:
+            return 126;
+        case MidiControllerType.NRPN_LSB:
+            return 98;
+        case MidiControllerType.NRPN_MSB:
+            return 99;
+        case MidiControllerType.OMNI_MODE_OFF:
+            return 124;
+        case MidiControllerType.OMNI_MODE_ON:
+            return 125;
+        case MidiControllerType.PAN:
+            return 10;
+        case MidiControllerType.PORTAMENTO:
+            return 65;
+        case MidiControllerType.PORTAMENTO_CONTROL:
+            return 84;
+        case MidiControllerType.PORTAMENTO_TIME:
+            return 5;
+        case MidiControllerType.PAN_LSB:
+            return 42;
+        case MidiControllerType.POLY_OPERATION:
+            return 127;
+        case MidiControllerType.PORTAMENTO_TIME_LSB:
+            return 37;
+        case MidiControllerType.RPN_LSB:
+            return 100;
+        case MidiControllerType.RPN_MSB:
+            return 101;
+        case MidiControllerType.SOFT_PEDAL:
+            return 67;
+        case MidiControllerType.SOSTENUTO:
+            return 66;
+        case MidiControllerType.SOUND_CONTROLLER_1:
+            return 70;
+        case MidiControllerType.SOUND_CONTROLLER_2:
+            return 71;
+        case MidiControllerType.SOUND_CONTROLLER_3:
+            return 72;
+        case MidiControllerType.SOUND_CONTROLLER_4:
+            return 73;
+        case MidiControllerType.SOUND_CONTROLLER_5:
+            return 74;
+        case MidiControllerType.SOUND_CONTROLLER_6:
+            return 75;
+        case MidiControllerType.SOUND_CONTROLLER_7:
+            return 76;
+        case MidiControllerType.SOUND_CONTROLLER_8:
+            return 77;
+        case MidiControllerType.SOUND_CONTROLLER_9:
+            return 78;
+        case MidiControllerType.SOUND_CONTROLLER_10:
+            return 79;
+        case MidiControllerType.VOLUME:
+            return 7;
+        case MidiControllerType.VOLUME_LSB:
+            return 39;
         }
-        logit("Warning unknown midi controller type " + type);
+        logit('Warning unknown midi controller type ' + type);
         return 0;
     },
 
     toString: function(type) {
         switch (type) {
-            case MidiControllerType.ALL_CONTROLLERS_OFF:
-                return "All controllers off";
-            case MidiControllerType.ALL_NOTES_OFF:
-                return "All notes off";
-            case MidiControllerType.ALL_SOUNDS_OFF:
-                return "All sounds off";
-            case MidiControllerType.BALANCE:
-                return "Balance";
-            case MidiControllerType.BALANCE_LSB:
-                return "Balance LSB";
-            case MidiControllerType.BANK_SELECT:
-                return "Bank select";
-            case MidiControllerType.BANK_SELECT_LSB:
-                return "Bank select LSB";
-            case MidiControllerType.BREATH_CONTROLLER:
-                return "Breath controller";
-            case MidiControllerType.BREATH_CONTROLLER_LSB:
-                return "Breath controller LSB";
-            case MidiControllerType.DAMPER_PEDAL:
-                return "Damper pedal";
-            case MidiControllerType.DATA_DECREMENT:
-                return "Data decrement";
-            case MidiControllerType.DATA_ENTRY_LSB:
-                return "Data entry LSB";
-            case MidiControllerType.DATA_ENTRY_MSB:
-                return "Data entry MSB";
-            case MidiControllerType.DATA_INCREMENT:
-                return "Data increment";
-            case MidiControllerType.EFFECTS_DEPTH_1:
-                return "Effects depth 1";
-            case MidiControllerType.EFFECTS_DEPTH_2:
-                return "Effects depth 2";
-            case MidiControllerType.EFFECTS_DEPTH_3:
-                return "Effects depth 3";
-            case MidiControllerType.EFFECTS_DEPTH_4:
-                return "Effects depth 4";
-            case MidiControllerType.EFFECTS_DEPTH_5:
-                return "Effects depth 5";
-            case MidiControllerType.EFFECT_CONTROL_1:
-                return "Effect control 1";
-            case MidiControllerType.EFFECT_CONTROL_1_LSB:
-                return "Effect control 1 LSB";
-            case MidiControllerType.EFFECT_CONTROL_2:
-                return "Effect control 2";
-            case MidiControllerType.EFFECT_CONTROL_2_LSB:
-                return "Effect control 2 LSB";
-            case MidiControllerType.EXPRESSION_CONTROLLER:
-                return "Expression controller";
-            case MidiControllerType.EXPRESSION_CONTROLLER_LSB:
-                return "Expression controller LSB";
-            case MidiControllerType.FOOT_CONTROLLER:
-                return "Foot controller";
-            case MidiControllerType.FOOT_CONTROLLER_LSB:
-                return "Foot controller LSB";
-            case MidiControllerType.GENERAL_PURPOSE_1:
-                return "General purpose 1";
-            case MidiControllerType.GENERAL_PURPOSE_2:
-                return "General purpose 2";
-            case MidiControllerType.GENERAL_PURPOSE_3:
-                return "General purpose 3";
-            case MidiControllerType.GENERAL_PURPOSE_4:
-                return "General purpose 4";
-            case MidiControllerType.GENERAL_PURPOSE_5:
-                return "General purpose 5";
-            case MidiControllerType.GENERAL_PURPOSE_6:
-                return "General purpose 6";
-            case MidiControllerType.GENERAL_PURPOSE_7:
-                return "General purpose 7";
-            case MidiControllerType.GENERAL_PURPOSE_8:
-                return "General purpose 8";
-            case MidiControllerType.HOLD_2:
-                return "Hold 2";
-            case MidiControllerType.LEGATO_FOOTSWITCH:
-                return "Legato footswitch";
-            case MidiControllerType.LOCAL_KEYBOARD:
-                return "Local keyboard";
-            case MidiControllerType.MODULATION:
-                return "Modulation";
-            case MidiControllerType.MODULATION_LSB:
-                return "Modulation LSB";
-            case MidiControllerType.MONO_OPERATION:
-                return "Mono operation";
-            case MidiControllerType.NRPN_LSB:
-                return "NRPN LSB";
-            case MidiControllerType.NRPN_MSB:
-                return "NRPN MSB";
-            case MidiControllerType.OMNI_MODE_OFF:
-                return "Omni mode off";
-            case MidiControllerType.OMNI_MODE_ON:
-                return "Omni mode on";
-            case MidiControllerType.PAN:
-                return "Pan";
-            case MidiControllerType.PAN_LSB:
-                return "Pan LSB";
-            case MidiControllerType.POLY_OPERATION:
-                return "Poly operation";
-            case MidiControllerType.PORTAMENTO:
-                return "Portamento";
-            case MidiControllerType.PORTAMENTO_CONTROL:
-                return "Portamento control";
-            case MidiControllerType.PORTAMENTO_TIME:
-                return "Portamento time";
-            case MidiControllerType.PORTAMENTO_TIME_LSB:
-                return "Portamento time LSB";
-            case MidiControllerType.RPN_LSB:
-                return "RPN LSB";
-            case MidiControllerType.RPN_MSB:
-                return "RPN MSB";
-            case MidiControllerType.SOFT_PEDAL:
-                return "Soft pedal";
-            case MidiControllerType.SOSTENUTO:
-                return "Sostenuto";
-            case MidiControllerType.SOUND_CONTROLLER_1:
-                return "Sound controller 1";
-            case MidiControllerType.SOUND_CONTROLLER_2:
-                return "Sound controller 2";
-            case MidiControllerType.SOUND_CONTROLLER_3:
-                return "Sound controller 3";
-            case MidiControllerType.SOUND_CONTROLLER_4:
-                return "Sound controller 4";
-            case MidiControllerType.SOUND_CONTROLLER_5:
-                return "Sound controller 5";
-            case MidiControllerType.SOUND_CONTROLLER_6:
-                return "Sound controller 6";
-            case MidiControllerType.SOUND_CONTROLLER_7:
-                return "Sound controller 7";
-            case MidiControllerType.SOUND_CONTROLLER_8:
-                return "Sound controller 8";
-            case MidiControllerType.SOUND_CONTROLLER_9:
-                return "Sound controller 9";
-            case MidiControllerType.SOUND_CONTROLLER_10:
-                return "Sound controller 10";
-            case MidiControllerType.VOLUME:
-                return "Volume";
-            case MidiControllerType.VOLUME_LSB:
-                return "Volume LSB";
+        case MidiControllerType.ALL_CONTROLLERS_OFF:
+            return 'All controllers off';
+        case MidiControllerType.ALL_NOTES_OFF:
+            return 'All notes off';
+        case MidiControllerType.ALL_SOUNDS_OFF:
+            return 'All sounds off';
+        case MidiControllerType.BALANCE:
+            return 'Balance';
+        case MidiControllerType.BALANCE_LSB:
+            return 'Balance LSB';
+        case MidiControllerType.BANK_SELECT:
+            return 'Bank select';
+        case MidiControllerType.BANK_SELECT_LSB:
+            return 'Bank select LSB';
+        case MidiControllerType.BREATH_CONTROLLER:
+            return 'Breath controller';
+        case MidiControllerType.BREATH_CONTROLLER_LSB:
+            return 'Breath controller LSB';
+        case MidiControllerType.DAMPER_PEDAL:
+            return 'Damper pedal';
+        case MidiControllerType.DATA_DECREMENT:
+            return 'Data decrement';
+        case MidiControllerType.DATA_ENTRY_LSB:
+            return 'Data entry LSB';
+        case MidiControllerType.DATA_ENTRY_MSB:
+            return 'Data entry MSB';
+        case MidiControllerType.DATA_INCREMENT:
+            return 'Data increment';
+        case MidiControllerType.EFFECTS_DEPTH_1:
+            return 'Effects depth 1';
+        case MidiControllerType.EFFECTS_DEPTH_2:
+            return 'Effects depth 2';
+        case MidiControllerType.EFFECTS_DEPTH_3:
+            return 'Effects depth 3';
+        case MidiControllerType.EFFECTS_DEPTH_4:
+            return 'Effects depth 4';
+        case MidiControllerType.EFFECTS_DEPTH_5:
+            return 'Effects depth 5';
+        case MidiControllerType.EFFECT_CONTROL_1:
+            return 'Effect control 1';
+        case MidiControllerType.EFFECT_CONTROL_1_LSB:
+            return 'Effect control 1 LSB';
+        case MidiControllerType.EFFECT_CONTROL_2:
+            return 'Effect control 2';
+        case MidiControllerType.EFFECT_CONTROL_2_LSB:
+            return 'Effect control 2 LSB';
+        case MidiControllerType.EXPRESSION_CONTROLLER:
+            return 'Expression controller';
+        case MidiControllerType.EXPRESSION_CONTROLLER_LSB:
+            return 'Expression controller LSB';
+        case MidiControllerType.FOOT_CONTROLLER:
+            return 'Foot controller';
+        case MidiControllerType.FOOT_CONTROLLER_LSB:
+            return 'Foot controller LSB';
+        case MidiControllerType.GENERAL_PURPOSE_1:
+            return 'General purpose 1';
+        case MidiControllerType.GENERAL_PURPOSE_2:
+            return 'General purpose 2';
+        case MidiControllerType.GENERAL_PURPOSE_3:
+            return 'General purpose 3';
+        case MidiControllerType.GENERAL_PURPOSE_4:
+            return 'General purpose 4';
+        case MidiControllerType.GENERAL_PURPOSE_5:
+            return 'General purpose 5';
+        case MidiControllerType.GENERAL_PURPOSE_6:
+            return 'General purpose 6';
+        case MidiControllerType.GENERAL_PURPOSE_7:
+            return 'General purpose 7';
+        case MidiControllerType.GENERAL_PURPOSE_8:
+            return 'General purpose 8';
+        case MidiControllerType.HOLD_2:
+            return 'Hold 2';
+        case MidiControllerType.LEGATO_FOOTSWITCH:
+            return 'Legato footswitch';
+        case MidiControllerType.LOCAL_KEYBOARD:
+            return 'Local keyboard';
+        case MidiControllerType.MODULATION:
+            return 'Modulation';
+        case MidiControllerType.MODULATION_LSB:
+            return 'Modulation LSB';
+        case MidiControllerType.MONO_OPERATION:
+            return 'Mono operation';
+        case MidiControllerType.NRPN_LSB:
+            return 'NRPN LSB';
+        case MidiControllerType.NRPN_MSB:
+            return 'NRPN MSB';
+        case MidiControllerType.OMNI_MODE_OFF:
+            return 'Omni mode off';
+        case MidiControllerType.OMNI_MODE_ON:
+            return 'Omni mode on';
+        case MidiControllerType.PAN:
+            return 'Pan';
+        case MidiControllerType.PAN_LSB:
+            return 'Pan LSB';
+        case MidiControllerType.POLY_OPERATION:
+            return 'Poly operation';
+        case MidiControllerType.PORTAMENTO:
+            return 'Portamento';
+        case MidiControllerType.PORTAMENTO_CONTROL:
+            return 'Portamento control';
+        case MidiControllerType.PORTAMENTO_TIME:
+            return 'Portamento time';
+        case MidiControllerType.PORTAMENTO_TIME_LSB:
+            return 'Portamento time LSB';
+        case MidiControllerType.RPN_LSB:
+            return 'RPN LSB';
+        case MidiControllerType.RPN_MSB:
+            return 'RPN MSB';
+        case MidiControllerType.SOFT_PEDAL:
+            return 'Soft pedal';
+        case MidiControllerType.SOSTENUTO:
+            return 'Sostenuto';
+        case MidiControllerType.SOUND_CONTROLLER_1:
+            return 'Sound controller 1';
+        case MidiControllerType.SOUND_CONTROLLER_2:
+            return 'Sound controller 2';
+        case MidiControllerType.SOUND_CONTROLLER_3:
+            return 'Sound controller 3';
+        case MidiControllerType.SOUND_CONTROLLER_4:
+            return 'Sound controller 4';
+        case MidiControllerType.SOUND_CONTROLLER_5:
+            return 'Sound controller 5';
+        case MidiControllerType.SOUND_CONTROLLER_6:
+            return 'Sound controller 6';
+        case MidiControllerType.SOUND_CONTROLLER_7:
+            return 'Sound controller 7';
+        case MidiControllerType.SOUND_CONTROLLER_8:
+            return 'Sound controller 8';
+        case MidiControllerType.SOUND_CONTROLLER_9:
+            return 'Sound controller 9';
+        case MidiControllerType.SOUND_CONTROLLER_10:
+            return 'Sound controller 10';
+        case MidiControllerType.VOLUME:
+            return 'Volume';
+        case MidiControllerType.VOLUME_LSB:
+            return 'Volume LSB';
         }
-        return "Unknown midi controller type " + type;
+        return 'Unknown midi controller type ' + type;
     }
 
 };
@@ -3682,104 +3680,104 @@ var MidiDrum = {
 
 
     toString: function(type) {
-        var postfix = " (" + type + ", " + toPitchClassString(type) + "" + Math.floor(type / 12) + ")";
+        var postfix = ' (' + type + ', ' + toPitchClassString(type) + '' + Math.floor(type / 12) + ')';
         switch (type) {
-            case MidiDrum.BASS_DRUM_1:
-                return "Bass drum 1" + postfix;
-            case MidiDrum.BASS_DRUM_2:
-                return "Bass drum 2" + postfix;
-            case MidiDrum.CABASA:
-                return "Cabasa" + postfix;
-            case MidiDrum.CHINESE_CYMBAL:
-                return "Chinese cymbal" + postfix;
-            case MidiDrum.CLAVES:
-                return "Claves" + postfix;
-            case MidiDrum.CLOSED_HIHAT:
-                return "Closed hi-hat" + postfix;
-            case MidiDrum.COWBELL:
-                return "Cowbell" + postfix;
-            case MidiDrum.CRASH_CYMBAL_1:
-                return "Crash cymbal 1" + postfix;
-            case MidiDrum.CRASH_CYMBAL_2:
-                return "Crash cymbal 2" + postfix;
-            case MidiDrum.HAND_CLAP:
-                return "Hand clap" + postfix;
-            case MidiDrum.HIGH_AGOGO:
-                return "High agogo" + postfix;
-            case MidiDrum.HIGH_BONGO:
-                return "High bongo" + postfix;
-            case MidiDrum.HIGH_TIMBALE:
-                return "Timbale" + postfix;
-            case MidiDrum.HIGH_TOM_1:
-                return "High tom 1" + postfix;
-            case MidiDrum.HIGH_TOM_2:
-                return "High tom 2" + postfix;
-            case MidiDrum.HIGH_WOOD_BLOCK:
-                return "High wood block" + postfix;
-            case MidiDrum.LONG_GUIRO:
-                return "Long guiro" + postfix;
-            case MidiDrum.LONG_WHISTLE:
-                return "Long whistle" + postfix;
-            case MidiDrum.LOW_AGOGO:
-                return "Low agogo" + postfix;
-            case MidiDrum.LOW_BONGO:
-                return "Low bongo" + postfix;
-            case MidiDrum.LOW_CONGA:
-                return "Low conga" + postfix;
-            case MidiDrum.LOW_TIMBALE:
-                return "Low timbale" + postfix;
-            case MidiDrum.LOW_TOM_1:
-                return "Low tom 1" + postfix;
-            case MidiDrum.LOW_TOM_2:
-                return "Low tom 2" + postfix;
-            case MidiDrum.LOW_WOOD_BLOCK:
-                return "Low wood block" + postfix;
-            case MidiDrum.MARACAS:
-                return "Maracas" + postfix;
-            case MidiDrum.MID_TOM_1:
-                return "Mid tom 1" + postfix;
-            case MidiDrum.MID_TOM_2:
-                return "Mid tom 2" + postfix;
-            case MidiDrum.MUTE_CUICA:
-                return "Mute cuica" + postfix;
-            case MidiDrum.MUTE_HIGH_CONGA:
-                return "Mute high conga" + postfix;
-            case MidiDrum.MUTE_TRIANGLE:
-                return "Mute triangle" + postfix;
-            case MidiDrum.OPEN_CUICA:
-                return "Open cuica" + postfix;
-            case MidiDrum.OPEN_HIGH_CONGA:
-                return "Open high conga" + postfix;
-            case MidiDrum.OPEN_HIHAT:
-                return "Open hi-hat" + postfix;
-            case MidiDrum.OPEN_TRIANGLE:
-                return "Open triangle" + postfix;
-            case MidiDrum.PEDAL_HIHAT:
-                return "Pedal hi-hat" + postfix;
-            case MidiDrum.RIDE_BELL:
-                return "Ride bell" + postfix;
-            case MidiDrum.RIDE_CYMBAL_1:
-                return "Ride cymbal 1" + postfix;
-            case MidiDrum.RIDE_CYMBAL_2:
-                return "Ride cymbal 2" + postfix;
-            case MidiDrum.RIMSHOT:
-                return "Rimshot" + postfix;
-            case MidiDrum.SHORT_GUIRO:
-                return "Short guiro" + postfix;
-            case MidiDrum.SHORT_WHISTLE:
-                return "Short whistle" + postfix;
-            case MidiDrum.SNARE_DRUM_1:
-                return "Snare drum 1" + postfix;
-            case MidiDrum.SNARE_DRUM_2:
-                return "Snare drum 2" + postfix;
-            case MidiDrum.SPLASH_CYMBAL:
-                return "Splash cymbal" + postfix;
-            case MidiDrum.TAMBOURINE:
-                return "Tambourine" + postfix;
-            case MidiDrum.VIBRA_SLAP:
-                return "Vibraslap" + postfix;
+        case MidiDrum.BASS_DRUM_1:
+            return 'Bass drum 1' + postfix;
+        case MidiDrum.BASS_DRUM_2:
+            return 'Bass drum 2' + postfix;
+        case MidiDrum.CABASA:
+            return 'Cabasa' + postfix;
+        case MidiDrum.CHINESE_CYMBAL:
+            return 'Chinese cymbal' + postfix;
+        case MidiDrum.CLAVES:
+            return 'Claves' + postfix;
+        case MidiDrum.CLOSED_HIHAT:
+            return 'Closed hi-hat' + postfix;
+        case MidiDrum.COWBELL:
+            return 'Cowbell' + postfix;
+        case MidiDrum.CRASH_CYMBAL_1:
+            return 'Crash cymbal 1' + postfix;
+        case MidiDrum.CRASH_CYMBAL_2:
+            return 'Crash cymbal 2' + postfix;
+        case MidiDrum.HAND_CLAP:
+            return 'Hand clap' + postfix;
+        case MidiDrum.HIGH_AGOGO:
+            return 'High agogo' + postfix;
+        case MidiDrum.HIGH_BONGO:
+            return 'High bongo' + postfix;
+        case MidiDrum.HIGH_TIMBALE:
+            return 'Timbale' + postfix;
+        case MidiDrum.HIGH_TOM_1:
+            return 'High tom 1' + postfix;
+        case MidiDrum.HIGH_TOM_2:
+            return 'High tom 2' + postfix;
+        case MidiDrum.HIGH_WOOD_BLOCK:
+            return 'High wood block' + postfix;
+        case MidiDrum.LONG_GUIRO:
+            return 'Long guiro' + postfix;
+        case MidiDrum.LONG_WHISTLE:
+            return 'Long whistle' + postfix;
+        case MidiDrum.LOW_AGOGO:
+            return 'Low agogo' + postfix;
+        case MidiDrum.LOW_BONGO:
+            return 'Low bongo' + postfix;
+        case MidiDrum.LOW_CONGA:
+            return 'Low conga' + postfix;
+        case MidiDrum.LOW_TIMBALE:
+            return 'Low timbale' + postfix;
+        case MidiDrum.LOW_TOM_1:
+            return 'Low tom 1' + postfix;
+        case MidiDrum.LOW_TOM_2:
+            return 'Low tom 2' + postfix;
+        case MidiDrum.LOW_WOOD_BLOCK:
+            return 'Low wood block' + postfix;
+        case MidiDrum.MARACAS:
+            return 'Maracas' + postfix;
+        case MidiDrum.MID_TOM_1:
+            return 'Mid tom 1' + postfix;
+        case MidiDrum.MID_TOM_2:
+            return 'Mid tom 2' + postfix;
+        case MidiDrum.MUTE_CUICA:
+            return 'Mute cuica' + postfix;
+        case MidiDrum.MUTE_HIGH_CONGA:
+            return 'Mute high conga' + postfix;
+        case MidiDrum.MUTE_TRIANGLE:
+            return 'Mute triangle' + postfix;
+        case MidiDrum.OPEN_CUICA:
+            return 'Open cuica' + postfix;
+        case MidiDrum.OPEN_HIGH_CONGA:
+            return 'Open high conga' + postfix;
+        case MidiDrum.OPEN_HIHAT:
+            return 'Open hi-hat' + postfix;
+        case MidiDrum.OPEN_TRIANGLE:
+            return 'Open triangle' + postfix;
+        case MidiDrum.PEDAL_HIHAT:
+            return 'Pedal hi-hat' + postfix;
+        case MidiDrum.RIDE_BELL:
+            return 'Ride bell' + postfix;
+        case MidiDrum.RIDE_CYMBAL_1:
+            return 'Ride cymbal 1' + postfix;
+        case MidiDrum.RIDE_CYMBAL_2:
+            return 'Ride cymbal 2' + postfix;
+        case MidiDrum.RIMSHOT:
+            return 'Rimshot' + postfix;
+        case MidiDrum.SHORT_GUIRO:
+            return 'Short guiro' + postfix;
+        case MidiDrum.SHORT_WHISTLE:
+            return 'Short whistle' + postfix;
+        case MidiDrum.SNARE_DRUM_1:
+            return 'Snare drum 1' + postfix;
+        case MidiDrum.SNARE_DRUM_2:
+            return 'Snare drum 2' + postfix;
+        case MidiDrum.SPLASH_CYMBAL:
+            return 'Splash cymbal' + postfix;
+        case MidiDrum.TAMBOURINE:
+            return 'Tambourine' + postfix;
+        case MidiDrum.VIBRA_SLAP:
+            return 'Vibraslap' + postfix;
         }
-        return "unknown midi drum" + postfix;
+        return 'unknown midi drum' + postfix;
     }
 
 };
@@ -3922,264 +3920,264 @@ var MidiProgram = {
 
     toString: function(type) {
         switch (type) {
-            case MidiProgram.ACCORDION:
-                return "Accordion";
-            case MidiProgram.ACOUSTIC_BASS:
-                return "Acoustic bass";
-            case MidiProgram.ACOUSTIC_GRAND_PIANO:
-                return "Acoustic grand piano";
-            case MidiProgram.ACOUSTIC_NYLON_GUITAR:
-                return "Acoustic nylon guitar";
-            case MidiProgram.ACOUSTIC_STEEL_GUITAR:
-                return "Acoustic steel guitar";
-            case MidiProgram.AGOGO:
-                return "Agogo";
-            case MidiProgram.ALTO_SAX:
-                return "Alto sax";
-            case MidiProgram.APPLAUSE:
-                return "Applause";
-            case MidiProgram.ATMOSPHERE_SFX:
-                return "Atmosphere sfx";
-            case MidiProgram.BRIGHT_ACOUSTIC_PIANO:
-                return "Bright acoustic piano";
-            case MidiProgram.BAGPIPE:
-                return "Bagpipe";
-            case MidiProgram.BANJO:
-                return "Banjo";
-            case MidiProgram.BARITONE_SAX:
-                return "Baritone sax";
-            case MidiProgram.BASSOON:
-                return "Bassoon";
-            case MidiProgram.BASS_PLUS_LEAD:
-                return "Bass plus lead";
-            case MidiProgram.BIRD_TWEET:
-                return "Bird tweet";
-            case MidiProgram.BLOWN_BOTTLE:
-                return "Blown bottle";
-            case MidiProgram.BOWED_PAD:
-                return "Bowed pad";
-            case MidiProgram.BRASS_SECTION:
-                return "Brass section";
-            case MidiProgram.BREATH_NOISE:
-                return "Breath noise";
-            case MidiProgram.BRIGHTNESS_SFX:
-                return "Brightness sfx";
-            case MidiProgram.CELESTA:
-                return "Celesta";
-            case MidiProgram.CELLO:
-                return "Cello";
-            case MidiProgram.CHOIR_AAHS:
-                return "Choir aahs";
-            case MidiProgram.CHURCH_ORGAN:
-                return "Church organ";
-            case MidiProgram.CLAVINET:
-                return "Clavinet";
-            case MidiProgram.CONTRABASS:
-                return "Contrabass";
-            case MidiProgram.CALLIOPE_LEAD:
-                return "Calliope lead";
-            case MidiProgram.CHARANG_LEAD:
-                return "Charang lead";
-            case MidiProgram.CHIFF_LEAD:
-                return "Chiff lead";
-            case MidiProgram.CHOIR_PAD:
-                return "Choir pad";
-            case MidiProgram.CLARINET:
-                return "Clarinet";
-            case MidiProgram.CRYSTAL_SFX:
-                return "Crystal sfx";
-            case MidiProgram.DISTORTION_GUITAR:
-                return "Distortion guitar";
-            case MidiProgram.DRAWBAR_ORGAN:
-                return "Drawbar organ";
-            case MidiProgram.DULCIMER:
-                return "Dulcimer";
-            case MidiProgram.ELECTRIC_CLEAN_GUITAR:
-                return "Electric clean guitar";
-            case MidiProgram.ELECTRIC_FINGER_BASS:
-                return "Electric finger bass";
-            case MidiProgram.ELECTRIC_GRAND_PIANO:
-                return "Electric grand piano";
-            case MidiProgram.ELECTRIC_JAZZ_GUITAR:
-                return "Electric jazz guitar";
-            case MidiProgram.ELECTRIC_MUTED_GUITAR:
-                return "Electric muted guitar";
-            case MidiProgram.ELECTRIC_PIANO_1:
-                return "Electric piano 1";
-            case MidiProgram.ELECTRIC_PIANO_2:
-                return "Electric piano 2";
-            case MidiProgram.ELECTRIC_PICK_BASS:
-                return "Electric pick bass";
-            case MidiProgram.ECHOES_SFX:
-                return "Echoes sfx";
-            case MidiProgram.ENGLISH_HORN:
-                return "English hord";
-            case MidiProgram.FRETLESS_BASS:
-                return "Fretless bass";
-            case MidiProgram.FIDDLE:
-                return "Fiddle";
-            case MidiProgram.FIFTHS_LEAD:
-                return "Fifths lead";
-            case MidiProgram.FLUTE:
-                return "Flute";
-            case MidiProgram.FRENCH_HORN:
-                return "French horn";
-            case MidiProgram.GLOCKENSPIEL:
-                return "Glockenspiel";
-            case MidiProgram.GUITAR_HARMONICS:
-                return "Guitar harmonics";
-            case MidiProgram.GOBLINS_SFX:
-                return "Goblins sfx";
-            case MidiProgram.GUITAR_FRET_NOISE:
-                return "Guitar fret noise";
-            case MidiProgram.GUNSHOT:
-                return "Gunshot";
-            case MidiProgram.HARMONICA:
-                return "Harmonica";
-            case MidiProgram.HARPSICHORD:
-                return "Harpsichord";
-            case MidiProgram.HONKY_TONK_PIANO:
-                return "Honky-tonk piano";
-            case MidiProgram.HALO_PAD:
-                return "Halo pad";
-            case MidiProgram.HELICOPTER:
-                return "Helicopter";
-            case MidiProgram.KALIMBA:
-                return "Kalimba";
-            case MidiProgram.KOTO:
-                return "Koto";
-            case MidiProgram.MARIMBA:
-                return "Marimba";
-            case MidiProgram.MUSIC_BOX:
-                return "Music box";
-            case MidiProgram.MELODIC_TOM:
-                return "Melodic tom";
-            case MidiProgram.METALLIC_PAD:
-                return "Metallic pad";
-            case MidiProgram.MUTED_TRUMPET:
-                return "Muted trumpet";
-            case MidiProgram.NEW_AGE_PAD:
-                return "New age pad";
-            case MidiProgram.ORCHESTRAL_HARP:
-                return "Orchestral harp";
-            case MidiProgram.ORCHESTRA_HIT:
-                return "Orchestra hit";
-            case MidiProgram.OVERDRIVEN_GUITAR:
-                return "Overdriven guitar";
-            case MidiProgram.OBOE:
-                return "Oboe";
-            case MidiProgram.OCARINA:
-                return "Ocarina";
-            case MidiProgram.PERCUSSIVE_ORGAN:
-                return "Percussive organ";
-            case MidiProgram.PIZZICATO_STRINGS:
-                return "Pizzicato strings";
-            case MidiProgram.PAN_FLUTE:
-                return "Pan flute";
-            case MidiProgram.PICCOLO:
-                return "Piccolo";
-            case MidiProgram.POLYSYNTH_PAD:
-                return "Polysynth pad";
-            case MidiProgram.REED_ORGAN:
-                return "Reed organ";
-            case MidiProgram.ROCK_ORGAN:
-                return "Rock organ";
-            case MidiProgram.RAIN_SFX:
-                return "Rain sfx";
-            case MidiProgram.RECORDER:
-                return "Recorder";
-            case MidiProgram.REVERSE_CYMBAL:
-                return "Reverse cymbal";
-            case MidiProgram.SLAP_BASS_1:
-                return "Slap bass 1";
-            case MidiProgram.SLAP_BASS_2:
-                return "Slap bass 2";
-            case MidiProgram.STRING_ENSEMBLE_1:
-                return "String ensemble 1";
-            case MidiProgram.STRING_ENSEMBLE_2:
-                return "String ensemble 2";
-            case MidiProgram.SYNTH_BASS_1:
-                return "Synth bass 1";
-            case MidiProgram.SYNTH_BASS_2:
-                return "Synth bass 2";
-            case MidiProgram.SYNTH_CHOIR:
-                return "Synth choir";
-            case MidiProgram.SYNTH_STRINGS_1:
-                return "Synth strings 1";
-            case MidiProgram.SYNTH_STRINGS_2:
-                return "Synth strings 2";
-            case MidiProgram.SAW_LEAD:
-                return "Saw lead";
-            case MidiProgram.SCIFI_SFX:
-                return "Sci-fi sfx";
-            case MidiProgram.SEASHORE:
-                return "Seashore";
-            case MidiProgram.SHAKUHACHI:
-                return "Shakuhachi";
-            case MidiProgram.SHAMISEN:
-                return "Shamisen";
-            case MidiProgram.SHANAI:
-                return "Shanai";
-            case MidiProgram.SITAR:
-                return "Sitar";
-            case MidiProgram.SOPRANO_SAX:
-                return "Soprano sax";
-            case MidiProgram.SOUNDTRACK_SFX:
-                return "Soundtrack sfx";
-            case MidiProgram.SQUARE_LEAD:
-                return "Square lead";
-            case MidiProgram.STEEL_DRUMS:
-                return "Steel drums";
-            case MidiProgram.SWEEP_PAD:
-                return "Sweep pad";
-            case MidiProgram.SYNTH_DRUM:
-                return "Synth drum";
-            case MidiProgram.SYNTH_BRASS_1:
-                return "Synth brass 1";
-            case MidiProgram.SYNTH_BRASS_2:
-                return "Synth brass 2";
-            case MidiProgram.TANGO_ACCORDION:
-                return "Tango accordion";
-            case MidiProgram.TIMPANI:
-                return "Timpani";
-            case MidiProgram.TREMOLO_STRINGS:
-                return "Tremolo strings";
-            case MidiProgram.TUBULAR_BELLS:
-                return "Tubular bells";
-            case MidiProgram.TAIKO_DRUM:
-                return "Taiko drum";
-            case MidiProgram.TELEPHONE_RING:
-                return "Telephone ring";
-            case MidiProgram.TENOR_SAX:
-                return "Tenor sax";
-            case MidiProgram.TINKLE_BELL:
-                return "Tinkle bell";
-            case MidiProgram.TROMBONE:
-                return "Trombone";
-            case MidiProgram.TRUMPET:
-                return "Trumpet";
-            case MidiProgram.TUBA:
-                return "Tuba";
-            case MidiProgram.VIBRAPHONE:
-                return "Vibraphone";
-            case MidiProgram.VIOLA:
-                return "Viola";
-            case MidiProgram.VIOLIN:
-                return "Violin";
-            case MidiProgram.VOICE_OOHS:
-                return "Voice oohs";
-            case MidiProgram.VOICE_LEAD:
-                return "Voice lead";
-            case MidiProgram.WARM_PAD:
-                return "Warm pad";
-            case MidiProgram.WHISTLE:
-                return "Whistle";
-            case MidiProgram.WOODBLOCK:
-                return "Woodblock";
-            case MidiProgram.XYLOPHONE:
-                return "Xylophone";
+        case MidiProgram.ACCORDION:
+            return 'Accordion';
+        case MidiProgram.ACOUSTIC_BASS:
+            return 'Acoustic bass';
+        case MidiProgram.ACOUSTIC_GRAND_PIANO:
+            return 'Acoustic grand piano';
+        case MidiProgram.ACOUSTIC_NYLON_GUITAR:
+            return 'Acoustic nylon guitar';
+        case MidiProgram.ACOUSTIC_STEEL_GUITAR:
+            return 'Acoustic steel guitar';
+        case MidiProgram.AGOGO:
+            return 'Agogo';
+        case MidiProgram.ALTO_SAX:
+            return 'Alto sax';
+        case MidiProgram.APPLAUSE:
+            return 'Applause';
+        case MidiProgram.ATMOSPHERE_SFX:
+            return 'Atmosphere sfx';
+        case MidiProgram.BRIGHT_ACOUSTIC_PIANO:
+            return 'Bright acoustic piano';
+        case MidiProgram.BAGPIPE:
+            return 'Bagpipe';
+        case MidiProgram.BANJO:
+            return 'Banjo';
+        case MidiProgram.BARITONE_SAX:
+            return 'Baritone sax';
+        case MidiProgram.BASSOON:
+            return 'Bassoon';
+        case MidiProgram.BASS_PLUS_LEAD:
+            return 'Bass plus lead';
+        case MidiProgram.BIRD_TWEET:
+            return 'Bird tweet';
+        case MidiProgram.BLOWN_BOTTLE:
+            return 'Blown bottle';
+        case MidiProgram.BOWED_PAD:
+            return 'Bowed pad';
+        case MidiProgram.BRASS_SECTION:
+            return 'Brass section';
+        case MidiProgram.BREATH_NOISE:
+            return 'Breath noise';
+        case MidiProgram.BRIGHTNESS_SFX:
+            return 'Brightness sfx';
+        case MidiProgram.CELESTA:
+            return 'Celesta';
+        case MidiProgram.CELLO:
+            return 'Cello';
+        case MidiProgram.CHOIR_AAHS:
+            return 'Choir aahs';
+        case MidiProgram.CHURCH_ORGAN:
+            return 'Church organ';
+        case MidiProgram.CLAVINET:
+            return 'Clavinet';
+        case MidiProgram.CONTRABASS:
+            return 'Contrabass';
+        case MidiProgram.CALLIOPE_LEAD:
+            return 'Calliope lead';
+        case MidiProgram.CHARANG_LEAD:
+            return 'Charang lead';
+        case MidiProgram.CHIFF_LEAD:
+            return 'Chiff lead';
+        case MidiProgram.CHOIR_PAD:
+            return 'Choir pad';
+        case MidiProgram.CLARINET:
+            return 'Clarinet';
+        case MidiProgram.CRYSTAL_SFX:
+            return 'Crystal sfx';
+        case MidiProgram.DISTORTION_GUITAR:
+            return 'Distortion guitar';
+        case MidiProgram.DRAWBAR_ORGAN:
+            return 'Drawbar organ';
+        case MidiProgram.DULCIMER:
+            return 'Dulcimer';
+        case MidiProgram.ELECTRIC_CLEAN_GUITAR:
+            return 'Electric clean guitar';
+        case MidiProgram.ELECTRIC_FINGER_BASS:
+            return 'Electric finger bass';
+        case MidiProgram.ELECTRIC_GRAND_PIANO:
+            return 'Electric grand piano';
+        case MidiProgram.ELECTRIC_JAZZ_GUITAR:
+            return 'Electric jazz guitar';
+        case MidiProgram.ELECTRIC_MUTED_GUITAR:
+            return 'Electric muted guitar';
+        case MidiProgram.ELECTRIC_PIANO_1:
+            return 'Electric piano 1';
+        case MidiProgram.ELECTRIC_PIANO_2:
+            return 'Electric piano 2';
+        case MidiProgram.ELECTRIC_PICK_BASS:
+            return 'Electric pick bass';
+        case MidiProgram.ECHOES_SFX:
+            return 'Echoes sfx';
+        case MidiProgram.ENGLISH_HORN:
+            return 'English hord';
+        case MidiProgram.FRETLESS_BASS:
+            return 'Fretless bass';
+        case MidiProgram.FIDDLE:
+            return 'Fiddle';
+        case MidiProgram.FIFTHS_LEAD:
+            return 'Fifths lead';
+        case MidiProgram.FLUTE:
+            return 'Flute';
+        case MidiProgram.FRENCH_HORN:
+            return 'French horn';
+        case MidiProgram.GLOCKENSPIEL:
+            return 'Glockenspiel';
+        case MidiProgram.GUITAR_HARMONICS:
+            return 'Guitar harmonics';
+        case MidiProgram.GOBLINS_SFX:
+            return 'Goblins sfx';
+        case MidiProgram.GUITAR_FRET_NOISE:
+            return 'Guitar fret noise';
+        case MidiProgram.GUNSHOT:
+            return 'Gunshot';
+        case MidiProgram.HARMONICA:
+            return 'Harmonica';
+        case MidiProgram.HARPSICHORD:
+            return 'Harpsichord';
+        case MidiProgram.HONKY_TONK_PIANO:
+            return 'Honky-tonk piano';
+        case MidiProgram.HALO_PAD:
+            return 'Halo pad';
+        case MidiProgram.HELICOPTER:
+            return 'Helicopter';
+        case MidiProgram.KALIMBA:
+            return 'Kalimba';
+        case MidiProgram.KOTO:
+            return 'Koto';
+        case MidiProgram.MARIMBA:
+            return 'Marimba';
+        case MidiProgram.MUSIC_BOX:
+            return 'Music box';
+        case MidiProgram.MELODIC_TOM:
+            return 'Melodic tom';
+        case MidiProgram.METALLIC_PAD:
+            return 'Metallic pad';
+        case MidiProgram.MUTED_TRUMPET:
+            return 'Muted trumpet';
+        case MidiProgram.NEW_AGE_PAD:
+            return 'New age pad';
+        case MidiProgram.ORCHESTRAL_HARP:
+            return 'Orchestral harp';
+        case MidiProgram.ORCHESTRA_HIT:
+            return 'Orchestra hit';
+        case MidiProgram.OVERDRIVEN_GUITAR:
+            return 'Overdriven guitar';
+        case MidiProgram.OBOE:
+            return 'Oboe';
+        case MidiProgram.OCARINA:
+            return 'Ocarina';
+        case MidiProgram.PERCUSSIVE_ORGAN:
+            return 'Percussive organ';
+        case MidiProgram.PIZZICATO_STRINGS:
+            return 'Pizzicato strings';
+        case MidiProgram.PAN_FLUTE:
+            return 'Pan flute';
+        case MidiProgram.PICCOLO:
+            return 'Piccolo';
+        case MidiProgram.POLYSYNTH_PAD:
+            return 'Polysynth pad';
+        case MidiProgram.REED_ORGAN:
+            return 'Reed organ';
+        case MidiProgram.ROCK_ORGAN:
+            return 'Rock organ';
+        case MidiProgram.RAIN_SFX:
+            return 'Rain sfx';
+        case MidiProgram.RECORDER:
+            return 'Recorder';
+        case MidiProgram.REVERSE_CYMBAL:
+            return 'Reverse cymbal';
+        case MidiProgram.SLAP_BASS_1:
+            return 'Slap bass 1';
+        case MidiProgram.SLAP_BASS_2:
+            return 'Slap bass 2';
+        case MidiProgram.STRING_ENSEMBLE_1:
+            return 'String ensemble 1';
+        case MidiProgram.STRING_ENSEMBLE_2:
+            return 'String ensemble 2';
+        case MidiProgram.SYNTH_BASS_1:
+            return 'Synth bass 1';
+        case MidiProgram.SYNTH_BASS_2:
+            return 'Synth bass 2';
+        case MidiProgram.SYNTH_CHOIR:
+            return 'Synth choir';
+        case MidiProgram.SYNTH_STRINGS_1:
+            return 'Synth strings 1';
+        case MidiProgram.SYNTH_STRINGS_2:
+            return 'Synth strings 2';
+        case MidiProgram.SAW_LEAD:
+            return 'Saw lead';
+        case MidiProgram.SCIFI_SFX:
+            return 'Sci-fi sfx';
+        case MidiProgram.SEASHORE:
+            return 'Seashore';
+        case MidiProgram.SHAKUHACHI:
+            return 'Shakuhachi';
+        case MidiProgram.SHAMISEN:
+            return 'Shamisen';
+        case MidiProgram.SHANAI:
+            return 'Shanai';
+        case MidiProgram.SITAR:
+            return 'Sitar';
+        case MidiProgram.SOPRANO_SAX:
+            return 'Soprano sax';
+        case MidiProgram.SOUNDTRACK_SFX:
+            return 'Soundtrack sfx';
+        case MidiProgram.SQUARE_LEAD:
+            return 'Square lead';
+        case MidiProgram.STEEL_DRUMS:
+            return 'Steel drums';
+        case MidiProgram.SWEEP_PAD:
+            return 'Sweep pad';
+        case MidiProgram.SYNTH_DRUM:
+            return 'Synth drum';
+        case MidiProgram.SYNTH_BRASS_1:
+            return 'Synth brass 1';
+        case MidiProgram.SYNTH_BRASS_2:
+            return 'Synth brass 2';
+        case MidiProgram.TANGO_ACCORDION:
+            return 'Tango accordion';
+        case MidiProgram.TIMPANI:
+            return 'Timpani';
+        case MidiProgram.TREMOLO_STRINGS:
+            return 'Tremolo strings';
+        case MidiProgram.TUBULAR_BELLS:
+            return 'Tubular bells';
+        case MidiProgram.TAIKO_DRUM:
+            return 'Taiko drum';
+        case MidiProgram.TELEPHONE_RING:
+            return 'Telephone ring';
+        case MidiProgram.TENOR_SAX:
+            return 'Tenor sax';
+        case MidiProgram.TINKLE_BELL:
+            return 'Tinkle bell';
+        case MidiProgram.TROMBONE:
+            return 'Trombone';
+        case MidiProgram.TRUMPET:
+            return 'Trumpet';
+        case MidiProgram.TUBA:
+            return 'Tuba';
+        case MidiProgram.VIBRAPHONE:
+            return 'Vibraphone';
+        case MidiProgram.VIOLA:
+            return 'Viola';
+        case MidiProgram.VIOLIN:
+            return 'Violin';
+        case MidiProgram.VOICE_OOHS:
+            return 'Voice oohs';
+        case MidiProgram.VOICE_LEAD:
+            return 'Voice lead';
+        case MidiProgram.WARM_PAD:
+            return 'Warm pad';
+        case MidiProgram.WHISTLE:
+            return 'Whistle';
+        case MidiProgram.WOODBLOCK:
+            return 'Woodblock';
+        case MidiProgram.XYLOPHONE:
+            return 'Xylophone';
         }
-        return "Unknown midi program " + type;
+        return 'Unknown midi program ' + type;
     }
 };
 addPossibleValuesFunction(MidiProgram, MidiProgram.ACOUSTIC_GRAND_PIANO, MidiProgram.GUNSHOT);
@@ -4249,132 +4247,132 @@ var SimpleModuleGeneratorPhraseGroupType = {
 
     toString: function(type) {
         switch (type) {
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-                return "Complete imperfect + complete lengthen dominant";
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-                return "Complete imperfect + complete lengthen final tonic";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-                return "Incomplete + complete lengthen dominant";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-                return "Incomplete + complete lengthen final tonic";
-            case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-                return "Deceptive + complete lengthen dominant";
-            case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-                return "Deceptive + complete lengthen final tonic";
-            case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-                return "Modulate + complete lengthen dominant";
-            case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-                return "Modulate + complete lengthen final tonic";
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-                return "Tonicize + complete lengthen dominant";
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-                return "Tonicize + complete lengthen final tonic";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-                return "Incomplete initial + complete lengthen dominant";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-                return "Incomplete initial + complete lengthen final tonic";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DECEPTIVE:
-                return "Incomplete + deceptive";
-            case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_DECEPTIVE:
-                return "Deceptive + deceptive";
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_DECEPTIVE:
-                return "Complete imperfect + deceptive";
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_DECEPTIVE:
-                return "Tonicize + deceptive";
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLAGIAL_PLUS_COMPLETE:
-                return "Complete plagial + complete";
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_PLAGIAL:
-                return "Complete + complete plagial";
-            case SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT:
-                return "Antecedent consequent";
-            case SimpleModuleGeneratorPhraseGroupType.SINGLE_SILENT:
-                return "Single silent";
-            case SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE:
-                return "Single deceptive";
-            case SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL:
-                return "Single complete plagial";
-            case SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT:
-                return "Single complete imperfect";
-            case SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT_SHORTEN:
-                return "Antecedent consequent shorten";
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE:
-                return "Complete + complete";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_IMPERFECT:
-                return "Complete + complete imperfect";
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_DIFFERENT_SCALE_TYPE:
-                return "Complete + complete change scale type";
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE:
-                return "Complete + modulate";
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE:
-                return "Complete + phrase modulate";
-            case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE:
-                return "Deceptive + complete";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE:
-                return "Incomplete initial + complete";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE:
-                return "Incomplete + complete";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE:
-                return "Incomplete + modulate";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DOMINANT_PROLONG:
-                return "Incomplete + dominant prolong";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DOMINANT_PROLONG_CADENCE:
-                return "Incomplete + dominant prolong cadence";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_SHORTER_PLUS_COMPLETE:
-                return "Incomplete shorter + complete";
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_WEAK_PLUS_COMPLETE_WEAK_TONIC:
-                return "Incomplete weak + complete weak tonic";
-            case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE:
-                return "Modulate + complete";
-            case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_MODULATE_BACK:
-                return "Modulate + modulate back";
-            case SimpleModuleGeneratorPhraseGroupType.PHRASE_MODULATE:
-                return "Phrase modulate";
-            case SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE:
-                return "Single complete";
-            case SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE:
-                return "Single incomplete";
-            case SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG:
-                return "Single tonic prolong";
-            case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_COMPLETE:
-                return "Tonic prolong + complete";
-            case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_CADENCE:
-                return "Tonic prolong + dominant prolong cadence";
-            case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG:
-                return "Tonic prolong + dominant prolong";
-            case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_COMPLETE:
-                return "Tonic prolong + dominaint prolong + complete";
-            case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_TONIC_CADENCE_PROLONG:
-                return "Tonic prolong + dominant prolong + tonic cadence prolong";
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE:
-                return "Tonicize + complete";
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_TONICIZE:
-                return "Tonicize + tonicize";
-            case SimpleModuleGeneratorPhraseGroupType.CUSTOM:
-                return "Custom";
-            case SimpleModuleGeneratorPhraseGroupType.SINGLE_CUSTOM_HARMONY:
-                return "Single custom harmony";
-            case SimpleModuleGeneratorPhraseGroupType.DOUBLE_CUSTOM_HARMONY:
-                return "Double custom harmony";
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+            return 'Complete imperfect + complete lengthen dominant';
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+            return 'Complete imperfect + complete lengthen final tonic';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+            return 'Incomplete + complete lengthen dominant';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+            return 'Incomplete + complete lengthen final tonic';
+        case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+            return 'Deceptive + complete lengthen dominant';
+        case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+            return 'Deceptive + complete lengthen final tonic';
+        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+            return 'Modulate + complete lengthen dominant';
+        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+            return 'Modulate + complete lengthen final tonic';
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+            return 'Tonicize + complete lengthen dominant';
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+            return 'Tonicize + complete lengthen final tonic';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+            return 'Incomplete initial + complete lengthen dominant';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+            return 'Incomplete initial + complete lengthen final tonic';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DECEPTIVE:
+            return 'Incomplete + deceptive';
+        case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_DECEPTIVE:
+            return 'Deceptive + deceptive';
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_DECEPTIVE:
+            return 'Complete imperfect + deceptive';
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_DECEPTIVE:
+            return 'Tonicize + deceptive';
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLAGIAL_PLUS_COMPLETE:
+            return 'Complete plagial + complete';
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_PLAGIAL:
+            return 'Complete + complete plagial';
+        case SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT:
+            return 'Antecedent consequent';
+        case SimpleModuleGeneratorPhraseGroupType.SINGLE_SILENT:
+            return 'Single silent';
+        case SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE:
+            return 'Single deceptive';
+        case SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL:
+            return 'Single complete plagial';
+        case SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT:
+            return 'Single complete imperfect';
+        case SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT_SHORTEN:
+            return 'Antecedent consequent shorten';
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE:
+            return 'Complete + complete';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_IMPERFECT:
+            return 'Complete + complete imperfect';
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_DIFFERENT_SCALE_TYPE:
+            return 'Complete + complete change scale type';
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE:
+            return 'Complete + modulate';
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE:
+            return 'Complete + phrase modulate';
+        case SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE:
+            return 'Deceptive + complete';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE:
+            return 'Incomplete initial + complete';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE:
+            return 'Incomplete + complete';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE:
+            return 'Incomplete + modulate';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DOMINANT_PROLONG:
+            return 'Incomplete + dominant prolong';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DOMINANT_PROLONG_CADENCE:
+            return 'Incomplete + dominant prolong cadence';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_SHORTER_PLUS_COMPLETE:
+            return 'Incomplete shorter + complete';
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_WEAK_PLUS_COMPLETE_WEAK_TONIC:
+            return 'Incomplete weak + complete weak tonic';
+        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE:
+            return 'Modulate + complete';
+        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_MODULATE_BACK:
+            return 'Modulate + modulate back';
+        case SimpleModuleGeneratorPhraseGroupType.PHRASE_MODULATE:
+            return 'Phrase modulate';
+        case SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE:
+            return 'Single complete';
+        case SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE:
+            return 'Single incomplete';
+        case SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG:
+            return 'Single tonic prolong';
+        case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_COMPLETE:
+            return 'Tonic prolong + complete';
+        case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_CADENCE:
+            return 'Tonic prolong + dominant prolong cadence';
+        case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG:
+            return 'Tonic prolong + dominant prolong';
+        case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_COMPLETE:
+            return 'Tonic prolong + dominaint prolong + complete';
+        case SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_TONIC_CADENCE_PROLONG:
+            return 'Tonic prolong + dominant prolong + tonic cadence prolong';
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE:
+            return 'Tonicize + complete';
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_TONICIZE:
+            return 'Tonicize + tonicize';
+        case SimpleModuleGeneratorPhraseGroupType.CUSTOM:
+            return 'Custom';
+        case SimpleModuleGeneratorPhraseGroupType.SINGLE_CUSTOM_HARMONY:
+            return 'Single custom harmony';
+        case SimpleModuleGeneratorPhraseGroupType.DOUBLE_CUSTOM_HARMONY:
+            return 'Double custom harmony';
         }
-        return "Unknown phrase group type " + type;
+        return 'Unknown phrase group type ' + type;
     },
 
     tonicizeOrModulate: function(type) {
         switch (type) {
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE:
-            case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE:
-            case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE:
-            case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE:
-            case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_MODULATE_BACK:
-            case SimpleModuleGeneratorPhraseGroupType.PHRASE_MODULATE:
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE:
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_TONICIZE:
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_DECEPTIVE:
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-            case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-            case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
-            case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
-                return true;
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE:
+        case SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE:
+        case SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE:
+        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE:
+        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_MODULATE_BACK:
+        case SimpleModuleGeneratorPhraseGroupType.PHRASE_MODULATE:
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE:
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_TONICIZE:
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_DECEPTIVE:
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+        case SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_DOMINANT:
+        case SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC:
+            return true;
         }
         return false;
     }
@@ -4395,87 +4393,87 @@ var SongPartType = {
 
     getIndex: function(type) {
         switch (type) {
-            case SongPartType.VERSE_1:
-            case SongPartType.BRIDGE_1:
-            case SongPartType.CHORUS_1:
-            case SongPartType.MISC_1:
-                return 0;
-            case SongPartType.VERSE_2:
-            case SongPartType.BRIDGE_2:
-            case SongPartType.CHORUS_2:
-            case SongPartType.MISC_2:
-                return 1;
+        case SongPartType.VERSE_1:
+        case SongPartType.BRIDGE_1:
+        case SongPartType.CHORUS_1:
+        case SongPartType.MISC_1:
+            return 0;
+        case SongPartType.VERSE_2:
+        case SongPartType.BRIDGE_2:
+        case SongPartType.CHORUS_2:
+        case SongPartType.MISC_2:
+            return 1;
         }
         return 0;
     },
 
     isVerse: function(type) {
         switch (type) {
-            case SongPartType.VERSE_1:
-            case SongPartType.VERSE_2:
-                return true;
+        case SongPartType.VERSE_1:
+        case SongPartType.VERSE_2:
+            return true;
         }
         return false;
     },
     isChorus: function(type) {
         switch (type) {
-            case SongPartType.CHORUS_1:
-            case SongPartType.CHORUS_2:
-                return true;
+        case SongPartType.CHORUS_1:
+        case SongPartType.CHORUS_2:
+            return true;
         }
         return false;
     },
     isBridge: function(type) {
         switch (type) {
-            case SongPartType.BRIDGE_1:
-            case SongPartType.BRIDGE_2:
-                return true;
+        case SongPartType.BRIDGE_1:
+        case SongPartType.BRIDGE_2:
+            return true;
         }
         return false;
     },
 
     toIndicatorString: function(type) {
         switch (type) {
-            case SongPartType.BRIDGE_1:
-                return "bridge1";
-            case SongPartType.BRIDGE_2:
-                return "bridge2";
-            case SongPartType.CHORUS_1:
-                return "chorus1";
-            case SongPartType.CHORUS_2:
-                return "chorus2";
-            case SongPartType.VERSE_1:
-                return "verse1";
-            case SongPartType.VERSE_2:
-                return "verse2";
-            case SongPartType.MISC_1:
-                return "misc1";
-            case SongPartType.MISC_2:
-                return "misc2";
+        case SongPartType.BRIDGE_1:
+            return 'bridge1';
+        case SongPartType.BRIDGE_2:
+            return 'bridge2';
+        case SongPartType.CHORUS_1:
+            return 'chorus1';
+        case SongPartType.CHORUS_2:
+            return 'chorus2';
+        case SongPartType.VERSE_1:
+            return 'verse1';
+        case SongPartType.VERSE_2:
+            return 'verse2';
+        case SongPartType.MISC_1:
+            return 'misc1';
+        case SongPartType.MISC_2:
+            return 'misc2';
         }
-        return "verse1";
+        return 'verse1';
     },
 
     toString: function(type) {
         switch (type) {
-            case SongPartType.BRIDGE_1:
-                return "Bridge 1";
-            case SongPartType.BRIDGE_2:
-                return "Bridge 2";
-            case SongPartType.CHORUS_1:
-                return "Chorus 1";
-            case SongPartType.CHORUS_2:
-                return "Chorus 2";
-            case SongPartType.VERSE_1:
-                return "Verse 1";
-            case SongPartType.VERSE_2:
-                return "Verse 2";
-            case SongPartType.MISC_1:
-                return "Misc 1";
-            case SongPartType.MISC_2:
-                return "Misc 2";
+        case SongPartType.BRIDGE_1:
+            return 'Bridge 1';
+        case SongPartType.BRIDGE_2:
+            return 'Bridge 2';
+        case SongPartType.CHORUS_1:
+            return 'Chorus 1';
+        case SongPartType.CHORUS_2:
+            return 'Chorus 2';
+        case SongPartType.VERSE_1:
+            return 'Verse 1';
+        case SongPartType.VERSE_2:
+            return 'Verse 2';
+        case SongPartType.MISC_1:
+            return 'Misc 1';
+        case SongPartType.MISC_2:
+            return 'Misc 2';
         }
-        return "Unknown song part type " + type;
+        return 'Unknown song part type ' + type;
     }
 };
 addPossibleValuesFunction(SongPartType, SongPartType.VERSE_1, SongPartType.MISC_2);
@@ -4485,16 +4483,16 @@ function MotifRythmInfo(options) {
     this.noteCountRange = [0.25, 1.0]; // Notes per beat
 
     this.zone1Prob = 0.5;
-    this.zone1TripletLikelihood = getValueOrDefault(options, "zone1TripletLikelihood", 0.5);
-    this.zone1DotSecondLikelihood = getValueOrDefault(options, "zone1DotSecondLikelihood", 0.5);
-    this.zone1DotFirstLikelihood = getValueOrDefault(options, "zone1DotFirstLikelihood", 2);
-    this.zone1DotNormalDotLikelihood = getValueOrDefault(options, "zone1DotNormalDotLikelihood", 0.5);
-    this.zone1NormalDotDotLikelihood = getValueOrDefault(options, "zone1NormalDotDotLikelihood", 0.5);
-    this.zone1DotDotNormalLikelihood = getValueOrDefault(options, "zone1DotDotNormalLikelihood", 0.5);
-    this.zone1StartPosRange = getValueOrDefault(options, "zone1StartPosRange", [0, 0]);
-    this.zone1EndPosRange = getValueOrDefault(options, "zone1EndPosRange", [0.75, 0.75]);
+    this.zone1TripletLikelihood = getValueOrDefault(options, 'zone1TripletLikelihood', 0.5);
+    this.zone1DotSecondLikelihood = getValueOrDefault(options, 'zone1DotSecondLikelihood', 0.5);
+    this.zone1DotFirstLikelihood = getValueOrDefault(options, 'zone1DotFirstLikelihood', 2);
+    this.zone1DotNormalDotLikelihood = getValueOrDefault(options, 'zone1DotNormalDotLikelihood', 0.5);
+    this.zone1NormalDotDotLikelihood = getValueOrDefault(options, 'zone1NormalDotDotLikelihood', 0.5);
+    this.zone1DotDotNormalLikelihood = getValueOrDefault(options, 'zone1DotDotNormalLikelihood', 0.5);
+    this.zone1StartPosRange = getValueOrDefault(options, 'zone1StartPosRange', [0, 0]);
+    this.zone1EndPosRange = getValueOrDefault(options, 'zone1EndPosRange', [0.75, 0.75]);
 
-    this._constructorName = "MotifRythmInfo";
+    this._constructorName = 'MotifRythmInfo';
 }
 
 
@@ -4507,18 +4505,18 @@ var MelodyOffsetLevel = {
 
     toString: function(t) {
         switch (t) {
-            case MelodyOffsetLevel.HIGH:
-                return "High";
-            case MelodyOffsetLevel.LOW:
-                return "Low";
-            case MelodyOffsetLevel.MIDDLE:
-                return "Middle";
-            case MelodyOffsetLevel.VERY_HIGH:
-                return "Very high";
-            case MelodyOffsetLevel.VERY_LOW:
-                return "Very low";
+        case MelodyOffsetLevel.HIGH:
+            return 'High';
+        case MelodyOffsetLevel.LOW:
+            return 'Low';
+        case MelodyOffsetLevel.MIDDLE:
+            return 'Middle';
+        case MelodyOffsetLevel.VERY_HIGH:
+            return 'Very high';
+        case MelodyOffsetLevel.VERY_LOW:
+            return 'Very low';
         }
-        return "Unknown melody offset level " + t;
+        return 'Unknown melody offset level ' + t;
     }
 };
 addPossibleValuesFunction(MelodyOffsetLevel, MelodyOffsetLevel.VERY_LOW, MelodyOffsetLevel.VERY_HIGH);
@@ -4530,7 +4528,7 @@ function RenderAmountStrengthMap() {
     this.medium = [0.4];
     this.strong = [0.7];
     this.veryStrong = [1.0];
-    this._constructorName = "RenderAmountStrengthMap";
+    this._constructorName = 'RenderAmountStrengthMap';
 }
 
 
@@ -4538,7 +4536,7 @@ function RenderAmountStrengthMap() {
 function IndexPropertyIndex() {
     this.indexProperty = PhraseGroupIndexProperty.HARMONY_RYTHM;
     this.otherPartType = SongPartType.VERSE_1;
-    this._constructorName = "IndexPropertyIndex";
+    this._constructorName = 'IndexPropertyIndex';
 }
 
 
@@ -4547,12 +4545,12 @@ function SongPartTypeOverrideInfo(options) {
 
     this.customPhraseTypes = [PhraseHarmonyElementType.INCOMPLETE, PhraseHarmonyElementType.COMPLETE];
 
-    this.sameGroupIndexSames = getValueOrDefault(options, "sameGroupIndexSames", []); // Forcing some index properties to be same
-    this.sameGroupIndexDifferents = getValueOrDefault(options, "sameGroupIndexDifferents", []); // Forcing some index properties to be different
+    this.sameGroupIndexSames = getValueOrDefault(options, 'sameGroupIndexSames', []); // Forcing some index properties to be same
+    this.sameGroupIndexDifferents = getValueOrDefault(options, 'sameGroupIndexDifferents', []); // Forcing some index properties to be different
     this.differentGroupIndexSameInfos = []; // IndexPropertyIndex
     this.differentGroupIndexDifferentInfos = []; // IndexPropertyIndex
 
-    this._constructorName = "SongPartTypeOverrideInfo";
+    this._constructorName = 'SongPartTypeOverrideInfo';
 }
 //SongPartTypeOverrideInfo.prototype = new AbstractSongPartStructureInfo();
 
@@ -4586,58 +4584,58 @@ var PhraseGroupIndexProperty = {
 
     toString: function(type) {
         switch (type) {
-            case PhraseGroupIndexProperty.BASS_EFFECTS:
-               return "Bass Effects";
-            case PhraseGroupIndexProperty.BASS_INSTRUMENT_DISTRIBUTION:
-               return "Bass Instrument Distribution";
-            case PhraseGroupIndexProperty.BASS_MOTIF_DISTRIBUTION:
-               return "Bass Motif Distribution";
-            case PhraseGroupIndexProperty.BASS_SHAPE:
-               return "Bass Shape";
-            case PhraseGroupIndexProperty.HARMONY:
-               return "Harmony";
-            case PhraseGroupIndexProperty.HARMONY_CHARACTERISTIC:
-               return "Harmony Characteristic";
-            case PhraseGroupIndexProperty.HARMONY_RYTHM:
-               return "Harmony Rythm";
-            case PhraseGroupIndexProperty.INNER_1_EFFECTS:
-               return "Inner 1 Effects";
-            case PhraseGroupIndexProperty.INNER_1_INSTRUMENT_DISTRIBUTION:
-               return "Inner 1 Instrument Distribution";
-            case PhraseGroupIndexProperty.INNER_1_MOTIF_DISTRIBUTION:
-               return "Inner 1 Motif Distribution";
-            case PhraseGroupIndexProperty.INNER_2_EFFECTS:
-               return "Inner 2 Effects";
-            case PhraseGroupIndexProperty.INNER_2_INSTRUMENT_DISTRIBUTION:
-               return "Inner 2 Instrument Distribution";
-            case PhraseGroupIndexProperty.INNER_2_MOTIF_DISTRIBUTION:
-               return "Inner 2 Motif Distribution";
-            case PhraseGroupIndexProperty.MELODY_EFFECTS:
-               return "Melody Effects";
-            case PhraseGroupIndexProperty.MELODY_INSTRUMENT_DISTRIBUTION:
-               return "Melody Instrument Distribution";
-            case PhraseGroupIndexProperty.MELODY_MOTIF_DISTRIBUTION:
-               return "Melody Motif Distribution";
-            case PhraseGroupIndexProperty.MELODY_SHAPE:
-               return "Melody Shape";
-            case PhraseGroupIndexProperty.PERCUSSION_EFFECTS:
-               return "Percussion Effects";
-            case PhraseGroupIndexProperty.PERCUSSION_FILL_DISTRIBUTION:
-               return "Percussion Fill Distribution";
-            case PhraseGroupIndexProperty.PERCUSSION_MOTIF_DISTRIBUTION:
-               return "Percussion Motif Distribution";
-            case PhraseGroupIndexProperty.RENDER_AMOUNT:
-               return "Render Amount";
-            case PhraseGroupIndexProperty.SUSPEND:
-               return "Suspend";
-            case PhraseGroupIndexProperty.TEMPO:
-               return "Tempo";
-            case PhraseGroupIndexProperty.TEMPO_CHANGE_1:
-               return "Tempo Change 1";
-            case PhraseGroupIndexProperty.TEMPO_CHANGE_2:
-               return "Tempo Change 2";
+        case PhraseGroupIndexProperty.BASS_EFFECTS:
+            return 'Bass Effects';
+        case PhraseGroupIndexProperty.BASS_INSTRUMENT_DISTRIBUTION:
+            return 'Bass Instrument Distribution';
+        case PhraseGroupIndexProperty.BASS_MOTIF_DISTRIBUTION:
+            return 'Bass Motif Distribution';
+        case PhraseGroupIndexProperty.BASS_SHAPE:
+            return 'Bass Shape';
+        case PhraseGroupIndexProperty.HARMONY:
+            return 'Harmony';
+        case PhraseGroupIndexProperty.HARMONY_CHARACTERISTIC:
+            return 'Harmony Characteristic';
+        case PhraseGroupIndexProperty.HARMONY_RYTHM:
+            return 'Harmony Rythm';
+        case PhraseGroupIndexProperty.INNER_1_EFFECTS:
+            return 'Inner 1 Effects';
+        case PhraseGroupIndexProperty.INNER_1_INSTRUMENT_DISTRIBUTION:
+            return 'Inner 1 Instrument Distribution';
+        case PhraseGroupIndexProperty.INNER_1_MOTIF_DISTRIBUTION:
+            return 'Inner 1 Motif Distribution';
+        case PhraseGroupIndexProperty.INNER_2_EFFECTS:
+            return 'Inner 2 Effects';
+        case PhraseGroupIndexProperty.INNER_2_INSTRUMENT_DISTRIBUTION:
+            return 'Inner 2 Instrument Distribution';
+        case PhraseGroupIndexProperty.INNER_2_MOTIF_DISTRIBUTION:
+            return 'Inner 2 Motif Distribution';
+        case PhraseGroupIndexProperty.MELODY_EFFECTS:
+            return 'Melody Effects';
+        case PhraseGroupIndexProperty.MELODY_INSTRUMENT_DISTRIBUTION:
+            return 'Melody Instrument Distribution';
+        case PhraseGroupIndexProperty.MELODY_MOTIF_DISTRIBUTION:
+            return 'Melody Motif Distribution';
+        case PhraseGroupIndexProperty.MELODY_SHAPE:
+            return 'Melody Shape';
+        case PhraseGroupIndexProperty.PERCUSSION_EFFECTS:
+            return 'Percussion Effects';
+        case PhraseGroupIndexProperty.PERCUSSION_FILL_DISTRIBUTION:
+            return 'Percussion Fill Distribution';
+        case PhraseGroupIndexProperty.PERCUSSION_MOTIF_DISTRIBUTION:
+            return 'Percussion Motif Distribution';
+        case PhraseGroupIndexProperty.RENDER_AMOUNT:
+            return 'Render Amount';
+        case PhraseGroupIndexProperty.SUSPEND:
+            return 'Suspend';
+        case PhraseGroupIndexProperty.TEMPO:
+            return 'Tempo';
+        case PhraseGroupIndexProperty.TEMPO_CHANGE_1:
+            return 'Tempo Change 1';
+        case PhraseGroupIndexProperty.TEMPO_CHANGE_2:
+            return 'Tempo Change 2';
         }
-        return "Unknown phrase group index property";
+        return 'Unknown phrase group index property';
     }
 
 };
@@ -4662,38 +4660,38 @@ var SongPartStrength = {
 
     toString: function(type) {
         switch (type) {
-            case SongPartStrength.DEFAULT:
-                return "Default";
-            case SongPartStrength.MEDIUM:
-                return "Medium";
-            case SongPartStrength.STRONG:
-                return "Strong";
-            case SongPartStrength.VERY_STRONG:
-                return "Very Strong";
-            case SongPartStrength.VERY_WEAK:
-                return "Very Weak";
-            case SongPartStrength.WEAK:
-                return "Weak";
+        case SongPartStrength.DEFAULT:
+            return 'Default';
+        case SongPartStrength.MEDIUM:
+            return 'Medium';
+        case SongPartStrength.STRONG:
+            return 'Strong';
+        case SongPartStrength.VERY_STRONG:
+            return 'Very Strong';
+        case SongPartStrength.VERY_WEAK:
+            return 'Very Weak';
+        case SongPartStrength.WEAK:
+            return 'Weak';
         }
-        return "Medium";
+        return 'Medium';
     },
 
     toIndicatorString: function(type) {
         switch (type) {
-            case SongPartStrength.DEFAULT:
-                return "";
-            case SongPartStrength.MEDIUM:
-                return "medium";
-            case SongPartStrength.STRONG:
-                return "strong";
-            case SongPartStrength.VERY_STRONG:
-                return "veryStrong";
-            case SongPartStrength.VERY_WEAK:
-                return "veryWeak";
-            case SongPartStrength.WEAK:
-                return "weak";
+        case SongPartStrength.DEFAULT:
+            return '';
+        case SongPartStrength.MEDIUM:
+            return 'medium';
+        case SongPartStrength.STRONG:
+            return 'strong';
+        case SongPartStrength.VERY_STRONG:
+            return 'veryStrong';
+        case SongPartStrength.VERY_WEAK:
+            return 'veryWeak';
+        case SongPartStrength.WEAK:
+            return 'weak';
         }
-        return "";
+        return '';
     }
 };
 addPossibleValuesFunction(SongPartStrength, SongPartStrength.DEFAULT, SongPartStrength.VERY_STRONG);
@@ -4767,13 +4765,13 @@ function AbstractSongPartStructureInfo() {
 
 function SongPartStructureInfo(options) {
     AbstractSongPartStructureInfo.call(this, options);
-    this.strength = getValueOrDefault(options, "strength", SongPartStrength.DEFAULT);
+    this.strength = getValueOrDefault(options, 'strength', SongPartStrength.DEFAULT);
 
-    this.prefixProbsOverride = getValueOrDefault(options, "prefixProbsOverride", []);
-    this.postfixProbsOverride = getValueOrDefault(options, "postfixProbsOverride", []);
+    this.prefixProbsOverride = getValueOrDefault(options, 'prefixProbsOverride', []);
+    this.postfixProbsOverride = getValueOrDefault(options, 'postfixProbsOverride', []);
 
-    this.majorGroupModulationTarget = getValueOrDefault(options, "majorGroupModulationTarget", -1);
-    this.minorGroupModulationTarget = getValueOrDefault(options, "minorGroupModulationTarget", -1);
+    this.majorGroupModulationTarget = getValueOrDefault(options, 'majorGroupModulationTarget', -1);
+    this.minorGroupModulationTarget = getValueOrDefault(options, 'minorGroupModulationTarget', -1);
 
     this.melodyRenderAmountOverride = [];
     this.inner1RenderAmountOverride = [];
@@ -4784,7 +4782,7 @@ function SongPartStructureInfo(options) {
     this.prefixInfoOverrides = [];
     this.postfixInfoOverrides = [];
 
-    this._constructorName = "SongPartStructureInfo";
+    this._constructorName = 'SongPartStructureInfo';
 }
 //SongPartStructureInfo.prototype = new AbstractSongPartStructureInfo();
 
@@ -4792,8 +4790,8 @@ function CustomVoiceLineCurveInfo(options) {
     this.amplitude = 1.0;
     this.bias = 0.0;
     this.type = 0;
-    this.curveId = "";
-    this._constructorName = "CustomVoiceLineCurveInfo";
+    this.curveId = '';
+    this._constructorName = 'CustomVoiceLineCurveInfo';
 }
 
 CustomVoiceLineCurveInfo.prototype.counter = 0;
@@ -4811,7 +4809,7 @@ function LinearInterpolatedCustomVoiceLineCurveInfo() {
     CustomVoiceLineCurveInfo.call(this);
     this.xValues = [0, 1];
     this.yValues = [60, 70];
-    this._constructorName = "LinearInterpolatedCustomVoiceLineCurveInfo";
+    this._constructorName = 'LinearInterpolatedCustomVoiceLineCurveInfo';
 }
 
 LinearInterpolatedCustomVoiceLineCurveInfo.prototype = new CustomVoiceLineCurveInfo();
@@ -4821,21 +4819,21 @@ LinearInterpolatedCustomVoiceLineCurveInfo.prototype.getCurve = function() {
     result.xValues = arrayCopy(this.xValues);
     result.yValues = arrayCopy(this.yValues);
     if (!this.curveId) {
-        this.curveId = "CustomVoiceLineCurveInfo" + CustomVoiceLineCurveInfo.prototype.counter;
+        this.curveId = 'CustomVoiceLineCurveInfo' + CustomVoiceLineCurveInfo.prototype.counter;
         CustomVoiceLineCurveInfo.prototype.counter++;
     }
     result.id = this.curveId;
     return result;
 };
 function VoiceLinePlannerConstraint() {
-    this.id = "";
-    this._constructorName = "VoiceLinePlannerConstraint";
+    this.id = '';
+    this._constructorName = 'VoiceLinePlannerConstraint';
 }
 
 
 function EmptyVoiceLinePlannerConstraint() {
     VoiceLinePlannerConstraint.call(this);
-    this._constructorName = "EmptyVoiceLinePlannerConstraint";
+    this._constructorName = 'EmptyVoiceLinePlannerConstraint';
 }
 EmptyVoiceLinePlannerConstraint.prototype = new VoiceLinePlannerConstraint();
 
@@ -4844,7 +4842,7 @@ EmptyVoiceLinePlannerConstraint.prototype = new VoiceLinePlannerConstraint();
 function MinVoiceLinePlannerConstraint() {
     VoiceLinePlannerConstraint.call(this);
     this.constraints = [];
-    this._constructorName = "MinVoiceLinePlannerConstraint";
+    this._constructorName = 'MinVoiceLinePlannerConstraint';
 
 }
 MinVoiceLinePlannerConstraint.prototype = new VoiceLinePlannerConstraint();
@@ -4857,20 +4855,20 @@ function VoiceChordNotesVoiceLinePlannerConstraint() {
     this.chordRootPitchClassConstraintCosts = [[1]]; // 2d arrays
     this.chordBassPitchClassConstraintCosts = [[1]];
 
-    this._constructorName = "VoiceChordNotesVoiceLinePlannerConstraint";
+    this._constructorName = 'VoiceChordNotesVoiceLinePlannerConstraint';
 }
 VoiceChordNotesVoiceLinePlannerConstraint.prototype = new VoiceLinePlannerConstraint();
 
 function HarmonyElement() {
-    this.id = "";
+    this.id = '';
     this.modifiers = [];
-    this._constructorName = "HarmonyElement";
+    this._constructorName = 'HarmonyElement';
 }
 
 function HarmonyReferenceHarmonyElement() {
     HarmonyElement.call(this);
-    this.harmony = "";
-    this._constructorName = "HarmonyReferenceHarmonyElement";
+    this.harmony = '';
+    this._constructorName = 'HarmonyReferenceHarmonyElement';
 }
 HarmonyReferenceHarmonyElement.prototype = new HarmonyElement();
 
@@ -4879,7 +4877,7 @@ function SwitchHarmonyElement() {
     HarmonyElement.call(this);
     this.index = 0;
     this.indexedElements = [];
-    this._constructorName = "SwitchHarmonyElement";
+    this._constructorName = 'SwitchHarmonyElement';
 }
 SwitchHarmonyElement.prototype = new HarmonyElement();
 
@@ -4918,9 +4916,9 @@ function ConstantHarmonyElement() {
 
     this.startsPhrase = false;
 
-    this.note = "";
+    this.note = '';
 
-    this._constructorName = "ConstantHarmonyElement";
+    this._constructorName = 'ConstantHarmonyElement';
 }
 
 ConstantHarmonyElement.prototype = new HarmonyElement();
@@ -4934,14 +4932,14 @@ var HarmonyLengthMode = {
 
     toString: function(type) {
         switch (type) {
-            case HarmonyLengthMode.COUNT_AND_LENGTH_PATTERN:
-                return "Count and length pattern";
-            case HarmonyLengthMode.COUNT_AND_RYTHM:
-                return "Count and rythm";
-            case HarmonyLengthMode.RYTHM_ONLY:
-                return "Rythm only";
+        case HarmonyLengthMode.COUNT_AND_LENGTH_PATTERN:
+            return 'Count and length pattern';
+        case HarmonyLengthMode.COUNT_AND_RYTHM:
+            return 'Count and rythm';
+        case HarmonyLengthMode.RYTHM_ONLY:
+            return 'Rythm only';
         }
-        return "Unknown length mode " + type;
+        return 'Unknown length mode ' + type;
     }
 };
 addPossibleValuesFunction(HarmonyLengthMode, HarmonyLengthMode.COUNT_AND_LENGTH_PATTERN, HarmonyLengthMode.RYTHM_ONLY);
@@ -4965,7 +4963,7 @@ function SequenceHarmonyElement() {
     this.beatStrengths = [1, 0.8, 0.9, 0.6, 0.3, 0.4, 0.2];
 
     // For rythm-based harmony elements
-    this.lengthRythm = "";
+    this.lengthRythm = '';
     this.rythmTsNumerator = 4;
     this.rythmTsDenominator = 4;
     this.setTsNumeratorExternally = false;
@@ -4991,7 +4989,7 @@ function SequenceHarmonyElement() {
     this.startTsDenominators = [];
     this.endTsDenominators = [];
 
-    this._constructorName = "SequenceHarmonyElement";
+    this._constructorName = 'SequenceHarmonyElement';
 }
 SequenceHarmonyElement.prototype = new HarmonyElement();
 
@@ -5041,12 +5039,12 @@ function SimpleSequenceHarmonyElement() {
     this.endVoiceLineConstraintIndices = []; // 2d array
 
 
-    this._constructorName = "SimpleSequenceHarmonyElement";
+    this._constructorName = 'SimpleSequenceHarmonyElement';
 }
 
 SimpleSequenceHarmonyElement.prototype = new SequenceHarmonyElement();
 
-SimpleSequenceHarmonyElement.prototype.voiceLineConstraints_allowedTypes = {"VoiceChordNotesVoiceLinePlannerConstraint": 1};
+SimpleSequenceHarmonyElement.prototype.voiceLineConstraints_allowedTypes = {'VoiceChordNotesVoiceLinePlannerConstraint': 1};
 
 
 function PlannedHarmonyElement() {
@@ -5057,7 +5055,7 @@ function PlannedHarmonyElement() {
 
     this.seed = 12345;
 
-    this._constructorName = "PlannedHarmonyElement";
+    this._constructorName = 'PlannedHarmonyElement';
 }
 
 PlannedHarmonyElement.prototype = new SequenceHarmonyElement();
@@ -5094,7 +5092,7 @@ function StaticSequenceHarmonyElement() {
     this.canEndWithBase = true;
     this.canEndWithAuxiliary = false;
     this.possibleAuxiliaryEndRoots = [3, 4];
-    this._constructorName = "StaticSequenceHarmonyElement";
+    this._constructorName = 'StaticSequenceHarmonyElement';
 }
 
 
@@ -5142,60 +5140,60 @@ function DynamicSequenceHarmonyElement() {
 
     var options = null;
     this.passingInversions = getValueOrDefault(options,
-        "passingInversions", [1, 2]);
+        'passingInversions', [1, 2]);
     this.passingInversionLikelihoods = getValueOrDefault(options,
-        "passingInversionLikelihoods", [1, 0.5]);
+        'passingInversionLikelihoods', [1, 0.5]);
     this.passingIncrements = getValueOrDefault(options,
-        "passingIncrements", [-2, -1, 1, 2]);
+        'passingIncrements', [-2, -1, 1, 2]);
     this.passingIncrementLikelihoods = getValueOrDefault(options,
-        "passingIncrementLikelihoods", [0.5, 1, 1, 0.5]);
+        'passingIncrementLikelihoods', [0.5, 1, 1, 0.5]);
     this.neighbourRoots = getValueOrDefault(options,
-        "neighbourRoots", [0, 1, 2, 3, 4, 5, 6]);
+        'neighbourRoots', [0, 1, 2, 3, 4, 5, 6]);
     this.neighbourRootLikelihoods = getValueOrDefault(options,
-        "neighbourRootLikelihoods", [1]);
+        'neighbourRootLikelihoods', [1]);
     this.neighbourInversions = getValueOrDefault(options,
-        "neighbourInversions", [1, 2]);
+        'neighbourInversions', [1, 2]);
     this.neighbourInversionLikelihoods = getValueOrDefault(options,
-        "neighbourInversionLikelihoods", [1, 0.5]);
+        'neighbourInversionLikelihoods', [1, 0.5]);
     this.expansionRoots = getValueOrDefault(options,
-        "expansionRoots", [0, 1, 2, 3, 4, 5, 6]);
+        'expansionRoots', [0, 1, 2, 3, 4, 5, 6]);
     this.expansionRootLikelihoods = getValueOrDefault(options,
-        "expansionRootLikelihoods", [1]);
+        'expansionRootLikelihoods', [1]);
     this.expansionInversions = getValueOrDefault(options,
-        "expansionInversions", [1]);
+        'expansionInversions', [1]);
     this.expansionInversionLikelihoods = getValueOrDefault(options,
-        "expansionInversionLikelihoods", [1]);
+        'expansionInversionLikelihoods', [1]);
 
     this.rootProgressionLikelihood = getValueOrDefault(options,
-        "rootProgressionLikelihood", 1);
+        'rootProgressionLikelihood', 1);
     this.repeatRootLikelihood = getValueOrDefault(options,
-        "repeatRootLikelihood", 0);
+        'repeatRootLikelihood', 0);
     this.passingLikelihood = getValueOrDefault(options,
-        "passingLikelihood", 1);
+        'passingLikelihood', 1);
     this.neighbourLikelihood = getValueOrDefault(options,
-        "neighbourLikelihood", 1);
+        'neighbourLikelihood', 1);
     this.expansionLikelihood = getValueOrDefault(options,
-        "expansionLikelihood", 1);
+        'expansionLikelihood', 1);
     this.modulateLikelihoods = [1];
     this.startModulateLikelihoods = [0.01];
     this.endModulateLikelihoods = [0.01];
 
 
     this.majorAppliedChords = getValueOrDefault(options,
-        "majorAppliedChords", [AppliedChordType.V, AppliedChordType.V7]);
+        'majorAppliedChords', [AppliedChordType.V, AppliedChordType.V7]);
     this.majorAppliedChordLikelihoods = getValueOrDefault(options,
-        "majorAppliedChordLikelihoods", [1]);
+        'majorAppliedChordLikelihoods', [1]);
     this.minorAppliedChords = getValueOrDefault(options,
-        "minorAppliedChords", [AppliedChordType.V, AppliedChordType.V7]);
+        'minorAppliedChords', [AppliedChordType.V, AppliedChordType.V7]);
     this.minorAppliedChordLikelihoods = getValueOrDefault(options,
-        "minorAppliedChordLikelihoods", [1]);
+        'minorAppliedChordLikelihoods', [1]);
 
     this.addAllMovements = getValueOrDefault(options,
-        "addAllMovements", true); // Adding all possible roots
+        'addAllMovements', true); // Adding all possible roots
     this.addAllStarts = getValueOrDefault(options,
-        "addAllStarts", true);
+        'addAllStarts', true);
 
-    this._constructorName = "DynamicSequenceHarmonyElement";
+    this._constructorName = 'DynamicSequenceHarmonyElement';
 }
 
 
@@ -5225,18 +5223,18 @@ var DynamicHarmonyModulationTarget = {
 
     invert: function(modulationTarget) {
         switch (modulationTarget) {
-            case DynamicHarmonyModulationTarget.SUPERTONIC:
-                return DynamicHarmonyModulationTarget.SUBTONIC;
-            case DynamicHarmonyModulationTarget.DOMINANT:
-                return DynamicHarmonyModulationTarget.SUBDOMINANT;
-            case DynamicHarmonyModulationTarget.MEDIANT:
-                return DynamicHarmonyModulationTarget.SUBMEDIANT;
-            case DynamicHarmonyModulationTarget.SUBDOMINANT:
-                return DynamicHarmonyModulationTarget.DOMINANT;
-            case DynamicHarmonyModulationTarget.SUBMEDIANT:
-                return DynamicHarmonyModulationTarget.MEDIANT;
-            case DynamicHarmonyModulationTarget.SUBTONIC:
-                return DynamicHarmonyModulationTarget.SUPERTONIC;
+        case DynamicHarmonyModulationTarget.SUPERTONIC:
+            return DynamicHarmonyModulationTarget.SUBTONIC;
+        case DynamicHarmonyModulationTarget.DOMINANT:
+            return DynamicHarmonyModulationTarget.SUBDOMINANT;
+        case DynamicHarmonyModulationTarget.MEDIANT:
+            return DynamicHarmonyModulationTarget.SUBMEDIANT;
+        case DynamicHarmonyModulationTarget.SUBDOMINANT:
+            return DynamicHarmonyModulationTarget.DOMINANT;
+        case DynamicHarmonyModulationTarget.SUBMEDIANT:
+            return DynamicHarmonyModulationTarget.MEDIANT;
+        case DynamicHarmonyModulationTarget.SUBTONIC:
+            return DynamicHarmonyModulationTarget.SUPERTONIC;
         }
         return modulationTarget;
     },
@@ -5245,33 +5243,33 @@ var DynamicHarmonyModulationTarget = {
         var otherScaleType = scaleType == ScaleType.MAJOR ? ScaleType.NATURAL_MINOR : ScaleType.MAJOR;
 
         switch (modulationTarget) {
-            case DynamicHarmonyModulationTarget.SUPERTONIC:
-            case DynamicHarmonyModulationTarget.MEDIANT:
-            case DynamicHarmonyModulationTarget.SUBMEDIANT:
-            case DynamicHarmonyModulationTarget.SUBTONIC:
-                return invertType ? scaleType : otherScaleType;
+        case DynamicHarmonyModulationTarget.SUPERTONIC:
+        case DynamicHarmonyModulationTarget.MEDIANT:
+        case DynamicHarmonyModulationTarget.SUBMEDIANT:
+        case DynamicHarmonyModulationTarget.SUBTONIC:
+            return invertType ? scaleType : otherScaleType;
         }
         return invertType ? otherScaleType : scaleType;
     },
 
     toString: function(type) {
         switch (type) {
-            case DynamicHarmonyModulationTarget.DOMINANT:
-                return "Dominant";
-            case DynamicHarmonyModulationTarget.MEDIANT:
-                return "Mediant";
-            case DynamicHarmonyModulationTarget.SUBDOMINANT:
-                return "Subdominant";
-            case DynamicHarmonyModulationTarget.SUBMEDIANT:
-                return "Submediant";
-            case DynamicHarmonyModulationTarget.SUBTONIC:
-                return "Subtonic";
-            case DynamicHarmonyModulationTarget.SUPERTONIC:
-                return "Supertonic";
-            case DynamicHarmonyModulationTarget.NONE:
-                return "None";
+        case DynamicHarmonyModulationTarget.DOMINANT:
+            return 'Dominant';
+        case DynamicHarmonyModulationTarget.MEDIANT:
+            return 'Mediant';
+        case DynamicHarmonyModulationTarget.SUBDOMINANT:
+            return 'Subdominant';
+        case DynamicHarmonyModulationTarget.SUBMEDIANT:
+            return 'Submediant';
+        case DynamicHarmonyModulationTarget.SUBTONIC:
+            return 'Subtonic';
+        case DynamicHarmonyModulationTarget.SUPERTONIC:
+            return 'Supertonic';
+        case DynamicHarmonyModulationTarget.NONE:
+            return 'None';
         }
-        return "Unknown modulation target " + type;
+        return 'Unknown modulation target ' + type;
     }
 };
 addPossibleValuesFunction(DynamicHarmonyModulationTarget, DynamicHarmonyModulationTarget.NONE, DynamicHarmonyModulationTarget.SUBTONIC);
@@ -5290,26 +5288,26 @@ var AppliedChordType = {
 
     toString: function(type) {
         switch (type) {
-            case AppliedChordType.V:
-                return "V";
-            case AppliedChordType.V42:
-                return "V42";
-            case AppliedChordType.V43:
-                return "V43";
-            case AppliedChordType.V65:
-                return "V65";
-            case AppliedChordType.V6:
-                return "V6";
-            case AppliedChordType.V7:
-                return "V7";
-            case AppliedChordType.VII:
-                return "VII";
-            case AppliedChordType.VII6:
-                return "VII6";
-            case AppliedChordType.VII7:
-                return "VII7";
+        case AppliedChordType.V:
+            return 'V';
+        case AppliedChordType.V42:
+            return 'V42';
+        case AppliedChordType.V43:
+            return 'V43';
+        case AppliedChordType.V65:
+            return 'V65';
+        case AppliedChordType.V6:
+            return 'V6';
+        case AppliedChordType.V7:
+            return 'V7';
+        case AppliedChordType.VII:
+            return 'VII';
+        case AppliedChordType.VII6:
+            return 'VII6';
+        case AppliedChordType.VII7:
+            return 'VII7';
         }
-        return "Unknown applied chord type " + type;
+        return 'Unknown applied chord type ' + type;
     }
 };
 addPossibleValuesFunction(AppliedChordType, AppliedChordType.V, AppliedChordType.VII7);
@@ -5324,7 +5322,7 @@ PlannedHarmonyElement.prototype.fillOptions = function(options, module) {
     var count = lengths.length;
 
     // All stuff that can be expressions comes here...
-    options.scaleBaseNote = getValueOrExpressionValue(this, "scaleBaseNote", module);
+    options.scaleBaseNote = getValueOrExpressionValue(this, 'scaleBaseNote', module);
 
     // The actual lengths of the chords must be determined here since the position snapping can
     // decrease the count.
@@ -5349,8 +5347,8 @@ StaticSequenceHarmonyElement.prototype.fillOptions = function(options, module) {
 
 StaticSequenceHarmonyElement.prototype.getConstantHarmonyElements = function(module, beatOffset) {
     if (!module) {
-        logit("module missing in " + this._constructorName + "<br />");
-        showStacktraceDialog(null, "static sequence harmony");
+        logit('module missing in ' + this._constructorName + '<br />');
+        showStacktraceDialog(null, 'static sequence harmony');
     }
 
     var options = {};
@@ -5384,8 +5382,8 @@ DynamicSequenceHarmonyElement.prototype.fillOptions = function(options, module) 
 DynamicSequenceHarmonyElement.prototype.getConstantHarmonyElements = function(module, beatOffset) {
 
     if (!module) {
-        logit("module missing in " + this._constructorName + "<br />");
-        showStacktraceDialog(null, "static sequence harmony");
+        logit('module missing in ' + this._constructorName + '<br />');
+        showStacktraceDialog(null, 'static sequence harmony');
     }
 
     var options = {};
@@ -5409,10 +5407,10 @@ var PhraseHarmonyElementShorteningMode = {
 
     toString: function(type) {
         switch (type) {
-            case PhraseHarmonyElementShorteningMode.BEATS:
-                return "Beats";
+        case PhraseHarmonyElementShorteningMode.BEATS:
+            return 'Beats';
         }
-        return "Unknown phrase harmony element shortening mode " + type;
+        return 'Unknown phrase harmony element shortening mode ' + type;
     }
 
 };
@@ -5423,7 +5421,7 @@ function PhraseHarmonyElement() {
     PlannedHarmonyElement.call(this);
 
     this.phraseType = PhraseHarmonyElementType.COMPLETE;
-    this.harmonyReference = ""; // Used for derived consequent phrases
+    this.harmonyReference = ''; // Used for derived consequent phrases
 
     this.modulate = false;
     this.modulateInvertScaleType = false;
@@ -5511,7 +5509,7 @@ function PhraseHarmonyElement() {
 
     this.maxLengthSearchSteps = 200;
 
-    this._constructorName = "PhraseHarmonyElement";
+    this._constructorName = 'PhraseHarmonyElement';
 }
 
 
@@ -5521,74 +5519,74 @@ PhraseHarmonyElement.prototype = new PlannedHarmonyElement();
 
 function DataSample(options) {
 //    this.id = "";
-    this.likelihood = getValueOrDefault(options, "likelihood", 1);
+    this.likelihood = getValueOrDefault(options, 'likelihood', 1);
     this.active = true;
-    this._constructorName = "DataSample";
+    this._constructorName = 'DataSample';
 }
 
 function IntDataSample(options) {
     DataSample.call(this, options);
     this.data = 0;
-    this._constructorName = "IntDataSample";
+    this._constructorName = 'IntDataSample';
 }
 IntDataSample.prototype = new DataSample();
 
 function IntListDataSample(options) {
     DataSample.call(this, options);
     this.data = [];
-    this._constructorName = "IntListDataSample";
+    this._constructorName = 'IntListDataSample';
 }
 IntListDataSample.prototype = new DataSample();
 
 function IntList2DDataSample(options) {
     DataSample.call(this, options);
     this.data = [];
-    this._constructorName = "IntList2DDataSample";
+    this._constructorName = 'IntList2DDataSample';
 }
 IntList2DDataSample.prototype = new DataSample();
 
 function FloatDataSample(options) {
     DataSample.call(this, options);
     this.data = 0.0;
-    this._constructorName = "FloatDataSample";
+    this._constructorName = 'FloatDataSample';
 }
 FloatDataSample.prototype = new DataSample();
 
 function FloatListDataSample(options) {
     DataSample.call(this, options);
     this.data = [];
-    this._constructorName = "FloatListDataSample";
+    this._constructorName = 'FloatListDataSample';
 }
 FloatListDataSample.prototype = new DataSample();
 
 
 function MidiProgramDataSample(options) {
     DataSample.call(this, options);
-    this.data = getValueOrDefault(options, "data", MidiProgram.ACOUSTIC_GRAND_PIANO);
-    this._constructorName = "MidiProgramDataSample";
+    this.data = getValueOrDefault(options, 'data', MidiProgram.ACOUSTIC_GRAND_PIANO);
+    this._constructorName = 'MidiProgramDataSample';
 }
 MidiProgramDataSample.prototype = new DataSample();
 
 
 function MidiDrumDataSample(options) {
     DataSample.call(this, options);
-    this.data = getValueOrDefault(options, "data", MidiDrum.BASS_DRUM_1);
-    this._constructorName = "MidiDrumDataSample";
+    this.data = getValueOrDefault(options, 'data', MidiDrum.BASS_DRUM_1);
+    this._constructorName = 'MidiDrumDataSample';
 }
 MidiDrumDataSample.prototype = new DataSample();
 
 
 function PhraseGroupTypeDataSample(options) {
     DataSample.call(this, options);
-    this.data = getValueOrDefault(options, "data", SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT);
-    this._constructorName = "PhraseGroupTypeDataSample";
+    this.data = getValueOrDefault(options, 'data', SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT);
+    this._constructorName = 'PhraseGroupTypeDataSample';
 }
 PhraseGroupTypeDataSample.prototype = new DataSample();
 
 function ModulationTargetDataSample(options) {
     DataSample.call(this, options);
-    this.data = getValueOrDefault(options, "data", DynamicHarmonyModulationTarget.MEDIANT);
-    this._constructorName = "ModulationTargetDataSample";
+    this.data = getValueOrDefault(options, 'data', DynamicHarmonyModulationTarget.MEDIANT);
+    this._constructorName = 'ModulationTargetDataSample';
 }
 ModulationTargetDataSample.prototype = new DataSample();
 
@@ -5596,16 +5594,16 @@ ModulationTargetDataSample.prototype = new DataSample();
 function SongPartStructureInfoDataSample(options) {
     DataSample.call(this, options);
     this.data = [new SongPartStructureInfo()]; //getValueOrDefault(options, "data", new SongPartStructureInfo());
-    this._constructorName = "SongPartStructureInfoDataSample";
+    this._constructorName = 'SongPartStructureInfoDataSample';
 }
 SongPartStructureInfoDataSample.prototype = new DataSample();
-SongPartStructureInfoDataSample.prototype.data_allowedTypes = {"SongPartStructureInfo": 1};
+SongPartStructureInfoDataSample.prototype.data_allowedTypes = {'SongPartStructureInfo': 1};
 
 
 function HarmonicPlanDataSample(options) {
     DataSample.call(this, options);
     this.data = [DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget.SUBDOMINANT]; //getValueOrDefault(options, "data", new SongPartStructureInfo());
-    this._constructorName = "HarmonicPlanDataSample";
+    this._constructorName = 'HarmonicPlanDataSample';
 }
 HarmonicPlanDataSample.prototype = new DataSample();
 
@@ -5761,7 +5759,7 @@ function GenInfo() {
     this.harmonyLengthLikelihoodMultipliers = [{}];
     this.harmonyLengthLikelihoodOverwriters = [{}];
     this.overwriteHarmonyLengthLikelihoods = [false];
-    this.harmonyLengthLikelihoods = [{"4": 1}];
+    this.harmonyLengthLikelihoods = [{'4': 1}];
 
 
     // Domains
@@ -5780,49 +5778,49 @@ function GenInfo() {
     this.bassEndLevels = [[MelodyOffsetLevel.VERY_LOW, MelodyOffsetLevel.LOW, MelodyOffsetLevel.MIDDLE, MelodyOffsetLevel.HIGH, MelodyOffsetLevel.VERY_HIGH]];
 
     this.majorDeceptiveRootRndInfos = [
-        {data: 6, likelihood: 1, _constructorName: "IntDataSample"},
-        {data: 5, likelihood: 4, _constructorName: "IntDataSample"},
-        {data: 3, likelihood: 4, _constructorName: "IntDataSample"},
-        {data: 2, likelihood: 1, _constructorName: "IntDataSample"},
-        {data: 1, likelihood: 1, _constructorName: "IntDataSample"}
+        {data: 6, likelihood: 1, _constructorName: 'IntDataSample'},
+        {data: 5, likelihood: 4, _constructorName: 'IntDataSample'},
+        {data: 3, likelihood: 4, _constructorName: 'IntDataSample'},
+        {data: 2, likelihood: 1, _constructorName: 'IntDataSample'},
+        {data: 1, likelihood: 1, _constructorName: 'IntDataSample'}
     ];
 
     this.minorDeceptiveRootRndInfos = [
-        {data: 6, likelihood: 1, _constructorName: "IntDataSample"},
-        {data: 5, likelihood: 4, _constructorName: "IntDataSample"},
-        {data: 3, likelihood: 4, _constructorName: "IntDataSample"},
-        {data: 2, likelihood: 1, _constructorName: "IntDataSample"},
-        {data: 1, likelihood: 1, _constructorName: "IntDataSample"}
+        {data: 6, likelihood: 1, _constructorName: 'IntDataSample'},
+        {data: 5, likelihood: 4, _constructorName: 'IntDataSample'},
+        {data: 3, likelihood: 4, _constructorName: 'IntDataSample'},
+        {data: 2, likelihood: 1, _constructorName: 'IntDataSample'},
+        {data: 1, likelihood: 1, _constructorName: 'IntDataSample'}
     ];
 
     this.electronicMelodyInstrInfos = [
         // {data: MidiProgram.CALLIOPE_LEAD, likelihood: 1},
-//        {data: MidiProgram.CHIFF_LEAD, likelihood: 1},
+        //        {data: MidiProgram.CHIFF_LEAD, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}),
-//        {data: MidiProgram.FIFTHS_LEAD, likelihood: 1},
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
+        //        {data: MidiProgram.FIFTHS_LEAD, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SAW_LEAD, likelihood: 1})
-//        {data: MidiProgram.SQUARE_LEAD, likelihood: 1}
-//        {data: MidiProgram.VOICE_LEAD, likelihood: 1}
-//        {data: MidiProgram.CHARANG_LEAD, likelihood: 1}
+        //        {data: MidiProgram.SQUARE_LEAD, likelihood: 1}
+        //        {data: MidiProgram.VOICE_LEAD, likelihood: 1}
+        //        {data: MidiProgram.CHARANG_LEAD, likelihood: 1}
     ];
     this.electronicInnerFastInstrInfos = [
-//        {data: MidiProgram.CALLIOPE_LEAD, likelihood: 1},
-//        {data: MidiProgram.CHIFF_LEAD, likelihood: 1},
+        //        {data: MidiProgram.CALLIOPE_LEAD, likelihood: 1},
+        //        {data: MidiProgram.CHIFF_LEAD, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}),
-//        {data: MidiProgram.SAW_LEAD, likelihood: 1},
-//        {data: MidiProgram.SQUARE_LEAD, likelihood: 1}
-//        {data: MidiProgram.VOICE_LEAD, likelihood: 1},
+        //        {data: MidiProgram.SAW_LEAD, likelihood: 1},
+        //        {data: MidiProgram.SQUARE_LEAD, likelihood: 1}
+        //        {data: MidiProgram.VOICE_LEAD, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_GRAND_PIANO, likelihood: 1})
-//        {data: MidiProgram.ELECTRIC_JAZZ_GUITAR, likelihood: 1},
-//        {data: MidiProgram.ELECTRIC_MUTED_GUITAR, likelihood: 1}
-//        {data: MidiProgram.CHARANG_LEAD, likelihood: 1}
+        //        {data: MidiProgram.ELECTRIC_JAZZ_GUITAR, likelihood: 1},
+        //        {data: MidiProgram.ELECTRIC_MUTED_GUITAR, likelihood: 1}
+        //        {data: MidiProgram.CHARANG_LEAD, likelihood: 1}
     ];
     this.electronicInnerSlowInstrInfos = [
-//        {data: MidiProgram.BOWED_PAD, likelihood: 1},
+        //        {data: MidiProgram.BOWED_PAD, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.HALO_PAD, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.METALLIC_PAD, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.NEW_AGE_PAD, likelihood: 1}),
@@ -5834,12 +5832,12 @@ function GenInfo() {
     ];
 
     this.electronicBassInstrInfos = [
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.SYNTH_BASS_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_BASS_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_BASS_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_BASS_2, likelihood: 1})
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}
     ];
 
 
@@ -5848,14 +5846,14 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_GRAND_PIANO, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.PERCUSSIVE_ORGAN, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ROCK_ORGAN, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_JAZZ_GUITAR, likelihood: 1},
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_MUTED_GUITAR, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_JAZZ_GUITAR, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_MUTED_GUITAR, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.OVERDRIVEN_GUITAR, likelihood: 1})
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_CLEAN_GUITAR, likelihood: 1}
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_CLEAN_GUITAR, likelihood: 1}
     ];
     this.electricInnerFastInstrInfos = [
         new MidiProgramDataSample({data: MidiProgram.DISTORTION_GUITAR, likelihood: 1}),
@@ -5865,16 +5863,16 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.OVERDRIVEN_GUITAR, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_CHOIR, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_CLEAN_GUITAR, likelihood: 1})
     ];
     this.electricInnerSlowInstrInfos = [
         new MidiProgramDataSample({data: MidiProgram.DISTORTION_GUITAR, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.OVERDRIVEN_GUITAR, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_1, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SYNTH_BRASS_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_CHOIR, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.BOWED_PAD, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.HALO_PAD, likelihood: 1}),
@@ -5885,7 +5883,7 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.SYNTH_STRINGS_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_STRINGS_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.WARM_PAD, likelihood: 1})
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_CLEAN_GUITAR, likelihood: 1}
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_CLEAN_GUITAR, likelihood: 1}
     ];
     this.electricBassInstrInfos = [
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_GRAND_PIANO, likelihood: 1}),
@@ -5893,8 +5891,8 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PICK_BASS, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_BASS_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SYNTH_BASS_2, likelihood: 1})
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1},
-//        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_1, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.ELECTRIC_PIANO_2, likelihood: 1}
     ];
 
     this.acousticMelodyInstrInfos = [
@@ -5909,13 +5907,13 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.PIZZICATO_STRINGS, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.RECORDER, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.VIOLIN, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.TRUMPET, likelihood: 1},
-//        new MidiProgramDataSample({data: MidiProgram.MUTED_TRUMPET, likelihood: 1},
-//        new MidiProgramDataSample({data: MidiProgram.SOPRANO_SAX, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.TRUMPET, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.MUTED_TRUMPET, likelihood: 1},
+        //        new MidiProgramDataSample({data: MidiProgram.SOPRANO_SAX, likelihood: 1},
         new MidiProgramDataSample({data: MidiProgram.OBOE, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.REED_ORGAN, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ROCK_ORGAN, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.TROMBONE, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.TROMBONE, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.VIOLA, likelihood: 1})
     ];
 
@@ -5932,9 +5930,9 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.PIZZICATO_STRINGS, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.RECORDER, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.VIOLIN, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.TRUMPET, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.MUTED_TRUMPET, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SOPRANO_SAX, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.TRUMPET, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.MUTED_TRUMPET, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SOPRANO_SAX, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.OBOE, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.REED_ORGAN, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ROCK_ORGAN, likelihood: 1}),
@@ -5946,20 +5944,20 @@ function GenInfo() {
         new MidiProgramDataSample({data: MidiProgram.STRING_ENSEMBLE_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.STRING_ENSEMBLE_2, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.VOICE_OOHS, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.ALTO_SAX, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.BARITONE_SAX, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.ALTO_SAX, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.BARITONE_SAX, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.CHOIR_AAHS, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.CHURCH_ORGAN, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.CLARINET, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.CLAVINET, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ENGLISH_HORN, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.MUTED_TRUMPET, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.MUTED_TRUMPET, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.OBOE, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.OCARINA, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.PAN_FLUTE, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.REED_ORGAN, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.ROCK_ORGAN, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.SOPRANO_SAX, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.SOPRANO_SAX, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.CELLO, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.FLUTE, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.PICCOLO, likelihood: 1}),
@@ -5971,8 +5969,8 @@ function GenInfo() {
     this.acousticBassInstrInfos = [
         new MidiProgramDataSample({data: MidiProgram.ACOUSTIC_GRAND_PIANO, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.BRIGHT_ACOUSTIC_PIANO, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.CONTRABASS, likelihood: 1}),
-//        new MidiProgramDataSample({data: MidiProgram.BASSOON, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.CONTRABASS, likelihood: 1}),
+        //        new MidiProgramDataSample({data: MidiProgram.BASSOON, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.FRETLESS_BASS, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SLAP_BASS_1, likelihood: 1}),
         new MidiProgramDataSample({data: MidiProgram.SLAP_BASS_2, likelihood: 1}),
@@ -5993,8 +5991,8 @@ function GenInfo() {
 
     this.snareRndInfos = [
         new MidiDrumDataSample({data: MidiDrum.SNARE_DRUM_1, likelihood: 30}),
-//        new MidiDrumDataSample({data: MidiDrum.CRASH_CYMBAL_1, likelihood: 1}),
-//        new MidiDrumDataSample({data: MidiDrum.CRASH_CYMBAL_2, likelihood: 1}),
+        //        new MidiDrumDataSample({data: MidiDrum.CRASH_CYMBAL_1, likelihood: 1}),
+        //        new MidiDrumDataSample({data: MidiDrum.CRASH_CYMBAL_2, likelihood: 1}),
         new MidiDrumDataSample({data: MidiDrum.HAND_CLAP, likelihood: 1}),
         new MidiDrumDataSample({data: MidiDrum.HIGH_TOM_1, likelihood: 1}),
         new MidiDrumDataSample({data: MidiDrum.HIGH_TOM_2, likelihood: 1}),
@@ -6026,103 +6024,103 @@ function GenInfo() {
     ];
 
     this.fillIndexPatternRndInfos = [
-        {data: [0], likelihood: 10, _constructorName: "IntListDataSample"},
-        {data: [0, 1], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 0], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 1], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 2], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 0, 1], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 0, 0, 1], likelihood: 5, _constructorName: "IntListDataSample"},
-        {data: [0, 0, 1, 0], likelihood: 3, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 0, 0], likelihood: 2, _constructorName: "IntListDataSample"},
-        {data: [0, 0, 1, 1], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 1, 1], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 1, 0], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 0, 1, 2], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 2, 0], likelihood: 1, _constructorName: "IntListDataSample"},
-        {data: [0, 1, 2, 1], likelihood: 1, _constructorName: "IntListDataSample"}
+        {data: [0], likelihood: 10, _constructorName: 'IntListDataSample'},
+        {data: [0, 1], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 0], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 1], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 2], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 0, 1], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 0, 0, 1], likelihood: 5, _constructorName: 'IntListDataSample'},
+        {data: [0, 0, 1, 0], likelihood: 3, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 0, 0], likelihood: 2, _constructorName: 'IntListDataSample'},
+        {data: [0, 0, 1, 1], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 1, 1], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 1, 0], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 0, 1, 2], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 2, 0], likelihood: 1, _constructorName: 'IntListDataSample'},
+        {data: [0, 1, 2, 1], likelihood: 1, _constructorName: 'IntListDataSample'}
     ];
 
 
     this.phraseGroupTypes = [
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_TONICIZE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample"}, // Better to use in a harmonic plan
-        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE, likelihood: 0.125, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_MODULATE_BACK, likelihood: 0.125, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT, likelihood: 0.25, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT_SHORTEN, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_DIFFERENT_SCALE_TYPE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" }, // No shortening as in ant/cons
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE, likelihood: 0.5, _constructorName: "PhraseGroupTypeDataSample" }, // Start with dynamic harmony
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DOMINANT_PROLONG_CADENCE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_COMPLETE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_COMPLETE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_TONIC_CADENCE_PROLONG, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" }, //
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLAGIAL_PLUS_COMPLETE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_PLAGIAL, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE, likelihood: 0.5, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.025, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.025, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.025, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.025, _constructorName: "PhraseGroupTypeDataSample" }
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_TONICIZE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample'}, // Better to use in a harmonic plan
+        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE, likelihood: 0.125, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_MODULATE_BACK, likelihood: 0.125, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT, likelihood: 0.25, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.ANTECEDENT_CONSEQUENT_SHORTEN, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_DIFFERENT_SCALE_TYPE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' }, // No shortening as in ant/cons
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE, likelihood: 0.5, _constructorName: 'PhraseGroupTypeDataSample' }, // Start with dynamic harmony
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DOMINANT_PROLONG_CADENCE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_COMPLETE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_COMPLETE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONIC_PROLONG_PLUS_DOMINANT_PROLONG_PLUS_TONIC_CADENCE_PROLONG, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' }, //
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLAGIAL_PLUS_COMPLETE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_COMPLETE_PLAGIAL, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_DECEPTIVE, likelihood: 0.1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE, likelihood: 0.5, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.DECEPTIVE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_IMPERFECT_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_INITIAL_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.025, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.TONICIZE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.025, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_DOMINANT, likelihood: 0.025, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE_LENGTHEN_FINAL_TONIC, likelihood: 0.025, _constructorName: 'PhraseGroupTypeDataSample' }
     ];
 
     this.modulatePhraseGroupTypes = [
-        {data: SimpleModuleGeneratorPhraseGroupType.PHRASE_MODULATE, likelihood: 0.5, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE, likelihood: 0.5, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample"},
-        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE, likelihood: 0.5, _constructorName: "PhraseGroupTypeDataSample"}
+        {data: SimpleModuleGeneratorPhraseGroupType.PHRASE_MODULATE, likelihood: 0.5, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_PHRASE_MODULATE, likelihood: 0.5, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.MODULATE_PLUS_COMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.COMPLETE_PLUS_MODULATE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample'},
+        {data: SimpleModuleGeneratorPhraseGroupType.INCOMPLETE_PLUS_MODULATE, likelihood: 0.5, _constructorName: 'PhraseGroupTypeDataSample'}
     ];
 
     this.introGroupTypes = [
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.05, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" }
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.05, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' }
     ];
 
     this.endGroupTypes = [
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.25, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" }
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.25, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' }
     ];
     this.glueGroupTypes = [
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_SILENT, likelihood: 0.25, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 3, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.25, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" },
-        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 1, _constructorName: "PhraseGroupTypeDataSample" }
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_SILENT, likelihood: 0.25, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_TONIC_PROLONG, likelihood: 3, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_PLAGIAL, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE_IMPERFECT, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_DECEPTIVE, likelihood: 0.25, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_INCOMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' },
+        {data: SimpleModuleGeneratorPhraseGroupType.SINGLE_COMPLETE, likelihood: 1, _constructorName: 'PhraseGroupTypeDataSample' }
     ];
 
     this.harmonyRythmDensityCurveFrequencyOverrides = [];
@@ -6152,12 +6150,12 @@ function GenInfo() {
 
 
     this.minorHarmonicPlans = [
-        {data: [DynamicHarmonyModulationTarget.MEDIANT, DynamicHarmonyModulationTarget.MEDIANT, DynamicHarmonyModulationTarget.SUBDOMINANT], likelihood: 1, _constructorName: "HarmonicPlanDataSample"},
-        {data: [DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget.SUBDOMINANT], likelihood: 1, _constructorName: "HarmonicPlanDataSample"}
+        {data: [DynamicHarmonyModulationTarget.MEDIANT, DynamicHarmonyModulationTarget.MEDIANT, DynamicHarmonyModulationTarget.SUBDOMINANT], likelihood: 1, _constructorName: 'HarmonicPlanDataSample'},
+        {data: [DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget.SUBDOMINANT], likelihood: 1, _constructorName: 'HarmonicPlanDataSample'}
     ];
     this.majorHarmonicPlans = [
-        {data: [DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget.SUBDOMINANT], likelihood: 1, _constructorName: "HarmonicPlanDataSample"},
-        {data: [DynamicHarmonyModulationTarget.SUPERTONIC, DynamicHarmonyModulationTarget.MEDIANT, DynamicHarmonyModulationTarget.DOMINANT], likelihood: 1, _constructorName: "HarmonicPlanDataSample"}
+        {data: [DynamicHarmonyModulationTarget.DOMINANT, DynamicHarmonyModulationTarget.SUBDOMINANT], likelihood: 1, _constructorName: 'HarmonicPlanDataSample'},
+        {data: [DynamicHarmonyModulationTarget.SUPERTONIC, DynamicHarmonyModulationTarget.MEDIANT, DynamicHarmonyModulationTarget.DOMINANT], likelihood: 1, _constructorName: 'HarmonicPlanDataSample'}
     ];
 
     this.renderAmountStrengthMap = {
@@ -6166,75 +6164,75 @@ function GenInfo() {
         medium: [0.4],
         strong: [0.7],
         veryStrong: [1.0],
-        _constructorName: "RenderAmountStrengthMap"
+        _constructorName: 'RenderAmountStrengthMap'
     };
 
 
     this.majorModulationTargetInfos = [
-        {data: DynamicHarmonyModulationTarget.MEDIANT, likelihood: 0.1, _constructorName: "ModulationTargetDataSample"},
-//        {data: DynamicHarmonyModulationTarget.SUBDOMINANT, likelihood: 0.02},
-        {data: DynamicHarmonyModulationTarget.SUBMEDIANT, likelihood: 0.1, _constructorName: "ModulationTargetDataSample"},
-        {data: DynamicHarmonyModulationTarget.SUPERTONIC, likelihood: 0.2, _constructorName: "ModulationTargetDataSample"},
-        {data: DynamicHarmonyModulationTarget.DOMINANT, likelihood: 1, _constructorName: "ModulationTargetDataSample"}
+        {data: DynamicHarmonyModulationTarget.MEDIANT, likelihood: 0.1, _constructorName: 'ModulationTargetDataSample'},
+        //        {data: DynamicHarmonyModulationTarget.SUBDOMINANT, likelihood: 0.02},
+        {data: DynamicHarmonyModulationTarget.SUBMEDIANT, likelihood: 0.1, _constructorName: 'ModulationTargetDataSample'},
+        {data: DynamicHarmonyModulationTarget.SUPERTONIC, likelihood: 0.2, _constructorName: 'ModulationTargetDataSample'},
+        {data: DynamicHarmonyModulationTarget.DOMINANT, likelihood: 1, _constructorName: 'ModulationTargetDataSample'}
     ];
     this.minorModulationTargetInfos = [
-        {data: DynamicHarmonyModulationTarget.MEDIANT, likelihood: 1, _constructorName: "ModulationTargetDataSample"},
-//        {data: DynamicHarmonyModulationTarget.SUBDOMINANT, likelihood: 0.05},
-        {data: DynamicHarmonyModulationTarget.SUBMEDIANT, likelihood: 0.1, _constructorName: "ModulationTargetDataSample"},
-        {data: DynamicHarmonyModulationTarget.SUBTONIC, likelihood: 0.1, _constructorName: "ModulationTargetDataSample"},
-        {data: DynamicHarmonyModulationTarget.DOMINANT, likelihood: 0.2, _constructorName: "ModulationTargetDataSample"}
+        {data: DynamicHarmonyModulationTarget.MEDIANT, likelihood: 1, _constructorName: 'ModulationTargetDataSample'},
+        //        {data: DynamicHarmonyModulationTarget.SUBDOMINANT, likelihood: 0.05},
+        {data: DynamicHarmonyModulationTarget.SUBMEDIANT, likelihood: 0.1, _constructorName: 'ModulationTargetDataSample'},
+        {data: DynamicHarmonyModulationTarget.SUBTONIC, likelihood: 0.1, _constructorName: 'ModulationTargetDataSample'},
+        {data: DynamicHarmonyModulationTarget.DOMINANT, likelihood: 0.2, _constructorName: 'ModulationTargetDataSample'}
     ];
 
     this.melodyMotifIndexPatternInfos = [
-        {data: [[1], [1], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [2], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [2], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [1], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [2], [3]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [1], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [1], [3]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [3]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [3], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [3], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [1], [0], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [0], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [3], [0], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [3], [0], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [0], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [1], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [3], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [2], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [1], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"}
+        {data: [[1], [1], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [2], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [2], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [1], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [2], [3]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [1], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [1], [3]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [3]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [3], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [3], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [1], [0], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [0], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [3], [0], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [3], [0], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [0], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [1], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [3], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [2], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [1], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'}
     ];
 
     this.bassMotifIndexPatternInfos = [
-        {data: [[1], [1], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [2], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [2], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [1], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[0], [1], [2], [3]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [1], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [1], [3]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [3]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [3], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [3], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [1], [0], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [0], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [3], [0], [2]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [3], [0], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [0], [1]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [1], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [3], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [2], [2], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [2], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"},
-        {data: [[1], [0], [1], [0]], likelihood: 1, _constructorName: "IntList2DDataSample"}
+        {data: [[1], [1], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [2], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [2], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [1], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[0], [1], [2], [3]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [1], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [1], [3]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [3]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [3], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [3], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [1], [0], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [0], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [3], [0], [2]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [3], [0], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [0], [1]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [1], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [3], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [2], [2], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [2], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'},
+        {data: [[1], [0], [1], [0]], likelihood: 1, _constructorName: 'IntList2DDataSample'}
     ];
 
     this.harmonyElements = [];
@@ -6322,14 +6320,14 @@ function GenInfo() {
 
 
     // General export stuff
-    this.songName = "song";
+    this.songName = 'song';
 
     // Midi render stuff
     this.instrumentVolumeHints = {};
-//    this.instrumentVolumeHints[MidiProgram.SYNTH_STRINGS_1] = 90 / 127.0;
-//    this.instrumentVolumeHints[MidiProgram.PAN_FLUTE] = 90 / 127.0;
-//    this.instrumentVolumeHints[MidiProgram.CHURCH_ORGAN] = 110 / 127.0;
-//    this.instrumentVolumeHints[MidiProgram.METALLIC_PAD] = 90 / 127.0;
+    //    this.instrumentVolumeHints[MidiProgram.SYNTH_STRINGS_1] = 90 / 127.0;
+    //    this.instrumentVolumeHints[MidiProgram.PAN_FLUTE] = 90 / 127.0;
+    //    this.instrumentVolumeHints[MidiProgram.CHURCH_ORGAN] = 110 / 127.0;
+    //    this.instrumentVolumeHints[MidiProgram.METALLIC_PAD] = 90 / 127.0;
     this.applyInstrumentVolumeHintsToMelody = false;
     this.applyInstrumentVolumeHintsToInner1 = true;
     this.applyInstrumentVolumeHintsToInner1 = true;
@@ -6369,45 +6367,45 @@ function GenInfo() {
     this.normalizeRenderedResult = false;
     this.compressRenderedResult = false;
 
-    this._constructorName = "GenInfo";
+    this._constructorName = 'GenInfo';
 }
 
-GenInfo.prototype.phraseGroupTypes_allowedTypes = {"PhraseGroupTypeDataSample": 1};
-GenInfo.prototype.modulatePhraseGroupTypes_allowedTypes = {"PhraseGroupTypeDataSample": 1};
-GenInfo.prototype.introGroupTypes_allowedTypes = {"PhraseGroupTypeDataSample": 1};
-GenInfo.prototype.endGroupTypes_allowedTypes = {"PhraseGroupTypeDataSample": 1};
-GenInfo.prototype.glueGroupTypes_allowedTypes = {"PhraseGroupTypeDataSample": 1};
-GenInfo.prototype.majorDeceptiveRootRndInfos_allowedTypes = {"IntDataSample": 1};
-GenInfo.prototype.minorDeceptiveRootRndInfos_allowedTypes = {"IntDataSample": 1};
-GenInfo.prototype.electronicMelodyInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electronicInnerFastInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electronicInnerSlowInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electronicBassInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electricMelodyInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electricInnerFastInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electricInnerSlowInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.electricBassInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.acousticMelodyInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.acousticInnerFastInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.acousticInnerSlowInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.acousticBassInstrInfos_allowedTypes = {"MidiProgramDataSample": 1};
-GenInfo.prototype.bassDrumRndInfos_allowedTypes = {"MidiDrumDataSample": 1};
-GenInfo.prototype.snareRndInfos_allowedTypes = {"MidiDrumDataSample": 1};
-GenInfo.prototype.crashRndInfos_allowedTypes = {"MidiDrumDataSample": 1};
-GenInfo.prototype.rideRndInfos_allowedTypes = {"MidiDrumDataSample": 1};
-GenInfo.prototype.fillIndexPatternRndInfos_allowedTypes = {"IntListDataSample": 1};
-GenInfo.prototype.songPartStructure_allowedTypes = {"SongPartStructureInfo": 1};
-GenInfo.prototype.songPartStructureRndInfos_allowedTypes = {"SongPartStructureInfoDataSample": 1};
-GenInfo.prototype.majorHarmonicPlans_allowedTypes = {"HarmonicPlanDataSample": 1};
-GenInfo.prototype.minorHarmonicPlans_allowedTypes = {"HarmonicPlanDataSample": 1};
-GenInfo.prototype.majorModulationTargetInfos_allowedTypes = {"ModulationTargetDataSample": 1};
-GenInfo.prototype.minorModulationTargetInfos_allowedTypes = {"ModulationTargetDataSample": 1};
-GenInfo.prototype.melodyMotifIndexPatternInfos_allowedTypes = {"IntList2DDataSample": 1};
-GenInfo.prototype.bassMotifIndexPatternInfos_allowedTypes = {"IntList2DDataSample": 1};
-GenInfo.prototype.songPartTypeOverrideInfos_allowedTypes = {"SongPartTypeOverrideInfo": 1};
-GenInfo.prototype.harmonyElements_allowedTypes = {"SimpleSequenceHarmonyElement": 1, "PhraseHarmonyElement": 1};
-GenInfo.prototype.customMelodyCurveInfos_allowedTypes = {"LinearInterpolatedCustomVoiceLineCurveInfo": 1};
-GenInfo.prototype.customBassCurveInfos_allowedTypes = {"LinearInterpolatedCustomVoiceLineCurveInfo": 1};
+GenInfo.prototype.phraseGroupTypes_allowedTypes = {'PhraseGroupTypeDataSample': 1};
+GenInfo.prototype.modulatePhraseGroupTypes_allowedTypes = {'PhraseGroupTypeDataSample': 1};
+GenInfo.prototype.introGroupTypes_allowedTypes = {'PhraseGroupTypeDataSample': 1};
+GenInfo.prototype.endGroupTypes_allowedTypes = {'PhraseGroupTypeDataSample': 1};
+GenInfo.prototype.glueGroupTypes_allowedTypes = {'PhraseGroupTypeDataSample': 1};
+GenInfo.prototype.majorDeceptiveRootRndInfos_allowedTypes = {'IntDataSample': 1};
+GenInfo.prototype.minorDeceptiveRootRndInfos_allowedTypes = {'IntDataSample': 1};
+GenInfo.prototype.electronicMelodyInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electronicInnerFastInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electronicInnerSlowInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electronicBassInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electricMelodyInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electricInnerFastInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electricInnerSlowInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.electricBassInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.acousticMelodyInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.acousticInnerFastInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.acousticInnerSlowInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.acousticBassInstrInfos_allowedTypes = {'MidiProgramDataSample': 1};
+GenInfo.prototype.bassDrumRndInfos_allowedTypes = {'MidiDrumDataSample': 1};
+GenInfo.prototype.snareRndInfos_allowedTypes = {'MidiDrumDataSample': 1};
+GenInfo.prototype.crashRndInfos_allowedTypes = {'MidiDrumDataSample': 1};
+GenInfo.prototype.rideRndInfos_allowedTypes = {'MidiDrumDataSample': 1};
+GenInfo.prototype.fillIndexPatternRndInfos_allowedTypes = {'IntListDataSample': 1};
+GenInfo.prototype.songPartStructure_allowedTypes = {'SongPartStructureInfo': 1};
+GenInfo.prototype.songPartStructureRndInfos_allowedTypes = {'SongPartStructureInfoDataSample': 1};
+GenInfo.prototype.majorHarmonicPlans_allowedTypes = {'HarmonicPlanDataSample': 1};
+GenInfo.prototype.minorHarmonicPlans_allowedTypes = {'HarmonicPlanDataSample': 1};
+GenInfo.prototype.majorModulationTargetInfos_allowedTypes = {'ModulationTargetDataSample': 1};
+GenInfo.prototype.minorModulationTargetInfos_allowedTypes = {'ModulationTargetDataSample': 1};
+GenInfo.prototype.melodyMotifIndexPatternInfos_allowedTypes = {'IntList2DDataSample': 1};
+GenInfo.prototype.bassMotifIndexPatternInfos_allowedTypes = {'IntList2DDataSample': 1};
+GenInfo.prototype.songPartTypeOverrideInfos_allowedTypes = {'SongPartTypeOverrideInfo': 1};
+GenInfo.prototype.harmonyElements_allowedTypes = {'SimpleSequenceHarmonyElement': 1, 'PhraseHarmonyElement': 1};
+GenInfo.prototype.customMelodyCurveInfos_allowedTypes = {'LinearInterpolatedCustomVoiceLineCurveInfo': 1};
+GenInfo.prototype.customBassCurveInfos_allowedTypes = {'LinearInterpolatedCustomVoiceLineCurveInfo': 1};
 
 
 GenInfo.prototype.randomize = function(rnd) {
@@ -6503,11 +6501,11 @@ GenInfo.prototype.set = function(inputGenInfo) {
     for (var prop in inputGenInfo) {
         var old = this[prop];
         if (typeof(old) == 'undefined') {
-            logit("Tried to set a value in genInfo that did not exist. Probably a bug to look for ;). Property name: '" + prop + "'");
+            logit('Tried to set a value in genInfo that did not exist. Probably a bug to look for ;). Property name: \'' + prop + '\'');
         } else {
             this[prop] = inputGenInfo[prop];
         }
-//        logit("setting " + prop + " to " + inputGenInfo[prop]);
+        //        logit("setting " + prop + " to " + inputGenInfo[prop]);
     }
 //    for (var prop in this) {
 //        var test = inputGenInfo[prop];
@@ -6522,71 +6520,71 @@ GenInfo.prototype.set = function(inputGenInfo) {
 var SoundFontType = {
     STANDARD_LIGHT: 0,
     STANDARD_HEAVY: 1,
-//    NES_STYLE: 2,
+    //    NES_STYLE: 2,
     SNES_STYLE: 2,
-//    OPL2FM_STYLE: 4,
+    //    OPL2FM_STYLE: 4,
     GXSCC_STYLE: 3,
-//    GB_STYLE: 6,
+    //    GB_STYLE: 6,
 
     getSamplesPrefix: function(type) {
         switch (type) {
-            case SoundFontType.STANDARD_LIGHT:
-                return "standard_light";
-            case SoundFontType.STANDARD_HEAVY:
-                return "standard_heavy";
-//            case SoundFontType.NES_STYLE:
-//                return "nes_style";
-//            case SoundFontType.OPL2FM_STYLE:
-//                return "opl2fm_style";
-            case SoundFontType.SNES_STYLE:
-                return "snes_style";
-            case SoundFontType.GXSCC_STYLE:
-                return "gxscc_style";
+        case SoundFontType.STANDARD_LIGHT:
+            return 'standard_light';
+        case SoundFontType.STANDARD_HEAVY:
+            return 'standard_heavy';
+            //            case SoundFontType.NES_STYLE:
+            //                return "nes_style";
+            //            case SoundFontType.OPL2FM_STYLE:
+            //                return "opl2fm_style";
+        case SoundFontType.SNES_STYLE:
+            return 'snes_style';
+        case SoundFontType.GXSCC_STYLE:
+            return 'gxscc_style';
 //            case SoundFontType.GB_STYLE:
 //                return "gb_style";
         }
-        return "Unknown soundfont type " + type;
+        return 'Unknown soundfont type ' + type;
     },
 
 
     toString: function(type) {
         switch (type) {
-            case SoundFontType.STANDARD_LIGHT:
-                return "Standard (light)";
-            case SoundFontType.STANDARD_HEAVY:
-                return "Standard (heavy)";
-//            case SoundFontType.NES_STYLE:
-//                return "NES Style";
-//            case SoundFontType.OPL2FM_STYLE:
-//                return "OPL2 FM Style";
-            case SoundFontType.SNES_STYLE:
-                return "SNES Style";
-            case SoundFontType.GXSCC_STYLE:
-                return "GXSCC Style";
+        case SoundFontType.STANDARD_LIGHT:
+            return 'Standard (light)';
+        case SoundFontType.STANDARD_HEAVY:
+            return 'Standard (heavy)';
+            //            case SoundFontType.NES_STYLE:
+            //                return "NES Style";
+            //            case SoundFontType.OPL2FM_STYLE:
+            //                return "OPL2 FM Style";
+        case SoundFontType.SNES_STYLE:
+            return 'SNES Style';
+        case SoundFontType.GXSCC_STYLE:
+            return 'GXSCC Style';
 //            case SoundFontType.GB_STYLE:
 //                return "GB Style";
         }
-        return "Unknown soundfont type " + type;
+        return 'Unknown soundfont type ' + type;
     },
 
     toShortString: function(type) {
         switch (type) {
-            case SoundFontType.STANDARD_LIGHT:
-                return "Light";
-            case SoundFontType.STANDARD_HEAVY:
-                return "Heavy";
-//            case SoundFontType.NES_STYLE:
-//                return "NES";
-//            case SoundFontType.OPL2FM_STYLE:
-//                return "OPL2";
-            case SoundFontType.SNES_STYLE:
-                return "SNES";
-            case SoundFontType.GXSCC_STYLE:
-                return "GXSCC";
+        case SoundFontType.STANDARD_LIGHT:
+            return 'Light';
+        case SoundFontType.STANDARD_HEAVY:
+            return 'Heavy';
+            //            case SoundFontType.NES_STYLE:
+            //                return "NES";
+            //            case SoundFontType.OPL2FM_STYLE:
+            //                return "OPL2";
+        case SoundFontType.SNES_STYLE:
+            return 'SNES';
+        case SoundFontType.GXSCC_STYLE:
+            return 'GXSCC';
 //            case SoundFontType.GB_STYLE:
 //                return "GB";
         }
-        return "Unknown soundfont type " + type;
+        return 'Unknown soundfont type ' + type;
     }
 
 

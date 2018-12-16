@@ -7,7 +7,7 @@ var AudioPlayerMode = {
 
 function AudioPlayer() {
 
-    this.audioType = "audio/mpeg";
+    this.audioType = 'audio/mpeg';
 
     this.loadSamplesAsyncOperationConstructor = LoadAudioBuffersAsyncOperation;
 
@@ -41,14 +41,14 @@ function AudioPlayer() {
     this.soundFontType = SoundFontType.STANDARD_HEAVY;
     this.settings = new WebAudioPlayerSettings();
 
-//    this.bufferLengths = [
-//        [125, 250, 500, 1000, 1500, 2000],
-//        [125, 250, 500, 1000, 1500, 2000],
-//        [125, 250, 500, 1000, 1500, 2000],
-//        [125, 250, 500, 1000, 1500, 2000],
-//        [125, 250, 500, 1000, 1500, 2000],
-//        [125, 250, 500, 1000, 1500, 2000],
-//        [125, 250, 500, 1000, 1500, 2000]];
+    //    this.bufferLengths = [
+    //        [125, 250, 500, 1000, 1500, 2000],
+    //        [125, 250, 500, 1000, 1500, 2000],
+    //        [125, 250, 500, 1000, 1500, 2000],
+    //        [125, 250, 500, 1000, 1500, 2000],
+    //        [125, 250, 500, 1000, 1500, 2000],
+    //        [125, 250, 500, 1000, 1500, 2000],
+    //        [125, 250, 500, 1000, 1500, 2000]];
     this.percussionBufferLengths = [125];
 
     this.playingVoices = [];
@@ -57,7 +57,7 @@ function AudioPlayer() {
 
 }
 
-AudioPlayer.prototype.title = "Player";
+AudioPlayer.prototype.title = 'Player';
 
 AudioPlayer.prototype.updateVoice = function(v) {
     if (v.offTime < this.getContextTime()) {
@@ -75,66 +75,66 @@ AudioPlayer.prototype.step = function() {
     var dSeconds = this.getContextTime() - this.contextOffset - this.playSeconds;
 
     switch (this.mode) {
-        case AudioPlayerMode.PAUSE:
-            this.contextOffset += dSeconds;
-            break;
-        case AudioPlayerMode.STOP:
-            this.playSeconds = 0;
-            this.contextOffset = this.getContextTime();
-            break;
-        case AudioPlayerMode.PLAY:
+    case AudioPlayerMode.PAUSE:
+        this.contextOffset += dSeconds;
+        break;
+    case AudioPlayerMode.STOP:
+        this.playSeconds = 0;
+        this.contextOffset = this.getContextTime();
+        break;
+    case AudioPlayerMode.PLAY:
 
-            // Calculate new beat
-            var beatStep = this.getBeatStep(dSeconds);
+        // Calculate new beat
+        var beatStep = this.getBeatStep(dSeconds);
 
-//            logit("  wap beatStep: " + beatStep + " ctx.time " + this.getContextTime());
+        //            logit("  wap beatStep: " + beatStep + " ctx.time " + this.getContextTime());
 
-            // Split
-//            logit(" player step bt: " + this.songPlayBeatTime + " sbt: " + scheduleToBeatTime + " s: " + this.playSeconds);
+        // Split
+        //            logit(" player step bt: " + this.songPlayBeatTime + " sbt: " + scheduleToBeatTime + " s: " + this.playSeconds);
 
-            // Update tempo events
-            var lookaheadSeconds = 2.0;
+        // Update tempo events
+        var lookaheadSeconds = 2.0;
 
-            var tempoBeforeAfter = this.splitSortedEvents(this.tempoEvents, this.playSeconds + dSeconds);
-            var newTempoEvents = tempoBeforeAfter[0];
-            this.tempoEvents = tempoBeforeAfter[1];
-            // Digest the tempo events by setting the tempo
-            for (var i=0; i<newTempoEvents.length; i++) {
-                this.currentTempo = newTempoEvents[i].b;
-            }
+        var tempoBeforeAfter = this.splitSortedEvents(this.tempoEvents, this.playSeconds + dSeconds);
+        var newTempoEvents = tempoBeforeAfter[0];
+        this.tempoEvents = tempoBeforeAfter[1];
+        // Digest the tempo events by setting the tempo
+        for (var i=0; i<newTempoEvents.length; i++) {
+            this.currentTempo = newTempoEvents[i].b;
+        }
 
-            var controlBeforeAfter = this.splitSortedEvents(this.controlEvents, this.playSeconds + dSeconds);
-            var newControlEvents = controlBeforeAfter[0];
-            this.controlEvents = controlBeforeAfter[1];
-            for (var i=0; i<newControlEvents.length; i++) {
-                var cEvent = newControlEvents[i];
-                this.scheduleControl(cEvent);
-            }
+        var controlBeforeAfter = this.splitSortedEvents(this.controlEvents, this.playSeconds + dSeconds);
+        var newControlEvents = controlBeforeAfter[0];
+        this.controlEvents = controlBeforeAfter[1];
+        for (var i=0; i<newControlEvents.length; i++) {
+            var cEvent = newControlEvents[i];
+            this.scheduleControl(cEvent);
+        }
 
 
-            // Schedule notes
-//            logit(" spliiting on " + (this.playSeconds + lookaheadSeconds));
+        // Schedule notes
+        //            logit(" spliiting on " + (this.playSeconds + lookaheadSeconds));
 
-            var notesBeforeAfter = this.splitSortedNotes(this.notes, this.playSeconds + lookaheadSeconds, 128);
-            this.notes = notesBeforeAfter[1];
-            var notesToSchedule = notesBeforeAfter[0];
-            for (var ch in notesToSchedule) {
-                var arr = notesToSchedule[ch];
-                for (var i=0; i<arr.length; i++) {
-                    var noteData = arr[i];
-                    if (noteData.onTime > this.playSeconds + lookaheadSeconds) {
-                        logit("  stupid note should not play yet ")
-                    }
-                    this.scheduleNoteOnOff(arr[i]);
+        var notesBeforeAfter = this.splitSortedNotes(this.notes, this.playSeconds + lookaheadSeconds, 128);
+        this.notes = notesBeforeAfter[1];
+        var notesToSchedule = notesBeforeAfter[0];
+        for (var ch in notesToSchedule) {
+            var arr = notesToSchedule[ch];
+            for (var i=0; i<arr.length; i++) {
+                var noteData = arr[i];
+                if (noteData.onTime > this.playSeconds + lookaheadSeconds) {
+                    logit('  stupid note should not play yet ')
                 }
+                this.scheduleNoteOnOff(arr[i]);
             }
-            this.playSeconds += dSeconds;
-            this.songPlayBeatTime += beatStep;
+        }
+        this.playSeconds += dSeconds;
+        this.songPlayBeatTime += beatStep;
 
-            break;
+        break;
     }
 
-//    this.contextOffset = this.getContextTime();
+    //    this.contextOffset = this.getContextTime();
     this.updateVoices();
 };
 
@@ -165,7 +165,7 @@ AudioPlayer.prototype.noteToFrequency = function(note) {
     var n = note - 69; // A4;
     var p = Math.pow(2.0, n / 12.0);
 
-//    logit("Converting " + note + " to freq n: " + n + " p: " + p + " result: " + (440 * p));
+    //    logit("Converting " + note + " to freq n: " + n + " p: " + p + " result: " + (440 * p));
 
     return 440.0 * p;
 };
@@ -195,10 +195,10 @@ AudioPlayer.prototype.setRenderData = function(data) {
     this.notes = copyValueDeep(gatherNotesFromEvents(this.data.events));
     this.origNotes = copyValueDeep(this.notes);
 
-    this.tempoEvents = copyValueDeep(gatherEventsWithType(this.data.events, "t"));
+    this.tempoEvents = copyValueDeep(gatherEventsWithType(this.data.events, 't'));
     this.origTempoEvents = copyValueDeep(this.tempoEvents);
 
-    this.controlEvents = copyValueDeep(gatherEventsWithType(this.data.events, "c"));
+    this.controlEvents = copyValueDeep(gatherEventsWithType(this.data.events, 'c'));
     this.origControlEvents = copyValueDeep(this.controlEvents);
 
     return this;
@@ -206,7 +206,7 @@ AudioPlayer.prototype.setRenderData = function(data) {
 
 AudioPlayer.prototype.setChannelMaps = function(maps) {
     this.channelMaps = {};
-//    this.bufferInfos = {};
+    //    this.bufferInfos = {};
     for (var i=0; i<maps.length; i++) {
         var map = maps[i];
         this.channelMaps[map.renderChannel] = map;
@@ -249,7 +249,7 @@ AudioPlayer.prototype.splitSortedNotes = function(notes, seconds, maxCount) {
         var splitIndex = arr.length;
         for (var i=0; i<arr.length; i++) {
             var noteData = arr[i];
-//            var onEvent = noteData.onEvent;
+            //            var onEvent = noteData.onEvent;
             var onTime = noteData.onTime;
             if (onTime < seconds && count < maxCount) {
                 // Should be in left
@@ -283,12 +283,12 @@ AudioPlayer.prototype.createContextIfNecessary = function() {
 AudioPlayer.prototype.play = function() {
     this.createContextIfNecessary();
     switch (this.mode) {
-        case AudioPlayerMode.PAUSE:
-            // playSeconds should be correct. It is updated in step()
-            break;
-        case AudioPlayerMode.STOP:
-            this.contextOffset = this.getContextTime();
-            break;
+    case AudioPlayerMode.PAUSE:
+        // playSeconds should be correct. It is updated in step()
+        break;
+    case AudioPlayerMode.STOP:
+        this.contextOffset = this.getContextTime();
+        break;
     }
     this.mode = AudioPlayerMode.PLAY;
 };
@@ -332,7 +332,7 @@ AudioPlayer.prototype.gotoBeat = function(beat) {
 
     var newTime = this.predictTime(this.tempoEvents, nextBeat);
 
-//    logit("Trying to set beat to " + nextBeat + " predicted time: " + newTime);
+    //    logit("Trying to set beat to " + nextBeat + " predicted time: " + newTime);
 
     this.tempoEvents = this.splitSortedEvents(this.tempoEvents, newTime)[1];
     this.controlEvents = this.splitSortedEvents(this.controlEvents, newTime)[1];
@@ -374,17 +374,17 @@ AudioPlayer.prototype.getProgramIndex = function(map) {
 AudioPlayer.prototype.getBufferInfoId = function(noteData) {
 //    var lengths = this.bufferLengths[this.soundFontType];
 
-//    var noteLength = (noteData.offTime - noteData.onTime);
-//    var lengthMillis = 1000 * noteLength;
+    //    var noteLength = (noteData.offTime - noteData.onTime);
+    //    var lengthMillis = 1000 * noteLength;
 
-//    var bestLength = lengths[0];
-//    // Find the best length
-//    for (var i=0; i<lengths.length; i++) {
-//        var length = lengths[i];
-//        if (length <= lengthMillis) {
-//            bestLength = length;
-//        }
-//    }
+    //    var bestLength = lengths[0];
+    //    // Find the best length
+    //    for (var i=0; i<lengths.length; i++) {
+    //        var length = lengths[i];
+    //        if (length <= lengthMillis) {
+    //            bestLength = length;
+    //        }
+    //    }
 
     var result = this.getSoundFontPrefix(this.soundFontType);
 
@@ -395,12 +395,12 @@ AudioPlayer.prototype.getBufferInfoId = function(noteData) {
 
     var program = this.getProgramIndex(map);
 
-    if (channelName.indexOf("percussion") == 0) {
-        result += "_perc_";
+    if (channelName.indexOf('percussion') == 0) {
+        result += '_perc_';
     } else {
-        result += "_" + program + "_";
+        result += '_' + program + '_';
     }
-    result += "" + onEvent.n; // + "_" + bestLength;
+    result += '' + onEvent.n; // + "_" + bestLength;
 
     return result;
 };
@@ -425,9 +425,9 @@ AudioPlayer.prototype.createBufferInfoForNoteData = function(noteData) {
     var note = onEvent.n;
 
     var channelName = this.data.renderChannelNames[onEvent.c];
-    var isPercussion = channelName.indexOf("percussion") == 0;
+    var isPercussion = channelName.indexOf('percussion') == 0;
 
-    var channelPrefix = channelName.substring(0, channelName.indexOf("Render"));
+    var channelPrefix = channelName.substring(0, channelName.indexOf('Render'));
     var voiceIndex = parseInt(channelName.substring(channelName.length - 1, channelName.length)) - 1;
 
     var sampleNote = clamp(Math.ceil(note / this.notesPerSample) * this.notesPerSample, 0, 127);
@@ -436,27 +436,27 @@ AudioPlayer.prototype.createBufferInfoForNoteData = function(noteData) {
         sampleNote = note;
     }
 
-//    var noteFreq = this.noteToFrequency(note);
-//    var sampleNoteFreq = this.noteToFrequency(sampleNote);
+    //    var noteFreq = this.noteToFrequency(note);
+    //    var sampleNoteFreq = this.noteToFrequency(sampleNote);
 
 
-//    var playbackRate = noteFreq / sampleNoteFreq;
+    //    var playbackRate = noteFreq / sampleNoteFreq;
 
-//    logit("playback rate: " + playbackRate);
+    //    logit("playback rate: " + playbackRate);
 
 
     var map = this.channelMaps[channelName];
 
-//    var lengths = this.bufferLengths[this.soundFontType];
+    //    var lengths = this.bufferLengths[this.soundFontType];
 
     var lengths = [125];
 
     var program = this.getProgramIndex(map);
 
-    var programDir = "program" + program;
+    var programDir = 'program' + program;
     if (isPercussion) {
         lengths = this.percussionBufferLengths;
-        programDir = "percussion";
+        programDir = 'percussion';
     }
 
     var noteLength = (noteData.offTime - noteData.onTime);
@@ -471,7 +471,7 @@ AudioPlayer.prototype.createBufferInfoForNoteData = function(noteData) {
         }
     }
 
-//    logit("bestLength " + bestLength + " for length: " + lengthMillis + " " + (noteData.offEvent.t - noteData.onEvent.t));
+    //    logit("bestLength " + bestLength + " for length: " + lengthMillis + " " + (noteData.offEvent.t - noteData.onEvent.t));
 
     var id = this.getBufferInfoId(noteData);
 
@@ -480,7 +480,7 @@ AudioPlayer.prototype.createBufferInfoForNoteData = function(noteData) {
     if (!bufferInfo) {
         var prefix = this.getSoundFontPrefix(this.soundFontType);
 
-//        logit("creating buffer info " + channelName + " " + channelPrefix + " " + voiceIndex);
+        //        logit("creating buffer info " + channelName + " " + channelPrefix + " " + voiceIndex);
 
         bufferInfo = {
             id: id,
@@ -488,11 +488,11 @@ AudioPlayer.prototype.createBufferInfoForNoteData = function(noteData) {
             channelPrefix: channelPrefix,
             voiceIndex: voiceIndex,
             isPercussion: isPercussion,
-            url: isPercussion ? "samples/" + prefix + "/" + programDir + "/length" + bestLength + "/note_" + sampleNote + (canPlayMp3 ? ".mp3" : ".ogg") : "",
+            url: isPercussion ? 'samples/' + prefix + '/' + programDir + '/length' + bestLength + '/note_' + sampleNote + (canPlayMp3 ? '.mp3' : '.ogg') : '',
             buffer: null
-//            playbackRate: playbackRate
+            //            playbackRate: playbackRate
         };
-//        logit("Adding buffer info:" + JSON.stringify(bufferInfo));
+        //        logit("Adding buffer info:" + JSON.stringify(bufferInfo));
         this.bufferInfos[id] = bufferInfo;
     }
 
@@ -515,7 +515,7 @@ AudioPlayer.prototype.getReadyForPlay = function(callback, cancelFunc) {
     }
     this.createContextIfNecessary();
 
-//    callback();
+    //    callback();
 
     if (urls.length == 0) {
         callback();
@@ -531,7 +531,7 @@ AudioPlayer.prototype.getReadyForPlay = function(callback, cancelFunc) {
                 for (var i=0; i<bufferInfoArr.length; i++) {
                     var bufferInfo = bufferInfoArr[i];
                     bufferInfo.buffer = op.resultBuffers[i];
-//                    logit("Read buffer " + bufferInfo.url);
+                    //                    logit("Read buffer " + bufferInfo.url);
                 }
                 callback();
             },
@@ -553,7 +553,7 @@ AudioPlayer.prototype.scheduleControl = function(cEvent) {
     var channelIndex = cEvent.c;
     var value = cEvent.v;
 
-//    logit("Scheduling control " + channelIndex + " " + value + " " + channelName);
+    //    logit("Scheduling control " + channelIndex + " " + value + " " + channelName);
 
     var info = this.getChannelInfoForControlChannel(channelIndex);
 
@@ -573,18 +573,18 @@ AudioPlayer.prototype.getChannelInfoForControlChannel = function(cChannelIndex) 
 
         var index = -1;
 
-        var str = "ControlChannel";
-        var wanted = cChannelName.substring(0, cChannelName.indexOf(str)) + "RenderChannel" + cChannelName.charAt(cChannelName.length - 1);
+        var str = 'ControlChannel';
+        var wanted = cChannelName.substring(0, cChannelName.indexOf(str)) + 'RenderChannel' + cChannelName.charAt(cChannelName.length - 1);
 
         var controlType = cChannelName.substring(cChannelName.indexOf(str) + str.length, cChannelName.length - 1);
         info.controlType = controlType;
 
-//        logit(controlType);
+        //        logit(controlType);
         // Find the index for
         for (var i=0; i<this.data.renderChannelNames.length; i++) {
             var rChannelName = this.data.renderChannelNames[i];
 
-//            logit(cChannelName + " - " + wanted + " " + rChannelName);
+            //            logit(cChannelName + " - " + wanted + " " + rChannelName);
 
             if (rChannelName == wanted) {
                 index = i;
@@ -595,9 +595,9 @@ AudioPlayer.prototype.getChannelInfoForControlChannel = function(cChannelIndex) 
         if (index != -1) {
             var nodes = this.getOrCreateChannelNodes(index);
             info.nodes = nodes;
-//            logit("Found render channel for " + cChannelName);
+            //            logit("Found render channel for " + cChannelName);
         } else {
-//            logit("Could not find a render channel for " + cChannelName);
+            //            logit("Could not find a render channel for " + cChannelName);
         }
         this.controlChannelInfos[cChannelIndex] = info;
     }

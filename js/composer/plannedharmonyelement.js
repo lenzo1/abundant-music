@@ -9,7 +9,7 @@ class PlannedHarmonyElement extends SequenceHarmonyElement {
 
         this.seed = 12345;
 
-        this._constructorName = "PlannedHarmonyElement";
+        this._constructorName = 'PlannedHarmonyElement';
     }
 
 
@@ -19,7 +19,7 @@ class PlannedHarmonyElement extends SequenceHarmonyElement {
         const count = lengths.length;
 
         // All stuff that can be expressions comes here...
-        options.scaleBaseNote = getValueOrExpressionValue(this, "scaleBaseNote", module);
+        options.scaleBaseNote = getValueOrExpressionValue(this, 'scaleBaseNote', module);
 
         // The actual lengths of the chords must be determined here since the position snapping can
         // decrease the count.
@@ -68,7 +68,7 @@ class StaticSequenceHarmonyElement extends PlannedHarmonyElement {
         this.canEndWithBase = true;
         this.canEndWithAuxiliary = false;
         this.possibleAuxiliaryEndRoots = [3, 4];
-        this._constructorName = "StaticSequenceHarmonyElement";
+        this._constructorName = 'StaticSequenceHarmonyElement';
     }
 
     fillOptions(options, module) {
@@ -80,7 +80,7 @@ class StaticSequenceHarmonyElement extends PlannedHarmonyElement {
     getConstantHarmonyElements(module, beatOffset) {
         if (!module) {
             logit(`module missing in ${this._constructorName}<br />`);
-            showStacktraceDialog(null, "static sequence harmony");
+            showStacktraceDialog(null, 'static sequence harmony');
         }
 
         const options = {};
@@ -138,60 +138,60 @@ class DynamicSequenceHarmonyElement extends PlannedHarmonyElement {
 
         const options = null;
         this.passingInversions = getValueOrDefault(options,
-            "passingInversions", [1, 2]);
+            'passingInversions', [1, 2]);
         this.passingInversionLikelihoods = getValueOrDefault(options,
-            "passingInversionLikelihoods", [1, 0.5]);
+            'passingInversionLikelihoods', [1, 0.5]);
         this.passingIncrements = getValueOrDefault(options,
-            "passingIncrements", [-2, -1, 1, 2]);
+            'passingIncrements', [-2, -1, 1, 2]);
         this.passingIncrementLikelihoods = getValueOrDefault(options,
-            "passingIncrementLikelihoods", [0.5, 1, 1, 0.5]);
+            'passingIncrementLikelihoods', [0.5, 1, 1, 0.5]);
         this.neighbourRoots = getValueOrDefault(options,
-            "neighbourRoots", [0, 1, 2, 3, 4, 5, 6]);
+            'neighbourRoots', [0, 1, 2, 3, 4, 5, 6]);
         this.neighbourRootLikelihoods = getValueOrDefault(options,
-            "neighbourRootLikelihoods", [1]);
+            'neighbourRootLikelihoods', [1]);
         this.neighbourInversions = getValueOrDefault(options,
-            "neighbourInversions", [1, 2]);
+            'neighbourInversions', [1, 2]);
         this.neighbourInversionLikelihoods = getValueOrDefault(options,
-            "neighbourInversionLikelihoods", [1, 0.5]);
+            'neighbourInversionLikelihoods', [1, 0.5]);
         this.expansionRoots = getValueOrDefault(options,
-            "expansionRoots", [0, 1, 2, 3, 4, 5, 6]);
+            'expansionRoots', [0, 1, 2, 3, 4, 5, 6]);
         this.expansionRootLikelihoods = getValueOrDefault(options,
-            "expansionRootLikelihoods", [1]);
+            'expansionRootLikelihoods', [1]);
         this.expansionInversions = getValueOrDefault(options,
-            "expansionInversions", [1]);
+            'expansionInversions', [1]);
         this.expansionInversionLikelihoods = getValueOrDefault(options,
-            "expansionInversionLikelihoods", [1]);
+            'expansionInversionLikelihoods', [1]);
 
         this.rootProgressionLikelihood = getValueOrDefault(options,
-            "rootProgressionLikelihood", 1);
+            'rootProgressionLikelihood', 1);
         this.repeatRootLikelihood = getValueOrDefault(options,
-            "repeatRootLikelihood", 0);
+            'repeatRootLikelihood', 0);
         this.passingLikelihood = getValueOrDefault(options,
-            "passingLikelihood", 1);
+            'passingLikelihood', 1);
         this.neighbourLikelihood = getValueOrDefault(options,
-            "neighbourLikelihood", 1);
+            'neighbourLikelihood', 1);
         this.expansionLikelihood = getValueOrDefault(options,
-            "expansionLikelihood", 1);
+            'expansionLikelihood', 1);
         this.modulateLikelihoods = [1];
         this.startModulateLikelihoods = [0.01];
         this.endModulateLikelihoods = [0.01];
 
 
         this.majorAppliedChords = getValueOrDefault(options,
-            "majorAppliedChords", [AppliedChordType.V, AppliedChordType.V7]);
+            'majorAppliedChords', [AppliedChordType.V, AppliedChordType.V7]);
         this.majorAppliedChordLikelihoods = getValueOrDefault(options,
-            "majorAppliedChordLikelihoods", [1]);
+            'majorAppliedChordLikelihoods', [1]);
         this.minorAppliedChords = getValueOrDefault(options,
-            "minorAppliedChords", [AppliedChordType.V, AppliedChordType.V7]);
+            'minorAppliedChords', [AppliedChordType.V, AppliedChordType.V7]);
         this.minorAppliedChordLikelihoods = getValueOrDefault(options,
-            "minorAppliedChordLikelihoods", [1]);
+            'minorAppliedChordLikelihoods', [1]);
 
         this.addAllMovements = getValueOrDefault(options,
-            "addAllMovements", true); // Adding all possible roots
+            'addAllMovements', true); // Adding all possible roots
         this.addAllStarts = getValueOrDefault(options,
-            "addAllStarts", true);
+            'addAllStarts', true);
 
-        this._constructorName = "DynamicSequenceHarmonyElement";
+        this._constructorName = 'DynamicSequenceHarmonyElement';
     }
 
 
@@ -215,7 +215,7 @@ class DynamicSequenceHarmonyElement extends PlannedHarmonyElement {
 
         if (!module) {
             logit(`module missing in ${this._constructorName}<br />`);
-            showStacktraceDialog(null, "static sequence harmony");
+            showStacktraceDialog(null, 'static sequence harmony');
         }
 
         const options = {};
@@ -240,8 +240,8 @@ const PhraseHarmonyElementShorteningMode = {
 
     toString(type) {
         switch (type) {
-            case PhraseHarmonyElementShorteningMode.BEATS:
-                return "Beats";
+        case PhraseHarmonyElementShorteningMode.BEATS:
+            return 'Beats';
         }
         return `Unknown phrase harmony element shortening mode ${type}`;
     }

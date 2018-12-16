@@ -15,17 +15,17 @@ FakeByteArray.prototype.toBuffer = function() {
         var d = this.data[i];
         var dataLength = this.lengths[i];
 
-//        logit("bytepos " + bytePos + " dataLength: " + dataLength + " length: " + this.length);
+        //        logit("bytepos " + bytePos + " dataLength: " + dataLength + " length: " + this.length);
         switch (dataLength) {
-            case 1:
-                dv.setUint8(bytePos, d);
-                break;
-            case 2:
-                dv.setUint16(bytePos, d);
-                break;
-            case 4:
-                dv.setUint32(bytePos, d);
-                break;
+        case 1:
+            dv.setUint8(bytePos, d);
+            break;
+        case 2:
+            dv.setUint16(bytePos, d);
+            break;
+        case 4:
+            dv.setUint32(bytePos, d);
+            break;
         }
         bytePos += dataLength;
     }
@@ -38,18 +38,18 @@ FakeByteArray.prototype.appendByteArray = function(arr) {
         var d = arr.data[i];
         var dataLength = arr.lengths[i];
         switch (dataLength) {
-            case 1:
-//                logit("Appending byte " + d);
-                this.writeByte(d);
-                break;
-            case 2:
-//                logit("Appending short " + d);
-                this.writeShort(d);
-                break;
-            case 4:
-//                logit("Appending int " + d);
-                this.writeInt(d);
-                break;
+        case 1:
+            //                logit("Appending byte " + d);
+            this.writeByte(d);
+            break;
+        case 2:
+            //                logit("Appending short " + d);
+            this.writeShort(d);
+            break;
+        case 4:
+            //                logit("Appending int " + d);
+            this.writeInt(d);
+            break;
         }
     }
 };
@@ -57,7 +57,7 @@ FakeByteArray.prototype.appendByteArray = function(arr) {
 
 FakeByteArray.prototype.writeByte = function(byt) {
     if (typeof(byt) === 'undefined') {
-        logit("bad byte...");
+        logit('bad byte...');
     }
     this.length += 1;
     this.data[this.position] = byt;
@@ -67,7 +67,7 @@ FakeByteArray.prototype.writeByte = function(byt) {
 
 FakeByteArray.prototype.writeInt = function(i) {
     if (typeof(i) === 'undefined') {
-        logit("bad int...");
+        logit('bad int...');
     }
     this.length += 4;
     this.data[this.position] = i;
@@ -77,7 +77,7 @@ FakeByteArray.prototype.writeInt = function(i) {
 
 FakeByteArray.prototype.writeShort = function(s) {
     if (typeof(s) === 'undefined') {
-        logit("bad short...");
+        logit('bad short...');
     }
     this.length += 2;
     this.data[this.position] = s;

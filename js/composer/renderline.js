@@ -2,13 +2,13 @@
 
 class RenderLine {
     constructor() {
-        this.id = "renderLine";
+        this.id = 'renderLine';
         this.activated = true;
-        this._constructorName = "RenderLine";
+        this._constructorName = 'RenderLine';
     }
 
     renderBatch(state) {
-        const activated = getValueOrExpressionValue(this, "activated", state.module);
+        const activated = getValueOrExpressionValue(this, 'activated', state.module);
         if (activated) {
             const lines = this.getPrimitiveRenderLines(state.module, state.constantHarmony);
 
@@ -46,7 +46,7 @@ class RenderLine {
 
     getPositionedRenderElements(module, harmony, beatOffset, state) {
         const result = [];
-        const activated = getValueOrExpressionValue(this, "activated", module);
+        const activated = getValueOrExpressionValue(this, 'activated', module);
         if (activated) {
             const lines = this.getPrimitiveRenderLines(module, harmony);
             for (let j=0; j<lines.length; j++) {
@@ -65,9 +65,9 @@ class RenderLine {
 class PrimitiveRenderLine extends RenderLine {
     constructor() {
         super();
-        this.channel = "";
+        this.channel = '';
         this.renderElements = [];
-        this._constructorName = "PrimitiveRenderLine";
+        this._constructorName = 'PrimitiveRenderLine';
     }
 
     addRenderElement(e) {
@@ -84,12 +84,12 @@ const RenderElementCutHarmonyMode = {
     CONTINUE_SAME: 2, // Continue rendering with the same harmony as the start
     toString(type) {
         switch (type) {
-            case RenderElementCutHarmonyMode.STOP:
-                return "Stop";
-            case RenderElementCutHarmonyMode.CONTINUE_ADAPT:
-                return "Continue adapt";
-            case RenderElementCutHarmonyMode.CONTINUE_SAME:
-                return "Continue same";
+        case RenderElementCutHarmonyMode.STOP:
+            return 'Stop';
+        case RenderElementCutHarmonyMode.CONTINUE_ADAPT:
+            return 'Continue adapt';
+        case RenderElementCutHarmonyMode.CONTINUE_SAME:
+            return 'Continue same';
         }
         return `Unknown cut mode ${type}`;
     }
@@ -106,14 +106,14 @@ const NoteOverlapHarmonyMode = {
     CONTINUE_OR_SPLIT_SNAP: 3, // Continue if the note is the same as before the snap
     toString(type) {
         switch (type) {
-            case NoteOverlapHarmonyMode.CONTINUE:
-                return "Continue";
-            case NoteOverlapHarmonyMode.SPLIT_REMOVE:
-                return "Split Remove";
-            case NoteOverlapHarmonyMode.SPLIT_SNAP:
-                return "Split Snap";
-            case NoteOverlapHarmonyMode.CONTINUE_OR_SPLIT_SNAP:
-                return "Continue or split snap";
+        case NoteOverlapHarmonyMode.CONTINUE:
+            return 'Continue';
+        case NoteOverlapHarmonyMode.SPLIT_REMOVE:
+            return 'Split Remove';
+        case NoteOverlapHarmonyMode.SPLIT_SNAP:
+            return 'Split Snap';
+        case NoteOverlapHarmonyMode.CONTINUE_OR_SPLIT_SNAP:
+            return 'Continue or split snap';
         }
         return `Unknown overlap mode ${type}`;
     }
@@ -124,11 +124,11 @@ addPossibleValuesFunction(NoteOverlapHarmonyMode, NoteOverlapHarmonyMode.SPLIT_R
 
 class RenderElement {
     constructor() {
-        this.id = "";
-        this.channel = "";
+        this.id = '';
+        this.channel = '';
         this.activated = true;
 
-        this._constructorName = "RenderElement";
+        this._constructorName = 'RenderElement';
     }
 
     copy() {
@@ -136,7 +136,7 @@ class RenderElement {
     }
 
     getPositionedRenderElements(module, harmony, beatOffset, state) {
-        const activated = getValueOrExpressionValue(this, "activated", module);
+        const activated = getValueOrExpressionValue(this, 'activated', module);
         if (activated) {
             if (this instanceof PositionedRenderElement) {
                 if (beatOffset != 0) {
@@ -153,7 +153,7 @@ class RenderElement {
                 }
                 return [this];
             } else {
-                logit("Forgot to implement getPositionedRenderElements() in render element?")
+                logit('Forgot to implement getPositionedRenderElements() in render element?')
             }
         } else {
             return [];
@@ -177,7 +177,7 @@ class PositionedRenderElement extends RenderElement {
         this.renderOffset = 0; // An extra "write"-pointer offset that does not influence the harmony
         this.renderOffsetUnit = PositionUnit.BEATS;
 
-        this._constructorName = "PositionedRenderElement";
+        this._constructorName = 'PositionedRenderElement';
     }
 }
 
@@ -188,13 +188,13 @@ class ZonesRenderElement extends PositionedRenderElement {
         this.useDefaultIfNoneApplicable = true;
         this.defaultZoneIndices = [0];
         this.zones = [];
-        this._constructorName = "ZonesRenderElement";
+        this._constructorName = 'ZonesRenderElement';
     }
 
     getPositionedRenderElements(module, harmony, beatOffset, state) {
         const result = [];
 
-        const activated = getValueOrExpressionValue(this, "activated", module);
+        const activated = getValueOrExpressionValue(this, 'activated', module);
 
         if (activated) {
             // Three possible ways to select zone:
@@ -230,9 +230,9 @@ class ZonesRenderElement extends PositionedRenderElement {
 
 class RenderElementZone {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.mutexClassIndex = 0; // Possible with more zones
-        this._constructorName = "RenderElementZone";
+        this._constructorName = 'RenderElementZone';
     }
 
     applicable(module, harmony) {
@@ -251,7 +251,7 @@ class HarmonyCountRenderElementZone extends RenderElementZone {
 
         this.renderElements = [];
 
-        this._constructorName = "HarmonyCountRenderElementZone";
+        this._constructorName = 'HarmonyCountRenderElementZone';
     }
 
     applicable(module, harmony) {
@@ -305,7 +305,7 @@ class PhraseStructureRenderElement extends PositionedRenderElement {
         this.renderElements = [];
         this.startRenderElements = [];
         this.endRenderElements = [];
-        this._constructorName = "PhraseStructureRenderElement";
+        this._constructorName = 'PhraseStructureRenderElement';
     }
 
     getPositionedRenderElements(module, harmony, beatOffset, state) {
@@ -313,17 +313,17 @@ class PhraseStructureRenderElement extends PositionedRenderElement {
 
         const phraseRanges = harmony.getPhraseRanges();
 
-    //    if (this.verbose) {
-    //        logit(this._constructorName + " " + harmony.get(0).tsNumerator + " " + state.constantHarmony.get(0).tsNumerator);
-    //    }
+        //    if (this.verbose) {
+        //        logit(this._constructorName + " " + harmony.get(0).tsNumerator + " " + state.constantHarmony.get(0).tsNumerator);
+        //    }
         let currentBeat = beatOffset;
         // logit(this._constructorName + " Rending at phrase ranges " + JSON.stringify(phraseRanges) + " " + harmony.getBeatLength());
         for (let i=0; i<phraseRanges.length; i++) {
             const range = phraseRanges[i];
 
-    //        if (this.verbose) {
-    //            logit("Rending at phrase range " + JSON.stringify(range));
-    //        }
+            //        if (this.verbose) {
+            //            logit("Rending at phrase range " + JSON.stringify(range));
+            //        }
             const renderElement = getItemFromArrayWithStartEndItems(null, this.renderElements, phraseRanges.length, i, this.startRenderElements, this.endRenderElements);
 
             const phraseBeatLength = harmony.getPhraseRangeBeatLength(range);
@@ -361,7 +361,7 @@ class AbstractHarmonyIndexPatternMotifRenderElement extends PositionedRenderElem
         this.clampAtHarmonyEnd = true;
         this.clampAtPhraseEnd = false;
 
-        this.voiceLine = "";
+        this.voiceLine = '';
 
         this.seeds = [12345];
         this.startSeeds = [];
@@ -371,7 +371,7 @@ class AbstractHarmonyIndexPatternMotifRenderElement extends PositionedRenderElem
         this.noteOverlapHarmonyMode = NoteOverlapHarmonyMode.SPLIT_REMOVE;
         this.noteOverlapSnapType = SnapType.SCALE;
 
-        this._constructorName = "AbstractHarmonyIndexPatternMotifRenderElement";
+        this._constructorName = 'AbstractHarmonyIndexPatternMotifRenderElement';
 
     }
 
@@ -387,7 +387,7 @@ class AbstractHarmonyIndexPatternMotifRenderElement extends PositionedRenderElem
     getPositionedRenderElements(module, harmony, beatOffset, state) {
         const result = [];
 
-        const activated = getValueOrExpressionValue(this, "activated", module);
+        const activated = getValueOrExpressionValue(this, 'activated', module);
 
         const voiceLineHarmony = state.voiceLineHarmonies[this.voiceLine];
         if (voiceLineHarmony) {
@@ -416,18 +416,18 @@ class AbstractHarmonyIndexPatternMotifRenderElement extends PositionedRenderElem
                 endIndex = Math.min(endIndex, harmonyCount);
             }
 
-    //        logit(this._constructorName + " " + startIndex + ", " + endIndex + " " + currentBeat);
+            //        logit(this._constructorName + " " + startIndex + ", " + endIndex + " " + currentBeat);
 
             for (let i=startIndex; i<endIndex; i++) {
                 const he = harmony.get(i);
-    //            logit("  " + currentBeat);
+                //            logit("  " + currentBeat);
                 const motifs = this.getMotifIdsAtIndex(i - startIndex, endIndex - startIndex, i, harmonyCount, module);
 
                 const renderChannelIds = this.getRenderChannelIdsAtIndex(i - startIndex, endIndex - startIndex, i, harmonyCount, module);
 
                 for (let j=0; j<motifs.length; j++) {
                     const motif = motifs[j];
-                    let renderChannelId = "";
+                    let renderChannelId = '';
                     if (renderChannelIds.length > 0) {
                         renderChannelId = renderChannelIds[j % renderChannelIds.length];
                     }
@@ -470,11 +470,11 @@ class HarmonyIndexPatternMotifRenderElement extends AbstractHarmonyIndexPatternM
         this.startMotifs = [];
         this.endMotifs = [];
 
-        this._constructorName = "HarmonyIndexPatternMotifRenderElement";
+        this._constructorName = 'HarmonyIndexPatternMotifRenderElement';
     }
 
     getMotifIdsAtIndex(i, totalCount, harmonyIndex, harmonyCount, module) {
-        const motif = getItemFromArrayWithStartEndItems("", this.motifs, totalCount, i, this.startMotifs, this.endMotifs);
+        const motif = getItemFromArrayWithStartEndItems('', this.motifs, totalCount, i, this.startMotifs, this.endMotifs);
         return [motif];
     }
 }
@@ -494,13 +494,13 @@ class HarmonyIndexIndexPatternMotifRenderElement extends AbstractHarmonyIndexPat
         this.endChannelIndices = [];
         this.channels = [];
 
-        this._constructorName = "HarmonyIndexIndexPatternMotifRenderElement";
+        this._constructorName = 'HarmonyIndexIndexPatternMotifRenderElement';
     }
 
     getMotifIdsAtIndex(i, totalCount, harmonyIndex, harmonyCount, module) {
-        const theIndices = getValueOrExpressionValue(this, "indices", module);
-        const theStartIndices = getValueOrExpressionValue(this, "startIndices", module);
-        const theEndIndices = getValueOrExpressionValue(this, "endIndices", module);
+        const theIndices = getValueOrExpressionValue(this, 'indices', module);
+        const theStartIndices = getValueOrExpressionValue(this, 'startIndices', module);
+        const theEndIndices = getValueOrExpressionValue(this, 'endIndices', module);
         const indices = getItemFromArrayWithStartEndItems([], theIndices, totalCount, i, theStartIndices, theEndIndices);
 
 
@@ -531,9 +531,9 @@ class HarmonyIndexIndexPatternMotifRenderElement extends AbstractHarmonyIndexPat
     }
 
     getRenderChannelIdsAtIndex(i, totalCount, harmonyIndex, harmonyCount, module) {
-        const theIndices = getValueOrExpressionValue(this, "channelIndices", module);
-        const theStartIndices = getValueOrExpressionValue(this, "startChannelIndices", module);
-        const theEndIndices = getValueOrExpressionValue(this, "endChannelIndices", module);
+        const theIndices = getValueOrExpressionValue(this, 'channelIndices', module);
+        const theStartIndices = getValueOrExpressionValue(this, 'startChannelIndices', module);
+        const theEndIndices = getValueOrExpressionValue(this, 'endChannelIndices', module);
         const indices = getItemFromArrayWithStartEndItems([], theIndices, totalCount, i, theStartIndices, theEndIndices);
 
 
@@ -574,7 +574,7 @@ class MultiMotifRenderElement extends PositionedRenderElement {
         this.startOffsets = [];
         this.endOffsets = [];
 
-        this.voiceLine = "";
+        this.voiceLine = '';
 
         this.seeds = [12345];
         this.startSeeds = [];
@@ -584,14 +584,14 @@ class MultiMotifRenderElement extends PositionedRenderElement {
         this.noteOverlapHarmonyMode = NoteOverlapHarmonyMode.CONTINUE;
         this.noteOverlapSnapType = SnapType.SCALE;
 
-        this._constructorName = "MultiMotifRenderElement";
+        this._constructorName = 'MultiMotifRenderElement';
     }
 
     getPositionedRenderElements(module, harmony, beatOffset, state) {
         const result = [];
 
 
-        const activated = getValueOrExpressionValue(this, "activated", module);
+        const activated = getValueOrExpressionValue(this, 'activated', module);
 
         if (activated) {
             let he = harmony.get(0);
@@ -605,7 +605,7 @@ class MultiMotifRenderElement extends PositionedRenderElement {
             let currentBeat = startBeatTime + beatOffset;
 
             for (let i=0; i<count; i++) {
-                const motif = getItemFromArrayWithStartEndItems("", this.motifs, count, i, this.startMotifs, this.endMotifs);
+                const motif = getItemFromArrayWithStartEndItems('', this.motifs, count, i, this.startMotifs, this.endMotifs);
                 if (motif) {
                     const mre = new MotifRenderElement();
                     mre.motif = motif;
@@ -705,7 +705,7 @@ class AbstractPercussionMotifRenderElement extends PositionedRenderElement {
 
         if (element.fillers) {
             for (const filler of element.fillers)
-                {}
+            {}
             // continue here...
         }
     }
@@ -728,12 +728,12 @@ class PercussionMotifRenderElement extends AbstractPercussionMotifRenderElement 
         this.startSeeds = [];
         this.endSeeds = [];
 
-        this._constructorName = "PercussionMotifRenderElement";
+        this._constructorName = 'PercussionMotifRenderElement';
     }
 
     renderBatch(state) {
 
-        const activated = getValueOrExpressionValue(this, "activated", state.module);
+        const activated = getValueOrExpressionValue(this, 'activated', state.module);
 
         if (activated) {
             const harmony = state.constantHarmony;
@@ -746,7 +746,7 @@ class PercussionMotifRenderElement extends AbstractPercussionMotifRenderElement 
             let currentBeat = startBeatTime;
 
             for (let i=0; i<count; i++) {
-                const percussionMotif = getItemFromArrayWithStartEndItems("", this.motifs, count, i, this.startMotifs, this.endMotifs);
+                const percussionMotif = getItemFromArrayWithStartEndItems('', this.motifs, count, i, this.startMotifs, this.endMotifs);
                 const harmonyIndex = harmony.getHarmonyIndexAt(currentBeat);
                 let he = harmony.get(harmonyIndex);
                 if (percussionMotif) {
@@ -780,7 +780,7 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
         this.startSeeds = [];
         this.endSeeds = [];
 
-        this._constructorName = "FlexiblePercussionMotifRenderElement";
+        this._constructorName = 'FlexiblePercussionMotifRenderElement';
     }
 
     snapBeat(beat) {
@@ -790,7 +790,7 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
     renderBatch(state) {
 
 
-        const activated = getValueOrExpressionValue(this, "activated", state.module);
+        const activated = getValueOrExpressionValue(this, 'activated', state.module);
 
         if (activated) {
             const harmony = state.constantHarmony;
@@ -823,9 +823,9 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
             }
 
 
-            const theStartMotifIndices = getValueOrExpressionValue(this, "startMotifIndices", state.module);
-            const theMotifIndices = getValueOrExpressionValue(this, "motifIndices", state.module);
-            const theEndMotifIndices = getValueOrExpressionValue(this, "endMotifIndices", state.module);
+            const theStartMotifIndices = getValueOrExpressionValue(this, 'startMotifIndices', state.module);
+            const theMotifIndices = getValueOrExpressionValue(this, 'motifIndices', state.module);
+            const theEndMotifIndices = getValueOrExpressionValue(this, 'endMotifIndices', state.module);
 
             const clampedMotifIndices = [];
 
@@ -864,7 +864,7 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
 
                 const endBeatLength = this.getPercussionMotifsBeatLength(theEndMotifs, currentBeat, harmony, he, state);
 
-    //            logit("  currentBeat: " + currentBeat + " endBeatLength: " + endBeatLength + " " + theEndMotifs.join(", "));
+                //            logit("  currentBeat: " + currentBeat + " endBeatLength: " + endBeatLength + " " + theEndMotifs.join(", "));
 
                 const initialIndicesLength = this.useIndexedMotifs ? clampedMotifIndices.length : clampedMotifs.length;
                 let motifIndex = IndexBorderMode.getIndex(IndexBorderMode.CLAMP, initialIndicesLength, i);
@@ -873,7 +873,7 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
                 if (this.useIndexedMotifs) {
                     const percussionMotifIndex = clampedMotifIndices[motifIndex];
                     percussionMotifId = this.indexedMotifs[percussionMotifIndex];
-    //                logit("    Rendering " + percussionMotifId + " from index " + percussionMotifIndex + " from " + this.indexedMotifs.join(", "));
+                    //                logit("    Rendering " + percussionMotifId + " from index " + percussionMotifIndex + " from " + this.indexedMotifs.join(", "));
                 }
 
                 // logit(this._constructorName + " " + percussionMotifId);
@@ -886,7 +886,7 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
                 if (percussionMotifId) {
                     motifBeatLength = this.getPercussionMotifBeatLength(percussionMotifId, currentBeat, harmony, he, state);
 
-    //                logit("    " + this._constructorName + " length: " + motifBeatLength);
+                    //                logit("    " + this._constructorName + " length: " + motifBeatLength);
 
                     if (motifBeatLength < 0.01) {
                         logit(`${this._constructorName} found empty percussion motif...`);
@@ -908,10 +908,10 @@ class FlexiblePercussionMotifRenderElement extends AbstractPercussionMotifRender
                     const beatBefore = currentBeat;
                     currentBeat = this.snapBeat(harmonyBeatLength - endBeatLength);
 
-    //                if (currentBeat < beatBefore) {
-    //                    logit(" bad rendering end... " + beatBefore + " " + currentBeat);
-    //                }
-    //                logit("Rendering end " + theEndMotifIndices + " <br />");
+                    //                if (currentBeat < beatBefore) {
+                    //                    logit(" bad rendering end... " + beatBefore + " " + currentBeat);
+                    //                }
+                    //                logit("Rendering end " + theEndMotifIndices + " <br />");
 
                     if (this.useIndexedMotifs) {
                         let endMotifId = null;

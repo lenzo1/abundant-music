@@ -5,7 +5,7 @@ function IdReferenceListSelectComponent(object, propertyInfo) {
     if (manager) {
         manager.addUniqueIdListener(this.propertyInfo.uniqueIdInfo.namespace, this);
     } else {
-        logit("Could not find unique id manager in IdReferenceListSelectComponent<br />");
+        logit('Could not find unique id manager in IdReferenceListSelectComponent<br />');
     }
 }
 
@@ -33,11 +33,11 @@ IdReferenceListSelectComponent.prototype.uniqueIdChanged = function(owner, names
 };
 
 IdReferenceListSelectComponent.prototype.uniqueIdRemoved = function(owner, namespace, theId) {
-    this.removeOption(theId, "");
+    this.removeOption(theId, '');
 };
 
 IdReferenceListSelectComponent.prototype.getValuesAndNames = function() {
-    var result = [["", "None"]];
+    var result = [['', 'None']];
     var manager = this.getUniqueIdManager();
     if (manager) {
         var ids = manager.getUniqueIds(this.getUniqueIdNamespace());
@@ -59,7 +59,7 @@ IntegerSelectComponent.prototype.setValueVerifyRaw = function() {
     var value = this.$input.val();
     var intValue = parseInt(value);
     var error = isNaN(intValue);
-    this.setError(error, "Invalid integer");
+    this.setError(error, 'Invalid integer');
     if (!error) {
         this.setValueVerify(intValue);
     }
@@ -91,7 +91,7 @@ FloatSelectComponent.prototype.setValueVerifyRaw = function() {
     var value = this.$input.val();
     var floatValue = parseFloat(value);
     var error = isNaN(floatValue);
-    this.setError(error, "Invalid decimal");
+    this.setError(error, 'Invalid decimal');
     if (!error) {
         this.setValueVerify(floatValue);
     }
@@ -116,7 +116,7 @@ BooleanSelectComponent.prototype = new GuiPropertySelectComponent();
 
 BooleanSelectComponent.prototype.setValueVerifyRaw = function() {
     var textValue = this.$input.val();
-    var booleanValue = textValue == "true" ? true : false;
+    var booleanValue = textValue == 'true' ? true : false;
     //    logit(" in boolean select: textValue: " + textValue + " booleanValue: " + booleanValue + "<br />");
     this.setValueVerify(booleanValue);
 };
@@ -159,7 +159,7 @@ IntegerTextComponent.prototype.setValueVerifyRaw = function() {
             return;
         }
     }
-    this.setError(error, "Invalid integer");
+    this.setError(error, 'Invalid integer');
 
     if (!error) {
         this.setValueVerify(parseResult.value);
@@ -169,7 +169,7 @@ IntegerTextComponent.prototype.setValueVerifyRaw = function() {
 
 function StringTextAreaComponent(object, propertyInfo) {
     GuiPropertyTextComponent.call(this, object, propertyInfo);
-    this.inputTag = "textarea";
+    this.inputTag = 'textarea';
 }
 
 StringTextAreaComponent.prototype = new GuiPropertyTextComponent();
@@ -187,19 +187,19 @@ function IntegerListTextComponent(object, propertyInfo) {
 IntegerListTextComponent.prototype = new GuiPropertyTextComponent();
 
 IntegerListTextComponent.prototype.valueToString = function(value) {
-    return value.join(" ");
+    return value.join(' ');
 };
 
 
 IntegerListTextComponent.prototype.setValueVerifyRaw = function() {
     var error = false;
-    var errorMessage = "";
+    var errorMessage = '';
 
     var textValue = this.$input.val();
 
     textValue = $.trim(textValue);
 
-    var textArray = textValue.split(" ");
+    var textArray = textValue.split(' ');
 
     var intArr = [];
     for (var i=0; i<textArray.length; i++) {
@@ -213,7 +213,7 @@ IntegerListTextComponent.prototype.setValueVerifyRaw = function() {
             error = parseResult.error;
         }
         if (error) {
-            errorMessage = "Invalid integer: '" + text + "'";
+            errorMessage = 'Invalid integer: \'' + text + '\'';
             break;
         }
     }
@@ -232,12 +232,12 @@ function IntegerList2DTextComponent(object, propertyInfo) {
 IntegerList2DTextComponent.prototype = new GuiPropertyTextComponent();
 
 IntegerList2DTextComponent.prototype.valueToString = function(value) {
-    var result = "";
+    var result = '';
     for (var i=0; i<value.length; i++) {
         var arr = value[i];
-        result += arr.join(" ");
+        result += arr.join(' ');
         if (i < value.length - 1) {
-            result += ", ";
+            result += ', ';
         }
     }
     return result;
@@ -246,7 +246,7 @@ IntegerList2DTextComponent.prototype.valueToString = function(value) {
 
 IntegerList2DTextComponent.prototype.setValueVerifyRaw = function() {
     var error = false;
-    var errorMessage = "";
+    var errorMessage = '';
 
     var textValue = this.$input.val();
 
@@ -254,12 +254,12 @@ IntegerList2DTextComponent.prototype.setValueVerifyRaw = function() {
 
     var intArrs = [];
 
-    var arrayTexts = textValue.split(",");
+    var arrayTexts = textValue.split(',');
 
     for (var j=0; j<arrayTexts.length; j++) {
         var arrayText = arrayTexts[j];
 
-        var textArray = arrayText.split(" ");
+        var textArray = arrayText.split(' ');
 
         var intArr = [];
         for (var i=0; i<textArray.length; i++) {
@@ -273,7 +273,7 @@ IntegerList2DTextComponent.prototype.setValueVerifyRaw = function() {
                 error = parseResult.error;
             }
             if (error) {
-                errorMessage = "Invalid integer: '" + text + "'";
+                errorMessage = 'Invalid integer: \'' + text + '\'';
                 break;
             }
         }
@@ -315,7 +315,7 @@ FloatTextComponent.prototype.setValueVerifyRaw = function() {
             return;
         }
     }
-    this.setError(error, "Invalid decimal");
+    this.setError(error, 'Invalid decimal');
 
     if (!error) {
         this.setValueVerify(floatValue);
@@ -330,19 +330,19 @@ function FloatListTextComponent(object, propertyInfo) {
 FloatListTextComponent.prototype = new GuiPropertyTextComponent();
 
 FloatListTextComponent.prototype.valueToString = function(value) {
-    return value.join(" ");
+    return value.join(' ');
 };
 
 
 FloatListTextComponent.prototype.setValueVerifyRaw = function() {
     var error = false;
-    var errorMessage = "";
+    var errorMessage = '';
 
     var textValue = this.$input.val();
 
     textValue = $.trim(textValue);
 
-    var textArray = textValue.split(" ");
+    var textArray = textValue.split(' ');
 
     var floatArr = [];
     for (var i=0; i<textArray.length; i++) {
@@ -355,7 +355,7 @@ FloatListTextComponent.prototype.setValueVerifyRaw = function() {
             }
         }
         if (error) {
-            errorMessage = "Invalid decimal: '" + text + "'";
+            errorMessage = 'Invalid decimal: \'' + text + '\'';
             break;
         }
     }
@@ -374,12 +374,12 @@ function FloatList2DTextComponent(object, propertyInfo) {
 FloatList2DTextComponent.prototype = new GuiPropertyTextComponent();
 
 FloatList2DTextComponent.prototype.valueToString = function(value) {
-    var result = "";
+    var result = '';
     for (var i=0; i<value.length; i++) {
         var arr = value[i];
-        result += arr.join(" ");
+        result += arr.join(' ');
         if (i < value.length - 1) {
-            result += ", ";
+            result += ', ';
         }
     }
     return result;
@@ -388,7 +388,7 @@ FloatList2DTextComponent.prototype.valueToString = function(value) {
 
 FloatList2DTextComponent.prototype.setValueVerifyRaw = function() {
     var error = false;
-    var errorMessage = "";
+    var errorMessage = '';
 
     var textValue = this.$input.val();
 
@@ -396,14 +396,14 @@ FloatList2DTextComponent.prototype.setValueVerifyRaw = function() {
 
     var floatArrs = [];
 
-    if (textValue != "") {
+    if (textValue != '') {
 
-        var arrayTexts = textValue.split(",");
+        var arrayTexts = textValue.split(',');
 
         for (var j=0; j<arrayTexts.length; j++) {
             var arrayText = arrayTexts[j];
 
-            var textArray = arrayText.split(" ");
+            var textArray = arrayText.split(' ');
 
             var floatArr = [];
             for (var i=0; i<textArray.length; i++) {
@@ -417,7 +417,7 @@ FloatList2DTextComponent.prototype.setValueVerifyRaw = function() {
                     }
                 }
                 if (error) {
-                    errorMessage = "Invalid decimal: '" + text + "'";
+                    errorMessage = 'Invalid decimal: \'' + text + '\'';
                     break;
                 }
             }
@@ -437,11 +437,11 @@ FloatList2DTextComponent.prototype.setValueVerifyRaw = function() {
 
 
 function StringNotEmptyConstraint(options) {
-    this.errorMessage = getValueOrDefault(options, "errorMessage", "Must not be empty");
+    this.errorMessage = getValueOrDefault(options, 'errorMessage', 'Must not be empty');
 }
 
 StringNotEmptyConstraint.prototype.isValid = function(object, propName, value) {
-    return value != "";
+    return value != '';
 };
 
 StringNotEmptyConstraint.prototype.getInvalidDescription = function(object, propName, value) {
@@ -449,8 +449,8 @@ StringNotEmptyConstraint.prototype.getInvalidDescription = function(object, prop
 };
 
 function StringLengthConstraint(options) {
-    this.maxLength = getValueOrDefault(options, "maxLength", 9999999999999);
-    this.minLength = getValueOrDefault(options, "minLength", 0);
+    this.maxLength = getValueOrDefault(options, 'maxLength', 9999999999999);
+    this.minLength = getValueOrDefault(options, 'minLength', 0);
 }
 
 StringLengthConstraint.prototype.isValid = function(object, propName, value) {
@@ -459,14 +459,14 @@ StringLengthConstraint.prototype.isValid = function(object, propName, value) {
 
 StringLengthConstraint.prototype.getInvalidDescription = function(object, propName, value) {
     if (value.length < this.minLength) {
-        var charStr = this.minLength == 1 ? "character" : "characters";
-        return "Must have at least " + this.minLength + " " + charStr;
+        var charStr = this.minLength == 1 ? 'character' : 'characters';
+        return 'Must have at least ' + this.minLength + ' ' + charStr;
     }
     if (value.length > this.maxLength) {
-        var charStr = this.maxLength == 1 ? "character" : "characters";
-        return "Must have at most " + this.maxLength + " " + charStr;
+        var charStr = this.maxLength == 1 ? 'character' : 'characters';
+        return 'Must have at most ' + this.maxLength + ' ' + charStr;
     }
-    return "";
+    return '';
 };
 
 function StringTextComponent(object, propertyInfo) {
@@ -492,7 +492,7 @@ function IdReferenceSelectComponent(object, propertyInfo) {
     if (manager) {
         manager.addUniqueIdListener(this.propertyInfo.uniqueIdInfo.namespace, this);
     } else {
-        logit("Could not find unique id manager in IdReferenceSelectComponent<br />");
+        logit('Could not find unique id manager in IdReferenceSelectComponent<br />');
     }
 }
 
@@ -516,11 +516,11 @@ IdReferenceSelectComponent.prototype.uniqueIdChanged = function(owner, namespace
 };
 
 IdReferenceSelectComponent.prototype.uniqueIdRemoved = function(owner, namespace, theId) {
-    this.removeOption(theId, "");
+    this.removeOption(theId, '');
 };
 
 IdReferenceSelectComponent.prototype.getValuesAndNames = function() {
-    var result = [["", "None"]];
+    var result = [['', 'None']];
     var manager = this.getUniqueIdManager();
     if (manager) {
         var ids = manager.getUniqueIds(this.getUniqueIdNamespace());
@@ -539,7 +539,7 @@ IdReferenceSelectComponent.prototype.setValueVerifyRaw = function() {
 
 function ProcedureButtonComponent(object, propertyInfo) {
     GuiPropertyComponent.call(this, object, propertyInfo);
-    this.tagName = "button";
+    this.tagName = 'button';
     this.setUniqueId();
 }
 
@@ -556,7 +556,7 @@ ProcedureButtonComponent.prototype.jQueryCreated = function($localRoot) {
     var propertyInfo = this.propertyInfo;
     var object = this.object;
     var comp = this;
-    this.$component.on("click", function() {
+    this.$component.on('click', function() {
         var procInfo = propertyInfo.procedureInfo;
         var args = [];
         var targetObject = null;
@@ -571,8 +571,8 @@ ProcedureButtonComponent.prototype.jQueryCreated = function($localRoot) {
         if (proc && $.isFunction(proc)) {
             proc.apply(targetObject, args);
         } else {
-            logit("Could not find procedure " + propertyInfo.propertyName + " in ProcedureButtonComponent<br />");
-            logit("" + targetObject._constructorName + " " + propertyInfo.propertyName + "<br />");
+            logit('Could not find procedure ' + propertyInfo.propertyName + ' in ProcedureButtonComponent<br />');
+            logit('' + targetObject._constructorName + ' ' + propertyInfo.propertyName + '<br />');
         }
     });
 };
@@ -589,12 +589,12 @@ UniqueIdTextComponent.prototype = new GuiPropertyTextComponent();
 
 UniqueIdTextComponent.prototype.setValueVerifyRaw = function() {
     var error = false;
-    var errorText = "";
+    var errorText = '';
     var textValue = this.$input.val();
 
     if (!textValue) {
         error = true;
-        errorText = "ID can not be empty";
+        errorText = 'ID can not be empty';
     }
     var oldValue = this.getValue();
     if (!error && oldValue != textValue) {
@@ -602,7 +602,7 @@ UniqueIdTextComponent.prototype.setValueVerifyRaw = function() {
         var namespace = this.getUniqueIdNamespace();
         error = !manager.uniqueIdAvailable(this.object, namespace, textValue);
         if (error) {
-            errorText = "ID already exists";
+            errorText = 'ID already exists';
         }
     }
     if (!error) {
@@ -619,16 +619,16 @@ function GuiObjectComponent(object, propertyInfo) {
     GuiPropertyComponent.call(this, object, propertyInfo);
 
     this.$details = null;
-    this.cssClassName = "object-list-panel";
-    this.otherCssClasses.push("ui-widget-content");
+    this.cssClassName = 'object-list-panel';
+    this.otherCssClasses.push('ui-widget-content');
     this.setUniqueId();
 
-    this.detailsId = this.id + "-details";
-    this.newButtonIdPrefix = this.id + "-new-button";
+    this.detailsId = this.id + '-details';
+    this.newButtonIdPrefix = this.id + '-new-button';
 
     this.detailsComponent = null;
 
-    this._constructorName = "GuiObjectComponent";
+    this._constructorName = 'GuiObjectComponent';
 }
 
 GuiObjectComponent.prototype = new GuiPropertyComponent();
@@ -651,23 +651,23 @@ GuiObjectComponent.prototype.removeDetailsComponent = function() {
 
 
 GuiObjectComponent.prototype.getHtmlContentBeforeChildren = function(resultArr) {
-    resultArr.push("<div>" + this.propertyInfo.propertyCaption + "</div>");
+    resultArr.push('<div>' + this.propertyInfo.propertyCaption + '</div>');
 
     var objectInfo = this.propertyInfo.objectInfo;
     this.getConstructorsHtml(resultArr,
         objectInfo.constructorInfos, objectInfo.newMode);
     // Details panel
-    resultArr.push("<div ");
-    resultArr.push("id=\"" + this.detailsId + "\" ");
-    resultArr.push(">\n");
-    resultArr.push("</div>\n");
+    resultArr.push('<div ');
+    resultArr.push('id="' + this.detailsId + '" ');
+    resultArr.push('>\n');
+    resultArr.push('</div>\n');
 };
 
 
 
 GuiObjectComponent.prototype.jQueryCreated = function($localRoot) {
     GuiPropertyComponent.prototype.jQueryCreated.call(this, $localRoot);
-    this.$details = this.$component.find("#" + this.detailsId);
+    this.$details = this.$component.find('#' + this.detailsId);
 
     var objectInfo = this.propertyInfo.objectInfo;
 
@@ -712,7 +712,7 @@ GuiObjectComponent.prototype.updateDetailsPanel = function() {
     });
     newComponent.spawn(this.$details);
     if (instanceText) {
-        newComponent.$component.prepend($("<div><p>" + instanceText + "</p></div>"));
+        newComponent.$component.prepend($('<div><p>' + instanceText + '</p></div>'));
     }
     newComponent.alignComponents();
 
@@ -731,7 +731,7 @@ IntegerSliderComponent.prototype = new GuiPropertySliderComponent();
 
 IntegerSliderComponent.prototype.setValueVerifyRaw = function() {
     var error = false;
-    var value = this.$input.slider("value");
+    var value = this.$input.slider('value');
 
     if (!error) {
         this.setValueVerify(value);

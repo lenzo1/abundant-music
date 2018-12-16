@@ -7,8 +7,8 @@ class ClassicalNoise {
     constructor(r) { // Classic Perlin noise in 3D, for comparison 
         if (r == undefined) r = Math;
         this.grad3 = [[1,1,0],[-1,1,0],[1,-1,0],[-1,-1,0],
-        [1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],
-        [0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]];
+            [1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],
+            [0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]];
         this.p = [];
         for (let i=0; i<256; i++) {
             this.p[i] = Math.floor(r.random()*256);

@@ -1,6 +1,6 @@
 class AbstractZone {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.start = 0.0;
         this.end = 1.0;
         this.positionUnit = PositionUnit.MEASURES;
@@ -8,7 +8,7 @@ class AbstractZone {
         this.lengthRange = [0, 1];
         this.lengthRangeUnit = PositionUnit.MEASURES;
 
-        this._constructorName = "AbstractZone";
+        this._constructorName = 'AbstractZone';
     }
 
     convertLengthRange(startBeat, endBeat, harmony, harmonyBeatOffset) {
@@ -25,11 +25,11 @@ class AbstractZone {
 
         if (this.useLengthRange) {
             endBeat = this.convertLengthRange(startBeat, endBeat, harmony, harmonyBeatOffset);
-    //        let minLengthBeats = positionUnitToBeats2(this.lengthRange[0], this.lengthRangeUnit, harmonyBeatOffset, harmony);
-    //        let maxLengthBeats = positionUnitToBeats2(this.lengthRange[1], this.lengthRangeUnit, harmonyBeatOffset, harmony);
-    //        let beatLength = endBeat - startBeat;
-    //        beatLength = clamp(beatLength, minLengthBeats, maxLengthBeats);
-    //        endBeat = startBeat + beatLength;
+            //        let minLengthBeats = positionUnitToBeats2(this.lengthRange[0], this.lengthRangeUnit, harmonyBeatOffset, harmony);
+            //        let maxLengthBeats = positionUnitToBeats2(this.lengthRange[1], this.lengthRangeUnit, harmonyBeatOffset, harmony);
+            //        let beatLength = endBeat - startBeat;
+            //        beatLength = clamp(beatLength, minLengthBeats, maxLengthBeats);
+            //        endBeat = startBeat + beatLength;
         }
         //    if (this.positionUnit == PositionUnit.HARMONY_ELEMENTS) {
         //        logit("startBeat: " + startBeat + " endBeat: " + endBeat + " pos: " + pos + "<br />");
@@ -59,12 +59,12 @@ const MotifZoneFillerLengthMode = {
 
     toString(type) {
         switch (type) {
-            case MotifZoneFillerLengthMode.ABSOLUTE:
-                return "Absolute";
-            case MotifZoneFillerLengthMode.RELATIVE_ADD:
-                return "Relative add";
-            case MotifZoneFillerLengthMode.RELATIVE_MULT:
-                return "Relative mult";
+        case MotifZoneFillerLengthMode.ABSOLUTE:
+            return 'Absolute';
+        case MotifZoneFillerLengthMode.RELATIVE_ADD:
+            return 'Relative add';
+        case MotifZoneFillerLengthMode.RELATIVE_MULT:
+            return 'Relative mult';
         }
         return `Unknown length mode ${type}`;
     }
@@ -92,12 +92,12 @@ class MotifZone extends AbstractZone {
         this.fillerRelativeTypes = [VerticalRelativeType.NOTE];
         this.fillerRelativeStrengths = [[1]];
 
-        this._constructorName = "MotifZone";
+        this._constructorName = 'MotifZone';
     }
 
     addFillers(index, motifNote, module) {
 
-        const fillerOffsets = getValueOrExpressionValue(this, "fillerOffsets", module);
+        const fillerOffsets = getValueOrExpressionValue(this, 'fillerOffsets', module);
         const offsetIndex = IndexBorderMode.getIndex(this.fillerIndexBorderMode, fillerOffsets.length, index);
         if (offsetIndex >= 0) {
             const offsetArr = fillerOffsets[offsetIndex];
@@ -135,18 +135,18 @@ class MotifZone extends AbstractZone {
                 note.strength = motifNote.strength * relativeStrength;
 
                 switch (lengthMode) {
-                    case MotifZoneFillerLengthMode.ABSOLUTE:
-                        note.length = lengthArr[i % lengthArr.length];
-                        note.lengthUnit = lengthUnit;
-                        break;
-                    case MotifZoneFillerLengthMode.RELATIVE_ADD:
-                        note.length = motifNote.length + relativeLength;
-                        note.lengthUnit = motifNote.lengthUnit;
-                        break;
-                    case MotifZoneFillerLengthMode.RELATIVE_MULT:
-                        note.length = motifNote.length * relativeLength;
-                        note.lengthUnit = motifNote.lengthUnit;
-                        break;
+                case MotifZoneFillerLengthMode.ABSOLUTE:
+                    note.length = lengthArr[i % lengthArr.length];
+                    note.lengthUnit = lengthUnit;
+                    break;
+                case MotifZoneFillerLengthMode.RELATIVE_ADD:
+                    note.length = motifNote.length + relativeLength;
+                    note.lengthUnit = motifNote.lengthUnit;
+                    break;
+                case MotifZoneFillerLengthMode.RELATIVE_MULT:
+                    note.length = motifNote.length * relativeLength;
+                    note.lengthUnit = motifNote.lengthUnit;
+                    break;
                 }
 
                 motifNote.addFiller(note);
@@ -155,7 +155,7 @@ class MotifZone extends AbstractZone {
     }
 
     applyMotifZone(elements, module) {
-        logit("MotifZone must implement applyMotifZone()<br />");
+        logit('MotifZone must implement applyMotifZone()<br />');
         return null;
     }
 }
@@ -170,7 +170,7 @@ class SimpleVerticalRelativeMotifZone extends MotifZone {
         this.offsetType = OffsetType.SCALE;
         this.beforeOffsetSnapType = SnapType.NONE;
         this.afterOffsetSnapType = SnapType.NONE;
-        this._constructorName = "SimpleVerticalRelativeMotifZone";
+        this._constructorName = 'SimpleVerticalRelativeMotifZone';
     }
 
     applyMotifZone(elements, module) {
@@ -221,7 +221,7 @@ class SimpleHorizontalRelativeMotifZone extends MotifZone {
         this.offsetType = OffsetType.SCALE;
         this.beforeOffsetSnapType = SnapType.NONE;
         this.afterOffsetSnapType = SnapType.NONE;
-        this._constructorName = "SimpleHorizontalRelativeMotifZone";
+        this._constructorName = 'SimpleHorizontalRelativeMotifZone';
     }
 
     applyMotifZone(elements) {
@@ -272,7 +272,7 @@ class AdaptiveConnectMotifZone extends MotifZone {
 
         this.lastToNextHorizontalOffsets = [-7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7];
         this.lastToNextHorizontalLikelihoods = [0.00005, 0.00005, 0.00005, 0.0001, 0.001, 0.01, 1, 0.01, 1, 0.01, 0.001, 0.0001, 0.00005, 0.00005, 0.00005];
-        this._constructorName = "AdaptiveConnectMotifZone";
+        this._constructorName = 'AdaptiveConnectMotifZone';
     }
 
     applyMotifZone(elements, module) {
@@ -366,7 +366,7 @@ class AdaptiveEmbellishMotifZone extends MotifZone {
         this.endHorizontalLikelihoods = [];
         this.horizontalDomainOffsetType = OffsetType.SCALE;
 
-        this._constructorName = "AdaptiveEmbellishMotifZone";
+        this._constructorName = 'AdaptiveEmbellishMotifZone';
     }
 
     applyMotifZone(elements, module) {
@@ -383,9 +383,9 @@ class AdaptiveEmbellishMotifZone extends MotifZone {
         let nonRestCounter = 0;
         const nonRestsCount = nonRestElements.length;
 
-        const theVerticalIndices = getValueOrExpressionValue(this, "verticalIndices", module);
-        const theStartVerticalIndices = getValueOrExpressionValue(this, "startVerticalIndices", module);
-        const theEndVerticalIndices = getValueOrExpressionValue(this, "endVerticalIndices", module);
+        const theVerticalIndices = getValueOrExpressionValue(this, 'verticalIndices', module);
+        const theStartVerticalIndices = getValueOrExpressionValue(this, 'startVerticalIndices', module);
+        const theEndVerticalIndices = getValueOrExpressionValue(this, 'endVerticalIndices', module);
         for (let i=0; i<elements.length; i++) {
             let e = elements[i];
 

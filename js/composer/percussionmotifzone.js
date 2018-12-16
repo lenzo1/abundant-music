@@ -4,7 +4,7 @@ class PercussionMotifZone extends AbstractZone {
         super();
         this.activated = true;
 
-        this._constructorName = "PercussionMotifZone";
+        this._constructorName = 'PercussionMotifZone';
     }
 }
 
@@ -37,13 +37,13 @@ class VersatilePercussionMotifZone extends PercussionMotifZone {
         this.beatConditionQuotientStrengths = [1.0];
         this.beatConditionRemainderStrengths = [1.0];
 
-        this._constructorName = "VersatilePercussionMotifZone";
+        this._constructorName = 'VersatilePercussionMotifZone';
     }
 
     getPercussionMotifElements(module, noteRythmElements, harmony, harmonyBeatOffset) {
         const result = [];
 
-        const activated = getValueOrExpressionValue(this, "activated", module);
+        const activated = getValueOrExpressionValue(this, 'activated', module);
 
         let currentBeat = 0;
 
@@ -55,7 +55,7 @@ class VersatilePercussionMotifZone extends PercussionMotifZone {
 
         const missingBeatCondition = this.beatConditionQuotients.length == 0 && this.beatConditionRemainders.length == 0;
 
-    //    logit(" Entering " + this._constructorName);
+        //    logit(" Entering " + this._constructorName);
         let nre;
 
         for (let i=0; i<noteRythmElements.length; i++) {
@@ -99,8 +99,8 @@ class VersatilePercussionMotifZone extends PercussionMotifZone {
                         break;
                     }
                 }
-    //            logit(i + " div: " + beatDivisor + " check " + beatCheck + " q: " + quotient + " r: " + remainder + " qs: " +
-    //                JSON.stringify(this.beatConditionQuotients) + " rs: " + JSON.stringify(this.beatConditionRemainders) + " ok: " + ok);
+                //            logit(i + " div: " + beatDivisor + " check " + beatCheck + " q: " + quotient + " r: " + remainder + " qs: " +
+                //                JSON.stringify(this.beatConditionQuotients) + " rs: " + JSON.stringify(this.beatConditionRemainders) + " ok: " + ok);
             }
 
             if (ok) {
@@ -175,10 +175,10 @@ class VersatilePercussionMotifZone extends PercussionMotifZone {
             me.lengthUnit = PositionUnit.BEATS;
             me.rest = true;
             result.push(me);
-    //        logit(this._constructorName + " adding a final rest at: " + me.startTime + " l: " + me.length);
+            //        logit(this._constructorName + " adding a final rest at: " + me.startTime + " l: " + me.length);
         }
 
-    //    logit(result);
+        //    logit(result);
         return result;
     }
 }

@@ -20,7 +20,7 @@ function traverseObject(obj, propInfoProvider, func, parentInfo, data) {
                             traverseObject(value[j], propInfoProvider, func, info, data);
                         }
                     } else {
-                        logit("Unable to get property " + info.propertyName + " from " + obj + " (" + obj._constructorName + ") <br />");
+                        logit('Unable to get property ' + info.propertyName + ' from ' + obj + ' (' + obj._constructorName + ') <br />');
                     }
                 }
                 else if (info.dataType == GuiPropertyDataType.OBJECT) {
@@ -30,7 +30,7 @@ function traverseObject(obj, propInfoProvider, func, parentInfo, data) {
             }
         }
     } catch (ex) {
-        showStacktraceDialog(ex, "traverseObject() constructor: " + obj._constructorName);
+        showStacktraceDialog(ex, 'traverseObject() constructor: ' + obj._constructorName);
     }
 }
 
@@ -50,7 +50,7 @@ ComponentAlignmentInfo.prototype.setVerticalOffset = function(index, offset) {
 ComponentAlignmentInfo.prototype.getVerticalOffset = function(index) {
     var result = this.verticalOffsets[index]
     if (typeof result === 'undefined') {
-        logit("vertical offset undefined");
+        logit('vertical offset undefined');
         return 0;
     }
     return result;
@@ -86,14 +86,14 @@ SplitComponent.prototype.alignComponents = function() {
 
 function SplitTabsComponent(object, groupMap, groupCaptions) {
     SplitComponent.call(this, object, groupMap, groupCaptions);
-    this.cssClassId = "ui-widget";
+    this.cssClassId = 'ui-widget';
     this.groupMap.each(function(group, arr) {
         for (var i=0; i<arr.length; i++) {
             this.addChild(arr[i]);
         }
     }, this);
     this.setUniqueId();
-    this._constructorName = "SplitTabsComponent";
+    this._constructorName = 'SplitTabsComponent';
 }
 
 SplitTabsComponent.prototype = new SplitComponent();
@@ -102,30 +102,30 @@ SplitTabsComponent.prototype = new SplitComponent();
 SplitTabsComponent.prototype.createJQueryStrings = function(resultArr) {
     this.addStartHtmlString(resultArr);
 
-    resultArr.push("<ul>");
+    resultArr.push('<ul>');
     this.groupMap.each(function(group, arr) {
-        var tabId = this.id + "-" + group;
+        var tabId = this.id + '-' + group;
         var caption = this.groupCaptions.get(group);
-        resultArr.push("<li>");
-        resultArr.push("<a ");
-        resultArr.push("href=\"#" + tabId + "\" ");
-        resultArr.push(">");
+        resultArr.push('<li>');
+        resultArr.push('<a ');
+        resultArr.push('href="#' + tabId + '" ');
+        resultArr.push('>');
         resultArr.push(caption);
-        resultArr.push("</a>");
-        resultArr.push("</li>");
+        resultArr.push('</a>');
+        resultArr.push('</li>');
     }, this);
-    resultArr.push("</ul>");
+    resultArr.push('</ul>');
 
     // Create a div for each group
     this.groupMap.each(function(group, arr) {
-        var tabId = this.id + "-" + group;
-        resultArr.push("<div ");
-        resultArr.push(" id=\"" + tabId + "\" ");
-        resultArr.push(">");
+        var tabId = this.id + '-' + group;
+        resultArr.push('<div ');
+        resultArr.push(' id="' + tabId + '" ');
+        resultArr.push('>');
         for (var i=0; i<arr.length; i++) {
             arr[i].createJQueryStrings(resultArr);
         }
-        resultArr.push("</div>");
+        resultArr.push('</div>');
     }, this);
 
     this.addEndHtmlString(resultArr);
@@ -139,18 +139,18 @@ SplitTabsComponent.prototype.jQueryCreated = function($localRoot) {
 
 function GuiPropertiesComponent(options) {
     JQueryComponent.call(this);
-//    this.tagName = "table";
-    this.object = getValueOrDefault(options, "object", null);
-    this.propertyInfoProvider = getValueOrDefault(options, "propertyInfoProvider", null);
-    this.componentRegisters = getValueOrDefault(options, "componentRegisters", []);
-    this.parentPropertyInfo = getValueOrDefault(options, "parentPropertyInfo", null);
-    this.passOnComponentRegisters = getValueOrDefault(options, "passOnComponentRegisters", true);
+    //    this.tagName = "table";
+    this.object = getValueOrDefault(options, 'object', null);
+    this.propertyInfoProvider = getValueOrDefault(options, 'propertyInfoProvider', null);
+    this.componentRegisters = getValueOrDefault(options, 'componentRegisters', []);
+    this.parentPropertyInfo = getValueOrDefault(options, 'parentPropertyInfo', null);
+    this.passOnComponentRegisters = getValueOrDefault(options, 'passOnComponentRegisters', true);
     this.propertyInfos = null;
 
     this.changeListeners = [];
 
-    this.cssClassName = "properties-component";
-    this.otherCssClasses.push("ui-widget-content");
+    this.cssClassName = 'properties-component';
+    this.otherCssClasses.push('ui-widget-content');
 
 
     if (this.object != null) {
@@ -161,7 +161,7 @@ function GuiPropertiesComponent(options) {
             this.propertyInfos = this.propertyInfoProvider.getGuiPropertyInfos(this.object, this.parentPropertyInfo);
         }
         if (!this.propertyInfos) {
-            logit("GuiPropertiesComponent missing propertyInfos for " + this.object + "<br />");
+            logit('GuiPropertiesComponent missing propertyInfos for ' + this.object + '<br />');
         } else {
             this.createComponents();
         }
@@ -169,7 +169,7 @@ function GuiPropertiesComponent(options) {
 
     this.setUniqueId();
 
-    this._constructorName = "GuiPropertiesComponent";
+    this._constructorName = 'GuiPropertiesComponent';
 }
 
 GuiPropertiesComponent.prototype = new JQueryComponent();
@@ -217,30 +217,30 @@ GuiPropertiesComponent.prototype.resetAlignment = function() {
 
 GuiPropertiesComponent.prototype.createIntComponent = function(object, propertyInfo) {
     switch (propertyInfo.displayHint) {
-        case NumberPropertyDisplayHint.TEXT:
-            return new IntegerTextComponent(object, propertyInfo);
-        case NumberPropertyDisplayHint.SELECT:
-            return new IntegerSelectComponent(object, propertyInfo);
-        case NumberPropertyDisplayHint.RADIO_BUTTON:
-            return new IntegerRadioButtonsComponent(object, propertyInfo);
+    case NumberPropertyDisplayHint.TEXT:
+        return new IntegerTextComponent(object, propertyInfo);
+    case NumberPropertyDisplayHint.SELECT:
+        return new IntegerSelectComponent(object, propertyInfo);
+    case NumberPropertyDisplayHint.RADIO_BUTTON:
+        return new IntegerRadioButtonsComponent(object, propertyInfo);
     }
     return null;
 };
 
 GuiPropertiesComponent.prototype.createIntListComponent = function(object, propertyInfo) {
     switch (propertyInfo.displayHint) {
-        case NumberListPropertyDisplayHint.TEXT:
-            return new IntegerListTextComponent(object, propertyInfo);
-        case NumberListPropertyDisplayHint.SELECT_LIST:
-            return new IntegerListSelectComponent(object, propertyInfo);
+    case NumberListPropertyDisplayHint.TEXT:
+        return new IntegerListTextComponent(object, propertyInfo);
+    case NumberListPropertyDisplayHint.SELECT_LIST:
+        return new IntegerListSelectComponent(object, propertyInfo);
     }
     return null;
 };
 
 GuiPropertiesComponent.prototype.createIntList2DComponent = function(object, propertyInfo) {
     switch (propertyInfo.displayHint) {
-        case NumberList2DPropertyDisplayHint.TEXT:
-            return new IntegerList2DTextComponent(object, propertyInfo);
+    case NumberList2DPropertyDisplayHint.TEXT:
+        return new IntegerList2DTextComponent(object, propertyInfo);
     }
     return null;
 };
@@ -248,18 +248,18 @@ GuiPropertiesComponent.prototype.createIntList2DComponent = function(object, pro
 
 GuiPropertiesComponent.prototype.createFloatComponent = function(object, propertyInfo) {
     switch (propertyInfo.displayHint) {
-        case NumberPropertyDisplayHint.TEXT:
-            return new FloatTextComponent(object, propertyInfo);
-        case NumberPropertyDisplayHint.SELECT:
-            return new FloatSelectComponent(object, propertyInfo);
+    case NumberPropertyDisplayHint.TEXT:
+        return new FloatTextComponent(object, propertyInfo);
+    case NumberPropertyDisplayHint.SELECT:
+        return new FloatSelectComponent(object, propertyInfo);
     }
     return null;
 };
 
 GuiPropertiesComponent.prototype.createFloatListComponent = function(object, propertyInfo) {
     switch (propertyInfo.displayHint) {
-        case NumberListPropertyDisplayHint.TEXT:
-            return new FloatListTextComponent(object, propertyInfo);
+    case NumberListPropertyDisplayHint.TEXT:
+        return new FloatListTextComponent(object, propertyInfo);
     }
     return null;
 };
@@ -267,8 +267,8 @@ GuiPropertiesComponent.prototype.createFloatListComponent = function(object, pro
 
 GuiPropertiesComponent.prototype.createFloatList2DComponent = function(object, propertyInfo) {
     switch (propertyInfo.displayHint) {
-        case NumberList2DPropertyDisplayHint.TEXT:
-            return new FloatList2DTextComponent(object, propertyInfo);
+    case NumberList2DPropertyDisplayHint.TEXT:
+        return new FloatList2DTextComponent(object, propertyInfo);
     }
     return null;
 };
@@ -276,20 +276,20 @@ GuiPropertiesComponent.prototype.createFloatList2DComponent = function(object, p
 
 GuiPropertiesComponent.prototype.createStringComponent = function(object, propertyInfo) {
     switch (propertyInfo.displayHint) {
-        case StringPropertyDisplayHint.TEXT:
-            return new StringTextComponent(object, propertyInfo);
-        case StringPropertyDisplayHint.TEXT_AREA:
-            return new StringTextAreaComponent(object, propertyInfo);
-        case StringPropertyDisplayHint.SELECT:
-            return new StringSelectComponent(object, propertyInfo);
+    case StringPropertyDisplayHint.TEXT:
+        return new StringTextComponent(object, propertyInfo);
+    case StringPropertyDisplayHint.TEXT_AREA:
+        return new StringTextAreaComponent(object, propertyInfo);
+    case StringPropertyDisplayHint.SELECT:
+        return new StringSelectComponent(object, propertyInfo);
     }
     return null;
 };
 
 GuiPropertiesComponent.prototype.createBooleanComponent = function(object, propertyInfo) {
     switch (propertyInfo.displayHint) {
-        case BooleanPropertyDisplayHint.SELECT:
-            return new BooleanSelectComponent(object, propertyInfo);
+    case BooleanPropertyDisplayHint.SELECT:
+        return new BooleanSelectComponent(object, propertyInfo);
     }
     return null;
 };
@@ -297,16 +297,16 @@ GuiPropertiesComponent.prototype.createBooleanComponent = function(object, prope
 
 GuiPropertiesComponent.prototype.createIdReferenceComponent = function(object, propertyInfo) {
     switch (propertyInfo.displayHint) {
-        case IdReferencePropertyDisplayHint.SELECT:
-            return new IdReferenceSelectComponent(object, propertyInfo);
+    case IdReferencePropertyDisplayHint.SELECT:
+        return new IdReferenceSelectComponent(object, propertyInfo);
     }
     return null;
 };
 
 GuiPropertiesComponent.prototype.createIdReferenceListComponent = function(object, propertyInfo) {
     switch (propertyInfo.displayHint) {
-        case IdReferencePropertyDisplayHint.SELECT:
-            return new IdReferenceListSelectComponent(object, propertyInfo);
+    case IdReferencePropertyDisplayHint.SELECT:
+        return new IdReferenceListSelectComponent(object, propertyInfo);
     }
     return null;
 };
@@ -314,16 +314,16 @@ GuiPropertiesComponent.prototype.createIdReferenceListComponent = function(objec
 
 GuiPropertiesComponent.prototype.createUniqueIdComponent = function(object, propertyInfo) {
     switch (propertyInfo.displayHint) {
-        case UniqueIdPropertyDisplayHint.TEXT:
-            return new UniqueIdTextComponent(object, propertyInfo);
+    case UniqueIdPropertyDisplayHint.TEXT:
+        return new UniqueIdTextComponent(object, propertyInfo);
     }
     return null;
 };
 
 GuiPropertiesComponent.prototype.createProcedureComponent = function(object, propertyInfo) {
     switch (propertyInfo.displayHint) {
-        case ProcedureDisplayHint.BUTTON:
-            return new ProcedureButtonComponent(object, propertyInfo);
+    case ProcedureDisplayHint.BUTTON:
+        return new ProcedureButtonComponent(object, propertyInfo);
     }
     return null;
 };
@@ -331,7 +331,7 @@ GuiPropertiesComponent.prototype.createProcedureComponent = function(object, pro
 GuiPropertiesComponent.prototype.createOtherComponent = function(object, propertyInfo) {
     var otherInfo = propertyInfo.otherInfo;
     if (otherInfo) {
-        var result = eval("new " + otherInfo.componentConstructor + "()");
+        var result = eval('new ' + otherInfo.componentConstructor + '()');
         result.object = object;
         result.propertyInfo = propertyInfo;
         return result;
@@ -349,8 +349,8 @@ GuiPropertiesComponent.prototype.createObjectComponent = function(object, proper
 
 GuiPropertiesComponent.prototype.createSplitComponent = function(object, groupMap, groupCaptions, splitType) {
     switch (splitType) {
-        case GuiSplitType.TABS:
-            return new SplitTabsComponent(object, groupMap, groupCaptions);
+    case GuiSplitType.TABS:
+        return new SplitTabsComponent(object, groupMap, groupCaptions);
     }
     return null;
 };
@@ -358,57 +358,57 @@ GuiPropertiesComponent.prototype.createSplitComponent = function(object, groupMa
 GuiPropertiesComponent.prototype.createComponent = function(info) {
     var component = null;
     switch (info.dataType) {
-        case GuiPropertyDataType.INT:
-            component = this.createIntComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.INT_LIST:
-            component = this.createIntListComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.INT_LIST_2D:
-            component = this.createIntList2DComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.FLOAT:
-            component = this.createFloatComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.FLOAT_LIST:
-            component = this.createFloatListComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.FLOAT_LIST_2D:
-            component = this.createFloatList2DComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.BOOLEAN:
-            component = this.createBooleanComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.STRING:
-            component = this.createStringComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.ID_REFERENCE:
-            component = this.createIdReferenceComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.ID_REFERENCE_LIST:
-            component = this.createIdReferenceListComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.UNIQUE_ID:
-            component = this.createUniqueIdComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.SIMPLE_LIST:
-            component = this.createSimpleListComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.SIMPLE_SET:
-            component = this.createSimpleSetComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.OBJECT_LIST:
-            component = this.createObjectListComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.OBJECT:
-            component = this.createObjectComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.PROCEDURE:
-            component = this.createProcedureComponent(this.object, info);
-            break;
-        case GuiPropertyDataType.OTHER:
-            component = this.createOtherComponent(this.object, info);
-            break;
+    case GuiPropertyDataType.INT:
+        component = this.createIntComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.INT_LIST:
+        component = this.createIntListComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.INT_LIST_2D:
+        component = this.createIntList2DComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.FLOAT:
+        component = this.createFloatComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.FLOAT_LIST:
+        component = this.createFloatListComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.FLOAT_LIST_2D:
+        component = this.createFloatList2DComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.BOOLEAN:
+        component = this.createBooleanComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.STRING:
+        component = this.createStringComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.ID_REFERENCE:
+        component = this.createIdReferenceComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.ID_REFERENCE_LIST:
+        component = this.createIdReferenceListComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.UNIQUE_ID:
+        component = this.createUniqueIdComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.SIMPLE_LIST:
+        component = this.createSimpleListComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.SIMPLE_SET:
+        component = this.createSimpleSetComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.OBJECT_LIST:
+        component = this.createObjectListComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.OBJECT:
+        component = this.createObjectComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.PROCEDURE:
+        component = this.createProcedureComponent(this.object, info);
+        break;
+    case GuiPropertyDataType.OTHER:
+        component = this.createOtherComponent(this.object, info);
+        break;
     }
     return component;
 };
@@ -457,14 +457,14 @@ GuiPropertiesComponent.prototype.createComponents = function() {
                 } else {
                     var oldCaption = groupCaptions.get(splitInfo.group);
                     if (!oldCaption) {
-                        groupCaptions.put(splitInfo.group, "Caption");
+                        groupCaptions.put(splitInfo.group, 'Caption');
                     }
                 }
             } else {
                 components.push(component);
             }
         } else {
-            logit("Could not create a component for data type " + info.dataType + "<br />");
+            logit('Could not create a component for data type ' + info.dataType + '<br />');
         }
     }
     for (var i=0; i<components.length; i++) {
@@ -484,8 +484,8 @@ function GuiPropertyComponent(object, propertyInfo) {
     JQueryComponent.call(this);
     this.object = object;
     this.propertyInfo = propertyInfo;
-    this.otherCssClasses.push("ui-widget");
-    this.otherCssClasses.push("gui-property-component");
+    this.otherCssClasses.push('ui-widget');
+    this.otherCssClasses.push('gui-property-component');
     this.changeListeners = [];
     this.hasValueTypeRadios = true;
 
@@ -499,7 +499,7 @@ function GuiPropertyComponent(object, propertyInfo) {
             }
         }
     }
-    this._constructorName = "GuiPropertyComponent";
+    this._constructorName = 'GuiPropertyComponent';
 }
 
 GuiPropertyComponent.prototype = new JQueryComponent();
@@ -535,8 +535,8 @@ GuiPropertyComponent.prototype.componentRemoved = function() {
 
 GuiPropertyComponent.prototype.cleanAfterDelete = function(value) {
     if ((typeof(value) === 'object') && this.propertyInfo.propertyInfoProvider) {
-//        removeUniqueIds(value, this.propertyInfo.propertyInfoProvider, this.propertyInfo);
-//        removeUniqueIdReferenceListener(value, this.propertyInfo.propertyInfoProvider, this.propertyInfo);
+        //        removeUniqueIds(value, this.propertyInfo.propertyInfoProvider, this.propertyInfo);
+        //        removeUniqueIdReferenceListener(value, this.propertyInfo.propertyInfoProvider, this.propertyInfo);
     }
 };
 
@@ -545,15 +545,15 @@ GuiPropertyComponent.prototype.cleanAfterDelete = function(value) {
 GuiPropertyComponent.prototype.createNewValue = function(constrInfo, parentPropInfo) {
     var newValue = null;
     if (constrInfo.nameIsConstructor) {
-        newValue = eval("new " + constrInfo.name + "();");
+        newValue = eval('new ' + constrInfo.name + '();');
 
         if (typeof(newValue) === 'object') {
-//            var uiInfo = this.propertyInfo.uniqueIdInfo;
-//            newValue.id = uiInfo.manager.getNextUniqueId(uiInfo.namespace, uiInfo.initPrefix);
-//            if (uiInfo.manager.uniqueIdAvailable(null, uiInfo.namespace, newValue.id)) {
-//                uiInfo.manager.addUniqueId(newValue, uiInfo.namespace, newValue.id);
-//            }
-//            addIdReferenceListenersRecursively(newValue, this.propertyInfo.propertyInfoProvider, parentPropInfo);
+            //            var uiInfo = this.propertyInfo.uniqueIdInfo;
+            //            newValue.id = uiInfo.manager.getNextUniqueId(uiInfo.namespace, uiInfo.initPrefix);
+            //            if (uiInfo.manager.uniqueIdAvailable(null, uiInfo.namespace, newValue.id)) {
+            //                uiInfo.manager.addUniqueId(newValue, uiInfo.namespace, newValue.id);
+            //            }
+            //            addIdReferenceListenersRecursively(newValue, this.propertyInfo.propertyInfoProvider, parentPropInfo);
         }
     } else {
         newValue = constrInfo.createValue();
@@ -567,14 +567,14 @@ GuiPropertyComponent.prototype.getConstructorsHtml = function(resultArr, constru
     if (newMode == GuiNewMode.BUTTONS) {
         for (var i=0; i<constructorInfos.length; i++) {
             var constrInfo = constructorInfos[i];
-            resultArr.push("<button ");
-            resultArr.push("id='" + (this.newButtonIdPrefix + "-" + i) + "' ");
-            resultArr.push(">");
+            resultArr.push('<button ');
+            resultArr.push('id=\'' + (this.newButtonIdPrefix + '-' + i) + '\' ');
+            resultArr.push('>');
             resultArr.push(constrInfo.text);
-            resultArr.push("</button>\n");
+            resultArr.push('</button>\n');
         }
     } else {
-        logit("select new not supported yet...");
+        logit('select new not supported yet...');
         for (var i=0; i<constructorInfos.length; i++) {
             var constrInfo = constructorInfos[i];
         }
@@ -586,15 +586,15 @@ GuiPropertyComponent.prototype.addConstructorClickListeners = function(construct
     var comp = this;
     if (newMode == GuiNewMode.BUTTONS) {
         $.each(constructorInfos, function(i, constrInfo) {
-            var $button = comp.$component.find("#" + comp.newButtonIdPrefix + "-" + i);
+            var $button = comp.$component.find('#' + comp.newButtonIdPrefix + '-' + i);
             var buttonOptions = {};
             buttonOptions.label = constrInfo.text;
             buttonOptions.text = true; // comp.listInfo.constructorInfos.length > 1;
             buttonOptions.icons = {};
-            buttonOptions.icons["primary"] = "ui-icon-plus";
+            buttonOptions.icons['primary'] = 'ui-icon-plus';
 
             $button.button(buttonOptions);
-            $button.on("click", function() {
+            $button.on('click', function() {
                 func(constrInfo);
             });
         });
@@ -615,11 +615,11 @@ GuiPropertyComponent.prototype.alignComponents = function() {
 GuiPropertyComponent.prototype.getValue = function() {
     var value = this.object[this.propertyInfo.propertyName];
     if (typeof value === 'undefined') {
-        logit("property was undefined " + this.propertyInfo.propertyName + " in " + this.object._constructorName + "<br />");
+        logit('property was undefined ' + this.propertyInfo.propertyName + ' in ' + this.object._constructorName + '<br />');
         value = this.propertyInfo.defaultValue;
     }
     if (!this.propertyInfo.allowNull && value == null) {
-        logit("property was null " + this.propertyInfo.propertyName + " in " + this.object._constructorName + "<br />");
+        logit('property was null ' + this.propertyInfo.propertyName + ' in ' + this.object._constructorName + '<br />');
         value = this.propertyInfo.defaultValue;
     }
 
@@ -629,11 +629,11 @@ GuiPropertyComponent.prototype.getValue = function() {
 };
 
 GuiPropertyComponent.prototype.getExpressionPropertyName = function() {
-    return this.propertyInfo.propertyName + "Expression";
+    return this.propertyInfo.propertyName + 'Expression';
 };
 
 GuiPropertyComponent.prototype.getUseExpressionPropertyName = function() {
-    return this.propertyInfo.propertyName + "UseExpression";
+    return this.propertyInfo.propertyName + 'UseExpression';
 };
 
 
@@ -642,7 +642,7 @@ GuiPropertyComponent.prototype.getValueExpression = function() {
     var expression = this.object[propName];
     if (!expression) {
         // Has no expression
-        return "";
+        return '';
     }
     return expression;
 };
@@ -655,10 +655,10 @@ GuiPropertyComponent.prototype.getUniqueIdManager = function() {
         if (uniqueIdInfo.manager) {
             return uniqueIdInfo.manager;
         }else {
-            logit("No uniquIdManager found in GuiPropertiesComponent<br />");
+            logit('No uniquIdManager found in GuiPropertiesComponent<br />');
         }
     } else {
-        logit("No uniquIdInfo found in GuiPropertiesComponent<br />");
+        logit('No uniquIdInfo found in GuiPropertiesComponent<br />');
     }
     return null;
 };
@@ -669,10 +669,10 @@ GuiPropertyComponent.prototype.getUniqueIdNamespace = function() {
         if (uniqueIdInfo.namespace) {
             return uniqueIdInfo.namespace;
         } else {
-            logit("No namespace found in GuiPropertiesComponent<br />");
+            logit('No namespace found in GuiPropertiesComponent<br />');
         }
     } else {
-        logit("No namespace found in GuiPropertiesComponent<br />");
+        logit('No namespace found in GuiPropertiesComponent<br />');
     }
     return null;
 };
@@ -682,7 +682,7 @@ GuiPropertyComponent.prototype.getUniqueIdNamespace = function() {
 GuiPropertyComponent.prototype.verifyNumberConstraints = function(newValue) {
 
     var wasError = false;
-    var errorText = "";
+    var errorText = '';
 
     for (var i=0; i<this.propertyInfo.constraints.length; i++) {
         var c = this.propertyInfo.constraints[i];
@@ -690,14 +690,14 @@ GuiPropertyComponent.prototype.verifyNumberConstraints = function(newValue) {
             var minValue = c.getMinValue();
             if (newValue < minValue) {
                 wasError = true;
-                errorText = "Must be greater than or equal " + minValue;
+                errorText = 'Must be greater than or equal ' + minValue;
             }
         }
         if (c.getMaxValue) {
             var maxValue = c.getMaxValue();
             if (newValue > maxValue) {
                 wasError = true;
-                errorText = "Must be less than or equal " + maxValue;
+                errorText = 'Must be less than or equal ' + maxValue;
             }
         }
     }
@@ -714,11 +714,11 @@ GuiPropertyComponent.prototype.setValueVerify = function(newValue) {
 
     if (oldValue != newValue) {
 
-        var errorText = "";
+        var errorText = '';
         if (this.propertyInfo.possibleValues && this.propertyInfo.possibleValues.length > 0) {
             if (!arrayContains(this.propertyInfo.possibleValues, newValue)) {
                 wasValid = false;
-                errorText = "Must be one of: " + this.propertyInfo.possibleValues.join(", ");
+                errorText = 'Must be one of: ' + this.propertyInfo.possibleValues.join(', ');
             }
         }
         if (wasValid && this.propertyInfo.constraints) {
@@ -734,14 +734,14 @@ GuiPropertyComponent.prototype.setValueVerify = function(newValue) {
                     var possibleValues = c.getPossibleValues();
                     if (!arrayContains(possibleValues, newValue)) {
                         wasValid = false;
-                        errorText = "Must be one of: " + possibleValues.join(", ");
+                        errorText = 'Must be one of: ' + possibleValues.join(', ');
                         break;
                     }
                 }
             }
         }
         if (wasValid) {
-            this.setError(false, "");
+            this.setError(false, '');
             // Todo: check if this.object[this.propertyInfo.propertyName] is a function.
             // Then it is treated as a setter function
             this.object[this.propertyInfo.propertyName] = newValue;
@@ -752,7 +752,7 @@ GuiPropertyComponent.prototype.setValueVerify = function(newValue) {
             this.setError(true, errorText);
         }
     } else {
-        this.setError(false, "");
+        this.setError(false, '');
     }
     return wasValid;
 };
@@ -762,8 +762,8 @@ GuiPropertyComponent.prototype.setError = function(e, text) {
 
 
 GuiPropertyComponent.prototype.setupExpressionInput = function(wantedWidth) {
-    this.$expressionInput = this.$component.find("#" + this.id + "-expression-input");
-    this.$expressionInput.css("width", wantedWidth + "px");
+    this.$expressionInput = this.$component.find('#' + this.id + '-expression-input');
+    this.$expressionInput.css('width', wantedWidth + 'px');
     var valueExpression = this.getValueExpression();
     this.$expressionInput.val(valueExpression);
     var useExpression = !!this.object[this.getUseExpressionPropertyName()];
@@ -774,13 +774,13 @@ GuiPropertyComponent.prototype.setupExpressionInput = function(wantedWidth) {
     }
 
     var comp = this;
-    this.$expressionInput.on("keydown keypress keyup change", function() {
+    this.$expressionInput.on('keydown keypress keyup change', function() {
         // var newValue = comp.$expressionInput.val();
         // logit("Setting expression to " + newValue + "<br />");
         comp.object[comp.getExpressionPropertyName()] = comp.$expressionInput.val();
     });
     // A hack to make right click pasting work...
-    this.$expressionInput.on("paste", function() {
+    this.$expressionInput.on('paste', function() {
         setTimeout(function() {
             comp.object[comp.getExpressionPropertyName()] = comp.$expressionInput.val();
         }, 100);
@@ -793,16 +793,16 @@ GuiPropertyComponent.prototype.createValueTypeRadioButtons = function($localRoot
     if (!this.hasValueTypeRadios) {
         return;
     }
-    var valueTypeId = this.id + "-value-type";
+    var valueTypeId = this.id + '-value-type';
 
-    this.$valueType = this.$component.find("#" + valueTypeId);
+    this.$valueType = this.$component.find('#' + valueTypeId);
 
     this.$valueType.buttonset();
 
-    var valueRadioId = this.id + "-value-radio";
-    var expressionRadioId = this.id + "-expression-radio";
-    var $valueRadio = this.$component.find("#" + valueRadioId);
-    var $expressionRadio = this.$component.find("#" + expressionRadioId);
+    var valueRadioId = this.id + '-value-radio';
+    var expressionRadioId = this.id + '-expression-radio';
+    var $valueRadio = this.$component.find('#' + valueRadioId);
+    var $expressionRadio = this.$component.find('#' + expressionRadioId);
 
     var comp = this;
     $valueRadio.click(function() {
@@ -828,51 +828,51 @@ GuiPropertyComponent.prototype.getValueTypeButtonsHtml = function(resultArr) {
     }
     var useExpression = !!this.object[this.getUseExpressionPropertyName()];
 
-    var radioClass = "value-type-radio";
-    var radiosClass = "value-type-radios";
-    var valueTypeId = this.id + "-value-type";
-    var radioName = valueTypeId + "-radio-name";
-    var valueRadioId = this.id + "-value-radio";
-    var expressionRadioId = this.id + "-expression-radio";
-    resultArr.push("<span ");
-    resultArr.push("id=\"" + valueTypeId + "\" ");
-    resultArr.push("class=\"" + radiosClass + "\" ");
-    resultArr.push(">")
-    resultArr.push("<input type=\"radio\" name=\"" + radioName + "\" ");
-    resultArr.push("id=\"" + valueRadioId + "\" ");
-    resultArr.push("class=\"" + radioClass + "\" ");
+    var radioClass = 'value-type-radio';
+    var radiosClass = 'value-type-radios';
+    var valueTypeId = this.id + '-value-type';
+    var radioName = valueTypeId + '-radio-name';
+    var valueRadioId = this.id + '-value-radio';
+    var expressionRadioId = this.id + '-expression-radio';
+    resultArr.push('<span ');
+    resultArr.push('id="' + valueTypeId + '" ');
+    resultArr.push('class="' + radiosClass + '" ');
+    resultArr.push('>')
+    resultArr.push('<input type="radio" name="' + radioName + '" ');
+    resultArr.push('id="' + valueRadioId + '" ');
+    resultArr.push('class="' + radioClass + '" ');
     if (!useExpression) {
-        resultArr.push("checked=\"checked\" ");
+        resultArr.push('checked="checked" ');
     }
-    resultArr.push("/>");
-    resultArr.push("<label ");
-    resultArr.push("for=\"" + valueRadioId + "\" ");
-    resultArr.push(">V</label>");
-    resultArr.push("<input type=\"radio\" name=\"" + radioName + "\" ");
-    resultArr.push("id=\"" + expressionRadioId + "\" ");
-    resultArr.push("class=\"" + radioClass + "\" ");
+    resultArr.push('/>');
+    resultArr.push('<label ');
+    resultArr.push('for="' + valueRadioId + '" ');
+    resultArr.push('>V</label>');
+    resultArr.push('<input type="radio" name="' + radioName + '" ');
+    resultArr.push('id="' + expressionRadioId + '" ');
+    resultArr.push('class="' + radioClass + '" ');
     if (useExpression) {
-        resultArr.push("checked=\"checked\" ");
+        resultArr.push('checked="checked" ');
     }
-    resultArr.push("/>");
-    resultArr.push("<label ");
-    resultArr.push("for=\"" + expressionRadioId + "\" ");
-    resultArr.push(">E</label>");
+    resultArr.push('/>');
+    resultArr.push('<label ');
+    resultArr.push('for="' + expressionRadioId + '" ');
+    resultArr.push('>E</label>');
 
-    resultArr.push("</span>");
+    resultArr.push('</span>');
 };
 
 
 function GuiPropertyTextComponent(object, propertyInfo) {
     GuiPropertyComponent.call(this, object, propertyInfo);
-//    this.tagName = "tr";
+    //    this.tagName = "tr";
 
     this.$input = null;
     this.$label = null;
     this.$errorLabel = null;
-    this.inputTag = "input";
+    this.inputTag = 'input';
     this.setUniqueId();
-    this._constructorName = "GuiPropertyTextComponent";
+    this._constructorName = 'GuiPropertyTextComponent';
 }
 
 GuiPropertyTextComponent.prototype = new GuiPropertyComponent();
@@ -888,22 +888,22 @@ GuiPropertyTextComponent.prototype.gatherAlignmentInfo = function(info) {
 };
 
 GuiPropertyTextComponent.prototype.resetAlignment = function(info) {
-    this.$label.css("padding-left", "0px");
+    this.$label.css('padding-left', '0px');
     if (this.$valueType) {
-        this.$valueType.css("padding-left", "0px");
+        this.$valueType.css('padding-left', '0px');
     }
 };
 
 GuiPropertyTextComponent.prototype.setAlignment = function(info) {
     var labelWidth = this.$label.outerWidth();
     var labelOffset = info.getVerticalOffset(0);
-    this.$label.css("padding-left", (labelOffset - labelWidth) + "px");
+    this.$label.css('padding-left', (labelOffset - labelWidth) + 'px');
 
     if (this.$valueType) {
         var valueTypeLeft = this.$valueType.position().left;
         var maxValueTypeLeft = info.getVerticalOffset(1);
         var padding = Math.max(maxValueTypeLeft - valueTypeLeft + 5, 0);
-        this.$valueType.css("padding-left", padding + "px");
+        this.$valueType.css('padding-left', padding + 'px');
     }
 
 };
@@ -913,46 +913,46 @@ GuiPropertyTextComponent.prototype.setAlignment = function(info) {
 
 
 GuiPropertyTextComponent.prototype.getHtmlContentBeforeChildren = function(resultArr) {
-    var inputId = this.id + "-input";
-    var expressionInputId = this.id + "-expression-input";
-    var labelId = this.id + "-label";
-    var errorLabelId = this.id + "-error-label";
-    resultArr.push("<span ");
+    var inputId = this.id + '-input';
+    var expressionInputId = this.id + '-expression-input';
+    var labelId = this.id + '-label';
+    var errorLabelId = this.id + '-error-label';
+    resultArr.push('<span ');
     //    resultArr.push("for=\"" + inputId + "\" ");
-    resultArr.push("id=\"" + labelId + "\" ");
-    resultArr.push(">")
-    resultArr.push(this.propertyInfo.propertyCaption + "</span>");
-    resultArr.push("<" + this.inputTag + " ");
-    resultArr.push("class=\"ui-corner-all\" ");
-    resultArr.push("id=\"" + inputId + "\" ");
+    resultArr.push('id="' + labelId + '" ');
+    resultArr.push('>')
+    resultArr.push(this.propertyInfo.propertyCaption + '</span>');
+    resultArr.push('<' + this.inputTag + ' ');
+    resultArr.push('class="ui-corner-all" ');
+    resultArr.push('id="' + inputId + '" ');
     if (this.propertyInfo.shortDescription) {
-        resultArr.push("title=\"" + this.propertyInfo.shortDescription + "\" ");
+        resultArr.push('title="' + this.propertyInfo.shortDescription + '" ');
     }
-    resultArr.push(" />");
-//    resultArr.push("<textarea ");
+    resultArr.push(' />');
+    //    resultArr.push("<textarea ");
     // resultArr.push("class=\"ui-corner-all\" ");
-//    resultArr.push("id=\"" + expressionInputId + "\" ");
-//    resultArr.push(" />");
-//    this.getValueTypeButtonsHtml(resultArr);
-    resultArr.push("<label ");
-    resultArr.push("id=\"" + errorLabelId + "\" ");
-    resultArr.push("></label>");
+    //    resultArr.push("id=\"" + expressionInputId + "\" ");
+    //    resultArr.push(" />");
+    //    this.getValueTypeButtonsHtml(resultArr);
+    resultArr.push('<label ');
+    resultArr.push('id="' + errorLabelId + '" ');
+    resultArr.push('></label>');
 };
 
 GuiPropertyTextComponent.prototype.setError = function(e, text) {
     if (e) {
-        this.$input.addClass("ui-state-error");
+        this.$input.addClass('ui-state-error');
         //        this.$errorLabel.addClass("ui-state-error-text");
         this.$errorLabel.text(text);
     } else {
-        this.$input.removeClass("ui-state-error");
+        this.$input.removeClass('ui-state-error');
         //        this.$errorLabel.removeClass("ui-state-error-text");
-        this.$errorLabel.text("");
+        this.$errorLabel.text('');
     }
 };
 
 GuiPropertyTextComponent.prototype.setValueVerifyRaw = function() {
-    logit("GuiPropertyTextComponent must implement setValueVerifyRaw() <br />");
+    logit('GuiPropertyTextComponent must implement setValueVerifyRaw() <br />');
 };
 
 GuiPropertyTextComponent.prototype.valueToString = function(value) {
@@ -976,52 +976,52 @@ GuiPropertyTextComponent.prototype.parseInteger = function(str, result) {
 GuiPropertyTextComponent.prototype.jQueryCreated = function($localRoot) {
     JQueryComponent.prototype.jQueryCreated.call(this, $localRoot);
 
-//    this.createValueTypeRadioButtons($localRoot);
+    //    this.createValueTypeRadioButtons($localRoot);
 
     var comp = this;
 
-    this.$input = this.$component.find("#" + this.id + "-input");
-    this.$label = this.$component.find("#" + this.id + "-label");
-    this.$errorLabel = this.$component.find("#" + this.id + "-error-label");
+    this.$input = this.$component.find('#' + this.id + '-input');
+    this.$label = this.$component.find('#' + this.id + '-label');
+    this.$errorLabel = this.$component.find('#' + this.id + '-error-label');
 
-    this.$errorLabel.css("padding-left", "0.7em");
+    this.$errorLabel.css('padding-left', '0.7em');
 
     var currentLabelWidth = this.$label.width();
 
     //    if (currentLabelWidth < wantedLabelWidth) {
     //        this.$label.css("padding-left", (wantedLabelWidth - currentLabelWidth) + "px");
     //    }
-    this.$label.css("padding-right", "0.7em");
-    this.$input.css("width", "10em");
+    this.$label.css('padding-right', '0.7em');
+    this.$input.css('width', '10em');
 
     var value = this.getValue();
     this.$input.val(this.valueToString(value));
 
-//    this.setupExpressionInput(wantedInputWidth);
+    //    this.setupExpressionInput(wantedInputWidth);
 
     //    setTimeout(function() {
     //    logit("label width: " + comp.$label.outerWidth() + " id: " + this.$label.get(0).id + "<br />");
     //    }, 1);
 
     var comp = this;
-    this.$input.on("keydown keypress keyup change", function() {
+    this.$input.on('keydown keypress keyup change', function() {
         comp.setValueVerifyRaw();
     });
     // A hack to make right click pasting work...
-    this.$input.on("paste", function() {
+    this.$input.on('paste', function() {
         setTimeout(function() {
             comp.setValueVerifyRaw();
         }, 100);
     });
 
-//    this.$input.tooltip();
+    //    this.$input.tooltip();
 
 };
 
 
 function GuiPropertySingleOptionComponent(object, propertyInfo) {
     GuiPropertyComponent.call(this, object, propertyInfo);
-    this._constructorName = "GuiPropertySingleOptionComponent";
+    this._constructorName = 'GuiPropertySingleOptionComponent';
 }
 
 GuiPropertySingleOptionComponent.prototype = new GuiPropertyComponent();
@@ -1072,7 +1072,7 @@ function GuiPropertySelectComponent(object, propertyInfo) {
     this.$label = null;
     this.$errorLabel = null;
     this.setUniqueId();
-    this._constructorName = "GuiPropertySelectComponent";
+    this._constructorName = 'GuiPropertySelectComponent';
 }
 
 GuiPropertySelectComponent.prototype.componentRemoved = function() {
@@ -1090,9 +1090,9 @@ GuiPropertySelectComponent.prototype.gatherAlignmentInfo = function(info) {
 };
 
 GuiPropertySelectComponent.prototype.resetAlignment = function(info) {
-    this.$label.css("padding-left", "0px");
+    this.$label.css('padding-left', '0px');
     if (this.$valueType) {
-        this.$valueType.css("padding-left", "0px");
+        this.$valueType.css('padding-left', '0px');
     }
 };
 
@@ -1100,74 +1100,74 @@ GuiPropertySelectComponent.prototype.resetAlignment = function(info) {
 GuiPropertySelectComponent.prototype.setAlignment = function(info) {
     var labelWidth = this.$label.outerWidth();
     var labelOffset = info.getVerticalOffset(0);
-    this.$label.css("padding-left", (labelOffset - labelWidth) + "px");
+    this.$label.css('padding-left', (labelOffset - labelWidth) + 'px');
 
     if (this.$valueType) {
         var valueTypeLeft = this.$valueType.position().left;
         var maxValueTypeLeft = info.getVerticalOffset(1);
         var padding = Math.max(maxValueTypeLeft - valueTypeLeft + 5, 0);
-        this.$valueType.css("padding-left", padding + "px");
+        this.$valueType.css('padding-left', padding + 'px');
     }
 };
 
 
 GuiPropertySelectComponent.prototype.getHtmlContentBeforeChildren = function(resultArr) {
-    var inputId = this.id + "-input";
-    var expressionInputId = this.id + "-expression-input";
-    var labelId = this.id + "-label";
-    var errorLabelId = this.id + "-error-label";
-    resultArr.push("<label ");
-    resultArr.push("for=\"" + inputId + "\" ");
-    resultArr.push("id=\"" + labelId + "\" ");
-    resultArr.push(">")
-    resultArr.push(this.propertyInfo.propertyCaption + "</label>");
-    resultArr.push("<select ");
-    resultArr.push("class=\"ui-corner-all\" ");
+    var inputId = this.id + '-input';
+    var expressionInputId = this.id + '-expression-input';
+    var labelId = this.id + '-label';
+    var errorLabelId = this.id + '-error-label';
+    resultArr.push('<label ');
+    resultArr.push('for="' + inputId + '" ');
+    resultArr.push('id="' + labelId + '" ');
+    resultArr.push('>')
+    resultArr.push(this.propertyInfo.propertyCaption + '</label>');
+    resultArr.push('<select ');
+    resultArr.push('class="ui-corner-all" ');
     if (this.propertyInfo.shortDescription) {
-        resultArr.push("title=\"" + this.propertyInfo.shortDescription + "\" ");
+        resultArr.push('title="' + this.propertyInfo.shortDescription + '" ');
     }
-    resultArr.push("id=\"" + inputId + "\" ");
-    resultArr.push(">");
+    resultArr.push('id="' + inputId + '" ');
+    resultArr.push('>');
     var valuesAndNames = this.getValuesAndNames();
     this.getValuesAndNamesHtml(resultArr, valuesAndNames);
 
-    resultArr.push("</select>");
-//    resultArr.push("<textarea ");
+    resultArr.push('</select>');
+    //    resultArr.push("<textarea ");
     // resultArr.push("class=\"ui-corner-all\" ");
-//    resultArr.push("id=\"" + expressionInputId + "\" ");
-//    resultArr.push(" />");
+    //    resultArr.push("id=\"" + expressionInputId + "\" ");
+    //    resultArr.push(" />");
 
-//    this.getValueTypeButtonsHtml(resultArr);
+    //    this.getValueTypeButtonsHtml(resultArr);
 
-    resultArr.push("<label ");
-    resultArr.push("id=\"" + errorLabelId + "\" ");
-    resultArr.push("></label>");
+    resultArr.push('<label ');
+    resultArr.push('id="' + errorLabelId + '" ');
+    resultArr.push('></label>');
 };
 
 GuiPropertySelectComponent.prototype.getOptionHtml = function(resultArr, value, displayValue, optionIndex) {
-    resultArr.push("<option ");
-    resultArr.push("value=\"" + value + "\" ");
-    resultArr.push("class=\"" + (this.id + "-option") + "\" ");
-    resultArr.push(">");
-    resultArr.push("" + displayValue);
-    resultArr.push("</option>");
+    resultArr.push('<option ');
+    resultArr.push('value="' + value + '" ');
+    resultArr.push('class="' + (this.id + '-option') + '" ');
+    resultArr.push('>');
+    resultArr.push('' + displayValue);
+    resultArr.push('</option>');
 };
 
 GuiPropertySelectComponent.prototype.setError = function(e, text) {
     if (e) {
-        this.$input.addClass("ui-state-error");
+        this.$input.addClass('ui-state-error');
         //        this.$errorLabel.addClass("ui-state-error-text");
         this.$errorLabel.text(text);
     } else {
-        this.$input.removeClass("ui-state-error");
+        this.$input.removeClass('ui-state-error');
         //        this.$errorLabel.removeClass("ui-state-error-text");
-        this.$errorLabel.text("");
+        this.$errorLabel.text('');
     }
 };
 
 
 GuiPropertySelectComponent.prototype.removeOption = function(value, newValueIfCurrent) {
-    var $theOption = this.$component.find("option").filter("[value=\"" + value + "\"]");
+    var $theOption = this.$component.find('option').filter('[value="' + value + '"]');
     //    logit("Removing " + $theOption + "<br />");
     var currentValue = this.$input.val();
     if (value == currentValue) {
@@ -1182,7 +1182,7 @@ GuiPropertySelectComponent.prototype.removeOption = function(value, newValueIfCu
 };
 
 GuiPropertySelectComponent.prototype.changeOption = function(oldValue, newValue, newDisplayValue) {
-    var $theOption = this.$component.find("option").filter("[value=\"" + oldValue + "\"]");
+    var $theOption = this.$component.find('option').filter('[value="' + oldValue + '"]');
     $theOption.val(newValue);
     $theOption[0].innerHTML = newDisplayValue;
     this.setValueVerifyRaw();
@@ -1190,7 +1190,7 @@ GuiPropertySelectComponent.prototype.changeOption = function(oldValue, newValue,
 
 GuiPropertySelectComponent.prototype.addOption = function(value, displayValue) {
     var resultArr = [];
-    var optionCount = this.$component.find("option").size();
+    var optionCount = this.$component.find('option').size();
     this.getOptionHtml(resultArr, value, displayValue, optionCount - 1);
     var $newOption = $(resultArr.join(''));
     this.$input.append($newOption);
@@ -1198,19 +1198,19 @@ GuiPropertySelectComponent.prototype.addOption = function(value, displayValue) {
 
 
 GuiPropertySelectComponent.prototype.setValueVerifyRaw = function() {
-    logit("GuiPropertySelectComponent must implement setValueVerifyRaw() <br />");
+    logit('GuiPropertySelectComponent must implement setValueVerifyRaw() <br />');
 };
 
 
 GuiPropertySelectComponent.prototype.jQueryCreated = function($localRoot) {
     JQueryComponent.prototype.jQueryCreated.call(this, $localRoot);
 
-//    this.createValueTypeRadioButtons($localRoot);
+    //    this.createValueTypeRadioButtons($localRoot);
 
-    this.$input = this.$component.find("#" + this.id + "-input");
-    this.$label = this.$component.find("#" + this.id + "-label");
-    this.$errorLabel = this.$component.find("#" + this.id + "-error-label");
-    this.$errorLabel.css("padding-left", "0.7em");
+    this.$input = this.$component.find('#' + this.id + '-input');
+    this.$label = this.$component.find('#' + this.id + '-label');
+    this.$errorLabel = this.$component.find('#' + this.id + '-error-label');
+    this.$errorLabel.css('padding-left', '0.7em');
 
     //    var wantedLabelWidth = 250;
     var wantedLabelPaddingRight = 10;
@@ -1220,23 +1220,23 @@ GuiPropertySelectComponent.prototype.jQueryCreated = function($localRoot) {
     //    if (currentLabelWidth < wantedLabelWidth) {
     //        this.$label.css("padding-left", (wantedLabelWidth - currentLabelWidth) + "px");
     //    }
-    this.$label.css("padding-right", "0.7em");
-    this.$input.css("width", "13em");
+    this.$label.css('padding-right', '0.7em');
+    this.$input.css('width', '13em');
 
     //    logit("label outerwidth: " + this.$label.outerWidth() + "<br />");
 
     var value = this.getValue();
 
     //    logit(" setting value to " + value + "<br />");
-    this.$input.val("" + value);
+    this.$input.val('' + value);
 
     var comp = this;
-    this.$input.on("change", function() {
+    this.$input.on('change', function() {
         comp.setValueVerifyRaw();
         //        logit("changed to " + comp.$input.prop("value"));
     });
 
-//    this.$input.tooltip();
+    //    this.$input.tooltip();
 
 //    this.setupExpressionInput(wantedInputWidth);
 };
@@ -1251,7 +1251,7 @@ function GuiPropertyRadioButtonsComponent(object, propertyInfo) {
     this.$label = null;
     this.$errorLabel = null;
     this.setUniqueId();
-    this._constructorName = "GuiPropertyRadioButtonsComponent";
+    this._constructorName = 'GuiPropertyRadioButtonsComponent';
 }
 
 GuiPropertyRadioButtonsComponent.prototype = new GuiPropertySingleOptionComponent();
@@ -1265,28 +1265,28 @@ GuiPropertyRadioButtonsComponent.prototype.getHtmlContentBeforeChildren = functi
 GuiPropertyRadioButtonsComponent.prototype.getOptionHtml = function(resultArr, value, displayValue, optionIndex) {
     //    <input type="radio" id="radio1" name="radio" /><label for="radio1">Choice 1</label>
 
-    var radioId = this.id + "-radio-" + optionIndex;
-    var labelId = this.id + "-label-" + optionIndex;
-    resultArr.push("<input ");
-    resultArr.push("type=\"radio\" ");
-    resultArr.push("name=\"radio\" ");
-    resultArr.push("id=\"" + radioId + "\" ");
-    resultArr.push("class=\"radiobutton\" ");
-    resultArr.push("/>");
-    resultArr.push("<label ");
-    resultArr.push("for=\"" + radioId + "\" ");
-    resultArr.push("class=\"radiobutton-label\" ");
-    resultArr.push("id=\"" + labelId + "\" ");
-    resultArr.push(">")
-    resultArr.push("" + displayValue);
-    resultArr.push("</label>")
+    var radioId = this.id + '-radio-' + optionIndex;
+    var labelId = this.id + '-label-' + optionIndex;
+    resultArr.push('<input ');
+    resultArr.push('type="radio" ');
+    resultArr.push('name="radio" ');
+    resultArr.push('id="' + radioId + '" ');
+    resultArr.push('class="radiobutton" ');
+    resultArr.push('/>');
+    resultArr.push('<label ');
+    resultArr.push('for="' + radioId + '" ');
+    resultArr.push('class="radiobutton-label" ');
+    resultArr.push('id="' + labelId + '" ');
+    resultArr.push('>')
+    resultArr.push('' + displayValue);
+    resultArr.push('</label>')
 };
 
 
 
 GuiPropertyRadioButtonsComponent.prototype.removeOption = function(value, newValueIfCurrent) {
-    var $theOption = this.$component.find("button").filter(function(index) {
-        var optionValue = $(this).data("optionValue");
+    var $theOption = this.$component.find('button').filter(function(index) {
+        var optionValue = $(this).data('optionValue');
         return value == optionValue;
     });
 
@@ -1303,11 +1303,11 @@ GuiPropertyRadioButtonsComponent.prototype.removeOption = function(value, newVal
 };
 
 GuiPropertyRadioButtonsComponent.prototype.changeOption = function(oldValue, newValue, newDisplayValue) {
-    var $button = this.$component.find("button").filter(function(index) {
-        var optionValue = $(this).data("optionValue");
+    var $button = this.$component.find('button').filter(function(index) {
+        var optionValue = $(this).data('optionValue');
         return oldValue == optionValue;
     });
-    $button.data("optionData", newValue);
+    $button.data('optionData', newValue);
 
     $button[0].innerHTML = newDisplayValue;
     this.setValueVerifyRaw();
@@ -1317,37 +1317,37 @@ GuiPropertyRadioButtonsComponent.prototype.addOption = function(value, displayVa
     var resultArr = [];
     this.getOptionHtml(resultArr, value, displayValue);
     var $newOption = $(resultArr.join(''));
-    $newOption.data("optionValue", value);
+    $newOption.data('optionValue', value);
     this.$input.append($newOption);
 };
 
 
 GuiPropertyRadioButtonsComponent.prototype.setValueVerifyRaw = function() {
-    logit("GuiPropertySelectComponent must implement setValueVerifyRaw() <br />");
+    logit('GuiPropertySelectComponent must implement setValueVerifyRaw() <br />');
 };
 
 
 GuiPropertyRadioButtonsComponent.prototype.jQueryCreated = function($localRoot) {
     JQueryComponent.prototype.jQueryCreated.call(this, $localRoot);
 
-    var buttonArr = this.$component.find("button").filter(".radiobutton").get();
-    var labelArr = this.$component.find("label").filter(".radiobutton-label").get();
+    var buttonArr = this.$component.find('button').filter('.radiobutton').get();
+    var labelArr = this.$component.find('label').filter('.radiobutton-label').get();
 
     if (buttonArr.length != labelArr.length) {
-        logit("Buttons not equal count to labels in GuiPropertyRadioButtonsComponent<br/>");
+        logit('Buttons not equal count to labels in GuiPropertyRadioButtonsComponent<br/>');
     }
     var valuesAndNames = this.getValuesAndNames();
     for (var i=0; i<buttonArr.length; i++) {
         var button = buttonArr[i];
         var label = labelArr[i];
         var value = valuesAndNames[i][0];
-        $(button).data("optionValue", value);
-        $(label).data("optionValue", value);
+        $(button).data('optionValue', value);
+        $(label).data('optionValue', value);
     }
 
     this.$component.buttonset();
 
-    this.$label = this.$component.find("#" + this.id + "-label");
+    this.$label = this.$component.find('#' + this.id + '-label');
 
     var wantedLabelWidth = 250;
     var wantedLabelPaddingRight = 10;
@@ -1355,9 +1355,9 @@ GuiPropertyRadioButtonsComponent.prototype.jQueryCreated = function($localRoot) 
     var currentLabelWidth = this.$label.width();
 
     if (currentLabelWidth < wantedLabelWidth) {
-        this.$label.css("padding-left", Math.round((wantedLabelWidth - currentLabelWidth) / 15.0) + "em");
+        this.$label.css('padding-left', Math.round((wantedLabelWidth - currentLabelWidth) / 15.0) + 'em');
     }
-    this.$label.css("padding-right", "0.7em");
+    this.$label.css('padding-right', '0.7em');
 
 
 //    var comp = this;
@@ -1377,14 +1377,14 @@ function GuiAbstractListComponent(object, propertyInfo) {
     this.$deleteButton = null;
     this.$list = null;
     this.listItemCounter = 1;
-    this.listItemClass = "object-list-item";
-    this.listClass = "object-list";
+    this.listItemClass = 'object-list-item';
+    this.listClass = 'object-list';
 
     // These use keys from the generated IDs from listItemCounter and maps to <li> DOM-elements
     this.selectedListItems = {};
     this.listItems = {};
 
-    this._constructorName = "GuiAbstractListComponent";
+    this._constructorName = 'GuiAbstractListComponent';
 }
 
 GuiAbstractListComponent.prototype = new GuiPropertyComponent();
@@ -1403,7 +1403,7 @@ GuiAbstractListComponent.prototype.getListItemContentHtml = function(valueItem, 
         resultArr.push(listInfo.itemsDisplayFunction.call(this, valueItem));
     } else if (valueItem.id) {
         resultArr.push(valueItem.id);
-    } else if (typeof(valueItem) === "object") {
+    } else if (typeof(valueItem) === 'object') {
         // Assign a unique ID
         var uiInfo = this.propertyInfo.uniqueIdInfo;
         if (uiInfo) {
@@ -1412,24 +1412,24 @@ GuiAbstractListComponent.prototype.getListItemContentHtml = function(valueItem, 
             //            valueItem.id = newId;
             resultArr.push(valueItem.id);
         } else {
-            logit("Cannot put objects in GuiAbstractListComponent without an id or a unique id manager");
+            logit('Cannot put objects in GuiAbstractListComponent without an id or a unique id manager');
         }
     } else {
         // Is just a plain stuff
-        resultArr.push("" + valueItem);
+        resultArr.push('' + valueItem);
     }
 };
 
 
 
 GuiAbstractListComponent.prototype.setIds = function() {
-    this.listId = this.id + "-list";
-    this.newButtonIdPrefix = this.id + "-new-button";
-    this.copyButtonIdPrefix = this.id + "-copy-button";
-    this.newSelectId = this.id + "-new-select";
-    this.deleteButtonId = this.id + "-delete-button";
-    this.copyButtonId = this.id + "-copy-button";
-    this.detailsId = this.id + "-details";
+    this.listId = this.id + '-list';
+    this.newButtonIdPrefix = this.id + '-new-button';
+    this.copyButtonIdPrefix = this.id + '-copy-button';
+    this.newSelectId = this.id + '-new-select';
+    this.deleteButtonId = this.id + '-delete-button';
+    this.copyButtonId = this.id + '-copy-button';
+    this.detailsId = this.id + '-details';
 };
 
 
@@ -1446,67 +1446,67 @@ GuiAbstractListComponent.prototype.getHtmlContentBeforeChildren = function(resul
     //    resultArr.push("class='ui-widget-content' ");
     //    resultArr.push(">\n");
 
-    resultArr.push("<span class='ui-widget' >" + this.propertyInfo.propertyCaption + "</span><br />");
+    resultArr.push('<span class=\'ui-widget\' >' + this.propertyInfo.propertyCaption + '</span><br />');
 
     // List
-    resultArr.push("<ul ");
-    resultArr.push("id=\"" + this.listId + "\" ");
-    resultArr.push("class='object-list' ");
-    resultArr.push(">\n");
+    resultArr.push('<ul ');
+    resultArr.push('id="' + this.listId + '" ');
+    resultArr.push('class=\'object-list\' ');
+    resultArr.push('>\n');
 
     for (var i=0; i<list.length; i++) {
         var value = list[i];
         this.getListItemHtml(value, resultArr, i);
     }
 
-    resultArr.push("</ul>\n");
+    resultArr.push('</ul>\n');
 
     // Add/delete panel
-    resultArr.push("<div>\n");
+    resultArr.push('<div>\n');
 
     // New components
     this.getConstructorsHtml(resultArr, this.listInfo.constructorInfos, this.listInfo.newMode);
 
     // Delete button
-    resultArr.push("<button ");
-    resultArr.push("id=\"" + this.deleteButtonId + "\" ");
-    resultArr.push(">");
-    resultArr.push("</button>\n");
+    resultArr.push('<button ');
+    resultArr.push('id="' + this.deleteButtonId + '" ');
+    resultArr.push('>');
+    resultArr.push('</button>\n');
 
-//    logit("Delete button id: " + this.deleteButtonId);
+    //    logit("Delete button id: " + this.deleteButtonId);
 
     // Copy button
-    resultArr.push("<button ");
-    resultArr.push("id=\"" + this.copyButtonId + "\" ");
-    resultArr.push(">");
-    resultArr.push("</button>\n");
+    resultArr.push('<button ');
+    resultArr.push('id="' + this.copyButtonId + '" ');
+    resultArr.push('>');
+    resultArr.push('</button>\n');
 
-    resultArr.push("</div>\n"); // End of add/delete panel
+    resultArr.push('</div>\n'); // End of add/delete panel
 
-//    resultArr.push("</div>\n");
+    //    resultArr.push("</div>\n");
 
 };
 
 
 GuiAbstractListComponent.prototype.getListItemHtml = function(valueItem, resultArr, itemIndex) {
     var listInfo = this.listInfo;
-    resultArr.push("<li ");
-    resultArr.push("class='" + this.listItemClass + " ui-widget-content' ");
-    resultArr.push("id='" + (this.id + "-item-" + this.listItemCounter) +  "' ");
-    resultArr.push(">");
-    resultArr.push("<div class='vertical-list-item-drag-handle' >")
-    resultArr.push("<span class='ui-icon ui-icon-carat-2-n-s'></span>");
-    resultArr.push("</div>");
+    resultArr.push('<li ');
+    resultArr.push('class=\'' + this.listItemClass + ' ui-widget-content\' ');
+    resultArr.push('id=\'' + (this.id + '-item-' + this.listItemCounter) +  '\' ');
+    resultArr.push('>');
+    resultArr.push('<div class=\'vertical-list-item-drag-handle\' >')
+    resultArr.push('<span class=\'ui-icon ui-icon-carat-2-n-s\'></span>');
+    resultArr.push('</div>');
 
     this.listItemCounter++;
 
-    resultArr.push("<span class='object-list-item-content' >")
+    resultArr.push('<span class=\'object-list-item-content\' >')
     this.getListItemContentHtml(valueItem, resultArr, itemIndex);
-    resultArr.push("</span>");
+    resultArr.push('</span>');
     //    if (!valueItem.id) {
     //        logit("stuff that should be part of lists must have a unique ID")
     //    }
-    resultArr.push("</li>\n");
+    resultArr.push('</li>\n');
 };
 
 
@@ -1515,28 +1515,28 @@ GuiAbstractListComponent.prototype.jQueryCreated = function($localRoot) {
 
     var comp = this;
 
-    this.$details = this.$component.find("#" + this.detailsId);
+    this.$details = this.$component.find('#' + this.detailsId);
 
     // Create the list
-    this.$list = this.$component.find("#" + this.listId);
+    this.$list = this.$component.find('#' + this.listId);
 
-    var $listItems = this.$component.find(".object-list-item");
+    var $listItems = this.$component.find('.object-list-item');
     var list = this.getValue();
     $listItems.each(function(index, element) {
         var valueItem = list[index];
         if (typeof(valueItem) === 'undefined') {
-            logit("could not find value for index " + index + " in " + JSON.stringify(list) + " property: " + comp.propertyInfo.propertyName + "<br />");
+            logit('could not find value for index ' + index + ' in ' + JSON.stringify(list) + ' property: ' + comp.propertyInfo.propertyName + '<br />');
         } else {
             var $element = $(element);
-            $element.data("value", valueItem);
+            $element.data('value', valueItem);
             comp.listItems[element.id] = element;
         }
     });
 
     this.$list.sortable({
-        handle: ".vertical-list-item-drag-handle"
+        handle: '.vertical-list-item-drag-handle'
     });
-    this.$list.on("sortstop", function(event, ui) {
+    this.$list.on('sortstop', function(event, ui) {
         comp.itemSortStop(event, ui);
     });
 
@@ -1548,7 +1548,7 @@ GuiAbstractListComponent.prototype.jQueryCreated = function($localRoot) {
             comp.listItemUnselected(event, ui);
         }
     });
-//    this.$list.on( "selectableunselected", );
+    //    this.$list.on( "selectableunselected", );
 
 
     this.addConstructorClickListeners(this.listInfo.constructorInfos, function(constrInfo) {
@@ -1572,28 +1572,28 @@ GuiAbstractListComponent.prototype.jQueryCreated = function($localRoot) {
     //        });
     //    }
 
-    this.$deleteButton = this.$component.find("#" + this.deleteButtonId);
+    this.$deleteButton = this.$component.find('#' + this.deleteButtonId);
     var buttonOptions = {};
-    buttonOptions.label = "Delete";
+    buttonOptions.label = 'Delete';
     buttonOptions.text = false;
     buttonOptions.icons = {};
-    buttonOptions.icons["primary"] = "ui-icon-trash";
+    buttonOptions.icons['primary'] = 'ui-icon-trash';
 
     this.$deleteButton.button(buttonOptions);
-    this.$deleteButton.button("disable");
+    this.$deleteButton.button('disable');
     this.$deleteButton.click(this, function() {
         comp.deleteSelectedItems();
     });
 
-    this.$copyButton = this.$component.find("#" + this.copyButtonId);
+    this.$copyButton = this.$component.find('#' + this.copyButtonId);
     var buttonOptions = {};
-    buttonOptions.label = "Copy";
+    buttonOptions.label = 'Copy';
     buttonOptions.text = false;
     buttonOptions.icons = {};
-    buttonOptions.icons["primary"] = "ui-icon-copy";
+    buttonOptions.icons['primary'] = 'ui-icon-copy';
 
     this.$copyButton.button(buttonOptions);
-    this.$copyButton.button("disable");
+    this.$copyButton.button('disable');
     this.$copyButton.click(this, function() {
         comp.copySelectedItems();
     });
@@ -1609,17 +1609,17 @@ GuiAbstractListComponent.prototype.appendNewValue = function(newValue) {
     var list = this.getValue();
     var resultArr = [];
     this.getListItemHtml(newValue, resultArr, list.length);
-    var $newItem = $(resultArr.join(""));
+    var $newItem = $(resultArr.join(''));
     this.$list.append($newItem);
 
-    $newItem.data("value", newValue);
+    $newItem.data('value', newValue);
     //    $newItem.val("" + newValue);
     this.listItems[$newItem.get(0).id] = $newItem.get(0);
 
     list.push(newValue);
 
     var comp = this;
-    $newItem.on("change", function() {
+    $newItem.on('change', function() {
         comp.setValueVerifyRaw();
     });
 
@@ -1671,19 +1671,19 @@ GuiAbstractListComponent.prototype.copySelectedItems = function() {
             //            logit("item " + i + ":" + item + " <br />");
             //            investigateObject(item);
             var $item = $(item);
-            var valueItem = $item.data("value");
+            var valueItem = $item.data('value');
 
             //            logit("should copy item " + i + " <br />");
 
             var options = {
-//                createUniqueIds: true,
-//                propertyInfoProvider: this.propertyInfo.propertyInfoProvider
+                //                createUniqueIds: true,
+                //                propertyInfoProvider: this.propertyInfo.propertyInfoProvider
             };
             var copy = copyValueDeep(valueItem); // , options);
 
             this.appendNewValue(copy);
 
-//            addIdReferenceListenersRecursively(copy, this.propertyInfo.propertyInfoProvider, this.propertyInfo);
+            //            addIdReferenceListenersRecursively(copy, this.propertyInfo.propertyInfoProvider, this.propertyInfo);
 
         }
     }
@@ -1702,7 +1702,7 @@ GuiAbstractListComponent.prototype.deleteSelectedItems = function() {
             //            logit("item " + i + ":" + item + " <br />");
             //            investigateObject(item);
             var $item = $(item);
-            var valueItem = $item.data("value");
+            var valueItem = $item.data('value');
 
             if (typeof(valueItem) != 'undefined') {
                 $item.remove();
@@ -1710,12 +1710,12 @@ GuiAbstractListComponent.prototype.deleteSelectedItems = function() {
 
                 this.cleanAfterDelete(valueItem);
             } else {
-                logit("Can not find a value for item with index " + i + " and id " + item.id + "<br />");
+                logit('Can not find a value for item with index ' + i + ' and id ' + item.id + '<br />');
                 //                investigateArrayIds(list);
             }
         }
         this.clearSelection();
-        this.$deleteButton.button("disable");
+        this.$deleteButton.button('disable');
         this.callChangeListeners();
     }
 };
@@ -1724,8 +1724,8 @@ GuiAbstractListComponent.prototype.deleteSelectedItems = function() {
 
 
 GuiAbstractListComponent.prototype.listItemSelected = function(event, ui) {
-    this.$deleteButton.button("enable");
-    this.$copyButton.button("enable");
+    this.$deleteButton.button('enable');
+    this.$copyButton.button('enable');
     this.selectedListItems[ui.selected.id] = ui.selected;
 
 //    logit("Selected items:");
@@ -1737,8 +1737,8 @@ GuiAbstractListComponent.prototype.listItemUnselected = function(event, ui) {
     delete this.selectedListItems[ui.unselected.id];
 
     if (this.getSelectedItems().length == 0) {
-        this.$deleteButton.button("disable");
-        this.$copyButton.button("disable");
+        this.$deleteButton.button('disable');
+        this.$copyButton.button('disable');
     }
 //    logit("Selected items:");
 //    logit(this.selectedListItems);
@@ -1750,9 +1750,9 @@ GuiAbstractListComponent.prototype.itemSortStop = function(event, ui) {
 
     var comp = this;
 
-    this.$component.find(".object-list-item").each(function(index, value) {
+    this.$component.find('.object-list-item').each(function(index, value) {
         var $item = $(value);
-        var valueItem = $item.data("value");
+        var valueItem = $item.data('value');
         newArr.push(valueItem);
     });
 
@@ -1769,29 +1769,29 @@ GuiAbstractListComponent.prototype.itemSortStop = function(event, ui) {
 // A list that contains select components that can be modified
 function GuiPropertySelectListComponent(object, propertyInfo) {
     GuiAbstractListComponent.call(this, object, propertyInfo);
-    this.cssClassName = "object-list-panel";
-    this.otherCssClasses.push("ui-widget-content");
+    this.cssClassName = 'object-list-panel';
+    this.otherCssClasses.push('ui-widget-content');
     this.setUniqueId();
 
     this.setIds();
 
-    this._constructorName = "GuiPropertySelectListComponent";
+    this._constructorName = 'GuiPropertySelectListComponent';
 }
 
 GuiPropertySelectListComponent.prototype = new GuiAbstractListComponent();
 
 GuiPropertySelectListComponent.prototype.getValueItemId = function(itemIndex, optionIndex) {
-    return this.id + "-option-" + itemIndex + "-" + optionIndex;
+    return this.id + '-option-' + itemIndex + '-' + optionIndex;
 };
 
 GuiPropertySelectListComponent.prototype.getOptionHtml = function(resultArr, value, displayValue, itemIndex, optionIndex) {
-    resultArr.push("<option ");
-    resultArr.push("value='" + value + "' ");
-    resultArr.push("class='" + (this.id + "-option") + "' ");
-    resultArr.push("id='" + this.getValueItemId(itemIndex, optionIndex) + "' ");
-    resultArr.push(">");
-    resultArr.push("" + displayValue);
-    resultArr.push("</option>");
+    resultArr.push('<option ');
+    resultArr.push('value=\'' + value + '\' ');
+    resultArr.push('class=\'' + (this.id + '-option') + '\' ');
+    resultArr.push('id=\'' + this.getValueItemId(itemIndex, optionIndex) + '\' ');
+    resultArr.push('>');
+    resultArr.push('' + displayValue);
+    resultArr.push('</option>');
 };
 
 
@@ -1813,7 +1813,7 @@ GuiPropertySelectListComponent.prototype.getValuesAndNames = function() {
 
         var resultArr = [];
         GuiAbstractListComponent.prototype.getListItemContentHtml.call(this, value, resultArr);
-        displayValue = resultArr.join("");
+        displayValue = resultArr.join('');
         result.push([value, displayValue]);
     }
     return result;
@@ -1821,14 +1821,14 @@ GuiPropertySelectListComponent.prototype.getValuesAndNames = function() {
 
 
 GuiPropertySelectListComponent.prototype.getListItemContentHtml = function(valueItem, resultArr, itemIndex) {
-    var theId = this.id + "-select-" + itemIndex;
-    resultArr.push("<select ");
-    resultArr.push("class='" + this.id + "-select" + "' ");
-    resultArr.push("id='" + theId + "' ");
-    resultArr.push(">");
+    var theId = this.id + '-select-' + itemIndex;
+    resultArr.push('<select ');
+    resultArr.push('class=\'' + this.id + '-select' + '\' ');
+    resultArr.push('id=\'' + theId + '\' ');
+    resultArr.push('>');
     var valuesAndNames = this.getValuesAndNames();
     this.getValuesAndNamesHtml(resultArr, valuesAndNames, itemIndex);
-    resultArr.push("</select>");
+    resultArr.push('</select>');
 
 //    logit("the id was " + theId + "<br />");
 };
@@ -1843,10 +1843,10 @@ GuiPropertySelectListComponent.prototype.jQueryCreated = function($localRoot) {
     var comp = this;
 
     for (var i=0; i<list.length; i++) {
-        var $item = this.$component.find("#" + this.id + "-select-" + i);
-        $item.val("" + list[i]);
+        var $item = this.$component.find('#' + this.id + '-select-' + i);
+        $item.val('' + list[i]);
         //        logit("Setting vlaue to " + list[i] + " " + $item.size() + "<br />");
-        $item.on("change", function() {
+        $item.on('change', function() {
             comp.setValueVerifyRaw(i);
         });
     }
@@ -1862,13 +1862,13 @@ GuiPropertySelectListComponent.prototype.setValueVerifyRaw = function($localRoot
 
     var comp = this;
 
-    var $listItems = this.$component.find(".object-list-item");
-    var $selectItems = this.$component.find("." + this.id + "-select");
+    var $listItems = this.$component.find('.object-list-item');
+    var $selectItems = this.$component.find('.' + this.id + '-select');
     $listItems.each(function(index, element) {
         var $selectItem = $($selectItems.get(index));
         var itemString = $selectItem.val();
         list[index] = comp.getItemValue(itemString);
-        $(element).data("value", list[index]);
+        $(element).data('value', list[index]);
     });
 
     this.callChangeListeners();
@@ -1879,18 +1879,18 @@ GuiPropertySelectListComponent.prototype.setValueVerifyRaw = function($localRoot
 
 GuiPropertySelectListComponent.prototype.itemAppended = function($newItem, newValue) {
 //    logit(this._constructorName + " New value: " + JSON.stringify(newValue));
-    $newItem.find("select").val("" + newValue);
+    $newItem.find('select').val('' + newValue);
 };
 
 
 GuiPropertySelectListComponent.prototype.removeOption = function(value, newValueIfCurrent) {
-    var $theOption = this.$component.find("option").filter("[value=\"" + value + "\"]");
+    var $theOption = this.$component.find('option').filter('[value="' + value + '"]');
     $theOption.remove();
     this.setValueVerifyRaw();
 };
 
 GuiPropertySelectListComponent.prototype.changeOption = function(oldValue, newValue, newDisplayValue) {
-    var $theOptions = this.$component.find("option").filter("[value=\"" + oldValue + "\"]");
+    var $theOptions = this.$component.find('option').filter('[value="' + oldValue + '"]');
 
     // logit("Changing options " + $theOptions.size() + "<br />");
     $theOptions.each(function(index, element) {
@@ -1903,13 +1903,13 @@ GuiPropertySelectListComponent.prototype.changeOption = function(oldValue, newVa
 
 GuiPropertySelectListComponent.prototype.addOption = function(value, displayValue) {
 
-    var $selectItems = this.$component.find("." + this.id + "-select");
+    var $selectItems = this.$component.find('.' + this.id + '-select');
 
     var comp = this;
     $selectItems.each(function(index, element) {
         var resultArr = [];
         var $selectItem = $(element);
-        var optionCount = $selectItem.find("option").size();
+        var optionCount = $selectItem.find('option').size();
         comp.getOptionHtml(resultArr, value, displayValue, optionCount - 1);
         var $newOption = $(resultArr.join(''));
         $selectItem.append($newOption);
@@ -1925,9 +1925,9 @@ function GuiPropertySliderComponent(object, propertyInfo) {
     GuiPropertyComponent.call(this, object, propertyInfo);
     this.$input = null;
     this.$label = null;
-    this.inputTag = "span";
+    this.inputTag = 'span';
     this.setUniqueId();
-    this._constructorName = "GuiPropertySliderComponent";
+    this._constructorName = 'GuiPropertySliderComponent';
 }
 
 GuiPropertySliderComponent.prototype = new GuiPropertyComponent();
@@ -1940,12 +1940,12 @@ GuiPropertySliderComponent.prototype.gatherAlignmentInfo = function(info) {
 GuiPropertySliderComponent.prototype.setAlignment = function(info) {
     var labelWidth = this.$label.outerWidth();
     var labelOffset = info.getVerticalOffset(0);
-    this.$label.css("padding-left", (labelOffset - labelWidth) + "px");
+    this.$label.css('padding-left', (labelOffset - labelWidth) + 'px');
 };
 
 
 GuiPropertySliderComponent.prototype.resetAlignment = function() {
-    this.$label.css("padding-left", "0px");
+    this.$label.css('padding-left', '0px');
 //    if (this.$valueType) {
 //        this.$valueType.css("padding-left", "0px");
 //    }
@@ -1954,37 +1954,37 @@ GuiPropertySliderComponent.prototype.resetAlignment = function() {
 
 
 GuiPropertySliderComponent.prototype.getHtmlContentBeforeChildren = function(resultArr) {
-    var inputId = this.id + "-input";
-    var labelId = this.id + "-label";
-    resultArr.push("<span ");
+    var inputId = this.id + '-input';
+    var labelId = this.id + '-label';
+    resultArr.push('<span ');
     //    resultArr.push("for=\"" + inputId + "\" ");
-    resultArr.push("id=\"" + labelId + "\" ");
-    resultArr.push(">")
-    resultArr.push(this.propertyInfo.propertyCaption + "</span>");
-    resultArr.push("<" + this.inputTag + " ");
-//    resultArr.push("class=\"ui-corner-all\" ");
-    resultArr.push("id=\"" + inputId + "\" ");
-    resultArr.push(" />");
+    resultArr.push('id="' + labelId + '" ');
+    resultArr.push('>')
+    resultArr.push(this.propertyInfo.propertyCaption + '</span>');
+    resultArr.push('<' + this.inputTag + ' ');
+    //    resultArr.push("class=\"ui-corner-all\" ");
+    resultArr.push('id="' + inputId + '" ');
+    resultArr.push(' />');
 };
 
 GuiPropertySliderComponent.prototype.setError = function(e, text) {
-    logit("Error not implemented in GuiPropertySliderComponent");
+    logit('Error not implemented in GuiPropertySliderComponent');
 };
 
 GuiPropertySliderComponent.prototype.setValueVerifyRaw = function() {
-    logit("GuiPropertySliderComponent must implement setValueVerifyRaw() <br />");
+    logit('GuiPropertySliderComponent must implement setValueVerifyRaw() <br />');
 };
 
 
 GuiPropertySliderComponent.prototype.jQueryCreated = function($localRoot) {
     JQueryComponent.prototype.jQueryCreated.call(this, $localRoot);
 
-//    this.createValueTypeRadioButtons($localRoot);
+    //    this.createValueTypeRadioButtons($localRoot);
 
     var comp = this;
 
-    this.$input = this.$component.find("#" + this.id + "-input");
-    this.$label = this.$component.find("#" + this.id + "-label");
+    this.$input = this.$component.find('#' + this.id + '-input');
+    this.$label = this.$component.find('#' + this.id + '-label');
 
     var wantedLabelPaddingRight = 10;
 
@@ -1997,13 +1997,13 @@ GuiPropertySliderComponent.prototype.jQueryCreated = function($localRoot) {
         }
     });
 
-    this.$label.css("padding-right", "0.7em");
-    this.$input.css("width", "13em");
+    this.$label.css('padding-right', '0.7em');
+    this.$input.css('width', '13em');
 
     var comp = this;
 
-//    this.$input.on("keydown keypress keyup change", function() {
-//        comp.setValueVerifyRaw();
-//    });
+    //    this.$input.on("keydown keypress keyup change", function() {
+    //        comp.setValueVerifyRaw();
+    //    });
 
 };

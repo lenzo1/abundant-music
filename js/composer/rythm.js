@@ -1,9 +1,9 @@
 
 class Rythm {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.rythmElements = [];
-        this._constructorName = "Rythm";
+        this._constructorName = 'Rythm';
     }
 
     addRythmElement(e) {
@@ -28,11 +28,11 @@ class Rythm {
 
 class RythmElement {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.length = 1.0;
         this.lengthUnit = PositionUnit.BEATS;
         this.strength = 1.0;
-        this._constructorName = "RythmElement";
+        this._constructorName = 'RythmElement';
     }
 
     // Must be Note rythm elements as result...
@@ -40,7 +40,7 @@ class RythmElement {
         if (this instanceof NoteRythmElement) {
             return [this];
         } else {
-            logit("RythmElements that are not NoteRythmElements must implement getNoteRythmElements()<br />");
+            logit('RythmElements that are not NoteRythmElements must implement getNoteRythmElements()<br />');
         }
     }
 
@@ -74,12 +74,12 @@ const NoteRythmElementLengthType = {
 
     toString(type) {
         switch (type) {
-            case NoteRythmElementLengthType.NORMAL:
-                return "Normal";
-            case NoteRythmElementLengthType.DOT:
-                return "Dotted";
-            case NoteRythmElementLengthType.TRIPLET:
-                return "Triplet";
+        case NoteRythmElementLengthType.NORMAL:
+            return 'Normal';
+        case NoteRythmElementLengthType.DOT:
+            return 'Dotted';
+        case NoteRythmElementLengthType.TRIPLET:
+            return 'Triplet';
         }
         return `Unknown type ${type}`;
     },
@@ -102,7 +102,7 @@ class NoteRythmElement extends RythmElement {
         super();
         this.rest = false;
         this.lengthType = NoteRythmElementLengthType.NORMAL; // Used for splitting and certainly other things later
-        this._constructorName = "NoteRythmElement";
+        this._constructorName = 'NoteRythmElement';
     }
 
     setLengthType(type) {
@@ -133,7 +133,7 @@ class SequenceRythmElement extends RythmElement {
 
         this.minElementLength = 0;
         this.minElementLengthUnit = PositionUnit.BEATS;
-        this._constructorName = "SequenceRythmElement";
+        this._constructorName = 'SequenceRythmElement';
 
     }
 
@@ -205,7 +205,7 @@ class SplitRythmElement extends RythmElement {
         this.noteCountUnit = CountUnit.PLAIN;
         this.extraNoteCount = 0;
         this.extraNoteCountUnit = CountUnit.PLAIN;
-        this.densityCurve = "";
+        this.densityCurve = '';
         this.densityCurveAmplitude = 1.0;
         this.densityCurveBias = 0.0;
         this.densityCurveFrequency = 1.0;
@@ -213,7 +213,7 @@ class SplitRythmElement extends RythmElement {
         this.minLength = 0.25;
         this.minLengthUnit = PositionUnit.BEATS;
         this.splitZoneCollection = new SplitZoneCollection();
-        this._constructorName = "SplitRythmElement";
+        this._constructorName = 'SplitRythmElement';
     }
 
     addSplitZone(zone) {
@@ -223,10 +223,10 @@ class SplitRythmElement extends RythmElement {
 
     getNoteRythmElements(module, harmony, harmonyBeatOffset) {
 
-        let theNoteCount = getValueOrExpressionValue(this, "noteCount", module);
-        const theExtraNoteCount = getValueOrExpressionValue(this, "extraNoteCount", module);
-        const startLengthType = getValueOrExpressionValue(this, "startLengthType", module);
-        const length = getValueOrExpressionValue(this, "length", module);
+        let theNoteCount = getValueOrExpressionValue(this, 'noteCount', module);
+        const theExtraNoteCount = getValueOrExpressionValue(this, 'extraNoteCount', module);
+        const startLengthType = getValueOrExpressionValue(this, 'startLengthType', module);
+        const length = getValueOrExpressionValue(this, 'length', module);
 
 
         theNoteCount = CountUnit.getCount(theNoteCount, this.noteCountUnit, harmony, harmonyBeatOffset);
@@ -278,7 +278,7 @@ class SplitRythmElement extends RythmElement {
                     }
                 }
             }
-    //        logit("Detected length type: " + NoteRythmElementLengthType.toString(possibleLengthTypes[closestIndex]) + " from " + beatLength);
+            //        logit("Detected length type: " + NoteRythmElementLengthType.toString(possibleLengthTypes[closestIndex]) + " from " + beatLength);
             startElement.lengthType = possibleLengthTypes[closestIndex];
         } else {
             startElement.lengthType = startLengthType;
@@ -307,17 +307,17 @@ class SplitRythmElement extends RythmElement {
 
         const rythmElements = szc.getSplitBeat(module, [startElement], theNoteCount, theCurve, harmonyElement.tsNumerator, harmonyElement.tsDenominator);
 
-    //    if (this.verbose) {
-    //        let beatLengths = [];
-    //        for (let i=0; i<rythmElements.length; i++) {
-    //            let e = rythmElements[i];
-    //            beatLengths[i] = positionUnitToBeats(e.length, e.lengthUnit, harmonyElement.tsNumerator, harmonyElement.tsDenominator);
-    //        }
-    //        logit("beat length " + beatLength + " resulted in " + beatLengths.join(", ") + " treated as " + NoteRythmElementLengthType.toString(startElement.lengthType));
-    //        logit("  " + harmonyElement.tsNumerator);
-    //    }
+        //    if (this.verbose) {
+        //        let beatLengths = [];
+        //        for (let i=0; i<rythmElements.length; i++) {
+        //            let e = rythmElements[i];
+        //            beatLengths[i] = positionUnitToBeats(e.length, e.lengthUnit, harmonyElement.tsNumerator, harmonyElement.tsDenominator);
+        //        }
+        //        logit("beat length " + beatLength + " resulted in " + beatLengths.join(", ") + " treated as " + NoteRythmElementLengthType.toString(startElement.lengthType));
+        //        logit("  " + harmonyElement.tsNumerator);
+        //    }
 
-    //    logit(JSON.stringify(rythmElements));
+        //    logit(JSON.stringify(rythmElements));
 
         return rythmElements;
     }

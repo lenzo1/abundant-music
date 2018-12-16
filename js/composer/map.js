@@ -50,7 +50,7 @@ class Map {
     hash(value) {
         return value instanceof Object ? (value.__hash ||
             (value.__hash = `object ${++hash.current}`)) :
-        `${typeof value} ${String(value)}`;
+            `${typeof value} ${String(value)}`;
     }
 
     link(entry) {
@@ -129,7 +129,7 @@ class Map {
     isUndefined(key) {
         const hash = this.hash(key);
         return this.hasOwnProperty(hash) ?
-        typeof this[hash] === 'undefined' : false;
+            typeof this[hash] === 'undefined' : false;
     }
 
     next() {

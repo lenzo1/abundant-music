@@ -23,10 +23,10 @@ function createHarmony() {
 
     var harmonyElements = [];
     if (solution) {
-        logit("Founc solution: " + solution + "<br />");
+        logit('Founc solution: ' + solution + '<br />');
         harmonyElements = solution;
     } else {
-        logit("Failed to find solution. Reason: " + hg.failReason + "<br />");
+        logit('Failed to find solution. Reason: ' + hg.failReason + '<br />');
         var base = 65;
         harmonyElements.push(new ConstantHarmonyElement().setChordRoot(0).setBaseNote(base));
         harmonyElements.push(new ConstantHarmonyElement().setChordRoot(3).setBaseNote(base));
@@ -62,7 +62,7 @@ function createRenderLine(motif, voiceLine) {
     mre4.voiceLine = voiceLine;
 
     var renderLine = new RenderLine();
-    renderLine.channel = "renderChannel1";
+    renderLine.channel = 'renderChannel1';
     renderLine.addRenderElement(mre1);
     renderLine.addRenderElement(mre2);
     renderLine.addRenderElement(mre3);
@@ -73,7 +73,7 @@ function createRenderLine(motif, voiceLine) {
 
 function createMotif1() {
     var motif1 = new Motif();
-    motif1.id = "motif1";
+    motif1.id = 'motif1';
     motif1.addMotifElement(new VoiceNoteMotifElement().setIndex(0)
         .setRelativeType(RelativeType.VOICE_LINE));
     motif1.addMotifElement(new VoiceNoteMotifElement().setIndex(-1)
@@ -87,7 +87,7 @@ function createMotif1() {
 
 function createMotif2() {
     var motif = new Motif();
-    motif.id = "motif2";
+    motif.id = 'motif2';
     var count = 16;
     var length = 4 / count;
     for (var i=0; i<count; i++) {
@@ -105,27 +105,27 @@ function createModule() {
     module.addMotif(motif1);
     module.addMotif(motif2);
 
-    var renderLine1 = createRenderLine("motif1", "voiceLine1");
-    var renderLine2 = createRenderLine("motif2", "voiceLine2");
+    var renderLine1 = createRenderLine('motif1', 'voiceLine1');
+    var renderLine2 = createRenderLine('motif2', 'voiceLine2');
 
     var structure = new Structure();
-    structure.id = "structure1";
-    structure.references.push(new SectionReference("section1"));
+    structure.id = 'structure1';
+    structure.references.push(new SectionReference('section1'));
     module.addStructure(structure);
 
     var renderChannel = new RenderChannel();
-    renderChannel.id = "renderChannel1";
+    renderChannel.id = 'renderChannel1';
     module.renderChannels.push(renderChannel);
 
     var vl1 = new ConstantVoiceLine();
-    vl1.id = "voiceLine1";
+    vl1.id = 'voiceLine1';
     vl1.addVoiceLineElement(new ConstantVoiceLineElement().setIndex(3).setSnapType(SnapType.CHORD));
     vl1.addVoiceLineElement(new ConstantVoiceLineElement().setIndex(4).setSnapType(SnapType.CHORD));
     vl1.addVoiceLineElement(new ConstantVoiceLineElement().setIndex(5).setSnapType(SnapType.CHORD));
     vl1.addVoiceLineElement(new ConstantVoiceLineElement().setIndex(6).setSnapType(SnapType.CHORD));
     vl1.addVoiceLineElement(new ConstantVoiceLineElement().setIndex(5).setSnapType(SnapType.CHORD));
     var vl2 = new ConstantVoiceLine();
-    vl2.id = "voiceLine2";
+    vl2.id = 'voiceLine2';
     vl2.addVoiceLineElement(new ConstantVoiceLineElement().setIndex(0).setOctaves(-1).setSnapType(SnapType.SCALE).setIndexType(IndexType.CHORD_BASS));
     vl2.addVoiceLineElement(new ConstantVoiceLineElement().setIndex(0).setOctaves(-1).setSnapType(SnapType.SCALE).setIndexType(IndexType.CHORD_BASS));
     vl2.addVoiceLineElement(new ConstantVoiceLineElement().setIndex(0).setOctaves(-1).setSnapType(SnapType.SCALE).setIndexType(IndexType.CHORD_BASS));
@@ -133,12 +133,12 @@ function createModule() {
     vl2.addVoiceLineElement(new ConstantVoiceLineElement().setIndex(0).setOctaves(-1).setSnapType(SnapType.SCALE).setIndexType(IndexType.CHORD_BASS));
 
     var harmony = createHarmony();
-    harmony.id = "harmony1";
+    harmony.id = 'harmony1';
     module.addHarmony(harmony);
 
     var section = new Section();
-    section.id = "section1";
-    section.harmonicRythm = "harmony1";
+    section.id = 'section1';
+    section.harmonicRythm = 'harmony1';
     section.addVoiceLine(vl1);
     section.addVoiceLine(vl2);
     section.addRenderLine(renderLine1);
@@ -150,8 +150,8 @@ function createModule() {
 
 function getRenderData2() {
     var module = createModule();
-    var data = module.renderBatch("structure1");
-    logit("events: " + data.events);
+    var data = module.renderBatch('structure1');
+    logit('events: ' + data.events);
     return data;
 }
 
@@ -161,12 +161,12 @@ function visualize() {
     
     var canvasWidth = 500;
     var canvasHeight = 250;
-    var $canvas = $("<canvas width=\"" + canvasWidth + "\" height=\"" + canvasHeight + "\" />");
+    var $canvas = $('<canvas width="' + canvasWidth + '" height="' + canvasHeight + '" />');
     $content.append($canvas);
     var canvas = $canvas.get()[0];
-    var canvasContext = canvas.getContext("2d");
+    var canvasContext = canvas.getContext('2d');
 
-    canvasContext.fillStyle = "#ff0000";
+    canvasContext.fillStyle = '#ff0000';
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -189,7 +189,7 @@ function renderLoop() {
 
 
 function render() {
-    logit("Rendering...");
+    logit('Rendering...');
 
     renderData = getRenderData2();
 
@@ -207,16 +207,16 @@ function render() {
 }
 
 function init() {
-    output = $("#output").get()[0];
-    $content = $("#content");
-    var $playButton = $("<button>Play</button>");
-    var $visualizeButton = $("<button>Visualize</button>");
+    output = $('#output').get()[0];
+    $content = $('#content');
+    var $playButton = $('<button>Play</button>');
+    var $visualizeButton = $('<button>Visualize</button>');
     $content.append($playButton);
     $content.append($visualizeButton);
     $playButton.button();
 
-    contextFunc = typeof AudioContext === "undefined" ?
-    (typeof webkitAudioContext === "undefined" ? null : webkitAudioContext) : AudioContext;
+    contextFunc = typeof AudioContext === 'undefined' ?
+        (typeof webkitAudioContext === 'undefined' ? null : webkitAudioContext) : AudioContext;
 
     if (contextFunc) {
         //        audioContext = new contextFunc();
@@ -225,7 +225,7 @@ function init() {
             render();
         });
     } else {
-        logit("Unable to get audio context. This demo probably only works in Chrome and Safari.<br />");
+        logit('Unable to get audio context. This demo probably only works in Chrome and Safari.<br />');
     }
 
     $visualizeButton.click(function() {

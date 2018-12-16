@@ -126,7 +126,7 @@ var GuiNewMode = {
 
 
 function GuiPropertyInfos(options) {
-    this.infos = getValueOrDefault(options, "infos", new Map(true));
+    this.infos = getValueOrDefault(options, 'infos', new Map(true));
 }
 
 GuiPropertyInfos.prototype.addPropertyInfo = function(info) {
@@ -144,11 +144,11 @@ GuiPropertyInfos.prototype.getAsArray = function() {
 
 function IndentInfo() {
     this.level = 0;
-    this.whiteSpaceString = " ";
+    this.whiteSpaceString = ' ';
 }
 
 IndentInfo.prototype.getWhiteSpaceString = function() {
-    var result = "";
+    var result = '';
     for (var i=0; i<this.level; i++) {
         result += this.whiteSpaceString;
     }
@@ -164,7 +164,7 @@ PropertyConstraint.prototype.isValid = function(object, propertyName, value) {
 };
 
 PropertyConstraint.prototype.getInvalidDescription = function(object, propertyName, value) {
-    return "";
+    return '';
 };
 
 function RangePropertyConstraint(range) {
@@ -178,12 +178,12 @@ RangePropertyConstraint.prototype.isValid = function(object, propertyName, value
 
 RangePropertyConstraint.prototype.getInvalidDescription = function(object, propertyName, value) {
     if (value < this.range[0]) {
-        return "Must be greater than or equal " + this.range[0];
+        return 'Must be greater than or equal ' + this.range[0];
     }
     if (value > this.range[1]) {
-        return "Must be less than or equal " + this.range[1];
+        return 'Must be less than or equal ' + this.range[1];
     }
-    return "";
+    return '';
 };
 
 function MinPropertyConstraint(minValue) {
@@ -197,9 +197,9 @@ MinPropertyConstraint.prototype.isValid = function(object, propertyName, value) 
 
 MinPropertyConstraint.prototype.getInvalidDescription = function(object, propertyName, value) {
     if (value < this.minValue) {
-        return "Must be greater than or equal " + this.minValue;
+        return 'Must be greater than or equal ' + this.minValue;
     }
-    return "";
+    return '';
 };
 
 function MaxPropertyConstraint(maxValue) {
@@ -213,9 +213,9 @@ MaxPropertyConstraint.prototype.isValid = function(object, propertyName, value) 
 
 MaxPropertyConstraint.prototype.getInvalidDescription = function(object, propertyName, value) {
     if (value > this.maxValue) {
-        return "Must be less than or equal " + this.maxValue;
+        return 'Must be less than or equal ' + this.maxValue;
     }
-    return "";
+    return '';
 };
 
 
@@ -230,9 +230,9 @@ ArrayMinLengthConstraint.prototype.isValid = function(object, propertyName, valu
 
 ArrayMinLengthConstraint.prototype.getInvalidDescription = function(object, propertyName, value) {
     if (value.length < this.minLength) {
-        return "Must contain at least " + this.minLength + " " + (this.minLength == 1 ? "item" : "items");
+        return 'Must contain at least ' + this.minLength + ' ' + (this.minLength == 1 ? 'item' : 'items');
     }
-    return "";
+    return '';
 };
 
 
@@ -243,7 +243,7 @@ function ArrayElementConstraint(constraint) {
             return true;
         },
         getInvalidDescription: function() {
-            return "";
+            return '';
         }
     };
 }
@@ -252,9 +252,9 @@ ArrayElementConstraint.prototype = new PropertyConstraint();
 ArrayElementConstraint.prototype.isValid = function(object, propertyName, value) {
     if (this.elementConstraint) {
         if (isArray(value)) {
-//            logit("Checking array elements in " + value.join(", ") + " prop name: " + propertyName);
+            //            logit("Checking array elements in " + value.join(", ") + " prop name: " + propertyName);
             for (var i=0; i<value.length; i++) {
-                if (!this.elementConstraint.isValid(object, propertyName + "[" + i + "]", value[i])) {
+                if (!this.elementConstraint.isValid(object, propertyName + '[' + i + ']', value[i])) {
                     return false;
                 }
             }
@@ -267,14 +267,14 @@ ArrayElementConstraint.prototype.getInvalidDescription = function(object, proper
     if (this.elementConstraint) {
         if (isArray(value)) {
             for (var i=0; i<value.length; i++) {
-                var propName = propertyName + "[" + i + "]";
+                var propName = propertyName + '[' + i + ']';
                 if (!this.elementConstraint.isValid(object, propName, value[i])) {
-                    return "Item " + (i+1) + ": " + this.elementConstraint.getInvalidDescription(object, propName, value[i]);
+                    return 'Item ' + (i+1) + ': ' + this.elementConstraint.getInvalidDescription(object, propName, value[i]);
                 }
             }
         }
     }
-    return "";
+    return '';
 };
 
 
@@ -306,25 +306,25 @@ ArrayElementConstraint.prototype.getInvalidDescription = function(object, proper
 
 // Used for splitting up into tabs, windows, accordions etc.
 function GuiSplitInfo(options) {
-    this.group = getValueOrDefault(options, "group", "Group");
-    this.groupCaption = getValueOrDefault(options, "groupCaption", "");
-    this.splitType = getValueOrDefault(options, "splitType", GuiSplitType.TABS);
+    this.group = getValueOrDefault(options, 'group', 'Group');
+    this.groupCaption = getValueOrDefault(options, 'groupCaption', '');
+    this.splitType = getValueOrDefault(options, 'splitType', GuiSplitType.TABS);
 }
 
 
 
 function GuiListInfo(options) {
-    this.constructorInfos = getValueOrDefault(options, "constructorInfos", []);
-    this.newMode = getValueOrDefault(options, "newMode", GuiNewMode.BUTTONS);
-    this.itemsDisplayFunction = getValueOrDefault(options, "itemsDisplayFunction", null); // How to display the container elements
-    this.detailPanelMode = getValueOrDefault(options, "detailPanelMode", GuiDetailPanelMode.SEPARATE);
-    this.possibleValues = getValueOrDefault(options, "possibleValues", []);
+    this.constructorInfos = getValueOrDefault(options, 'constructorInfos', []);
+    this.newMode = getValueOrDefault(options, 'newMode', GuiNewMode.BUTTONS);
+    this.itemsDisplayFunction = getValueOrDefault(options, 'itemsDisplayFunction', null); // How to display the container elements
+    this.detailPanelMode = getValueOrDefault(options, 'detailPanelMode', GuiDetailPanelMode.SEPARATE);
+    this.possibleValues = getValueOrDefault(options, 'possibleValues', []);
 }
 
 function GuiObjectInfo(options) {
-    this.constructorInfos = getValueOrDefault(options, "constructorInfos", []);
-    this.newMode = getValueOrDefault(options, "newMode", GuiNewMode.BUTTONS);
-    this.canUnset = getValueOrDefault(options, "canUnset", true);
+    this.constructorInfos = getValueOrDefault(options, 'constructorInfos', []);
+    this.newMode = getValueOrDefault(options, 'newMode', GuiNewMode.BUTTONS);
+    this.canUnset = getValueOrDefault(options, 'canUnset', true);
 }
 
 
@@ -352,22 +352,22 @@ function GuiObjectInfo(options) {
 
 
 function GuiUniqueIdInfo(options) {
-    this.manager = getValueOrDefault(options, "manager", null);
-    this.namespace = getValueOrDefault(options, "namespace", "ns");
-    this.initPrefix = getValueOrDefault(options, "initPrefix", "id"); // Used for new objects
+    this.manager = getValueOrDefault(options, 'manager', null);
+    this.namespace = getValueOrDefault(options, 'namespace', 'ns');
+    this.initPrefix = getValueOrDefault(options, 'initPrefix', 'id'); // Used for new objects
 }
 
 function GuiProcedureInfo(options) {
-    this.args = getValueOrDefault(options, "args", []);
-    this.targetObject = getValueOrDefault(options, "targetObject", null); // What should be used as "this". The component is used instead if null.
-    this.group = getValueOrDefault(options, "group", "procedureGroup"); // For grouping procedures in menus, select options etc.
+    this.args = getValueOrDefault(options, 'args', []);
+    this.targetObject = getValueOrDefault(options, 'targetObject', null); // What should be used as "this". The component is used instead if null.
+    this.group = getValueOrDefault(options, 'group', 'procedureGroup'); // For grouping procedures in menus, select options etc.
 }
 
 function GuiConstructorInfo(options) {
-    this.name = getValueOrDefault(options, "name", "");
-    this.text = getValueOrDefault(options, "text", "");
-    this.nameIsConstructor = getValueOrDefault(options, "nameIsConstructor", true);
-    this.createValue = getValueOrDefault(options, "createValue", function() {return 0});
+    this.name = getValueOrDefault(options, 'name', '');
+    this.text = getValueOrDefault(options, 'text', '');
+    this.nameIsConstructor = getValueOrDefault(options, 'nameIsConstructor', true);
+    this.createValue = getValueOrDefault(options, 'createValue', function() {return 0});
 }
 
 
@@ -377,45 +377,45 @@ function GuiConstructorInfo(options) {
 // * position only: Length is implicit
 // * no position/length: Length and position is implicit
 function GuiPositioned1DListInfo(options) {
-    this.constructorInfos = getValueOrDefault(options, "constructorInfos", []);
-    this.newMode = getValueOrDefault(options, "newMode", GuiNewMode.BUTTONS);
-    this.detailPanelMode = getValueOrDefault(options, "detailPanelMode", GuiDetailPanelMode.SEPARATE);
-    this.positionPropertyName = getValueOrDefault(options, "positionPropertyName", null);
-    this.lengthPropertyName = getValueOrDefault(options, "lengthPropertyName", null);
-    this.allowOverlap = getValueOrDefault(options, "allowOverlap", false); // Only when both position and length are explicit
-    this.positionSnapFunction = getValueOrDefault(options, "positionSnapFunction", null);
-    this.lengthSnapFunction = getValueOrDefault(options, "lengthSnapFunction", null);
+    this.constructorInfos = getValueOrDefault(options, 'constructorInfos', []);
+    this.newMode = getValueOrDefault(options, 'newMode', GuiNewMode.BUTTONS);
+    this.detailPanelMode = getValueOrDefault(options, 'detailPanelMode', GuiDetailPanelMode.SEPARATE);
+    this.positionPropertyName = getValueOrDefault(options, 'positionPropertyName', null);
+    this.lengthPropertyName = getValueOrDefault(options, 'lengthPropertyName', null);
+    this.allowOverlap = getValueOrDefault(options, 'allowOverlap', false); // Only when both position and length are explicit
+    this.positionSnapFunction = getValueOrDefault(options, 'positionSnapFunction', null);
+    this.lengthSnapFunction = getValueOrDefault(options, 'lengthSnapFunction', null);
 }
 
 function GuiOtherInfo(options) {
-    this.componentConstructor = getValueOrDefault(options, "componentConstructor", "");
-    this.data = getValueOrDefault(options, "data", null);
+    this.componentConstructor = getValueOrDefault(options, 'componentConstructor', '');
+    this.data = getValueOrDefault(options, 'data', null);
 }
 
 
 function GuiPropertyInfo(options) {
-    this.propertyName = getValueOrDefault(options, "propertyName", "propName");
-    this.propertyCaption = getValueOrDefault(options, "propertyCaption", "Prop. Caption");
-    this.dataType = getValueOrDefault(options, "dataType", GuiPropertyDataType.INT);
-    this.possibleValues = getValueOrDefault(options, "possibleValues", []);
-    this.defaultValue = getValueOrDefault(options, "defaultValue", 0);
-    this.allowNull = getValueOrDefault(options, "allowNull", false); // Not always possible
-    this.displayHint = getValueOrDefault(options, "displayHint", NumberPropertyDisplayHint.TEXT);
-    this.shortDescription = getValueOrDefault(options, "shortDescription", null); // Single line short string
-    this.longDescription = getValueOrDefault(options, "longDescription", null); // Single line string
-    this.multilineDescription = getValueOrDefault(options, "multilineDescription", null); // Array of strings
-    this.convertFunction = getValueOrDefault(options, "convertFunction", null); // function(propName, value) {return Math.round(value);}
-    this.displayFunction = getValueOrDefault(options, "displayFunction", null); // function(propName, value) {return "string representation"}
-    this.constraints = getValueOrDefault(options, "constraints", []);
-    this.splitInfo = getValueOrDefault(options, "splitInfo", null); // Used for splitting up content into tabs, windows etc.
-    this.listInfo = getValueOrDefault(options, "listInfo", null); // Only used when the property is a container
-    this.objectInfo = getValueOrDefault(options, "objectInfo", null); // Only used when the property is an object
-    this.uniqueIdInfo = getValueOrDefault(options, "uniqueIdInfo", null); // Used for unique ids
-    this.procedureInfo = getValueOrDefault(options, "procedureInfo", null); // Used when the "property" is a method name
-    this.positioned1DListInfo = getValueOrDefault(options, "positioned1DListInfo", null); //
-    this.propertyInfoProvider = getValueOrDefault(options, "propertyInfoProvider", null); //
-    this.otherInfo = getValueOrDefault(options, "otherInfo", null); //
-    this.componentRegisters = getValueOrDefault(options, "componentRegisters", []); //
+    this.propertyName = getValueOrDefault(options, 'propertyName', 'propName');
+    this.propertyCaption = getValueOrDefault(options, 'propertyCaption', 'Prop. Caption');
+    this.dataType = getValueOrDefault(options, 'dataType', GuiPropertyDataType.INT);
+    this.possibleValues = getValueOrDefault(options, 'possibleValues', []);
+    this.defaultValue = getValueOrDefault(options, 'defaultValue', 0);
+    this.allowNull = getValueOrDefault(options, 'allowNull', false); // Not always possible
+    this.displayHint = getValueOrDefault(options, 'displayHint', NumberPropertyDisplayHint.TEXT);
+    this.shortDescription = getValueOrDefault(options, 'shortDescription', null); // Single line short string
+    this.longDescription = getValueOrDefault(options, 'longDescription', null); // Single line string
+    this.multilineDescription = getValueOrDefault(options, 'multilineDescription', null); // Array of strings
+    this.convertFunction = getValueOrDefault(options, 'convertFunction', null); // function(propName, value) {return Math.round(value);}
+    this.displayFunction = getValueOrDefault(options, 'displayFunction', null); // function(propName, value) {return "string representation"}
+    this.constraints = getValueOrDefault(options, 'constraints', []);
+    this.splitInfo = getValueOrDefault(options, 'splitInfo', null); // Used for splitting up content into tabs, windows etc.
+    this.listInfo = getValueOrDefault(options, 'listInfo', null); // Only used when the property is a container
+    this.objectInfo = getValueOrDefault(options, 'objectInfo', null); // Only used when the property is an object
+    this.uniqueIdInfo = getValueOrDefault(options, 'uniqueIdInfo', null); // Used for unique ids
+    this.procedureInfo = getValueOrDefault(options, 'procedureInfo', null); // Used when the "property" is a method name
+    this.positioned1DListInfo = getValueOrDefault(options, 'positioned1DListInfo', null); //
+    this.propertyInfoProvider = getValueOrDefault(options, 'propertyInfoProvider', null); //
+    this.otherInfo = getValueOrDefault(options, 'otherInfo', null); //
+    this.componentRegisters = getValueOrDefault(options, 'componentRegisters', []); //
 }
 
 

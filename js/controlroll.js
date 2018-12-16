@@ -3,14 +3,14 @@
 
 function ControlRoll(options) {
     GuiComponent.call(this, options);
-    this.beatWidth = getValueOrDefault(options, "beatWidth", 50);
-    this.slotsPerBeat = getValueOrDefault(options, "slotsPerBeat", 32);
-    this.beatLengthRange = getValueOrDefault(options, "beatLengthRange", [1, 1]);
-    this.harmony = getValueOrDefault(options, "harmony", new ConstantHarmonicRythm([new ConstantHarmonyElement()]));
-    this.slotData = getValueOrDefault(options, "slotData", null);
-    this.autoControlLimits = getValueOrDefault(options, "autoControlLimits", true);
-    this.controlLimits = getValueOrDefault(options, "controlLimits", [-1, 1]); // Only used for double and integer
-    this.paddingLeft = getValueOrDefault(options, "paddingLeft", 60);
+    this.beatWidth = getValueOrDefault(options, 'beatWidth', 50);
+    this.slotsPerBeat = getValueOrDefault(options, 'slotsPerBeat', 32);
+    this.beatLengthRange = getValueOrDefault(options, 'beatLengthRange', [1, 1]);
+    this.harmony = getValueOrDefault(options, 'harmony', new ConstantHarmonicRythm([new ConstantHarmonyElement()]));
+    this.slotData = getValueOrDefault(options, 'slotData', null);
+    this.autoControlLimits = getValueOrDefault(options, 'autoControlLimits', true);
+    this.controlLimits = getValueOrDefault(options, 'controlLimits', [-1, 1]); // Only used for double and integer
+    this.paddingLeft = getValueOrDefault(options, 'paddingLeft', 60);
     this.updateControlLimits();
     this.updateSize();
 }
@@ -25,8 +25,8 @@ ControlRoll.prototype.updateControlLimits = function() {
     } else if (this.renderData == null) {
         this.noteLimits = [-1, 1];
     } else {
-// Just keep the current limits
-}
+        // Just keep the current limits
+    }
 };
 
 ControlRoll.prototype.getHeaderHeight = function() {
@@ -46,11 +46,11 @@ ControlRoll.prototype.getControlRowsWidth = function() {
         var beats = positionUnitToBeats(e.getLength(), e.getLengthUnit(), e.tsNumerator, e.tsDenominator);
         harmonyWidth += beats * this.beatWidth;
     }
-//    var dataWidth = 0;
-//    if (this.renderData) {
-//        var limits = this.renderData.getTimeLimits();
-//        dataWidth = Math.ceil(limits[1] * this.beatWidth);
-//    }
+    //    var dataWidth = 0;
+    //    if (this.renderData) {
+    //        var limits = this.renderData.getTimeLimits();
+    //        dataWidth = Math.ceil(limits[1] * this.beatWidth);
+    //    }
 
     return Math.max(harmonyWidth, dataWidth);
 };
@@ -90,9 +90,9 @@ ControlRoll.prototype.paintRows = function(x, y, context) {
     var w = this.getNoteRowsWidth();
     for (var i=0; i<range; i++) {
         if (i % 2 == 0) {
-            context.fillStyle = "#aaaaaa";
+            context.fillStyle = '#aaaaaa';
         } else {
-            context.fillStyle = "#cccccc";
+            context.fillStyle = '#cccccc';
         }
         context.fillRect(x, y + i * this.noteRowHeight, w, this.noteRowHeight);
     }
@@ -107,7 +107,7 @@ ControlRoll.prototype.paintRows = function(x, y, context) {
         context.lineTo(currentX, y + range * this.noteRowHeight);
     }
     context.lineWidth = 1;
-    context.strokeStyle = "#888888";
+    context.strokeStyle = '#888888';
     context.stroke();
 
     var ches = this.harmony.getConstantHarmonyElements();
@@ -129,10 +129,10 @@ ControlRoll.prototype.paintRows = function(x, y, context) {
                 var highlightChord = arrayContains(chordPitchClasses, pitchClass);
                 var noteY = y + totalHeight - (j + 1) * this.noteRowHeight;
                 if (highlightChord && this.highlightChords) {
-                    context.fillStyle = "#ffff00";
+                    context.fillStyle = '#ffff00';
                     context.fillRect(currentX, noteY, beats * this.beatWidth, this.noteRowHeight);
                 } else if (highlightScale && this.highlightScales) {
-                    context.fillStyle = "#ffffff";
+                    context.fillStyle = '#ffffff';
                     context.fillRect(currentX, noteY, beats * this.beatWidth, this.noteRowHeight);
                 }
             }
@@ -150,7 +150,7 @@ ControlRoll.prototype.paintRows = function(x, y, context) {
         context.lineTo(currentX, y + range * this.noteRowHeight);
     }
     context.lineWidth = 2;
-    context.strokeStyle = "#666666";
+    context.strokeStyle = '#666666';
     context.stroke();
 
 };
@@ -164,7 +164,7 @@ ControlRoll.prototype.paint = function(offsetX, offsetY, context) {
     }
 
     // Paint one harmony at a time since the time signature can change
-    context.fillStyle = "#444444";
+    context.fillStyle = '#444444';
     context.fillRect(offsetX, offsetY, this.width, this.height);
 
     var keysY = offsetY;

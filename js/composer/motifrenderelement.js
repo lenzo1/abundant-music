@@ -3,7 +3,7 @@
 class MotifRenderElement extends PositionedRenderElement {
     constructor() {
         super();
-        this.motif = "";
+        this.motif = '';
         this.useVoiceLine = true;
 
         // relativeType, offset and offsetType are used when useVoiceLine is false
@@ -13,10 +13,10 @@ class MotifRenderElement extends PositionedRenderElement {
         this.startOffsets = [];
         this.endOffsets = [];
 
-        this.voiceLine = "";
+        this.voiceLine = '';
         this.seed = 12345;
 
-        this.figurationPlanner = "";
+        this.figurationPlanner = '';
 
         // Strategies for overlapping harmony with render elements and notes
         this.splitNoteMinLength = 1.0;
@@ -25,7 +25,7 @@ class MotifRenderElement extends PositionedRenderElement {
         this.noteOverlapHarmonyMode = NoteOverlapHarmonyMode.CONTINUE;
         this.noteOverlapSnapType = SnapType.SCALE;
 
-        this._constructorName = "MotifRenderElement";
+        this._constructorName = 'MotifRenderElement';
     }
 
     render(harmony, elements, theVoiceLine, noteAbsoluteNotes, state) {
@@ -65,21 +65,21 @@ class MotifRenderElement extends PositionedRenderElement {
 
                         if (overlapBeats > 0) {
                             switch (this.noteOverlapHarmonyMode) {
-                                case NoteOverlapHarmonyMode.CONTINUE:
-                                    // Just let it continue
-                                    break;
-                                case NoteOverlapHarmonyMode.SPLIT_REMOVE:
-                                    noteLength -= overlapBeats;
-                                    break;
-                                case NoteOverlapHarmonyMode.SPLIT_SNAP:
-                                    noteLength -= overlapBeats;
-                                    // Add notes and snap until the note is done or we have reached the end of complete harmony
-                                    break;
-                                case NoteOverlapHarmonyMode.CONTINUE_OR_SPLIT_SNAP:
-                                    // Check if the snapped note is the same. In that case, just let it continue
-                                    // until it reaches next harmony element. Continue with this until the note is
-                                    // ended or reached end of complete harmony.
-                                    break;
+                            case NoteOverlapHarmonyMode.CONTINUE:
+                                // Just let it continue
+                                break;
+                            case NoteOverlapHarmonyMode.SPLIT_REMOVE:
+                                noteLength -= overlapBeats;
+                                break;
+                            case NoteOverlapHarmonyMode.SPLIT_SNAP:
+                                noteLength -= overlapBeats;
+                                // Add notes and snap until the note is done or we have reached the end of complete harmony
+                                break;
+                            case NoteOverlapHarmonyMode.CONTINUE_OR_SPLIT_SNAP:
+                                // Check if the snapped note is the same. In that case, just let it continue
+                                // until it reaches next harmony element. Continue with this until the note is
+                                // ended or reached end of complete harmony.
+                                break;
                             }
                         }
                     }
@@ -97,7 +97,7 @@ class MotifRenderElement extends PositionedRenderElement {
                         if (!renderChannel) {
                             renderChannel = state.renderChannel;
                         }
-    //                    logit(" setting note channel to " + renderChannel + " <br />");
+                        //                    logit(" setting note channel to " + renderChannel + " <br />");
 
 
 
@@ -114,7 +114,7 @@ class MotifRenderElement extends PositionedRenderElement {
                         noteOffEvent.note = noteOnEvent.note;
                         noteOffEvent.renderChannel = renderChannel;
 
-    //                    logit("    start: " + noteOnEvent.time + " end: " + noteOffEvent.time);
+                        //                    logit("    start: " + noteOnEvent.time + " end: " + noteOffEvent.time);
 
                         state.data.addEvent(noteOnEvent);
                         state.data.addEvent(noteOffEvent);
@@ -130,11 +130,11 @@ class MotifRenderElement extends PositionedRenderElement {
                                 let fillerLength = positionUnitToBeats(filler.length, filler.lengthUnit,
                                     che.tsNumerator, che.tsDenominator);
                                 switch (filler.lengthMode) {
-                                    case FillerNoteLengthMode.INDEPENDENT:
-                                        break;
-                                    case FillerNoteLengthMode.MATCH:
-                                        fillerLength = noteLength;
-                                        break;
+                                case FillerNoteLengthMode.INDEPENDENT:
+                                    break;
+                                case FillerNoteLengthMode.MATCH:
+                                    fillerLength = noteLength;
+                                    break;
                                 }
 
                                 if (filler.channel) {
@@ -287,7 +287,7 @@ class MotifRenderElement extends PositionedRenderElement {
                 }
                 for (let j=0; j<cluster.length; j++) {
                     if (typeof(solution[j]) === 'string') {
-                        logit("abs note is a string!!!");
+                        logit('abs note is a string!!!');
                     }
                     noteAbsoluteNotes.put(cluster[j], solution[j]);
                 }
@@ -324,44 +324,44 @@ class MotifRenderElement extends PositionedRenderElement {
                         let referenceHarmonyElement = harmony.get(harmonyIndex);
                         let referenceVoiceLineElement = theVoiceLine.get(harmonyIndex);
                         switch (vnme.relativeType) {
-                            case HorizontalRelativeType.NEXT_VOICE_LINE_ELEMENT:
+                        case HorizontalRelativeType.NEXT_VOICE_LINE_ELEMENT:
+                            if (harmonyIndex < harmonyCount - 1) {
+                                referenceVoiceLineElement = theVoiceLine.get(harmonyIndex + 1);
+                                referenceHarmonyElement = harmony.get(harmonyIndex + 1);
+                            }
+                            referenceAbsNote = referenceHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(referenceVoiceLineElement);
+                            break;
+                        case HorizontalRelativeType.PREVIOUS_VOICE_LINE_ELEMENT:
+                            if (harmonyIndex > 0) {
+                                referenceVoiceLineElement = theVoiceLine.get(harmonyIndex - 1);
+                                referenceHarmonyElement = harmony.get(harmonyIndex - 1);
+                            }
+                            referenceAbsNote = referenceHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(referenceVoiceLineElement);
+                            break;
+                        case HorizontalRelativeType.NEXT_NOTE:
+                            if (i < voiceElements.length - 1) {
+                                referenceAbsNote = noteAbsoluteNotes.get(voiceElements[i + 1]);
+                            } else {
+                                // Is the last note, use the next voice line element instead
                                 if (harmonyIndex < harmonyCount - 1) {
                                     referenceVoiceLineElement = theVoiceLine.get(harmonyIndex + 1);
                                     referenceHarmonyElement = harmony.get(harmonyIndex + 1);
                                 }
                                 referenceAbsNote = referenceHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(referenceVoiceLineElement);
-                                break;
-                            case HorizontalRelativeType.PREVIOUS_VOICE_LINE_ELEMENT:
+                            }
+                            break;
+                        case HorizontalRelativeType.PREVIOUS_NOTE:
+                            if (i > 0) {
+                                referenceAbsNote = noteAbsoluteNotes.get(voiceElements[i - 1]);
+                            } else {
+                                // Is the first note, use the previous voice line element instead
                                 if (harmonyIndex > 0) {
                                     referenceVoiceLineElement = theVoiceLine.get(harmonyIndex - 1);
                                     referenceHarmonyElement = harmony.get(harmonyIndex - 1);
                                 }
                                 referenceAbsNote = referenceHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(referenceVoiceLineElement);
-                                break;
-                            case HorizontalRelativeType.NEXT_NOTE:
-                                if (i < voiceElements.length - 1) {
-                                    referenceAbsNote = noteAbsoluteNotes.get(voiceElements[i + 1]);
-                                } else {
-                                    // Is the last note, use the next voice line element instead
-                                    if (harmonyIndex < harmonyCount - 1) {
-                                        referenceVoiceLineElement = theVoiceLine.get(harmonyIndex + 1);
-                                        referenceHarmonyElement = harmony.get(harmonyIndex + 1);
-                                    }
-                                    referenceAbsNote = referenceHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(referenceVoiceLineElement);
-                                }
-                                break;
-                            case HorizontalRelativeType.PREVIOUS_NOTE:
-                                if (i > 0) {
-                                    referenceAbsNote = noteAbsoluteNotes.get(voiceElements[i - 1]);
-                                } else {
-                                    // Is the first note, use the previous voice line element instead
-                                    if (harmonyIndex > 0) {
-                                        referenceVoiceLineElement = theVoiceLine.get(harmonyIndex - 1);
-                                        referenceHarmonyElement = harmony.get(harmonyIndex - 1);
-                                    }
-                                    referenceAbsNote = referenceHarmonyElement.getAbsoluteNoteConstantVoiceLineElement(referenceVoiceLineElement);
-                                }
-                                break;
+                            }
+                            break;
                         }
 
                         if (referenceAbsNote != null) {
@@ -435,19 +435,19 @@ class MotifRenderElement extends PositionedRenderElement {
 
             let stop = false;
             switch (this.cutHarmonyMode) {
-                case RenderElementCutHarmonyMode.STOP:
-                    if (harmonyIndex != startHarmonyIndex) {
-                        // Don't add any more elements since they overlap with next harmony
-                        //                    logit("Stopping rendering for " + currentTime + " <br />");
-                        stop = true;
-                    }
-                    break;
-                case RenderElementCutHarmonyMode.CONTINUE_ADAPT:
-                    // We don't have to do anything here since the harmony is automatically adapted
-                    break;
-                case RenderElementCutHarmonyMode.CONTINUE_SAME:
-                    harmonyIndex = startHarmonyIndex;
-                    break;
+            case RenderElementCutHarmonyMode.STOP:
+                if (harmonyIndex != startHarmonyIndex) {
+                    // Don't add any more elements since they overlap with next harmony
+                    //                    logit("Stopping rendering for " + currentTime + " <br />");
+                    stop = true;
+                }
+                break;
+            case RenderElementCutHarmonyMode.CONTINUE_ADAPT:
+                // We don't have to do anything here since the harmony is automatically adapted
+                break;
+            case RenderElementCutHarmonyMode.CONTINUE_SAME:
+                harmonyIndex = startHarmonyIndex;
+                break;
             }
             if (stop) {
                 break;
@@ -531,7 +531,7 @@ class MotifRenderElement extends PositionedRenderElement {
 
     renderBatch(state) {
 
-        const activated = getValueOrExpressionValue(this, "activated", state.module);
+        const activated = getValueOrExpressionValue(this, 'activated', state.module);
         if (!activated) {
             return;
         }

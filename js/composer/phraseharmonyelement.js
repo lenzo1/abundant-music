@@ -4,7 +4,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
         super();
 
         this.phraseType = PhraseHarmonyElementType.COMPLETE;
-        this.harmonyReference = ""; // Used for derived consequent phrases
+        this.harmonyReference = ''; // Used for derived consequent phrases
 
         this.modulate = false;
         this.modulateInvertScaleType = false;
@@ -92,7 +92,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
 
         this.maxLengthSearchSteps = 200;
 
-        this._constructorName = "PhraseHarmonyElement";
+        this._constructorName = 'PhraseHarmonyElement';
     }
 
 
@@ -205,26 +205,26 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
 
             let penaltyInc = 0;
             switch (wantedLengthUnit) {
-                case LengthAndCountUnit.COUNT:
-                    penaltyInc = this.getSinglePenalty(currentCount, wantedLength);
-                    break;
-                case LengthAndCountUnit.COUNT_PERCENT:
-                    let wantedCount = wantedLength * 0.01 * beatLengths.length;
-                    penaltyInc = this.getSinglePenalty(currentCount, wantedCount);
-                    break;
-                case LengthAndCountUnit.LENGTH:
-                    penaltyInc = this.getSinglePenalty(currentBeatLength, wantedLength);
-                    break;
-                case LengthAndCountUnit.LENGTH_PERCENT:
-                    let wantedBeatLength = wantedLength * 0.01 * totalLength;
-                    penaltyInc = this.getSinglePenalty(currentBeatLength, wantedBeatLength);
-                    //                logit("_______element penalty " + i + " was " + penaltyInc + " total: " + resultPenalty + " wanted length: " +
-                    //                    wantedLength + " " + LengthAndCountUnit.toString(wantedLengthUnit) +
-                    //                    " wanted beat length: " + wantedBeatLength +
-                    //                    " total length: " + totalLength +
-                    //                    " current beat length: " + currentBeatLength +
-                    //                    "<br />");
-                    break;
+            case LengthAndCountUnit.COUNT:
+                penaltyInc = this.getSinglePenalty(currentCount, wantedLength);
+                break;
+            case LengthAndCountUnit.COUNT_PERCENT:
+                let wantedCount = wantedLength * 0.01 * beatLengths.length;
+                penaltyInc = this.getSinglePenalty(currentCount, wantedCount);
+                break;
+            case LengthAndCountUnit.LENGTH:
+                penaltyInc = this.getSinglePenalty(currentBeatLength, wantedLength);
+                break;
+            case LengthAndCountUnit.LENGTH_PERCENT:
+                let wantedBeatLength = wantedLength * 0.01 * totalLength;
+                penaltyInc = this.getSinglePenalty(currentBeatLength, wantedBeatLength);
+                //                logit("_______element penalty " + i + " was " + penaltyInc + " total: " + resultPenalty + " wanted length: " +
+                //                    wantedLength + " " + LengthAndCountUnit.toString(wantedLengthUnit) +
+                //                    " wanted beat length: " + wantedBeatLength +
+                //                    " total length: " + totalLength +
+                //                    " current beat length: " + currentBeatLength +
+                //                    "<br />");
+                break;
             }
             resultPenalty += penaltyInc * lengthInfo.importance;
         }
@@ -258,7 +258,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                     currentIndex += 1;
                 }
             }
-    //        logit("Creating test start state " + JSON.stringify(temp));
+            //        logit("Creating test start state " + JSON.stringify(temp));
             let penalty = this.getPenalty(temp, lengthInfos, beatLengths, totalLength);
             if (penalty < lowestPenalty) {
                 lowestPenalty = penalty;
@@ -286,17 +286,17 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
 
     getLengthInfos(options, module) {
 
-        const modulate = getValueOrDefault(options,  "modulate", false);
+        const modulate = getValueOrDefault(options,  'modulate', false);
 
-        const skipInitialTonic = getValueOrDefault(options,  "skipInitialTonic", false);
-        const skipDynamicHarmony = getValueOrDefault(options,  "skipDynamicHarmony", false);
-        const skipDominant = getValueOrDefault(options,  "skipDominant", false);
-        const skipTonicCadence = getValueOrDefault(options,  "skipTonicCadence", false);
+        const skipInitialTonic = getValueOrDefault(options,  'skipInitialTonic', false);
+        const skipDynamicHarmony = getValueOrDefault(options,  'skipDynamicHarmony', false);
+        const skipDominant = getValueOrDefault(options,  'skipDominant', false);
+        const skipTonicCadence = getValueOrDefault(options,  'skipTonicCadence', false);
 
-        const staticHarmonyLength = getValueOrExpressionValue(this, "staticHarmonyLength", module);
-        const dynamicHarmonyLength = getValueOrExpressionValue(this, "dynamicHarmonyLength", module);
-        const dominantCadenceHarmonyLength = getValueOrExpressionValue(this, "dominantCadenceHarmonyLength", module);
-        const tonicCadenceHarmonyLength = getValueOrExpressionValue(this, "tonicCadenceHarmonyLength", module);
+        const staticHarmonyLength = getValueOrExpressionValue(this, 'staticHarmonyLength', module);
+        const dynamicHarmonyLength = getValueOrExpressionValue(this, 'dynamicHarmonyLength', module);
+        const dominantCadenceHarmonyLength = getValueOrExpressionValue(this, 'dominantCadenceHarmonyLength', module);
+        const tonicCadenceHarmonyLength = getValueOrExpressionValue(this, 'tonicCadenceHarmonyLength', module);
 
         const lengthInfos = [];
         if (!skipInitialTonic) {
@@ -361,7 +361,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
             }
         }
 
-    //    logit(lengthInfos);
+        //    logit(lengthInfos);
 
 
         return lengthInfos;
@@ -383,30 +383,30 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
         harmonyTimer.start();
 
 
-        const theSeed = getValueOrExpressionValue(this, "seed", module);
+        const theSeed = getValueOrExpressionValue(this, 'seed', module);
 
-        const theScaleBaseNote = getValueOrExpressionValue(this, "scaleBaseNote", module);
+        const theScaleBaseNote = getValueOrExpressionValue(this, 'scaleBaseNote', module);
 
         const beatLengths = this.getBeatLengths(module);
 
-    //    if (beatLengths[0] == 1 && beatLengths.length == 1) {
-    //        logit(this._constructorName + " got beat length low " + beatLengths.join(", "));
-    //    }
+        //    if (beatLengths[0] == 1 && beatLengths.length == 1) {
+        //        logit(this._constructorName + " got beat length low " + beatLengths.join(", "));
+        //    }
         const startBeatStrengths = this.getStartBeatStrengths(module, beatLengths, beatOffset);
 
-        const theScaleType = getValueOrExpressionValue(this, "scaleType", module);
-        let thePhraseType = getValueOrExpressionValue(this, "phraseType", module);
-        let doModulate = getValueOrExpressionValue(this, "modulate", module);
-        const modulateInvertScaleType = getValueOrExpressionValue(this, "modulateInvertScaleType", module);
-        const theMajorModulationTarget = getValueOrExpressionValue(this, "majorModulationTarget", module);
-        const theMinorModulationTarget = getValueOrExpressionValue(this, "minorModulationTarget", module);
+        const theScaleType = getValueOrExpressionValue(this, 'scaleType', module);
+        let thePhraseType = getValueOrExpressionValue(this, 'phraseType', module);
+        let doModulate = getValueOrExpressionValue(this, 'modulate', module);
+        const modulateInvertScaleType = getValueOrExpressionValue(this, 'modulateInvertScaleType', module);
+        const theMajorModulationTarget = getValueOrExpressionValue(this, 'majorModulationTarget', module);
+        const theMinorModulationTarget = getValueOrExpressionValue(this, 'minorModulationTarget', module);
 
-        const majorDeceptiveRoot = getValueOrExpressionValue(this, "majorDeceptiveRoot", module);
-        const minorDeceptiveRoot = getValueOrExpressionValue(this, "minorDeceptiveRoot", module);
+        const majorDeceptiveRoot = getValueOrExpressionValue(this, 'majorDeceptiveRoot', module);
+        const minorDeceptiveRoot = getValueOrExpressionValue(this, 'minorDeceptiveRoot', module);
 
-    //    logit(this._constructorName + " beatLengths: " + beatLengths.join(", "));
+        //    logit(this._constructorName + " beatLengths: " + beatLengths.join(", "));
 
-        const raiseLeadingTone = getValueOrExpressionValue(this, "raiseLeadingTone", module);
+        const raiseLeadingTone = getValueOrExpressionValue(this, 'raiseLeadingTone', module);
 
         const isMinor = theScaleType == ScaleType.NATURAL_MINOR;
 
@@ -467,127 +467,127 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
             let che = new ConstantHarmonyElement().setBaseNote(theScaleBaseNote).setScaleType(theScaleType);
 
             switch (thePhraseType) {
-                case PhraseHarmonyElementType.INCOMPLETE_NO_DOMINANT:
-                    dynamicMajorPossibleEndRoots = [1, 3];
-                    dynamicMinorPossibleEndRoots = [3];
-                    skipTonicCadence = true;
-                    skipDominant = true;
-                    break;
-                case PhraseHarmonyElementType.CHROMATIC_OSCILLATION:
-                    skipDynamicHarmony = true;
-                    skipDominant = true;
-                    skipTonicCadence = true;
-                    staticIsChromatic = true;
-                    chromaticOscillationEndTuples = [];
-                    for (let j=0; j<12; j++) {
-                        chromaticOscillationEndTuples.push([theScaleBaseNote + j, 0, 0]);
-                    }
-                    break;
-                case PhraseHarmonyElementType.CHROMATIC_TRANSITION_INCOMPLETE:
-                    skipInitialTonic = true;
-                    skipTonicCadence = true;
-                    skipDominant = false;
-                    let targetScaleBase = che.getAbsoluteNoteFromScaleIndex(3);
-                    chromaticEndTuples = [[targetScaleBase, 0, 0]];
-                    dynamicIsChromatic = true;
-                    chromaticChangeScaleModeCost = 20;
-                    chromaticChangeChordRootCost = 20;
-                    break;
-                case PhraseHarmonyElementType.CHROMATIC_TRANSITION_COMPLETE:
-                    skipInitialTonic = true;
-                    skipTonicCadence = false;
-                    skipDominant = false;
-                    chromaticChangeScaleModeCost = 20;
-                    chromaticChangeChordRootCost = 20;
-                    //let targetScaleBase = che.getAbsoluteNoteFromScaleIndex(3);
-                    chromaticEndTuples = [[theScaleBaseNote, 0, 0]];
-                    dynamicIsChromatic = true;
-                    endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    break;
-                case PhraseHarmonyElementType.CHROMATIC_TRANSITION_MODULATE:
-                case PhraseHarmonyElementType.CHROMATIC_TRANSITION_TONICIZE:
-                    skipInitialTonic = true;
-                    skipTonicCadence = true;
-                    skipDominant = true;
-                    let modTarget = theScaleType == ScaleType.NATURAL_MINOR ? theMinorModulationTarget : theMajorModulationTarget;
-                    let newScaleBaseNote = che.getAbsoluteNoteFromScaleIndex(modTarget + 1);
-                    // Modulate by changing the scale mode and the scale base note
-                    chromaticChangeChordRootCost = 20;
-                    chromaticChangeScaleModeCost = 10;
-                    chromaticEndTuples = [[newScaleBaseNote, 0, modTarget + 1]];
-    //                logit("chromatic modulation to " + modTarget);
+            case PhraseHarmonyElementType.INCOMPLETE_NO_DOMINANT:
+                dynamicMajorPossibleEndRoots = [1, 3];
+                dynamicMinorPossibleEndRoots = [3];
+                skipTonicCadence = true;
+                skipDominant = true;
+                break;
+            case PhraseHarmonyElementType.CHROMATIC_OSCILLATION:
+                skipDynamicHarmony = true;
+                skipDominant = true;
+                skipTonicCadence = true;
+                staticIsChromatic = true;
+                chromaticOscillationEndTuples = [];
+                for (let j=0; j<12; j++) {
+                    chromaticOscillationEndTuples.push([theScaleBaseNote + j, 0, 0]);
+                }
+                break;
+            case PhraseHarmonyElementType.CHROMATIC_TRANSITION_INCOMPLETE:
+                skipInitialTonic = true;
+                skipTonicCadence = true;
+                skipDominant = false;
+                let targetScaleBase = che.getAbsoluteNoteFromScaleIndex(3);
+                chromaticEndTuples = [[targetScaleBase, 0, 0]];
+                dynamicIsChromatic = true;
+                chromaticChangeScaleModeCost = 20;
+                chromaticChangeChordRootCost = 20;
+                break;
+            case PhraseHarmonyElementType.CHROMATIC_TRANSITION_COMPLETE:
+                skipInitialTonic = true;
+                skipTonicCadence = false;
+                skipDominant = false;
+                chromaticChangeScaleModeCost = 20;
+                chromaticChangeChordRootCost = 20;
+                //let targetScaleBase = che.getAbsoluteNoteFromScaleIndex(3);
+                chromaticEndTuples = [[theScaleBaseNote, 0, 0]];
+                dynamicIsChromatic = true;
+                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                break;
+            case PhraseHarmonyElementType.CHROMATIC_TRANSITION_MODULATE:
+            case PhraseHarmonyElementType.CHROMATIC_TRANSITION_TONICIZE:
+                skipInitialTonic = true;
+                skipTonicCadence = true;
+                skipDominant = true;
+                let modTarget = theScaleType == ScaleType.NATURAL_MINOR ? theMinorModulationTarget : theMajorModulationTarget;
+                let newScaleBaseNote = che.getAbsoluteNoteFromScaleIndex(modTarget + 1);
+                // Modulate by changing the scale mode and the scale base note
+                chromaticChangeChordRootCost = 20;
+                chromaticChangeScaleModeCost = 10;
+                chromaticEndTuples = [[newScaleBaseNote, 0, modTarget + 1]];
+                //                logit("chromatic modulation to " + modTarget);
 
-                    dynamicIsChromatic = true;
-                    endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    break;
-                case PhraseHarmonyElementType.COMPLETE_IMPERFECT:
-                    // Can not end on root
-                    endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[0], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    break;
-                case PhraseHarmonyElementType.COMPLETE:
-                    endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    break;
-                case PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC:
-                    lengthenFinalTonic = true;
-                    endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    break;
-                case PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT:
-                    lengthenDominant = true;
-                    endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    break;
-                case PhraseHarmonyElementType.COMPLETE_PLAGIAL:
-                    endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    dominantBaseRoot = 3;
-                    break;
-                case PhraseHarmonyElementType.COMPLETE_MODULATE:
-                case PhraseHarmonyElementType.COMPLETE_TONICIZE:
-                    endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    doModulate = true;
-                    break;
-                case PhraseHarmonyElementType.COMPLETE_MODULATE_IMPERFECT:
-                case PhraseHarmonyElementType.COMPLETE_TONICIZE_IMPERFECT:
-                    endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[0], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    doModulate = true;
-                    break;
-                case PhraseHarmonyElementType.DECEPTIVE:
-                    // Should not end on tonic
-    //                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    tonicCadenceBase = isMinor ? minorDeceptiveRoot : majorDeceptiveRoot;
-                    break;
-                case PhraseHarmonyElementType.INCOMPLETE:
-                    skipTonicCadence = true;
-                    break;
-                case PhraseHarmonyElementType.INCOMPLETE_INITIAL:
-                    skipInitialTonic = true;
-                    break;
-                case PhraseHarmonyElementType.ANTECEDENT_CONSEQUENT:
-                case PhraseHarmonyElementType.CONSEQUENT:
-                    endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    skipTonicCadence = true;
-                    break;
-                case PhraseHarmonyElementType.PROLONGED_DOMINANT_CADENCE:
-                    endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    skipInitialTonic = true;
-                    skipDynamicHarmony = true;
-                    break;
-                case PhraseHarmonyElementType.PROLONGED_DOMINANT:
-                    skipInitialTonic = true;
-                    skipDynamicHarmony = true;
-                    skipTonicCadence = true;
-                    break;
-                case PhraseHarmonyElementType.PROLONGED_TONIC:
-                    skipDynamicHarmony = true;
-                    skipDominant = true;
-                    skipTonicCadence = true;
-                    break;
-                case PhraseHarmonyElementType.PROLONGED_TONIC_COMPLETE:
-                    endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
-                    skipDynamicHarmony = true;
-                    break;
-                case PhraseHarmonyElementType.PROLONGED_TONIC_INCOMPLETE:
-                    skipDynamicHarmony = true;
-                    skipTonicCadence = true;
-                    break;
+                dynamicIsChromatic = true;
+                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                break;
+            case PhraseHarmonyElementType.COMPLETE_IMPERFECT:
+                // Can not end on root
+                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[0], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                break;
+            case PhraseHarmonyElementType.COMPLETE:
+                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                break;
+            case PhraseHarmonyElementType.COMPLETE_LENGTHEN_FINAL_TONIC:
+                lengthenFinalTonic = true;
+                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                break;
+            case PhraseHarmonyElementType.COMPLETE_LENGTHEN_DOMINANT:
+                lengthenDominant = true;
+                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                break;
+            case PhraseHarmonyElementType.COMPLETE_PLAGIAL:
+                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                dominantBaseRoot = 3;
+                break;
+            case PhraseHarmonyElementType.COMPLETE_MODULATE:
+            case PhraseHarmonyElementType.COMPLETE_TONICIZE:
+                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                doModulate = true;
+                break;
+            case PhraseHarmonyElementType.COMPLETE_MODULATE_IMPERFECT:
+            case PhraseHarmonyElementType.COMPLETE_TONICIZE_IMPERFECT:
+                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[0], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                doModulate = true;
+                break;
+            case PhraseHarmonyElementType.DECEPTIVE:
+                // Should not end on tonic
+                //                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                tonicCadenceBase = isMinor ? minorDeceptiveRoot : majorDeceptiveRoot;
+                break;
+            case PhraseHarmonyElementType.INCOMPLETE:
+                skipTonicCadence = true;
+                break;
+            case PhraseHarmonyElementType.INCOMPLETE_INITIAL:
+                skipInitialTonic = true;
+                break;
+            case PhraseHarmonyElementType.ANTECEDENT_CONSEQUENT:
+            case PhraseHarmonyElementType.CONSEQUENT:
+                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                skipTonicCadence = true;
+                break;
+            case PhraseHarmonyElementType.PROLONGED_DOMINANT_CADENCE:
+                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                skipInitialTonic = true;
+                skipDynamicHarmony = true;
+                break;
+            case PhraseHarmonyElementType.PROLONGED_DOMINANT:
+                skipInitialTonic = true;
+                skipDynamicHarmony = true;
+                skipTonicCadence = true;
+                break;
+            case PhraseHarmonyElementType.PROLONGED_TONIC:
+                skipDynamicHarmony = true;
+                skipDominant = true;
+                skipTonicCadence = true;
+                break;
+            case PhraseHarmonyElementType.PROLONGED_TONIC_COMPLETE:
+                endVoiceConstraints.push(new VoiceChordNotesVoiceLinePlannerConstraint().setRootPitches([[1, 2, 3], [], [], []]).setRootPitchCosts([[rootPitchCost]]));
+                skipDynamicHarmony = true;
+                break;
+            case PhraseHarmonyElementType.PROLONGED_TONIC_INCOMPLETE:
+                skipDynamicHarmony = true;
+                skipTonicCadence = true;
+                break;
             }
 
             if (doModulate) {
@@ -622,9 +622,9 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 skipTonicCadence = false;
             }
 
-    //        if (beatLengths[0] == 1 && beatLengths.length == 1) {
-    //            logit(this._constructorName + " minCount " + minCount);
-    //        }
+            //        if (beatLengths[0] == 1 && beatLengths.length == 1) {
+            //            logit(this._constructorName + " minCount " + minCount);
+            //        }
 
             if (beatLengths.length < minCount) {
                 return [new ConstantHarmonyElement().setBaseNote(theScaleBaseNote).setScaleType(theScaleType)];
@@ -652,12 +652,12 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
             for (let i=0; i<beatLengths.length; i++) {
                 totalLength += beatLengths[i];
             }
-    //        logit("Starting indices: " + JSON.stringify(indices) + "<br />");
-    //    logit(lengthInfos);
+            //        logit("Starting indices: " + JSON.stringify(indices) + "<br />");
+            //    logit(lengthInfos);
             if (indices.length > 1) {
                 indices = this.getBestIndices(indices, lengthInfos, beatLengths, totalLength);
             }
-    //        logit("Result indices: " + JSON.stringify(indices) + "<br />");
+            //        logit("Result indices: " + JSON.stringify(indices) + "<br />");
 
 
 
@@ -679,10 +679,10 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                             if (arrayContains(roots, chordRootScaleIndex)) {
                                 s.scaleType = ScaleType.MELODIC_MINOR;
                                 if (verbose) {
-                                    logit("raising leading!");
+                                    logit('raising leading!');
                                 }
                             }
-    //                s.getChordAbsoluteNotes();
+                            //                s.getChordAbsoluteNotes();
                         }
                     }
                 }
@@ -711,7 +711,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 let staticSolution = null;
 
                 if (staticIsChromatic) {
-    //                logit("Calling oscillating chromatic generator " + staticOptions.count + " indices: " + indices[0].join(", "));
+                    //                logit("Calling oscillating chromatic generator " + staticOptions.count + " indices: " + indices[0].join(", "));
 
                     staticOptions.startScaleBaseChordRootScaleModeTuples = chromaticOscillationStartTuples;
                     staticOptions.endScaleBaseChordRootScaleModeTuples = chromaticOscillationEndTuples;
@@ -727,12 +727,12 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                         module.reusables[reuseIndex] = copyValueDeep(staticSolution);
                     }
 
-    //                raiseLeading(staticSolution, theScaleType, theScaleBaseNote,
-    //                    raiseLeadingTone ? [4, 6] : []);
+                    //                raiseLeading(staticSolution, theScaleType, theScaleBaseNote,
+                    //                    raiseLeadingTone ? [4, 6] : []);
 
-    //                if (staticSolution && staticOptions.count > 2) {
-    //                    logit(JSON.stringify(staticSolution));
-    //                }
+                    //                if (staticSolution && staticOptions.count > 2) {
+                    //                    logit(JSON.stringify(staticSolution));
+                    //                }
 
                 } else {
 
@@ -740,14 +740,14 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                     staticOptions.startWithAccented64Likelihood = 0;
                     staticOptions.startWithoutAccented64Likelihood = 1;
 
-                    staticOptions.baseToNeighbourLikelihood = getValueOrExpressionValue(this, "staticHarmonyNeighbourChordLikelihood", module);
-                    staticOptions.auxiliaryToNeighbourLikelihood = getValueOrExpressionValue(this, "staticHarmonyNeighbourChordLikelihood", module);
-                    staticOptions.baseToPassingLikelihood = getValueOrExpressionValue(this, "staticHarmonyPassingChordLikelihood", module);
-                    staticOptions.simpleMixtureLikelihood = getValueOrExpressionValue(this, "staticHarmonySimpleMixtureLikelihood", module);
-                    staticOptions.sus2Likelihood = getValueOrExpressionValue(this, "staticHarmonySus2ChordLikelihood", module);
-                    staticOptions.sus4Likelihood = getValueOrExpressionValue(this, "staticHarmonySus4ChordLikelihood", module);
+                    staticOptions.baseToNeighbourLikelihood = getValueOrExpressionValue(this, 'staticHarmonyNeighbourChordLikelihood', module);
+                    staticOptions.auxiliaryToNeighbourLikelihood = getValueOrExpressionValue(this, 'staticHarmonyNeighbourChordLikelihood', module);
+                    staticOptions.baseToPassingLikelihood = getValueOrExpressionValue(this, 'staticHarmonyPassingChordLikelihood', module);
+                    staticOptions.simpleMixtureLikelihood = getValueOrExpressionValue(this, 'staticHarmonySimpleMixtureLikelihood', module);
+                    staticOptions.sus2Likelihood = getValueOrExpressionValue(this, 'staticHarmonySus2ChordLikelihood', module);
+                    staticOptions.sus4Likelihood = getValueOrExpressionValue(this, 'staticHarmonySus4ChordLikelihood', module);
 
-    //            logit(staticOptions.simpleMixtureLikelihood);
+                    //            logit(staticOptions.simpleMixtureLikelihood);
 
                     const staticGenerator = new StaticHarmonyGenerator(staticOptions);
 
@@ -755,25 +755,25 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                     let toReuse = module.reusables[reuseIndex];
                     if (toReuse) {
                         staticSolution = copyValueDeep(toReuse);
-    //                logit("Reusing static tonic harmony");
+                        //                logit("Reusing static tonic harmony");
                     } else {
                         staticSolution = staticGenerator.searchML();
                         module.reusables[reuseIndex] = copyValueDeep(staticSolution);
                     }
 
                     raiseLeading(staticSolution, theScaleType, theScaleBaseNote,
-                        getValueOrExpressionValue(this, "staticHarmonyRaiseLeadingToneRoots", module));
+                        getValueOrExpressionValue(this, 'staticHarmonyRaiseLeadingToneRoots', module));
 
-    //        if (staticSolution[0].chordType == ChordType.SEVENTH) {
-    //            logit("static tonic had seventh!" + i);
-    //        } else {
-    //            logit("static tonic had no seventh!" + i);
-    //        }
-    //        for (let i=0; i<staticSolution.length; i++) {
-    //            if (staticSolution[i].chordType == ChordType.SEVENTH) {
-    //                logit("static tonic had seventh!" + i);
-    //            }
-    //        }
+                    //        if (staticSolution[0].chordType == ChordType.SEVENTH) {
+                    //            logit("static tonic had seventh!" + i);
+                    //        } else {
+                    //            logit("static tonic had no seventh!" + i);
+                    //        }
+                    //        for (let i=0; i<staticSolution.length; i++) {
+                    //            if (staticSolution[i].chordType == ChordType.SEVENTH) {
+                    //                logit("static tonic had seventh!" + i);
+                    //            }
+                    //        }
                     //    logit("static solution length: " + staticSolution.length + "<br />");
 
                 }
@@ -798,7 +798,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 dynamicOptions.startBeatStrengths = getBeatStrengths(indices[dynamicIndex], startBeatStrengths);
 
                 if (dynamicIsChromatic) {
-    //                logit("Calling chromatic generator " + dynamicOptions.count + " indices: " + indices.join(", "));
+                    //                logit("Calling chromatic generator " + dynamicOptions.count + " indices: " + indices.join(", "));
 
                     dynamicOptions.scaleBaseChordRootScaleModeTuples = chromaticStartTuples;
                     dynamicOptions.endScaleBaseChordRootScaleModeTuples = chromaticEndTuples;
@@ -822,9 +822,9 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                     raiseLeading(dynamicSolution, theScaleType, theScaleBaseNote,
                         raiseLeadingTone ? [4, 6] : []);
 
-    //                if (dynamicSolution && dynamicOptions.count > 2) {
-    //                    logit(JSON.stringify(dynamicSolution));
-    //                }
+                    //                if (dynamicSolution && dynamicOptions.count > 2) {
+                    //                    logit(JSON.stringify(dynamicSolution));
+                    //                }
 
 
                 } else {
@@ -837,11 +837,11 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                     dynamicOptions.majorModulationTarget = theMajorModulationTarget;
                     dynamicOptions.minorModulationTarget = theMinorModulationTarget;
 
-                    dynamicOptions.neighbourLikelihood = getValueOrExpressionValue(this, "dynamicHarmonyNeighbourChordLikelihood", module);
-                    dynamicOptions.passingLikelihood = getValueOrExpressionValue(this, "dynamicHarmonyPassingChordLikelihood", module);
-                    dynamicOptions.simpleMixtureLikelihood = getValueOrExpressionValue(this, "dynamicHarmonySimpleMixtureLikelihood", module);
-                    dynamicOptions.sus2Likelihood = getValueOrExpressionValue(this, "dynamicHarmonySus2ChordLikelihood", module);
-                    dynamicOptions.sus4Likelihood = getValueOrExpressionValue(this, "dynamicHarmonySus4ChordLikelihood", module);
+                    dynamicOptions.neighbourLikelihood = getValueOrExpressionValue(this, 'dynamicHarmonyNeighbourChordLikelihood', module);
+                    dynamicOptions.passingLikelihood = getValueOrExpressionValue(this, 'dynamicHarmonyPassingChordLikelihood', module);
+                    dynamicOptions.simpleMixtureLikelihood = getValueOrExpressionValue(this, 'dynamicHarmonySimpleMixtureLikelihood', module);
+                    dynamicOptions.sus2Likelihood = getValueOrExpressionValue(this, 'dynamicHarmonySus2ChordLikelihood', module);
+                    dynamicOptions.sus4Likelihood = getValueOrExpressionValue(this, 'dynamicHarmonySus4ChordLikelihood', module);
 
 
                     if (doModulate) {
@@ -882,7 +882,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                     //            let dynamicSolution = dynamicGenerator.searchML();
 
                     raiseLeading(dynamicSolution, theScaleType, theScaleBaseNote,
-                        getValueOrExpressionValue(this, "dynamicHarmonyRaiseLeadingToneRoots", module));
+                        getValueOrExpressionValue(this, 'dynamicHarmonyRaiseLeadingToneRoots', module));
 
                     if (doModulate) {
 
@@ -893,7 +893,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                         let newScaleType = DynamicHarmonyModulationTarget.getScaleType(theScaleType, modTarget);
 
                         raiseLeading(dynamicSolution, newScaleType, newScaleBaseNote,
-                            getValueOrExpressionValue(this, "dynamicHarmonyRaiseLeadingToneAppliedRoots", module));
+                            getValueOrExpressionValue(this, 'dynamicHarmonyRaiseLeadingToneAppliedRoots', module));
                     }
                 }
             } else {
@@ -906,17 +906,17 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 // logit(this._constructorName + "Could not find dynamic solution for count " + dynamicOptions.count + "<br />");
                 dynamicEnd = new ConstantHarmonyElement().setScaleType(theScaleType).setBaseNote(theScaleBaseNote);
             } else {
-    //        logit([this._constructorName,
-    //            " dynamic solution count ",
-    //            dynamicOptions.count,
-    //            "<br />"].join(""));
+                //        logit([this._constructorName,
+                //            " dynamic solution count ",
+                //            dynamicOptions.count,
+                //            "<br />"].join(""));
                 addAll(solution, dynamicSolution);
                 dynamicEnd = copyObjectDeep(dynamicSolution[dynamicSolution.length - 1]);
                 dynamicEnd.scaleType = (dynamicEnd.scaleType == ScaleType.MELODIC_MINOR || dynamicEnd.scaleType == ScaleType.HARMONIC_MINOR) ?
                     ScaleType.NATURAL_MINOR : dynamicEnd.scaleType;
             }
 
-    //    logit("Dynamic end base note " + dynamicEnd.baseNote + " <br />");
+            //    logit("Dynamic end base note " + dynamicEnd.baseNote + " <br />");
 
             const numerator = this.getTsNumerator(module);
 
@@ -997,7 +997,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                         beatsBeforeDominant += beatLengths[indexBefore];
                     }
                 }
-    //        logit("Beats before dominant " + beatsBeforeDominant);
+                //        logit("Beats before dominant " + beatsBeforeDominant);
                 dominantCadenceOptions.startWithAccented64Likelihood = 1;
                 dominantCadenceOptions.startWithoutAccented64Likelihood = 1;
 
@@ -1006,12 +1006,12 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 dominantCadenceOptions.auxiliaryChordRootLikelihoods = [1];
                 dominantCadenceOptions.scaleType = dynamicEnd.scaleType;
                 dominantCadenceOptions.scaleBaseNote = dynamicEnd.baseNote;
-                dominantCadenceOptions.baseToNeighbourLikelihood = getValueOrExpressionValue(this, "dominantCadenceHarmonyNeighbourChordLikelihood", module);
-                dominantCadenceOptions.auxiliaryToNeighbourLikelihood = getValueOrExpressionValue(this, "dominantCadenceHarmonyNeighbourChordLikelihood", module);
-                dominantCadenceOptions.baseToPassingLikelihood = getValueOrExpressionValue(this, "dominantCadenceHarmonyPassingChordLikelihood", module);
-                dominantCadenceOptions.simpleMixtureLikelihood = getValueOrExpressionValue(this, "dominantCadenceHarmonySimpleMixtureLikelihood", module);
-                dominantCadenceOptions.sus2Likelihood = getValueOrExpressionValue(this, "dominantCadenceHarmonySus2ChordLikelihood", module);
-                dominantCadenceOptions.sus4Likelihood = getValueOrExpressionValue(this, "dominantCadenceHarmonySus4ChordLikelihood", module);
+                dominantCadenceOptions.baseToNeighbourLikelihood = getValueOrExpressionValue(this, 'dominantCadenceHarmonyNeighbourChordLikelihood', module);
+                dominantCadenceOptions.auxiliaryToNeighbourLikelihood = getValueOrExpressionValue(this, 'dominantCadenceHarmonyNeighbourChordLikelihood', module);
+                dominantCadenceOptions.baseToPassingLikelihood = getValueOrExpressionValue(this, 'dominantCadenceHarmonyPassingChordLikelihood', module);
+                dominantCadenceOptions.simpleMixtureLikelihood = getValueOrExpressionValue(this, 'dominantCadenceHarmonySimpleMixtureLikelihood', module);
+                dominantCadenceOptions.sus2Likelihood = getValueOrExpressionValue(this, 'dominantCadenceHarmonySus2ChordLikelihood', module);
+                dominantCadenceOptions.sus4Likelihood = getValueOrExpressionValue(this, 'dominantCadenceHarmonySus4ChordLikelihood', module);
 
                 // Make the accented stuff depend on whether start the measure or not
 
@@ -1026,20 +1026,20 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 let dominantCadenceSolution = null;
                 if (toReuse) {
                     dominantCadenceSolution = copyValueDeep(toReuse);
-    //                logit("Reusing dominant cadence harmony");
+                    //                logit("Reusing dominant cadence harmony");
                 } else {
                     dominantCadenceSolution = dominantCadenceGenerator.searchML();
                     module.reusables[reuseIndex] = copyValueDeep(dominantCadenceSolution);
                 }
 
-    //            let dominantCadenceSolution = dominantCadenceGenerator.searchML();
+                //            let dominantCadenceSolution = dominantCadenceGenerator.searchML();
                 //    logit("dominant cadence solution length: " + dominantCadenceSolution.length + "<br />");
 
                 raiseLeading(dominantCadenceSolution, dynamicEnd.scaleType, dynamicEnd.baseNote,
-                    getValueOrExpressionValue(this, "dominantCadenceHarmonyRaiseLeadingToneRoots", module));
+                    getValueOrExpressionValue(this, 'dominantCadenceHarmonyRaiseLeadingToneRoots', module));
 
                 if (lengthenDominant) {
-    //                logit("Dominant solution length: " + dominantCadenceSolution.length + " input count: " + dominantCadenceOptions.count + " lengthenCount: " + lengthenCount);
+                    //                logit("Dominant solution length: " + dominantCadenceSolution.length + " input count: " + dominantCadenceOptions.count + " lengthenCount: " + lengthenCount);
                     extractLengthenedSolution(lengthenCount, dominantCadenceSolution, extraDominantCadenceSolution);
                 }
 
@@ -1073,12 +1073,12 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 tonicCadenceOptions.startWithoutAccented64Likelihood = 1;
                 tonicCadenceOptions.baseExpandedLikelihood = 0;
 
-                tonicCadenceOptions.baseToNeighbourLikelihood = getValueOrExpressionValue(this, "tonicCadenceHarmonyNeighbourChordLikelihood", module);
-                tonicCadenceOptions.auxiliaryToNeighbourLikelihood = getValueOrExpressionValue(this, "tonicCadenceHarmonyNeighbourChordLikelihood", module);
-                tonicCadenceOptions.baseToPassingLikelihood = getValueOrExpressionValue(this, "tonicCadenceHarmonyPassingChordLikelihood", module);
-                tonicCadenceOptions.simpleMixtureLikelihood = getValueOrExpressionValue(this, "tonicCadenceHarmonySimpleMixtureLikelihood", module);
-                tonicCadenceOptions.sus2Likelihood = getValueOrExpressionValue(this, "tonicCadenceHarmonySus2ChordLikelihood", module);
-                tonicCadenceOptions.sus4Likelihood = getValueOrExpressionValue(this, "tonicCadenceHarmonySus4ChordLikelihood", module);
+                tonicCadenceOptions.baseToNeighbourLikelihood = getValueOrExpressionValue(this, 'tonicCadenceHarmonyNeighbourChordLikelihood', module);
+                tonicCadenceOptions.auxiliaryToNeighbourLikelihood = getValueOrExpressionValue(this, 'tonicCadenceHarmonyNeighbourChordLikelihood', module);
+                tonicCadenceOptions.baseToPassingLikelihood = getValueOrExpressionValue(this, 'tonicCadenceHarmonyPassingChordLikelihood', module);
+                tonicCadenceOptions.simpleMixtureLikelihood = getValueOrExpressionValue(this, 'tonicCadenceHarmonySimpleMixtureLikelihood', module);
+                tonicCadenceOptions.sus2Likelihood = getValueOrExpressionValue(this, 'tonicCadenceHarmonySus2ChordLikelihood', module);
+                tonicCadenceOptions.sus4Likelihood = getValueOrExpressionValue(this, 'tonicCadenceHarmonySus4ChordLikelihood', module);
 
 
                 const tonicCadenceGenerator = new StaticHarmonyGenerator(tonicCadenceOptions);
@@ -1088,17 +1088,17 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 let tonicCadenceSolution = null;
                 if (toReuse) {
                     tonicCadenceSolution = copyValueDeep(toReuse);
-    //                logit("Reusing tonic cadence harmony");
+                    //                logit("Reusing tonic cadence harmony");
                 } else {
                     tonicCadenceSolution = tonicCadenceGenerator.searchML();
                     module.reusables[reuseIndex] = copyValueDeep(tonicCadenceSolution);
                 }
 
 
-    //            let tonicCadenceSolution = tonicCadenceGenerator.searchML();
+                //            let tonicCadenceSolution = tonicCadenceGenerator.searchML();
                 //        logit("tonic cadence solution length: " + tonicCadenceSolution.length + "<br />");
                 raiseLeading(tonicCadenceSolution, dynamicEnd.scaleType, dynamicEnd.baseNote,
-                    getValueOrExpressionValue(this, "tonicCadenceHarmonyRaiseLeadingToneRoots", module));
+                    getValueOrExpressionValue(this, 'tonicCadenceHarmonyRaiseLeadingToneRoots', module));
                 if (lengthenFinalTonic) {
                     extractLengthenedSolution(lengthenCount, tonicCadenceSolution, extraTonicCadenceSolution);
                 }
@@ -1160,11 +1160,11 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                     consequent.push(tonic);
                 } else {
                     thePhraseType = PhraseHarmonyElementType.COMPLETE;
-    //                logit("Replanning since could not add final tonic...");
+                    //                logit("Replanning since could not add final tonic...");
                     replan = true;
                     didReplan = true;
                     continue;
-    //                logit(this._constructorName + " could not add final tonic" + " <br />");
+                    //                logit(this._constructorName + " could not add final tonic" + " <br />");
                 }
                 for (let i=0; i<consequent.length; i++) {
                     let he = consequent[i];
@@ -1176,7 +1176,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 } else {
                     addAll(solution, consequent);
                 }
-    //        logit("ant cons length: " + solution.length);
+                //        logit("ant cons length: " + solution.length);
             }
 
             // Find uses of simple mixture
@@ -1214,12 +1214,12 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                                 const thirdOrSecondToLoweredThirdC = new MinVoiceLinePlannerConstraint();
 
                                 const thirdToLoweredThirdC = new PitchClassStepVoiceLinePlannerConstraint();
-                                thirdToLoweredThirdC.id = "thirdToLoweredThirdC";
+                                thirdToLoweredThirdC.id = 'thirdToLoweredThirdC';
                                 thirdToLoweredThirdC.fromPitchClass = thirdPitchClass;
                                 thirdToLoweredThirdC.toPitchClass = nextThirdPitchClass;
 
                                 const secondToLoweredThirdC = new PitchClassStepVoiceLinePlannerConstraint();
-                                secondToLoweredThirdC.id = "secondToLoweredThirdC";
+                                secondToLoweredThirdC.id = 'secondToLoweredThirdC';
                                 secondToLoweredThirdC.fromPitchClass = secondPitchClass;
                                 secondToLoweredThirdC.toPitchClass = nextThirdPitchClass;
 
@@ -1231,7 +1231,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                                 if (arrayContains(nextPitchClasses, nextThirdPitchClass) && arrayContains(nextNextPitchClasses, nextNextSecondPitchClass)) {
                                     // Lowered 3 should continue moving to 2
                                     const loweredThirdToSecondC = new PitchClassStepVoiceLinePlannerConstraint();
-                                    loweredThirdToSecondC.id = "loweredThirdToSecondC";
+                                    loweredThirdToSecondC.id = 'loweredThirdToSecondC';
                                     loweredThirdToSecondC.fromPitchClass = nextThirdPitchClass;
                                     loweredThirdToSecondC.toPitchClass = nextNextSecondPitchClass;
                                     nextNextDse.voiceLineConstraints.push(loweredThirdToSecondC);
@@ -1303,7 +1303,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                             enterLeapC.penaltyFactor = 0.2;
                             dse.voiceLineConstraints.push(enterLeapC);
 
-    //                    logit("Adding enter constraint");
+                            //                    logit("Adding enter constraint");
 
                             if (i < solution.length - 1) {
                                 let nextDse = solution[i+1];
@@ -1320,7 +1320,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                                 leaveLeapC.penaltyFactor = 0.2;
                                 nextDse.voiceLineConstraints.push(leaveLeapC);
 
-    //                        logit("Adding leave constraint");
+                                //                        logit("Adding leave constraint");
                             }
                         }
                     }
@@ -1330,49 +1330,49 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
 
             const showSolution = false; // doModulate; // || didReplan;
 
-    //        showSolution = doModulate;
+            //        showSolution = doModulate;
 
-    //    if (theScaleType == ScaleType.NATURAL_MINOR) {
-    //        showSolution = !raiseLeadingTone || showSolution;
-    //    }
+            //    if (theScaleType == ScaleType.NATURAL_MINOR) {
+            //        showSolution = !raiseLeadingTone || showSolution;
+            //    }
             for (let i=0; i<solution.length; i++) {
-    //        if (positiveMod(solution[i].chordRoot, 7) == 5) {
-    //            showSolution = true;
-    //        }
-                const hasMixture = solution[i].toRomanString().indexOf("X") >= 0;
+                //        if (positiveMod(solution[i].chordRoot, 7) == 5) {
+                //            showSolution = true;
+                //        }
+                const hasMixture = solution[i].toRomanString().indexOf('X') >= 0;
                 if (hasMixture) {
-    //                showSolution = true;
+                    //                showSolution = true;
                 }
-    //            let hasPassing = solution[i].note.indexOf("P") >= 0;
-    //            if (hasPassing) {
-    //                showSolution = true;
-    //            }
-    //            let hasSus = solution[i].toRomanString().indexOf("sus") >= 0;
-    //            if (hasSus) {
-    //                showSolution = true;
-    //            }
-                const hasNeighbourMixture = solution[i].toRomanString().indexOf("NX") >= 0 || solution[i].toRomanString().indexOf("NMX") >= 0;
-    //            if (hasNeighbourMixture) {
-    //                showSolution = true;
-    //            }
+                //            let hasPassing = solution[i].note.indexOf("P") >= 0;
+                //            if (hasPassing) {
+                //                showSolution = true;
+                //            }
+                //            let hasSus = solution[i].toRomanString().indexOf("sus") >= 0;
+                //            if (hasSus) {
+                //                showSolution = true;
+                //            }
+                const hasNeighbourMixture = solution[i].toRomanString().indexOf('NX') >= 0 || solution[i].toRomanString().indexOf('NMX') >= 0;
+                //            if (hasNeighbourMixture) {
+                //                showSolution = true;
+                //            }
 
-    //            let hasSus = solution[i].toRomanString().indexOf("sus") >= 0;
+                //            let hasSus = solution[i].toRomanString().indexOf("sus") >= 0;
 
-    //            const hasDynamicExpansion = solution[i].note.indexOf("D, E") >= 0;
+                //            const hasDynamicExpansion = solution[i].note.indexOf("D, E") >= 0;
 
-    //            if (hasSus && hasDynamicExpansion) {
-    //                showSolution = true;
-    //            }
-    //            if (solution[i].note.indexOf("sus") >= 0) {
-    //                showSolution = true;
-    //            }
+                //            if (hasSus && hasDynamicExpansion) {
+                //                showSolution = true;
+                //            }
+                //            if (solution[i].note.indexOf("sus") >= 0) {
+                //                showSolution = true;
+                //            }
             }
-    //        showSolution = false;
+            //        showSolution = false;
 
             if (showSolution) {
                 let chr = new ConstantHarmonicRythm(solution);
-    //        logit("" + dynamicMajorStartRoots + " " + dynamicMinorStartRoots);
-    //        logit("Major target: " + theMajorModulationTarget + " minor target: " + theMinorModulationTarget);
+                //        logit("" + dynamicMajorStartRoots + " " + dynamicMinorStartRoots);
+                //        logit("Major target: " + theMajorModulationTarget + " minor target: " + theMinorModulationTarget);
                 logit(`The phrase progression: ${chr.toRomanString()}`);
             }
 
@@ -1380,7 +1380,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                 solution[i].tsNumerator = numerator;
             }
 
-    //    logit("NUmerator: " + numerator);
+            //    logit("NUmerator: " + numerator);
 
             function insertLengthenedSolution(extraSolution, index, solution, totalLength, beatOffset) {
                 let lengthLeft = totalLength;
@@ -1413,7 +1413,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                         if (extra) {
                             solution.splice(index + i, 0, extra);
                         }
-    //                    logit("Splicing at " + index + " new length; " + solution.length);
+                        //                    logit("Splicing at " + index + " new length; " + solution.length);
                     }
                 } else {
                     for (let extra of extraSolution) {
@@ -1429,7 +1429,7 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
                     beatOffset);
             }
             if (lengthenDominant && dominantStartIndex >= 0) {
-    //            logit("Lengthening dominant final solution " + dominantStartIndex);
+                //            logit("Lengthening dominant final solution " + dominantStartIndex);
                 insertLengthenedSolution(extraDominantCadenceSolution, dominantStartIndex, solution, lengthenMeasures * numerator,
                     beatOffset);
             }
@@ -1440,18 +1440,18 @@ class PhraseHarmonyElement extends PlannedHarmonyElement {
             }
 
 
-    //    logit("phrase type " + PhraseHarmonyElementType.toString(thePhraseType));
-    //    for (let i=0; i<solution.length; i++) {
-    //        logit(solution[i].length);
-    //    }
+            //    logit("phrase type " + PhraseHarmonyElementType.toString(thePhraseType));
+            //    for (let i=0; i<solution.length; i++) {
+            //        logit(solution[i].length);
+            //    }
 
             //    logit("startsphrase: " + arrayElementsPropertyToString(solution, "startsPhrase").join(', ') + "<br />");
         }
 
-    //    if (beatLengths[0] == 1) {
-    //        let tempChr = new ConstantHarmonicRythm(solution);
-    //        logit(this._constructorName + " solution: " + JSON.stringify(solution) + " length: " + tempChr.getBeatLength());
-    //    }
+        //    if (beatLengths[0] == 1) {
+        //        let tempChr = new ConstantHarmonicRythm(solution);
+        //        logit(this._constructorName + " solution: " + JSON.stringify(solution) + " length: " + tempChr.getBeatLength());
+        //    }
 
         harmonyTimer.pause();
 

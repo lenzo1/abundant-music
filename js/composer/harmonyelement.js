@@ -1,9 +1,9 @@
 
 class HarmonyElement {
     constructor() {
-        this.id = "";
+        this.id = '';
         this.modifiers = [];
-        this._constructorName = "HarmonyElement";
+        this._constructorName = 'HarmonyElement';
     }
     
     getLength() {
@@ -39,12 +39,12 @@ class HarmonyElement {
 class HarmonyReferenceHarmonyElement extends HarmonyElement {
     constructor() {
         super();
-        this.harmony = "";
-        this._constructorName = "HarmonyReferenceHarmonyElement";
+        this.harmony = '';
+        this._constructorName = 'HarmonyReferenceHarmonyElement';
     }
 
     getConstantHarmonyElements(module, beatOffset) {
-        const harmonyId = getValueOrExpressionValue(this, "harmony", module);
+        const harmonyId = getValueOrExpressionValue(this, 'harmony', module);
         const harmony = module.getHarmony(harmonyId);
         if (harmony) {
             return applyHarmonyModifiers(harmony.getConstantHarmonyElements(module), this.modifiers, module);
@@ -60,21 +60,21 @@ class SwitchHarmonyElement extends HarmonyElement {
         super();
         this.index = 0;
         this.indexedElements = [];
-        this._constructorName = "SwitchHarmonyElement";
+        this._constructorName = 'SwitchHarmonyElement';
     }
 
     getConstantHarmonyElements(module, beatOffset) {
         const result = [];
-        const index = getValueOrExpressionValue(this, "index", module);
+        const index = getValueOrExpressionValue(this, 'index', module);
         const indexedElements = this.indexedElements; // getValueOrExpressionValue(this, "indexedElements", module);
     
-    //    if (this.indexExpression) {
-    ////        console.log(this._constructorName + " using index " + index + " on " + indexedElements + " " + this.indexExpression);
-    //        let v = module.getVariable(this.indexExpression);
-    //        if (v) {
-    //            logit("index let " + v.id + " " + v.value + " " + this.indexUseExpression + " " + index);
-    //        }
-    //    }
+        //    if (this.indexExpression) {
+        ////        console.log(this._constructorName + " using index " + index + " on " + indexedElements + " " + this.indexExpression);
+        //        let v = module.getVariable(this.indexExpression);
+        //        if (v) {
+        //            logit("index let " + v.id + " " + v.value + " " + this.indexUseExpression + " " + index);
+        //        }
+        //    }
     
         if (indexedElements.length > 0) {
             const harmony = indexedElements[index % indexedElements.length];
@@ -125,9 +125,9 @@ class ConstantHarmonyElement extends HarmonyElement {
 
         this.startsPhrase = false;
 
-        this.note = "";
+        this.note = '';
 
-        this._constructorName = "ConstantHarmonyElement";
+        this._constructorName = 'ConstantHarmonyElement';
     }
 
     getConstantHarmonyElements(module, beatOffset) {
@@ -141,11 +141,11 @@ class ConstantHarmonyElement extends HarmonyElement {
     
     toString() {
         const scale = this.getScale();
-        let result = "HarmonyElement {";
+        let result = 'HarmonyElement {';
         result += ` scale: ${scale}`;
         result += ` chordRoot: ${this.chordRoot}`;
         result += ` inversions: ${this.chordInversions}`;
-        result += "}";
+        result += '}';
         return result;
     };
     
@@ -166,113 +166,113 @@ class ConstantHarmonyElement extends HarmonyElement {
     };
     
     toRomanString() {
-        let result = "";
+        let result = '';
         const scale = this.getScale();
     
         const scaleDegree = positiveMod(this.chordRoot, scale.length);
         switch (scaleDegree) {
-            case 0:
-                result += "I";
-                break;
-            case 1:
-                result += "II";
-                break;
-            case 2:
-                result += "III";
-                break;
-            case 3:
-                result += "IV";
-                break;
-            case 4:
-                result += "V";
-                break;
-            case 5:
-                result += "VI";
-                break;
-            case 6:
-                result += "VII";
-                break;
+        case 0:
+            result += 'I';
+            break;
+        case 1:
+            result += 'II';
+            break;
+        case 2:
+            result += 'III';
+            break;
+        case 3:
+            result += 'IV';
+            break;
+        case 4:
+            result += 'V';
+            break;
+        case 5:
+            result += 'VI';
+            break;
+        case 6:
+            result += 'VII';
+            break;
         }
     
         switch (this.chordType) {
-            case ChordType.TRIAD:
-                switch (this.chordInversions) {
-                    case 0:
-                        break;
-                    case 1:
-                        result += "6";
-                        break;
-                    case 2:
-                        result += "64";
-                        break;
-                }
+        case ChordType.TRIAD:
+            switch (this.chordInversions) {
+            case 0:
                 break;
-            case ChordType.NINTH:
-                switch (this.chordInversions) {
-                    case 0:
-                        result += "9";
-                        break;
-                    default:
-                        result += `9(${this.chordInversions})`;
-                        break;
-                }
+            case 1:
+                result += '6';
                 break;
-            case ChordType.SEVENTH:
-                switch (this.chordInversions) {
-                    case 0:
-                        result += "7";
-                        break;
-                    case 1:
-                        result += "65";
-                        break;
-                    case 2:
-                        result += "43";
-                        break;
-                    case 3:
-                        result += "42";
-                        break;
-                }
+            case 2:
+                result += '64';
                 break;
-            case ChordType.SUS2:
-                switch (this.chordInversions) {
-                    case 0:
-                        result += "sus2";
-                        break;
-                    default:
-                        result += `sus2(${this.chordInversions})`;
-                        break;
-                }
+            }
+            break;
+        case ChordType.NINTH:
+            switch (this.chordInversions) {
+            case 0:
+                result += '9';
                 break;
-            case ChordType.SUS4:
-                switch (this.chordInversions) {
-                    case 0:
-                        result += "sus4";
-                        break;
-                    default:
-                        result += `sus4(${this.chordInversions})`;
-                        break;
-                }
+            default:
+                result += `9(${this.chordInversions})`;
                 break;
-            case ChordType.SUS2_SEVENTH:
-                switch (this.chordInversions) {
-                    case 0:
-                        result += "sus2_7";
-                        break;
-                    default:
-                        result += `sus2_7(${this.chordInversions})`;
-                        break;
-                }
+            }
+            break;
+        case ChordType.SEVENTH:
+            switch (this.chordInversions) {
+            case 0:
+                result += '7';
                 break;
-            case ChordType.SUS4_SEVENTH:
-                switch (this.chordInversions) {
-                    case 0:
-                        result += "sus4_7";
-                        break;
-                    default:
-                        result += `sus4_7(${this.chordInversions})`;
-                        break;
-                }
+            case 1:
+                result += '65';
                 break;
+            case 2:
+                result += '43';
+                break;
+            case 3:
+                result += '42';
+                break;
+            }
+            break;
+        case ChordType.SUS2:
+            switch (this.chordInversions) {
+            case 0:
+                result += 'sus2';
+                break;
+            default:
+                result += `sus2(${this.chordInversions})`;
+                break;
+            }
+            break;
+        case ChordType.SUS4:
+            switch (this.chordInversions) {
+            case 0:
+                result += 'sus4';
+                break;
+            default:
+                result += `sus4(${this.chordInversions})`;
+                break;
+            }
+            break;
+        case ChordType.SUS2_SEVENTH:
+            switch (this.chordInversions) {
+            case 0:
+                result += 'sus2_7';
+                break;
+            default:
+                result += `sus2_7(${this.chordInversions})`;
+                break;
+            }
+            break;
+        case ChordType.SUS4_SEVENTH:
+            switch (this.chordInversions) {
+            case 0:
+                result += 'sus4_7';
+                break;
+            default:
+                result += `sus4_7(${this.chordInversions})`;
+                break;
+            }
+            break;
         }
         if (this.note) {
             result += `(${this.note})`;
@@ -314,10 +314,10 @@ class ConstantHarmonyElement extends HarmonyElement {
     getChordRootScaleIndex() {
     
         switch (this.chordType) {
-            case ChordType.CUSTOM:
-                return this.chord[0];
-            default:
-                return this.chordRoot;
+        case ChordType.CUSTOM:
+            return this.chord[0];
+        default:
+            return this.chordRoot;
         }
     };
     
@@ -337,9 +337,9 @@ class ConstantHarmonyElement extends HarmonyElement {
         }
         const scaleMode = clamp(this.scaleMode, -12, 12);
     
-    //    if (scaleMode != 0) {
-    //        logit("Scale before mode: " + result.join(",") + "  " + scaleMode);
-    //    }
+        //    if (scaleMode != 0) {
+        //        logit("Scale before mode: " + result.join(",") + "  " + scaleMode);
+        //    }
     
         const absScaleMode = Math.abs(scaleMode);
         for (let i=0; i<absScaleMode; i++) {
@@ -347,9 +347,9 @@ class ConstantHarmonyElement extends HarmonyElement {
             if (scaleMode > 0) {
                 // Shift everything left
                 const first = modeResult.shift(); // Remove first element
-    //            if (first != 0) {
-    //                logit("First scale offset not zero. This will not be pretty :) " + this._constructorName);
-    //            }
+                //            if (first != 0) {
+                //                logit("First scale offset not zero. This will not be pretty :) " + this._constructorName);
+                //            }
                 modeResult.push(12);
                 const toSub = modeResult[0];
                 for (let j=0; j<modeResult.length; j++) {
@@ -366,9 +366,9 @@ class ConstantHarmonyElement extends HarmonyElement {
             result = modeResult;
     
     
-    //        if (scaleMode != 0) {
-    //            logit("Scale after mode: " + result.join(",") + "  " + scaleMode + " iteration " + i);
-    //        }
+            //        if (scaleMode != 0) {
+            //            logit("Scale after mode: " + result.join(",") + "  " + scaleMode + " iteration " + i);
+            //        }
         }
         return result;
     };
@@ -388,12 +388,12 @@ class ConstantHarmonyElement extends HarmonyElement {
         let result = ScaleType.MAJOR_SCALE_STEPS;
     
         switch (this.scaleType) {
-            case ScaleType.CUSTOM:
-                result = this.scale;
-                break;
-            default:
-                result = ScaleType.getChromaticSteps(this.scaleType);
-                break;
+        case ScaleType.CUSTOM:
+            result = this.scale;
+            break;
+        default:
+            result = ScaleType.getChromaticSteps(this.scaleType);
+            break;
         }
         return this.alterScaleCopy(result);
     };
@@ -416,31 +416,31 @@ class ConstantHarmonyElement extends HarmonyElement {
     
     addSeventh() {
         switch (this.chordType) {
-            case ChordType.SUS2:
-                this.chordType = ChordType.SUS2_SEVENTH;
-                break;
-            case ChordType.SUS4:
-                this.chordType = ChordType.SUS4_SEVENTH;
-                break;
-            case ChordType.TRIAD:
-                this.chordType = ChordType.SEVENTH;
-                break;
+        case ChordType.SUS2:
+            this.chordType = ChordType.SUS2_SEVENTH;
+            break;
+        case ChordType.SUS4:
+            this.chordType = ChordType.SUS4_SEVENTH;
+            break;
+        case ChordType.TRIAD:
+            this.chordType = ChordType.SEVENTH;
+            break;
         }
         return this;
     };
     
     removeSeventh() {
         switch (this.chordType) {
-            case ChordType.SUS2_SEVENTH:
-                this.chordType = ChordType.SUS2;
-                break;
-            case ChordType.SUS4_SEVENTH:
-                this.chordType = ChordType.SUS4;
-                break;
-            case ChordType.SEVENTH:
-            case ChordType.NINTH:
-                this.chordType = ChordType.TRIAD;
-                break;
+        case ChordType.SUS2_SEVENTH:
+            this.chordType = ChordType.SUS2;
+            break;
+        case ChordType.SUS4_SEVENTH:
+            this.chordType = ChordType.SUS4;
+            break;
+        case ChordType.SEVENTH:
+        case ChordType.NINTH:
+            this.chordType = ChordType.TRIAD;
+            break;
         }
         return this;
     };
@@ -449,10 +449,10 @@ class ConstantHarmonyElement extends HarmonyElement {
     
     isSeventh() {
         switch (this.chordType) {
-            case ChordType.SEVENTH:
-            case ChordType.SUS2_SEVENTH:
-            case ChordType.SUS4_SEVENTH:
-                return true;
+        case ChordType.SEVENTH:
+        case ChordType.SUS2_SEVENTH:
+        case ChordType.SUS4_SEVENTH:
+            return true;
         }
         return false;
     };
@@ -461,37 +461,37 @@ class ConstantHarmonyElement extends HarmonyElement {
     
     isSus() {
         switch (this.chordType) {
-            case ChordType.SUS2:
-            case ChordType.SUS4:
-            case ChordType.SUS2_SEVENTH:
-            case ChordType.SUS4_SEVENTH:
-                return true;
+        case ChordType.SUS2:
+        case ChordType.SUS4:
+        case ChordType.SUS2_SEVENTH:
+        case ChordType.SUS4_SEVENTH:
+            return true;
         }
         return false;
     };
     isSus2() {
         switch (this.chordType) {
-            case ChordType.SUS2:
-            case ChordType.SUS2_SEVENTH:
-                return true;
+        case ChordType.SUS2:
+        case ChordType.SUS2_SEVENTH:
+            return true;
         }
         return false;
     };
     isSus4() {
         switch (this.chordType) {
-            case ChordType.SUS4:
-            case ChordType.SUS4_SEVENTH:
-                return true;
+        case ChordType.SUS4:
+        case ChordType.SUS4_SEVENTH:
+            return true;
         }
         return false;
     };
     
     isTriad() {
         switch (this.chordType) {
-            case ChordType.SUS2:
-            case ChordType.SUS4:
-            case ChordType.TRIAD:
-                return true;
+        case ChordType.SUS2:
+        case ChordType.SUS4:
+        case ChordType.TRIAD:
+            return true;
         }
         return false;
     };
@@ -542,54 +542,54 @@ class ConstantHarmonyElement extends HarmonyElement {
     getChordScaleIndices() {
         const root = this.chordRoot;
         switch (this.chordType) {
-            case ChordType.CUSTOM:
-                return this.chord;
-            case ChordType.SEVENTH:
-                return [root, root + 2, root + 4, root + 6];
-            case ChordType.NINTH:
-                return [root, root + 2, root + 4, root + 6, root + 8];
-            case ChordType.TRIAD:
-                return [root, root + 2, root + 4];
-            case ChordType.SUS2:
-                return [root, root + 1, root + 4];
-            case ChordType.SUS2_SEVENTH:
-                return [root, root + 1, root + 4, root + 6];
-            case ChordType.SUS4:
-                return [root, root + 3, root + 4];
-            case ChordType.SUS4_SEVENTH:
-                return [root, root + 3, root + 4, root + 6];
+        case ChordType.CUSTOM:
+            return this.chord;
+        case ChordType.SEVENTH:
+            return [root, root + 2, root + 4, root + 6];
+        case ChordType.NINTH:
+            return [root, root + 2, root + 4, root + 6, root + 8];
+        case ChordType.TRIAD:
+            return [root, root + 2, root + 4];
+        case ChordType.SUS2:
+            return [root, root + 1, root + 4];
+        case ChordType.SUS2_SEVENTH:
+            return [root, root + 1, root + 4, root + 6];
+        case ChordType.SUS4:
+            return [root, root + 3, root + 4];
+        case ChordType.SUS4_SEVENTH:
+            return [root, root + 3, root + 4, root + 6];
         }
-    //    logit("FAlling thoughlll " + this.chordType + " " + typeof(this.chordType));
+        //    logit("FAlling thoughlll " + this.chordType + " " + typeof(this.chordType));
         return this.chord;
     };
     
     getThirdScaleIndex() {
     
         switch (this.chordType) {
-            case ChordType.SEVENTH:
-            case ChordType.TRIAD:
-            case ChordType.NINTH:
-                return this.chordRoot + 2;
-            case ChordType.SUS2:
-            case ChordType.SUS2_SEVENTH:
-                return this.chordRoot + 1;
-            case ChordType.SUS4:
-            case ChordType.SUS4_SEVENTH:
-                return this.chordRoot + 3;
+        case ChordType.SEVENTH:
+        case ChordType.TRIAD:
+        case ChordType.NINTH:
+            return this.chordRoot + 2;
+        case ChordType.SUS2:
+        case ChordType.SUS2_SEVENTH:
+            return this.chordRoot + 1;
+        case ChordType.SUS4:
+        case ChordType.SUS4_SEVENTH:
+            return this.chordRoot + 3;
         }
         return this.chordRoot + 2;
     };
     
     getFifthScaleIndex() {
         switch (this.chordType) {
-            case ChordType.SEVENTH:
-            case ChordType.TRIAD:
-            case ChordType.SUS2:
-            case ChordType.SUS2_SEVENTH:
-            case ChordType.SUS4:
-            case ChordType.SUS4_SEVENTH:
-            case ChordType.NINTH:
-                return this.chordRoot + 4;
+        case ChordType.SEVENTH:
+        case ChordType.TRIAD:
+        case ChordType.SUS2:
+        case ChordType.SUS2_SEVENTH:
+        case ChordType.SUS4:
+        case ChordType.SUS4_SEVENTH:
+        case ChordType.NINTH:
+            return this.chordRoot + 4;
         }
         return this.chordRoot + 4;
     };
@@ -598,11 +598,11 @@ class ConstantHarmonyElement extends HarmonyElement {
     getSeventhScaleIndex() {
     
         switch (this.chordType) {
-            case ChordType.SUS2_SEVENTH:
-            case ChordType.SUS4_SEVENTH:
-            case ChordType.SEVENTH:
-            case ChordType.NINTH:
-                return this.chordRoot + 6;
+        case ChordType.SUS2_SEVENTH:
+        case ChordType.SUS4_SEVENTH:
+        case ChordType.SEVENTH:
+        case ChordType.NINTH:
+            return this.chordRoot + 6;
         }
         return this.chordRoot + 7;
     };
@@ -612,42 +612,42 @@ class ConstantHarmonyElement extends HarmonyElement {
     getBassScaleIndex() {
     
         switch (this.chordType) {
-            case ChordType.SEVENTH:
-            case ChordType.TRIAD:
-            case ChordType.NINTH:
-                return this.chordRoot + this.chordInversions * 2;
-            case ChordType.SUS2:
-            case ChordType.SUS2_SEVENTH:
-                switch (this.chordInversions) {
-                    case 0:
-                        return this.chordRoot;
-                    case 1:
-                        return this.chordRoot + 1;
-                    case 2:
-                        return this.chordRoot + 4;
-                    case 3:
-                        return this.chordRoot + 6;
-                }
-                break;
-            case ChordType.SUS4:
-            case ChordType.SUS4_SEVENTH:
-                switch (this.chordInversions) {
-                    case 0:
-                        return this.chordRoot;
-                    case 1:
-                        return this.chordRoot + 3;
-                    case 2:
-                        return this.chordRoot + 4;
-                    case 3:
-                        return this.chordRoot + 6;
-                }
-                break;
+        case ChordType.SEVENTH:
+        case ChordType.TRIAD:
+        case ChordType.NINTH:
+            return this.chordRoot + this.chordInversions * 2;
+        case ChordType.SUS2:
+        case ChordType.SUS2_SEVENTH:
+            switch (this.chordInversions) {
+            case 0:
+                return this.chordRoot;
+            case 1:
+                return this.chordRoot + 1;
+            case 2:
+                return this.chordRoot + 4;
+            case 3:
+                return this.chordRoot + 6;
+            }
+            break;
+        case ChordType.SUS4:
+        case ChordType.SUS4_SEVENTH:
+            switch (this.chordInversions) {
+            case 0:
+                return this.chordRoot;
+            case 1:
+                return this.chordRoot + 3;
+            case 2:
+                return this.chordRoot + 4;
+            case 3:
+                return this.chordRoot + 6;
+            }
+            break;
         }
         return this.chordRoot + this.chordInversions * 2;
     };
     
     getThirdAboveBassScaleIndex() {
-        logit("getThirdAboveBassScaleIndex() not implemented yet... <br />");
+        logit('getThirdAboveBassScaleIndex() not implemented yet... <br />');
         return this.getBassScaleIndex() + 2;
     };
     
@@ -675,32 +675,32 @@ class ConstantHarmonyElement extends HarmonyElement {
     
         let result = [chordRoot, chordRoot + 2, chordRoot + 4 ];
         switch (this.chordType) {
-            case ChordType.CUSTOM:
-                result = arrayCopy(this.chord);
-                break;
-            case ChordType.SEVENTH:
-                result = [ chordRoot, chordRoot + 2, chordRoot + 4,
-                    chordRoot + 6 ];
-                break;
-            case ChordType.NINTH:
-                result = [ chordRoot, chordRoot + 2, chordRoot + 4,
-                    chordRoot + 6, chordRoot + 8 ];
-                break;
-            case ChordType.TRIAD:
-                result = [chordRoot, chordRoot + 2, chordRoot + 4 ];
-                break;
-            case ChordType.SUS2:
-                result = [ chordRoot, chordRoot + 1, chordRoot + 4 ];
-                break;
-            case ChordType.SUS4:
-                result = [ chordRoot, chordRoot + 3, chordRoot + 4 ];
-                break;
-            case ChordType.SUS2_SEVENTH:
-                result = [ chordRoot, chordRoot + 1, chordRoot + 4, chordRoot + 6 ];
-                break;
-            case ChordType.SUS4_SEVENTH:
-                result = [ chordRoot, chordRoot + 3, chordRoot + 4, chordRoot + 6 ];
-                break;
+        case ChordType.CUSTOM:
+            result = arrayCopy(this.chord);
+            break;
+        case ChordType.SEVENTH:
+            result = [ chordRoot, chordRoot + 2, chordRoot + 4,
+                chordRoot + 6 ];
+            break;
+        case ChordType.NINTH:
+            result = [ chordRoot, chordRoot + 2, chordRoot + 4,
+                chordRoot + 6, chordRoot + 8 ];
+            break;
+        case ChordType.TRIAD:
+            result = [chordRoot, chordRoot + 2, chordRoot + 4 ];
+            break;
+        case ChordType.SUS2:
+            result = [ chordRoot, chordRoot + 1, chordRoot + 4 ];
+            break;
+        case ChordType.SUS4:
+            result = [ chordRoot, chordRoot + 3, chordRoot + 4 ];
+            break;
+        case ChordType.SUS2_SEVENTH:
+            result = [ chordRoot, chordRoot + 1, chordRoot + 4, chordRoot + 6 ];
+            break;
+        case ChordType.SUS4_SEVENTH:
+            result = [ chordRoot, chordRoot + 3, chordRoot + 4, chordRoot + 6 ];
+            break;
         }
         if (maxCount) {
             result.length = maxCount;
@@ -844,7 +844,7 @@ class ConstantHarmonyElement extends HarmonyElement {
             return absoluteNote - minDistance;
         } else {
             logit(`Error in getClosestNotewithPitchClasses() input ${absoluteNote} and ${pitchClasses}<br />`);
-    //        logit(printStackTrace().join("<br />"));
+            //        logit(printStackTrace().join("<br />"));
             return Math.floor(absoluteNote / 12) * 12 + closestPitchClass;
         }
     };
@@ -921,26 +921,26 @@ class ConstantHarmonyElement extends HarmonyElement {
     getVerticalRelativeAbsoluteNote(verticalRelativeType, voiceLineElement) {
         let absoluteNote = null;
         switch (verticalRelativeType) {
-            case VerticalRelativeType.VOICE_LINE:
-            case VerticalRelativeType.NOTE:
-                if (voiceLineElement) {
-                    absoluteNote = this.getAbsoluteNoteConstantVoiceLineElement(voiceLineElement);
-                } else {
-                    absoluteNote = this.getBaseNote();
-                }
-                break;
-            case VerticalRelativeType.MIDI_ZERO:
-                absoluteNote = 0;
-                break;
-            case VerticalRelativeType.SCALE_BASE:
+        case VerticalRelativeType.VOICE_LINE:
+        case VerticalRelativeType.NOTE:
+            if (voiceLineElement) {
+                absoluteNote = this.getAbsoluteNoteConstantVoiceLineElement(voiceLineElement);
+            } else {
                 absoluteNote = this.getBaseNote();
-                break;
-            case VerticalRelativeType.CHORD_ROOT:
-                absoluteNote = this.getAbsoluteNoteFromChordRootIndex(0);
-                break;
-            case VerticalRelativeType.CHORD_BASS:
-                absoluteNote = this.getAbsoluteNoteFromChordBassIndex(0);
-                break;
+            }
+            break;
+        case VerticalRelativeType.MIDI_ZERO:
+            absoluteNote = 0;
+            break;
+        case VerticalRelativeType.SCALE_BASE:
+            absoluteNote = this.getBaseNote();
+            break;
+        case VerticalRelativeType.CHORD_ROOT:
+            absoluteNote = this.getAbsoluteNoteFromChordRootIndex(0);
+            break;
+        case VerticalRelativeType.CHORD_BASS:
+            absoluteNote = this.getAbsoluteNoteFromChordBassIndex(0);
+            break;
         }
         return absoluteNote;
     };
@@ -949,18 +949,18 @@ class ConstantHarmonyElement extends HarmonyElement {
         let result = 0;
     
         switch (indexType) {
-            case IndexType.SCALE:
-                result = this.getAbsoluteNoteFromScaleIndex(index);
-                break;
-            case IndexType.CHORD_ROOT:
-                result = this.getAbsoluteNoteFromChordRootIndex(index);
-                break;
-            case IndexType.CHORD_BASS:
-                result = this.getAbsoluteNoteFromChordBassIndex(index);
-                break;
-            case IndexType.MIDI_NOTE:
-                result = index;
-                break;
+        case IndexType.SCALE:
+            result = this.getAbsoluteNoteFromScaleIndex(index);
+            break;
+        case IndexType.CHORD_ROOT:
+            result = this.getAbsoluteNoteFromChordRootIndex(index);
+            break;
+        case IndexType.CHORD_BASS:
+            result = this.getAbsoluteNoteFromChordBassIndex(index);
+            break;
+        case IndexType.MIDI_NOTE:
+            result = index;
+            break;
         }
     
         return result;
@@ -1015,17 +1015,17 @@ class ConstantHarmonyElement extends HarmonyElement {
     snap(absoluteNote, snapType, harmonyElement) {
         let result = Math.min(127, Math.max(1, absoluteNote));
         switch (snapType) {
-            case SnapType.NONE:
-                break;
-            case SnapType.SCALE:
-                let pitchClasses1 = harmonyElement.getPitchClasses(harmonyElement.baseNote, harmonyElement.getScale());
-                result = harmonyElement.getClosestNoteWithPitchClasses(result, pitchClasses1);
-                break;
-            case SnapType.CHORD:
-                const scaleIndices = harmonyElement.getChordRootPositionScaleIndices();
-                let pitchClasses2 = harmonyElement.getPitchClassesFromScaleIndices(scaleIndices);
-                result = harmonyElement.getClosestNoteWithPitchClasses(result, pitchClasses2);
-                break;
+        case SnapType.NONE:
+            break;
+        case SnapType.SCALE:
+            let pitchClasses1 = harmonyElement.getPitchClasses(harmonyElement.baseNote, harmonyElement.getScale());
+            result = harmonyElement.getClosestNoteWithPitchClasses(result, pitchClasses1);
+            break;
+        case SnapType.CHORD:
+            const scaleIndices = harmonyElement.getChordRootPositionScaleIndices();
+            let pitchClasses2 = harmonyElement.getPitchClassesFromScaleIndices(scaleIndices);
+            result = harmonyElement.getClosestNoteWithPitchClasses(result, pitchClasses2);
+            break;
         }
         return result;
     };
@@ -1035,35 +1035,35 @@ class ConstantHarmonyElement extends HarmonyElement {
         let indexChr;
 
         switch (offsetType) {
-            case OffsetType.SCALE:
-                indexChr = harmonyElement
-                    .getScaleIndexAndChromaticOffsetForAbsoluteNote(result);
-                const scaleIndex = indexChr[0] + offset;
-                // logit("Absolute note " + absoluteNote + " gives scale index: " + scaleIndex + "<br />");
-                const absNote = harmonyElement.getAbsoluteNoteFromScaleIndex(scaleIndex);
-                result = absNote;
-                break;
-            case OffsetType.HALF_STEP:
-                result = absoluteNote + offset;
-                break;
-            case OffsetType.CHORD:
-                indexChr = harmonyElement.getChordRootIndexAndChromaticOffsetForAbsoluteNote(result);
-                result = harmonyElement.getAbsoluteNoteFromChordRootIndex(indexChr[0] + offset);
-                break;
-            case OffsetType.CHORD_TRIAD_ONLY:
-                indexChr = harmonyElement.getChordRootIndexAndChromaticOffsetForAbsoluteNote(result, 3);
-                result = harmonyElement.getAbsoluteNoteFromChordRootIndex(indexChr[0] + offset);
-                break;
-            case OffsetType.CHORD_SEVENTH_ONLY:
-                indexChr = harmonyElement.getChordRootIndexAndChromaticOffsetForAbsoluteNote(result, 4);
-                result = harmonyElement.getAbsoluteNoteFromChordRootIndex(indexChr[0] + offset);
-                break;
-            case OffsetType.OCTAVE:
-                result = absoluteNote + offset * 12;
-                break;
-            default:
-                logit(` offset type ${OffsetType.toString(offsetType)} not supported yet`);
-                break;
+        case OffsetType.SCALE:
+            indexChr = harmonyElement
+                .getScaleIndexAndChromaticOffsetForAbsoluteNote(result);
+            const scaleIndex = indexChr[0] + offset;
+            // logit("Absolute note " + absoluteNote + " gives scale index: " + scaleIndex + "<br />");
+            const absNote = harmonyElement.getAbsoluteNoteFromScaleIndex(scaleIndex);
+            result = absNote;
+            break;
+        case OffsetType.HALF_STEP:
+            result = absoluteNote + offset;
+            break;
+        case OffsetType.CHORD:
+            indexChr = harmonyElement.getChordRootIndexAndChromaticOffsetForAbsoluteNote(result);
+            result = harmonyElement.getAbsoluteNoteFromChordRootIndex(indexChr[0] + offset);
+            break;
+        case OffsetType.CHORD_TRIAD_ONLY:
+            indexChr = harmonyElement.getChordRootIndexAndChromaticOffsetForAbsoluteNote(result, 3);
+            result = harmonyElement.getAbsoluteNoteFromChordRootIndex(indexChr[0] + offset);
+            break;
+        case OffsetType.CHORD_SEVENTH_ONLY:
+            indexChr = harmonyElement.getChordRootIndexAndChromaticOffsetForAbsoluteNote(result, 4);
+            result = harmonyElement.getAbsoluteNoteFromChordRootIndex(indexChr[0] + offset);
+            break;
+        case OffsetType.OCTAVE:
+            result = absoluteNote + offset * 12;
+            break;
+        default:
+            logit(` offset type ${OffsetType.toString(offsetType)} not supported yet`);
+            break;
         }
         return result;
     };
@@ -1088,12 +1088,12 @@ const HarmonyLengthMode = {
 
     toString(type) {
         switch (type) {
-            case HarmonyLengthMode.COUNT_AND_LENGTH_PATTERN:
-                return "Count and length pattern";
-            case HarmonyLengthMode.COUNT_AND_RYTHM:
-                return "Count and rythm";
-            case HarmonyLengthMode.RYTHM_ONLY:
-                return "Rythm only";
+        case HarmonyLengthMode.COUNT_AND_LENGTH_PATTERN:
+            return 'Count and length pattern';
+        case HarmonyLengthMode.COUNT_AND_RYTHM:
+            return 'Count and rythm';
+        case HarmonyLengthMode.RYTHM_ONLY:
+            return 'Rythm only';
         }
         return `Unknown length mode ${type}`;
     }
@@ -1120,7 +1120,7 @@ class SequenceHarmonyElement extends HarmonyElement {
         this.beatStrengths = [1, 0.8, 0.9, 0.6, 0.3, 0.4, 0.2];
 
         // For rythm-based harmony elements
-        this.lengthRythm = "";
+        this.lengthRythm = '';
         this.rythmTsNumerator = 4;
         this.rythmTsDenominator = 4;
         this.setTsNumeratorExternally = false;
@@ -1146,7 +1146,7 @@ class SequenceHarmonyElement extends HarmonyElement {
         this.startTsDenominators = [];
         this.endTsDenominators = [];
 
-        this._constructorName = "SequenceHarmonyElement";
+        this._constructorName = 'SequenceHarmonyElement';
     }
 }
 
@@ -1197,11 +1197,11 @@ class SimpleSequenceHarmonyElement extends SequenceHarmonyElement {
         this.endVoiceLineConstraintIndices = []; // 2d array
 
 
-        this._constructorName = "SimpleSequenceHarmonyElement";
+        this._constructorName = 'SimpleSequenceHarmonyElement';
     }
 }
 
-SimpleSequenceHarmonyElement.prototype.voiceLineConstraints_allowedTypes = {"VoiceChordNotesVoiceLinePlannerConstraint": 1};
+SimpleSequenceHarmonyElement.prototype.voiceLineConstraints_allowedTypes = {'VoiceChordNotesVoiceLinePlannerConstraint': 1};
 
 
 
